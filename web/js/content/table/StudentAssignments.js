@@ -22,7 +22,7 @@ asm.ui.table.StudentAssignments = asm.ui.DynamicTable.extend({
 				lecture: { label: asm.lang.assignments.lecture, comparable: true, string: true },
 				group: { label: asm.lang.assignments.group, comparable: true, string: true },
 				submissionCount: { label: asm.lang.assignments.done, renderer: function (value) {
-					return (+value) ? $('<div></div>').icon({type: 'check', title: asm.lang.assignments.submitted }) : '';
+					return (+value) ? asm.lang.general.yes : '';
 				}}
 			},
 			title: 'irrelevant title (this will never be constructed)',

@@ -61,9 +61,10 @@
 .ui-table>table tr,
 .ui-table>table th,
 .ui-table>table td {
-	border: inherit;
+    border: inherit;
 	text-align: center;
 	vertical-align: middle;
+
 }
 
 .ui-table>table .ui-table-button-wrapper {
@@ -81,7 +82,7 @@
 }
 
 .ui-table>table tr {
-	-moz-user-select: none;
+	/* TODO why was this even here: -moz-user-select: none; */
 	cursor: default;
 }
 

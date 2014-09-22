@@ -61,7 +61,7 @@ asm.ui.DynamicTable = asm.ui.DynamicContentPanel.extend({
 				actions: actions,
 				autoCollapse: !actions.global.length,
 				colProps: colProps,
-				fieldTextLimit: 50
+				fieldTextLimit: 100
 			}, o.widgetConfig))
 			.bind('selectionChange.table', $.proxy(function (event, data) {
 				this.trigger('table.selectionChange', data);
@@ -119,6 +119,10 @@ asm.ui.DynamicTable = asm.ui.DynamicContentPanel.extend({
 		var o = $.extend(defaults, options),
 			actionFn = callback || $.noop;
 
+        // We are now modifying the "action function" which is what happens when the button is clicked.
+        // We start with the actual callback.
+
+        // If "expire array" is set, then the action function, in addition to the callback, will also clear the caches of the caches in the expire array.
 		if (o.expire) {
 			var innerAction0 = actionFn;
 			o.expire = $.isArray(o.expire) ? o.expire : [o.expire];
@@ -130,6 +134,7 @@ asm.ui.DynamicTable = asm.ui.DynamicContentPanel.extend({
 			};
 		}
 
+        // If "refresh" is set, then the action function, in addition to the callback, and expiring caches (if expire was set), will refresh the table itself.
 		if (o.refresh) {
 			var innerAction1 = actionFn;
 			actionFn = $.proxy(function () {
@@ -138,6 +143,7 @@ asm.ui.DynamicTable = asm.ui.DynamicContentPanel.extend({
 			}, this);
 		}
 
+        // If "request" is set, then the callback, and refreshing and expiring, if set, will happen only as a result of a successful AJAX request to the server.
 		if (o.request) {
 			var innerAction2 = actionFn,
 				self = this;
@@ -152,6 +158,7 @@ asm.ui.DynamicTable = asm.ui.DynamicContentPanel.extend({
 			};
 		}
 
+        // If "confirmText" is set, then the action function, which may be an AJAX requestion initiation or an immediate action, will only be performed as a result of the confirmation dialog.
 		if (o.confirmText) {
 			var innerAction3 = actionFn;
 			actionFn = function (id, values) {
@@ -272,9 +279,14 @@ asm.ui.DynamicTable = asm.ui.DynamicContentPanel.extend({
         var filteredData = this._filterData(data);
         var transformedData = this._transformData(filteredData);
         var renderedFields = this._renderFields(transformedData);
+        this.table('initBody', true, renderedFields);
+
+
+    /*    TODO old and slow
         var builtTableBody = this._buildTableBody(renderedFields);
 		$('tbody', this._tableElem).replaceWith(builtTableBody);
-		this.table('initBody', true);
+		this.table('initBody', true);*/
+
 	}
 });
 asm.ui.DynamicTable.implement(asm.ui.TableBuilder);

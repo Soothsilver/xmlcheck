@@ -8256,3 +8256,23 @@
 2014-09-15 10:56:57	soothsilver	127.0.0.1	[no lookup]	AddSubmission
 
 50	11	file upload wasn't successful	cannot retrieve uploaded file	
+-
+2014-09-22 11:07:53	[not logged in]	127.0.0.1	[no lookup]	GetRatingSums
+
+50	99	Your session has become invalid. Perhaps you were inactive for too long or the program was updated to a newer version. Please log out, refresh the page (Ctrl+F5) and log in again.		
+-
+2014-09-22 11:07:54	[not logged in]	127.0.0.1	[no lookup]	GetTeacherSubmissions
+
+50	99	Your session has become invalid. Perhaps you were inactive for too long or the program was updated to a newer version. Please log out, refresh the page (Ctrl+F5) and log in again.		
+-
+2014-09-22 11:07:54	[not logged in]	127.0.0.1	[no lookup]	GetSubscriptionRequests
+
+50	99	Your session has become invalid. Perhaps you were inactive for too long or the program was updated to a newer version. Please log out, refresh the page (Ctrl+F5) and log in again.		
+-
+2014-09-22 11:07:54	[not logged in]	127.0.0.1	[no lookup]	GetStudentAssignments
+
+50	99	Your session has become invalid. Perhaps you were inactive for too long or the program was updated to a newer version. Please log out, refresh the page (Ctrl+F5) and log in again.		
+-
+2014-09-22 11:07:54	[not logged in]	127.0.0.1	[no lookup]	GetSubmissions
+
+50	99	Your session has become invalid. Perhaps you were inactive for too long or the program was updated to a newer version. Please log out, refresh the page (Ctrl+F5) and log in again.		

@@ -1264,27 +1264,152 @@ $.widget('ui.table', {
 		this._setHiddenHeaders();
 		return this.element;
 	},
+
+    createActionButtonFrom : function(jqueryTd, actionConfig, rowIndex) {
+        jqueryTd.addClass('ui-table-action-field');
+        var disabled = false;
+        if ($.isFunction(actionConfig.filter)) {
+            var row = jqueryTd.closest('tr'),
+                rowId = this._getRowId(row),
+                getter = $.proxy(function (colId) {
+                    return this.value(rowId, colId);
+                }, this);
+            if (!actionConfig.filter(rowId, this._values(row), getter)) {
+                disabled = true;
+            }
+        }
+        this._tableFieldButton(jqueryTd, {
+            text: false,
+            label: actionConfig.label,
+            icons: {
+                primary: actionConfig.icon
+            }
+        });
+        if (disabled) {
+            this._tableFieldButton(jqueryTd, 'disabled', true);
+            return;
+        }
+        jqueryTd.bind('click.table', {action: actionConfig.action},
+            $.proxy(function (event) {
+                var action = event.data.action,
+                    target = $(event.currentTarget);
+                event.stopPropagation();
+
+                var row = target.closest('tr'),
+                    key = this._getRowId(row),
+                    values = this._values(row);
+
+                action.call(window, key, values);
+
+                setTimeout(function () {
+                    target.blur();
+                }, 400);
+            }, this));
+    },
 	/**
 	 * Initializes table body (call after manually replacing <tt>&lt;tbody&gt;</tt>
 	 * content).
 	 * @see init()
 	 */
-	initBody: function (sort) {
-		this._initBody();
+	initBody: function (sort, data) {
+        // New and faster process:
 
-		this._setCollapsed();
-		this._setRowActions();
-		this._adjustActionSpan();
-		if (sort && (this.sortBy !== null)) {
-			this.sort();
-		}
-		this._setHiddenFields();
-		this._setFieldTextLimit();
-		this._setFieldClasses();
-		this._applyFilters();
+        // Create basic HTML
+        var tablebody = "";
+        for (var rowIndex = 0; rowIndex < data.length; rowIndex++)
+        {
+            var rowHtml = "<tr>";
+            // Add actions
+            // Add fields
+            for (var col in data[rowIndex])
+            {
+                // Hide fields from hidden columns
+                var tdClass = "";
+                if (this.options.colProps[col].hasOwnProperty('hidden') && this.options.colProps[col].hidden)
+                {
+                    tdClass += "ui-table-field-hidden ";
+                }
+                // This aligns text in "string" columns to the left, because they will likely be multiline
+                if (this.options.colProps[col].hasOwnProperty('string') && this.options.colProps[col].string)
+                {
+                    tdClass += "ui-table-field-string ";
+                }
+                // Put the field
+                rowHtml += "<td class=\"" + tdClass +"\">";
+                rowHtml += data[rowIndex][col];
+                rowHtml += "</td>";
+            }
+            rowHtml += "</tr>";
+            tablebody += rowHtml;
+        }
+        var tbody = $('tbody', this.element);
+        tbody.html(tablebody);
 
-		this.page(1);
-		return this.element;
+        // Binding and text cutter
+        var allRows = $('tr', tbody);
+        var allFields = $('td', tbody);
+
+        // Apply text cutter
+        allFields
+            .textCutter({ limit: this.options.fieldTextLimit });
+
+        // React to mouse clicks and moves
+        allRows
+            .bind('mouseenter.table', $.proxy(function (event) {
+                this._getFields($(event.currentTarget)).addClass('ui-state-highlight')
+            }, this))
+            .bind('mouseleave.table', $.proxy(function (event) {
+                if (!$(event.currentTarget).hasClass('ui-selected')) {
+                    this._getFields($(event.currentTarget)).removeClass('ui-state-highlight');
+                }
+            }, this))
+            .bind('dblclick.table', $.proxy(function (event) {
+                var show = false,
+                    hide = false;
+                this._getFields($(event.currentTarget))
+                    .each(function () {
+                        if ($(this).textCutter('isCut') && $(this).textCutter('option', 'hidden')) {
+                            show = true;
+                        } else {
+                            hide = true;
+                        }
+                    })
+                    .textCutter('toggle', show || !hide);
+            }, this));
+
+        // Collapse the entire table via its parent DIV tag, if it should start collapsed
+        this._setCollapsed();
+
+        // Add local actions:
+        if (this.options.actions.local.length)
+        {
+            for (var i = this.options.actions.local.length - 1; i >= 0; --i) {
+                var actionConfig = this.options.actions.local[i];
+                for (var rowIndex = 0; rowIndex < allRows.length; rowIndex++)
+                {
+                     var button = allRows[rowIndex].insertCell(0);
+                     var buttonJQuery = $(button);
+                     this.createActionButtonFrom(buttonJQuery, actionConfig, rowIndex);
+                }
+            }
+        }
+        // Hard to correct:
+        this._adjustActionSpan();
+
+        // Sort
+        /*
+        TODO is this needed? I think not so I removed it.
+        if (sort && (this.sortBy !== null)) {
+            this.sort();
+        }
+        */
+
+        // Apply user-selected filters in the UI.
+        this._applyFilters();
+
+        // Show the first page
+        this.page(1);
+        return this.element;
 	},
 	/**
 	 * Initializes both table head and body.
@@ -1297,7 +1422,7 @@ $.widget('ui.table', {
 		this._setSortable();
 		this._setHiddenHeaders();
 		this._setGlobalActions();
-		this.initBody(sort);
+	// TODO remove this, because there is never any content:	this.initBody(sort);
 		return this.element;
 	}
 });
