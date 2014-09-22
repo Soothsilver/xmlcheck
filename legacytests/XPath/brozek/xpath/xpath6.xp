@@ -1,0 +1,2 @@
+(: Mesta sluzebnich cest, ktere nasledovaly az po nejake ceste do Jaslovskych Bohunic :)
+//sluzebni_cesta[preceding-sibling::sluzebni_cesta[mesto="Jaslovské Bohunice"]]/mesto/text()

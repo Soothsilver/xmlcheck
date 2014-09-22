@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:simpleType name="ID">
+    <xs:restriction base="xs:string"></xs:restriction>
+  </xs:simpleType>
+	<xs:simpleType name="YesNo">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="yes" />
+			<xs:enumeration value="no" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="VehicleStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="New" />
+      <xs:enumeration value="OK" />
+      <xs:enumeration value="Damaged" />
+    </xs:restriction>
+  </xs:simpleType>
+	<xs:simpleType name="Country">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="IQ" />
+			<xs:enumeration value="US" />
+			<xs:enumeration value="CZ" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="Person">
+		<xs:all>
+			<xs:element name="country" minOccurs="0">
+				<xs:complexType>
+					<xs:attribute name="code" type="Country" use="required" />
+					<xs:attribute name="name" type="xs:string" use="required" />
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="rank" type="xs:string" minOccurs="0" />
+		</xs:all>
+		<xs:attribute use="optional" name="friend" type="YesNo" />
+		<xs:attribute use="required" name="name" type="xs:string" />
+		<xs:attribute use="required" name="real" fixed="yes" />
+		<xs:attribute use="required" name="id" type="ID" />
+	</xs:complexType>
+	<xs:complexType name="Reference">
+		<xs:attribute name="ref" type="ID" use="required" />		
+	</xs:complexType>	<xs:complexType name="ReferenceWithTextContent">
+		<xs:simpleContent>
+			<xs:extension base="xs:string">
+				 <xs:attribute name="ref" type="xs:string" use="required" /> 
+			</xs:extension>
+		</xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="PersonOrPersonReference">
+		<xs:choice>
+			<xs:element name="person" type="Person" />
+			<xs:element name="person_reference" type="Reference" />
+		</xs:choice> 
+	</xs:complexType>
+	<xs:complexType name="Position">
+		<xs:attribute name="east" use="required" type="xs:decimal" />
+		<xs:attribute name="north" use="required" type="xs:decimal" />
+	</xs:complexType>
+	<xs:complexType name="TextWithReferences" mixed="true">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="person_reference" type="ReferenceWithTextContent" />
+			<xs:element name="army_reference" type="ReferenceWithTextContent" />
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="Soldier">
+    <xs:choice minOccurs="0" maxOccurs="1">
+      <xs:element name="person" type="Person" />
+      <xs:element name="person_reference" type="Reference" />
+    </xs:choice>
+  </xs:complexType>
+	<xs:complexType name="Vehicle">
+    <xs:all>
+      <xs:element name="type" type="xs:string" />
+      <xs:element name="status" type="VehicleStatus" />
+    </xs:all>
+  </xs:complexType>
+	<xs:complexType name="ListOfVehicles">
+    <xs:sequence>
+      <xs:element name="vehicle" type="Vehicle" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+	<xs:complexType name="ListOfSoldiers">
+    <xs:sequence>
+      <xs:element name="soldier" type="Soldier" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+	<xs:complexType name="Army">
+    <xs:all>
+      <xs:element name="country" type="Country"></xs:element>
+      <xs:element name="leader" type="PersonOrPersonReference"></xs:element>
+      <xs:element name="infantry" type="ListOfSoldiers"></xs:element>
+      <xs:element name="vehicles" type="ListOfVehicles"></xs:element>
+      <xs:element name="position" type="Position"></xs:element>
+    </xs:all>
+    <xs:attribute name="id" type="ID" />
+  </xs:complexType>
+	<xs:element name="battleplan" type="xs:string">
+	</xs:element>
+	<xs:element name="warplan">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="name" type="xs:string" />
+				<xs:element name="author" type="PersonOrPersonReference" />
+				<xs:element name="site">
+					<xs:complexType>
+						<xs:all>
+							<xs:element name="name" type="xs:string" />
+							<xs:element name="position" type="Position" />
+						</xs:all>
+					</xs:complexType>
+				</xs:element>
+        <xs:element name="belligerents">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="army" type="Army" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+		  
+        </xs:element>
+        <xs:element name="battleplans">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element ref="battleplan" minOccurs="0" maxOccurs="unbounded" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+				<xs:element name="notes" type="TextWithReferences" />
+				<xs:element name="additionalData" type="TextWithReferences" minOccurs="0" maxOccurs="1" />
+			</xs:all>
+		</xs:complexType>
+		<xs:key name="ID_Person">
+			<xs:selector xpath=".//person"></xs:selector>
+			<xs:field xpath="@id"></xs:field>
+		</xs:key>
+    <xs:key name="ID_Army">
+      <xs:selector xpath=".//army"></xs:selector>
+      <xs:field xpath="@id"></xs:field>
+    </xs:key>
+    
+		<xs:keyref name="IDREF_PersonReference" refer="ID_Person">
+			<xs:selector xpath=".//person_reference"></xs:selector>
+			<xs:field xpath="@ref"></xs:field>
+		</xs:keyref>
+    <xs:keyref name="IDREF_ArmyReference" refer="ID_Army">
+      <xs:selector xpath=".//army_reference"></xs:selector>
+      <xs:field xpath="@ref"></xs:field>
+    </xs:keyref>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,46 @@
+<?xml version="1.0" standalone="yes"?>
+<plugin-manifest>
+	<mainFile>XQueryPlugin.jar</mainFile>
+	<type>java</type>
+	<description>
+        Vaše řešení bude obsahovat jeden XML soubor a pět XQuery souborů.
+        Musíte mít přesně tuto adresářovou strukturu (nesmí být obaleno složkou navíc):
+
+        /data.xml
+        /xquery/query1.xq (Pozor! query1, nikoliv xquery1)
+        /xquery/query2.xq
+        /xquery/query3.xq
+        /xquery/query4.xq
+        /xquery/query5.xq
+        /xquery/...další XML soubory...
+
+        Dotazy budou spouštěny oproti souboru "data.xml", nicméně lokálním adresářem pro dotazy bude podadresář "xquery".
+        Pokud tedy použijete konstrukci doc("secondfile.xml"), bude se soubor "secondfile.xml" hledat ve složce xquery, tedy půjde o /xquery/secondfile.xml
+
+        Dotazy musí mezi sebou dohromady použít následující konstrukce:
+        1. Funkci min(), max(), avg() anebo sum() v klauzuli "where"
+        2.  "every ... satisfies" anebo "some ... satisfies"
+        3. "distinct-values"
+        4. "if (...) then ... else ..."
+
+        Následující požadavky nejsou automaticky kontrolovány, ale přesto je musíte splnit:
+        1. Jeden dotaz musí spojovat data ze 2 různých XML dokumentů (např. pro knihy ze seznamu knih hledá autory ze seznamu autorů, můžete využít např. vztah klíč-reference).
+        2. Jeden dotaz provádějící integraci heterogenních dat ze 2 různých XML dokumentů (podobně jako např. employees.xml a employees2.xml) - vytvořte si vlastní modifikovaný dokument
+        3. Jeden dotaz používající rekurzivní vámi definovanou funkci nebo jinak netriviální použití funkce
+        4. Jeden dotaz musí mít jako výstup XHTML
+        5. Použít konstrukci "order by" (TODO: kontrolovat automaticky)
+        6. Použít počítaný konstruktor (TODO: kontrolovat automaticky)
+
+        Kromě toho musí každý dotaz obsahovat komentář ve stylu (: komentar :), který popisuje, co dotaz dělá.
+
+        Příklad dotazu:
+
+        (: /xquery/query1.xq: Vybere autory knih o alespoň 100 stránkách. Soubor secondary_library.xml se nachází ve složce xquery. :)
+        for $book in doc("secondary_library.xml")//books
+        where count($book/page) >= 100
+        return $book/author
+	</description>
+	<arguments>
+		<argument>Počet XQuery dotazů (výchozí 5)</argument>
+	</arguments>
+</plugin-manifest>

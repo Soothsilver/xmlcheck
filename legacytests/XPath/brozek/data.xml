@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<evidence>
+	<datum_vypisu>
+		<?php echo Date("d.m.Y")?>
+	</datum_vypisu>
+	<!-- Doplni aktualni datum, ale informace obsazene v dokumentu k tomuto datu nemusi byt aktualni -->
+	<zamestnanci>
+		<zamestnanec id="zamestnanec-1">
+			<jmeno>Pavel</jmeno>
+			<prijmeni>Brožek</prijmeni>
+			<adresa>
+				<ulice>
+					<nazev_ulice>47. května</nazev_ulice>
+					<cislo_popisne>32</cislo_popisne>
+				</ulice>
+				<psc>15000</psc>
+				<mesto>Praha 10</mesto>
+			</adresa>
+			<cislo_uctu>35835832041</cislo_uctu>
+		</zamestnanec>
+		<zamestnanec id="zamestnanec-2">
+			<jmeno>David</jmeno>
+			<prijmeni>Novák</prijmeni>
+			<adresa>
+				<ulice>
+					<nazev_ulice>Bukovská</nazev_ulice>
+					<cislo_popisne>10</cislo_popisne>
+				</ulice>
+				<psc>13500</psc>
+				<mesto>Praha 5</mesto>
+			</adresa>
+			<cislo_uctu>5748379324</cislo_uctu>
+		</zamestnanec>
+		<zamestnanec id="zamestnanec-3">
+			<jmeno>Jiří</jmeno>
+			<prijmeni>Říha</prijmeni>
+			<adresa>
+				<ulice>
+					<nazev_ulice>Jeremenkova</nazev_ulice>
+					<cislo_popisne>17</cislo_popisne>
+				</ulice>
+				<psc>12000</psc>
+				<mesto>Praha 4</mesto>
+			</adresa>
+			<cislo_uctu>79342934</cislo_uctu>
+		</zamestnanec>
+		<zamestnanec id="zamestnanec-4">
+			<jmeno>Karel</jmeno>
+			<prijmeni>Hromada</prijmeni>
+			<adresa>
+				<ulice>
+					<nazev_ulice>Budějovická</nazev_ulice>
+					<cislo_popisne>33</cislo_popisne>
+				</ulice>
+				<psc>14500</psc>
+				<mesto>Praha 4</mesto>
+			</adresa>
+			<cislo_uctu>3948593279</cislo_uctu>
+		</zamestnanec>
+		<zamestnanec id="zamestnanec-5">
+			<jmeno>Ondřej</jmeno>
+			<prijmeni>Mladý</prijmeni>
+			<adresa>
+				<ulice>
+					<nazev_ulice>U stromu</nazev_ulice>
+					<cislo_popisne>2</cislo_popisne>
+				</ulice>
+				<psc>13000</psc>
+				<mesto>Plzeň</mesto>
+			</adresa>
+			<cislo_uctu>498398439423</cislo_uctu>
+		</zamestnanec>
+	</zamestnanci>
+	<auta>
+		<auto id="auto-1" spz="3A7 2958" rok_vyroby="2005"/>
+		<auto id="auto-2" spz="7S3 6434" rok_vyroby="2008" znacka="Citroen"/>
+		<auto id="auto-3" spz="2A6 4687" rok_vyroby="2010"/>
+		<auto id="auto-4" spz="7A1 4454" rok_vyroby="2012" znacka="Ford"/>
+	</auta>
+	<sluzebni_cesty>
+		<sluzebni_cesta id="sluzebni_cesta-1" zamestnanec="zamestnanec-1" ucel="konference" schvalil="zamestnanec-2">
+			<pocatek_cesty>
+				<misto>Praha</misto>
+				<datum>12.1.2012</datum>
+			</pocatek_cesty>
+			<konec_cesty>
+				<misto>Praha</misto>
+				<datum>15.1.2012</datum>
+			</konec_cesty>
+			<mesto>Ostrava</mesto>
+			<stat>ČR</stat>
+			<vyuctovani>
+				<jizdne mena="CZK" cena="1000"/>
+				<noclezne mena="CZK" cena="3000"/>
+				<stravne mena="CZK" cena="1000"/>
+				<dalsi_vydaje mena="CZK" cena="1500"/>
+			</vyuctovani>
+			<shrnuti_cesty>
+				Konference na téma "Použití NoSQL databazí při řízení tlakovodních reaktorů typu VVER" byla velmi zásadní pro budoucí směřování celého lidstva.
+			</shrnuti_cesty>
+		</sluzebni_cesta>
+		<sluzebni_cesta id="sluzebni_cesta-2" zamestnanec="zamestnanec-5" ucel="skoleni" schvalil="zamestnanec-2">
+			<pocatek_cesty>
+				<misto>Praha</misto>
+				<datum>2.3.2012</datum>
+			</pocatek_cesty>
+			<konec_cesty>
+				<misto>Plzeň</misto>
+				<datum>3.3.2012</datum>
+			</konec_cesty>
+			<mesto>Brno</mesto>
+			<stat>ČR</stat>
+			<vyuctovani>
+				<jizdne mena="CZK" cena="1400"/>
+				<noclezne mena="CZK" cena="500"/>
+				<stravne mena="CZK" cena="300"/>
+			</vyuctovani>
+			<shrnuti_cesty>
+				Školení na téma administrace MongoDB. Pro dopravu bylo použito <auto_ref id="auto-3">služební auto</auto_ref>, které bylo zanecháno v Plzni.
+			</shrnuti_cesty>
+		</sluzebni_cesta>
+		<sluzebni_cesta id="sluzebni_cesta-3" zamestnanec="zamestnanec-5" ucel="ostatni" schvalil="zamestnanec-2">
+			<pocatek_cesty>
+				<misto>Plzeň</misto>
+				<datum>28.3.2012</datum>
+			</pocatek_cesty>
+			<konec_cesty>
+				<misto>Praha</misto>
+				<datum>28.3.2012</datum>
+			</konec_cesty>
+			<mesto>Písek</mesto>
+			<stat>ČR</stat>
+			<vyuctovani>
+				<jizdne mena="CZK" cena="600"/>
+				<dalsi_vydaje mena="CZK" cena="200"/>
+			</vyuctovani>
+			<shrnuti_cesty><auto_ref id="auto-3">Služební auto</auto_ref> bylo převezeno zpátky do Prahy.
+			</shrnuti_cesty>
+		</sluzebni_cesta>
+		<sluzebni_cesta id="sluzebni_cesta-4" zamestnanec="zamestnanec-3" ucel="klient" schvalil="zamestnanec-2">
+			<pocatek_cesty>
+				<misto>Praha</misto>
+				<datum>23.8.2012</datum>
+			</pocatek_cesty>
+			<konec_cesty>
+				<misto>Praha</misto>
+				<datum>31.8.2012</datum>
+			</konec_cesty>
+			<mesto>Cadarache</mesto>
+			<stat>Francie</stat>
+			<zahranicni/>
+			<vyuctovani>
+				<jizdne mena="EUR" cena="500"/>
+				<noclezne mena="EUR" cena="650"/>
+				<stravne mena="EUR" cena="500"/>
+				<dalsi_vydaje mena="EUR" cena="340"/>
+			</vyuctovani>
+			<shrnuti_cesty>
+				Nasazení databáze OrientDB do ostrého provozu pro obsluhu termonukleárního reaktoru ITER.
+			</shrnuti_cesty>
+		</sluzebni_cesta>
+		<sluzebni_cesta id="sluzebni_cesta-5" zamestnanec="zamestnanec-1" ucel="ostatni" schvalil="zamestnanec-2">
+			<pocatek_cesty>
+				<misto>Praha</misto>
+				<datum>12.12.2012</datum>
+			</pocatek_cesty>
+			<konec_cesty>
+				<misto>Praha</misto>
+				<datum>12.12.2012</datum>
+			</konec_cesty>
+			<mesto>Jičín</mesto>
+			<stat>ČR</stat>
+			<vyuctovani>
+				<jizdne mena="CZK" cena="800"/>
+				<stravne mena="CZK" cena="200"/>
+				<dalsi_vydaje mena="CZK" cena="300"/>
+			</vyuctovani>
+			<shrnuti_cesty>
+				Objednání výroby reklamních transparentů velikosti 2mx4m v počtu 250 kusů, každý za 500 Kč. Celková cena byla <![CDATA[ document.writeln(250*500); ]]>
+			</shrnuti_cesty>
+		</sluzebni_cesta>
+		<sluzebni_cesta id="sluzebni_cesta-6" zamestnanec="zamestnanec-3" ucel="klient" schvalil="zamestnanec-2">
+			<pocatek_cesty>
+				<misto>Praha</misto>
+				<datum>6.4.2013</datum>
+			</pocatek_cesty>
+			<konec_cesty>
+				<misto>Praha</misto>
+				<datum>29.4.2013</datum>
+			</konec_cesty>
+			<mesto>New York</mesto>
+			<stat>USA</stat>
+			<zahranicni/>
+			<vyuctovani>
+				<jizdne mena="USD" cena="2300"/>
+				<noclezne mena="USD" cena="4600"/>
+				<stravne mena="USD" cena="3000"/>
+				<dalsi_vydaje mena="USD" cena="2900"/>
+			</vyuctovani>
+			<shrnuti_cesty>
+				Postupné proškolení zaměstnanců elektráren z východního pobřeží USA pro používání NoSQL databází. Služební cesty se také zúčastnil <zamestnanec_ref id="zamestnanec-5">Ondřej Mladý</zamestnanec_ref>. <zamestnanec_ref id="zamestnanec-2">David Novák</zamestnanec_ref> ani <zamestnanec_ref id="zamestnanec-4">Karel Hromada</zamestnanec_ref> nejeli.
+			</shrnuti_cesty>
+		</sluzebni_cesta>
+		<sluzebni_cesta id="sluzebni_cesta-7" zamestnanec="zamestnanec-5" ucel="klient" schvalil="zamestnanec-2">
+			<pocatek_cesty>
+				<misto>Praha</misto>
+				<datum>6.4.2013</datum>
+			</pocatek_cesty>
+			<konec_cesty>
+				<misto>Praha</misto>
+				<datum>29.4.2013</datum>
+			</konec_cesty>
+			<mesto>New York</mesto>
+			<stat>USA</stat>
+			<zahranicni/>
+			<vyuctovani>
+				<jizdne mena="USD" cena="2300"/>
+				<noclezne mena="USD" cena="4600"/>
+				<stravne mena="USD" cena="3000"/>
+				<dalsi_vydaje mena="USD" cena="1500"/>
+			</vyuctovani>
+			<shrnuti_cesty>
+				Postupné proškolení zaměstnanců elektráren z východního pobřeží USA pro používání NoSQL databází. Služební cesty se také zúčastnil <zamestnanec_ref id="zamestnanec-3">Jiří Říha</zamestnanec_ref>
+			</shrnuti_cesty>
+		</sluzebni_cesta>
+		<sluzebni_cesta id="sluzebni_cesta-8" zamestnanec="zamestnanec-2" ucel="ostatni" schvalil="zamestnanec-2">
+			<pocatek_cesty>
+				<misto>Praha</misto>
+				<datum>17.6.2013</datum>
+			</pocatek_cesty>
+			<konec_cesty>
+				<misto>Praha</misto>
+				<datum>19.6.2013</datum>
+			</konec_cesty>
+			<mesto>Brno</mesto>
+			<stat>ČR</stat>
+			<vyuctovani>
+				<jizdne mena="CZK" cena="1500"/>
+				<noclezne mena="CZK" cena="3000"/>
+				<stravne mena="CZK" cena="1800"/>
+				<dalsi_vydaje mena="CZK" cena="2000"/>
+			</vyuctovani>
+			<shrnuti_cesty>
+				Série prezentací na Brněnských vysokých školách za účelem nabrání dalších zaměstnanců. Bylo použito <auto_ref id="auto-4">služební auto</auto_ref>
+			</shrnuti_cesty>
+		</sluzebni_cesta>
+		<sluzebni_cesta id="sluzebni_cesta-9" zamestnanec="zamestnanec-1" ucel="klient" schvalil="zamestnanec-2">
+			<pocatek_cesty>
+				<misto>Praha</misto>
+				<datum>24.12.2013</datum>
+			</pocatek_cesty>
+			<konec_cesty>
+				<misto>Praha</misto>
+				<datum>26.12.2013</datum>
+			</konec_cesty>
+			<mesto>Jaslovské Bohunice</mesto>
+			<stat>Slovenská republika</stat>
+			<zahranicni/>
+			<vyuctovani>
+				<jizdne mena="EUR" cena="150"/>
+				<noclezne mena="EUR" cena="70"/>
+				<stravne mena="CZK" cena="60"/>
+				<dalsi_vydaje mena="CZK" cena="55"/>
+			</vyuctovani>
+			<shrnuti_cesty>
+				Řešení neočekáváného problému v databázi, který vedl k havárii stupně 6 (těžká havárie) podle mezinárodní stupnice jaderných událostí. Byla nahrána záloha databáze, na příčinu problému se nepřišlo, snad už se problém nebude opakovat.
+			</shrnuti_cesty>
+		</sluzebni_cesta>
+		<sluzebni_cesta id="sluzebni_cesta-10" zamestnanec="zamestnanec-1" ucel="konference" schvalil="zamestnanec-2">
+			<pocatek_cesty>
+				<misto>Praha</misto>
+				<datum>12.1.2014</datum>
+			</pocatek_cesty>
+			<konec_cesty>
+				<misto>Praha</misto>
+				<datum>19.1.2014</datum>
+			</konec_cesty>
+			<mesto>Berlín</mesto>
+			<stat>Německo</stat>
+			<zahranicni/>
+			<vyuctovani>
+				<jizdne mena="EUR" cena="140"/>
+				<noclezne mena="EUR" cena="540"/>
+				<stravne mena="EUR" cena="320"/>
+				<dalsi_vydaje mena="EUR" cena="500"/>
+			</vyuctovani>
+			<shrnuti_cesty>
+				Konference na téma "Jak předcházet haváriím jaderných elektráren způsobených problémem v databázi".
+			</shrnuti_cesty>
+		</sluzebni_cesta>
+		<sluzebni_cesta id="sluzebni_cesta-11" zamestnanec="zamestnanec-4" ucel="klient" schvalil="zamestnanec-2">
+			<pocatek_cesty>
+				<misto>Praha</misto>
+				<datum>23.1.2014</datum>
+			</pocatek_cesty>
+			<konec_cesty>
+				<misto>Praha</misto>
+				<datum>30.1.2014</datum>
+			</konec_cesty>
+			<mesto>Fukušima</mesto>
+			<stat>Japonsko</stat>
+      <zahranicni/>
+			<vyuctovani>
+				<jizdne mena="JPY" cena="160000"/>
+				<noclezne mena="JPY" cena="80000"/>
+				<stravne mena="JPY" cena="75000"/>
+				<dalsi_vydaje mena="JPY" cena="140000"/>
+			</vyuctovani>
+			<shrnuti_cesty>
+				Jednání o zavedení databáze MongoDB do kritických částí elektrárny Fukušima.
+			</shrnuti_cesty>
+		</sluzebni_cesta>
+	</sluzebni_cesty>
+</evidence>

@@ -1,0 +1,2 @@
+(: Five :)
+//c[@attr="value"][not(@bambus)]

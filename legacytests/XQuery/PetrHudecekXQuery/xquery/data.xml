@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Created with Liquid XML 2014 Designer Edition (Trial) 12.1.7.5079 (http://www.liquid-technologies.com)-->
+<warplan>
+    <name>Battle of Umm Qasr</name>
+    <author>
+        <person id="US112"
+                friend="yes"
+                real="yes"
+                name="Richard Simmons">
+            <country code="US"
+                     name="United States of America" />
+            <rank>Major General</rank>
+        </person>
+    </author>
+    <site>
+        <name>Umm Qasr</name>
+        <position east="47.5546"
+                  north="30.0203" />
+    </site>
+    <belligerents>
+        <!-- The good army -->
+        <army id="Heroes">
+            <country code="US" />
+            <leader>
+                <person_reference ref="US112" />
+            </leader>
+            <vehicles>
+                <vehicle>
+                    <type>Strong Tank</type>
+                    <status>New</status>
+                    <drones>
+                        <vehicle>
+                            <type>Repair Drone</type>
+                            <status>Damaged</status>
+                            <drones>
+                                <vehicle>
+                                    <type>Repair Drone</type>
+                                    <status>OK</status>
+								</vehicle>
+							</drones>
+						</vehicle>
+                        <vehicle>
+                            <type>Repair Drone</type>
+                            <status>OK</status>
+						</vehicle>
+					</drones>
+                </vehicle>
+                <vehicle>
+                    <type>Strong Tank</type>
+                    <status>New</status>
+                </vehicle>
+                <vehicle>
+                    <type>Strong Tank</type>
+                    <status>New</status>
+                </vehicle>
+                <vehicle>
+                    <type>Strong Tank</type>
+                    <status>New</status>
+                </vehicle>
+                <vehicle>
+                    <type>Strong Tank</type>
+                    <status>New</status>
+                </vehicle>
+                <vehicle>
+                    <type>Strong Tank</type>
+                    <status>New</status>
+                </vehicle>
+                <vehicle>
+                    <type>Strong Tank</type>
+                    <status>New</status>
+                </vehicle>
+                <vehicle>
+                    <type>Strong Tank</type>
+                    <status>New</status>
+                </vehicle>
+                <vehicle>
+                    <type>Strong Tank</type>
+                    <status>New</status>
+                    <drones>
+                        <vehicle>
+                            <type>Repair Drone</type>
+                            <status>OK</status>
+						</vehicle>
+					</drones>
+                </vehicle>
+                <vehicle>
+                    <type>Indestructible Tank</type>
+                    <status>Damaged</status>
+                </vehicle>
+                <vehicle>
+                    <type>Aircraft</type>
+                    <status>New</status>
+                </vehicle>
+                <vehicle>
+                    <type>Aircraft</type>
+                    <status>New</status>
+                </vehicle>
+                <vehicle>
+                    <type>Mine Layer</type>
+                    <status>New</status>
+                </vehicle>
+            </vehicles>
+            <infantry>
+                <soldier>
+                    <person_reference ref="US112" />
+                </soldier>
+            </infantry>
+            <position east="47.5046"
+                      north="29.9912" />
+        </army>
+        <!-- The bad guys -->
+        <army id="Iraqis">
+            <country code="IQ" />
+            <leader>
+                <person name="Izzat Ibrahim ad-Douri"
+                        id="IQ04"
+                        friend="no"
+                        real="yes" />
+            </leader>
+            <vehicles>
+                <vehicle>
+                    <type>Heavy Tank</type>
+                    <status>OK</status>
+                </vehicle>
+                <vehicle>
+                    <type>Heavy Tank</type>
+                    <status>OK</status>
+                </vehicle>
+                <vehicle>
+                    <type>Heavy Tank</type>
+                    <status>Damaged</status>
+                </vehicle>
+                <vehicle>
+                    <type>Heavy Tank</type>
+                    <status>OK</status>
+                </vehicle>
+                <vehicle>
+                    <type>Medium Tank</type>
+                    <status>OK</status>
+                </vehicle>
+                <vehicle>
+                    <type>Medium Tank</type>
+                    <status>OK</status>
+                </vehicle>
+                <vehicle>
+                    <type>Medium Tank</type>
+                    <status>Damaged</status>
+                </vehicle>
+                <vehicle>
+                    <type>Light Tank</type>
+                    <status>Damaged</status>
+                </vehicle>
+                <vehicle>
+                    <type>Light Tank</type>
+                    <status>Damaged</status>
+                </vehicle>
+                <vehicle>
+                    <type>Light Tank</type>
+                    <status>OK</status>
+                </vehicle>
+                <vehicle>
+                    <type>Light Tank</type>
+                    <status>OK</status>
+                </vehicle>
+                <vehicle>
+                    <type>Light Tank</type>
+                    <status>OK</status>
+                </vehicle>
+            </vehicles>
+            <infantry>
+                <soldier>
+                    <person_reference ref="IQ04" />
+                </soldier>
+                <!-- The traitor is: -->
+                <soldier>
+                    <person name="Azir al-Arinar"
+                            id="IQ12"
+                            friend="yes" />
+                </soldier>
+                <soldier />
+                <soldier />
+                <soldier />
+                <soldier />
+                <soldier>
+                    <person name="Usama"
+                            id="IQ01"
+                            friend="no">
+                        <!-- God, no! -->
+                    </person>
+                </soldier>
+                <soldier />
+                <soldier />
+                <soldier />
+                <soldier />
+                <soldier />
+                <soldier />
+                <soldier />
+                <soldier />
+                <soldier />
+                <soldier />
+                <soldier />
+                <soldier />
+                <soldier />
+            </infantry>
+            <position east="47.5547"
+                      north="30.0109" />
+        </army>
+    </belligerents>
+    <timeline />
+    <notes>
+		This is my best plan, people, so make it count! 
+		The <general_reference ref="Iraqis">minions of Saddam</general_reference> are strong in Umm Qasr and I estimate it will take us days to capture the city.
+		Please follow additional instructions on my website: <?php echo $data["cool_website"]; ?>. They will help us defeat the enemy.
+		And rember our goal, guys: 
+		Good luck, <general_reference ref="US112">genmj. Richard Simmons</general_reference>
+		
+		(P.S. PC &gt; Mac)
+	</notes>
+    <additionalData><![CDATA[
+		<b>The Battle of Umm Qasr</b> was the first military confrontation in the Iraq War. At the start of the war, one of the first objectives was the port of Umm Qasr. On March 21, 2003, as allied forces advanced across Southern Iraq, an amphibious landing force captured the new port area of Umm Qasr. The assault was spearheaded by Royal Marines of the British 3 Commando Brigade, augmented by Marines of the US 15th Marine Expeditionary Unit and Polish GROM troops. Iraqi forces in the old town of <i>Umm Qasr</i> put up unexpectedly strong resistance, requiring several days' fighting before the area was cleared of defenders.[4] The port was finally declared safe and reopened on March 25, 2003.
+
+After the waterway was de-mined by a detachment from <a href='http://coolsite.com'>HM-14</a> and Naval Special Clearance Team ONE of the U.S. Navy and reopened, Umm Qasr played an important role in the shipment of humanitarian supplies to Iraqi civilians.[5]
+
+Coalition minesweepers, including HMS Bangor,and HMS Sandown aided by divers, US Navy MH-53E helicopters, trained dolphins and seals, located the approach to the port and cleared it of mines, allowing RFA Sir Galahad to dock after a couple of days.
+	]]></additionalData>
+</warplan>

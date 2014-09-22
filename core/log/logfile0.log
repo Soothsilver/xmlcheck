@@ -1,0 +1,37 @@
+
+-
+2014-03-17 19:34:49	[not logged in]	[localhost]	[no lookup]	Login
+
+50	99	incorrect username or password		
+-
+2014-03-17 19:35:07	smallstudent2	[localhost]	[no lookup]	GetChangelog
+
+100	99	file_get_contents(changelog.txt): failed to open stream: No such file or directory (GetChangelog.php:10)	Runtime error	#0 [unknown location] asm\utils\ErrorHandler->handleError(2, 'file_get_contents(changelog.txt) [<a href=\'function.file-get-contents\'>function.file-get-contents</a>]: failed to open stream: No such file or directory', 'D:\\XAMPP\\htdocs\\preview\\core\\core\\scripts\\GetChangelog.php', 10, array())
+#1 GetChangelog.php:10 file_get_contents('changelog.txt')
+#2 UiScript.php:43 asm\core\GetChangelog->body()
+#3 Core.php:212 asm\core\UiScript->run(array(), array())
+#4 handleCoreRequest.php:42 asm\core\Core::handleUiRequest(array('action' => 'GetChangelog'), array())
+-
+2014-03-17 19:35:11	smallstudent2	[localhost]	[no lookup]	GetChangelog
+
+100	99	file_get_contents(changelog.txt): failed to open stream: No such file or directory (GetChangelog.php:10)	Runtime error	#0 [unknown location] asm\utils\ErrorHandler->handleError(2, 'file_get_contents(changelog.txt) [<a href=\'function.file-get-contents\'>function.file-get-contents</a>]: failed to open stream: No such file or directory', 'D:\\XAMPP\\htdocs\\preview\\core\\core\\scripts\\GetChangelog.php', 10, array())
+#1 GetChangelog.php:10 file_get_contents('changelog.txt')
+#2 UiScript.php:43 asm\core\GetChangelog->body()
+#3 Core.php:212 asm\core\UiScript->run(array(), array())
+#4 handleCoreRequest.php:42 asm\core\Core::handleUiRequest(array('action' => 'GetChangelog'), array())
+-
+2014-03-17 19:37:02	smallstudent2	[localhost]	[no lookup]	GetChangelog
+
+100	99	file_get_contents(changelog.txt): failed to open stream: No such file or directory (GetChangelog.php:10)	Runtime error	#0 [unknown location] asm\utils\ErrorHandler->handleError(2, 'file_get_contents(changelog.txt) [<a href=\'function.file-get-contents\'>function.file-get-contents</a>]: failed to open stream: No such file or directory', 'D:\\XAMPP\\htdocs\\preview\\core\\core\\scripts\\GetChangelog.php', 10, array())
+#1 GetChangelog.php:10 file_get_contents('changelog.txt')
+#2 UiScript.php:43 asm\core\GetChangelog->body()
+#3 Core.php:212 asm\core\UiScript->run(array(), array())
+#4 handleCoreRequest.php:42 asm\core\Core::handleUiRequest(array('action' => 'GetChangelog'), array())
+-
+2014-03-17 19:37:47	smallstudent2	[localhost]	[no lookup]	GetChangelog
+
+100	99	file_get_contents(changelog.txt): failed to open stream: No such file or directory (GetChangelog.php:10)	Runtime error	#0 [unknown location] asm\utils\ErrorHandler->handleError(2, 'file_get_contents(changelog.txt) [<a href=\'function.file-get-contents\'>function.file-get-contents</a>]: failed to open stream: No such file or directory', 'D:\\XAMPP\\htdocs\\preview\\core\\core\\scripts\\GetChangelog.php', 10, array())
+#1 GetChangelog.php:10 file_get_contents('changelog.txt')
+#2 UiScript.php:43 asm\core\GetChangelog->body()
+#3 Core.php:212 asm\core\UiScript->run(array(), array())
+#4 handleCoreRequest.php:42 asm\core\Core::handleUiRequest(array('action' => 'GetChangelog'), array())

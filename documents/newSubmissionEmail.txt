@@ -1,0 +1,7 @@
+[XMLCheck] Student odevzdal řešení.????
+
+The student %{RealName} with e-mail %{Email} confirmed a submission for an assignment.
+
+Access this submission: %{Link}
+
+This e-mail was sent automatically at %{Date}. Do not reply.

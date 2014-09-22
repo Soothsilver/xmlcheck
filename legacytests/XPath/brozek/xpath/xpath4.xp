@@ -1,0 +1,2 @@
+(: Rok vyroby druheho zakoupeneho auta (predpoklada se, ze auta jsou v xml dokumentu serazena od nejstarsiho po nejnovejsi) :)
+//auta/auto[position()=2]/@rok_vyroby

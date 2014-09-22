@@ -1,0 +1,132 @@
+<?php
+
+namespace asm\utils;
+use ZipArchive, RecursiveIteratorIterator, RecursiveDirectoryIterator;
+
+/**
+ * Compression-related utility functions @module.
+ */
+class Compression
+{
+	/**
+	 * Pack source file or folder to ZIP archive.
+	 * @param string $source source file/folder path
+	 * @param string $dest destination file path
+	 * @return bool true on success
+	 */
+	public static function zip ($source, $dest)
+	{
+		$source = realpath($source);
+		if (!file_exists($source))
+		{
+			return false;
+		}
+
+		$zip = new ZipArchive();
+		if ($zip->open($dest, ZipArchive::CREATE) !== true)
+		{
+			return false;
+		}
+
+		if (is_dir($source))
+		{
+			$files = new RecursiveIteratorIterator(
+					new RecursiveDirectoryIterator($source), RecursiveIteratorIterator::SELF_FIRST);
+			foreach ($files as $file)
+			{
+                // See https://bugs.php.net/bug.php?id=67996
+                // and http://stackoverflow.com/questions/22020437/ziparchive-cant-unzip-files-that-ziparchive-zips-in-php/25765761#25765761
+                if (basename($file) === ".") { continue;}
+                if (basename($file) === "..") { continue; }
+
+				$file = realpath($file);
+				if (is_dir($file))
+				{
+                    $dirName = substr(str_replace($source . DIRECTORY_SEPARATOR,
+                        '', $file . DIRECTORY_SEPARATOR), 0, -1);
+                    if ($dirName !== false)
+                    {
+                        die ($dirName);
+                        $zip->addEmptyDir($dirName);
+                    }
+				}
+				elseif (is_file($file))
+				{
+					$zip->addFile($file, str_replace($source . DIRECTORY_SEPARATOR, '', $file));
+				}
+			}
+		}
+		elseif (is_file($source))
+		{
+			$zip->addFile($source, basename($source));
+		}
+
+		return $zip->close();
+	}
+
+	/**
+	 * Unpack ZIP archive to specified folder.
+	 * @param string $archive source archive path
+	 * @param string $dest destination folder path
+	 * @return true on success
+	 */
+	public static function unzip ($archive, $dest, &$errorMessage = null)
+	{
+        // TODO extracting files of any size is a security vulnerability
+		$zip = new ZipArchive();
+        $errorCode = $zip->open($archive);
+		if ($errorCode !== true)
+		{
+            $errorMessage = "could not open ZIP file (error code " . $errorCode . ")";
+			return false;
+		}
+
+        // Otherwise, this is a normal ZIP file.
+		if (!$zip->extractTo($dest))
+		{
+			$zip->close();
+            $errorMessage = "extraction failed";
+			return false;
+		}
+        $zip->close();
+
+        // Now, we'll check if the ZIP file contains only a single folder. If so,
+        // then we'll copy its contests to the root temporary folder
+        $files = scandir($dest);
+        if ($files === false)
+        {
+            $errorMessage = "scanning the temporary directory failed";
+            return false;
+        }
+        // On Linux, scandir returns the "." and ".." pseudofolders we are not interested in
+        $files = array_diff($files, array( ".", ".." ));
+
+
+
+        if (count($files) === 0)
+        {
+            $errorMessage = "the ZIP file is empty";
+            return false;
+        }
+        elseif (count($files) === 1)
+        {
+            $files = array_values($files); // We renumber the remaining file/directory so that it is at index 0. It might not have been because of the subtraction of "." and ".."
+            $soleDirectory = Filesystem::combinePaths($dest, $files[0]);
+            if (is_dir($soleDirectory))
+            {
+                if (Filesystem::copyIntoDirectory($soleDirectory, $dest))
+                {
+                    return true;
+                }
+                else
+                {
+                    $errorMessage = "the ZIP file contained a single directory, but copying its contents to temporary directory failed";
+                    return false;
+                }
+            }
+        }
+		return true;
+	}
+}
+
+?>

@@ -1,0 +1,37 @@
+{
+    "name" : "mff/xmlcheck",
+    "description" : "System for semi-automatic correction of university homework",
+    "license" : "proprietary",
+	"require": {
+		"swiftmailer/swiftmailer" : "5.2.1",
+        "doctrine/orm" : "2.4.*"
+	},
+    "autoload": {
+        "psr-0": {
+            "" : [ "trin/src", "trin2/src" ]
+        },
+        "psr-4": {
+            "" : "core/doctrine",
+            "asm\\core\\" :
+                [
+                    "core/core",
+                    "core/core/error",
+                    "core/core/launcher",
+                    "core/core/scripts",
+                    "core/core/ui"
+                ],
+            "asm\\db\\" :
+                [
+                    "core/db",
+                    "core/db/expression",
+                    "core/db/expression/predicate",
+                    "core/db/expression/statement",
+                    "core/db/expression/value",
+                    "core/db/expression/wrapper",
+                    "core/db/mysql"
+                ],
+            "asm\\plugin\\" : "core/plugin/",
+            "asm\\utils\\" : "core/utils"
+        }
+    }
+}

@@ -1,0 +1,66 @@
+<!ELEMENT warplan (name, author,site,belligerents,timeline,notes,additionalData)>
+
+<!-- Main structure -->
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT author (person|person_reference)+>
+<!ELEMENT belligerents (army,army,army*)>
+<!ELEMENT site (name, position)>
+<!ELEMENT timeline (movement*)>
+<!ELEMENT notes (#PCDATA|general_reference)*>
+<!ELEMENT additionalData ANY>
+
+<!-- Codenames -->
+<!ENTITY geronimo "Osama bin-Laden">
+<!ENTITY kill "neutralize">
+<!ENTITY goal "We must &kill; &geronimo;.">
+
+<!-- Person -->
+<!ELEMENT person (country?, rank?)>
+<!ATTLIST person
+	friend (yes|no) #REQUIRED
+	id ID #REQUIRED
+	name CDATA #REQUIRED
+	real (yes|no) #FIXED "yes"
+>
+<!ELEMENT person_reference EMPTY
+	>
+<!ATTLIST person_reference
+	ref IDREF #REQUIRED
+>
+<!ELEMENT country EMPTY>
+<!ATTLIST country
+	code (US | CZ | GB | IQ) #REQUIRED
+	name CDATA #IMPLIED
+>
+<!ELEMENT rank (#PCDATA)>
+
+<!-- Army -->
+<!ELEMENT army (country, leader, vehicles, infantry, position)>
+<!ATTLIST army
+	id ID #REQUIRED
+>
+<!ELEMENT leader (person|person_reference)>
+<!ELEMENT vehicles (vehicle*)>
+<!ELEMENT infantry (soldier*)>
+<!ELEMENT position EMPTY>
+<!ATTLIST position
+	north CDATA #REQUIRED
+	east CDATA #REQUIRED
+>
+
+<!-- Vehicles and soldiers -->
+<!ELEMENT vehicle (type, status)>
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT status (#PCDATA)>
+<!ELEMENT soldier (person|person_reference)?>
+
+<!-- Events -->
+<!ELEMENT movement (move_from,move_to,when)>
+<!ELEMENT move_from (position)>
+<!ELEMENT move_to (position)>
+<!ELEMENT when (#PCDATA)>
+
+<!-- Notes -->
+<!ELEMENT general_reference (#PCDATA)>
+<!ATTLIST general_reference
+	ref IDREF #REQUIRED>
