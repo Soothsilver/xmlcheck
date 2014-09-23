@@ -79,6 +79,11 @@ abstract class DataScript extends UiScript
 		return $this;
 	}
 
+    protected final function addRowToOutput($array)
+    {
+        $this->result[] = $array;
+    }
+
 	/**
 	 * Strips keys and removes slashes off supplied data and replaces current result
 	 * with it.

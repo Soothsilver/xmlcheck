@@ -23,6 +23,25 @@ final class GetProblems extends DataScript
 
 		$user = User::instance();
 		$displayAll = $user->hasPrivileges(User::lecturesManageAll) || $lite;
+
+        /**
+         * @var $problems \Problem[]
+         */
+        $problems = Repositories::getEntityManager()->createQuery(
+            "SELECT p, l FROM \Problem p JOIN p.lecture l WHERE p.deleted = false AND (:displayAll = true OR l.owner = :userid)")
+            ->setParameter('displayAll', $displayAll)
+            ->setParameter('userid', $user->getId())->getResult();
+
+        foreach ($problems as $problem) {
+            $row = array($problem->getId(), $problem->getName());
+            if (!$lite) { $row[] = $problem->getDescription(); if ($problem->getPlugin()) { $row[] = $problem->getPlugin()->getId(); } else { $row[] = ""; } $row[] = $problem->getConfig();};
+            $row[] = $problem->getLectureid();
+            if (!$lite) { $row[] = $problem->getLecture()->getName(); $row[] = $problem->getLecture()->getDescription(); }
+            $this->addRowToOutput($row);
+        }
+
+        /*
+         *
 		$problems = Core::sendDbRequest('getProblemsVisibleByUserId', $user->getId(), $displayAll);
 		if ($problems === false)
 			return $this->stopDb($problems, ErrorEffect::dbGetAll('problems'));
@@ -35,6 +54,7 @@ final class GetProblems extends DataScript
 		}
 
 		$this->setOutputTable($problems);
+        */
 	}
 }
 

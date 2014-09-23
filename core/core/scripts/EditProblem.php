@@ -1,6 +1,8 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\Language;
+use asm\core\lang\StringID;
 use asm\db\DbLayout;
 
 /**
@@ -19,61 +21,73 @@ final class EditProblem extends DataScript
 {
 	protected function body ()
 	{
+        // Verify input
 		$inputs = array(
 			'lecture' => 'isIndex',
 			'name' => array(
 				'isName',
 				'hasLength' => array(
-					'min_length' => 5,
-					'max_length' => 50,
+                    'min_length' => 1,
+					'max_length' => 255,
 				),
 			),
-			'description' => 'isNotEmpty',
+			'description' => array(),
 			'pluginId' => 'isIndex',
 		);
 		if (!$this->isInputValid($inputs))
 			return;
 
-		extract($this->getParams(array_keys($inputs)));
-		$id = $this->getParams('id');
-		$isIdSet = (($id !== null) && ($id !== ''));
-		$pluginArguments = $this->getParams('pluginArguments');
-		$pluginArguments = ($pluginArguments !== null) ? $pluginArguments : '';
+        // Load data from user and database
+        $lectureIndex = $this->getParams('lecture');
+        /**
+         * @var $lecture \Lecture
+         * @var $problem \Problem
+         * @var $plugin \Plugin
+         */
+        $lecture = Repositories::findEntity(Repositories::Lecture, $lectureIndex);
+        $name = $this->getParams('name');
+        $description = $this->getParams('description');
+        $pluginIdOrZero = $this->getParams('pluginId');
+        $plugin = null;
+        if ($pluginIdOrZero !== 0)
+        {
+            $plugin = Repositories::findEntity(Repositories::Plugin, $pluginIdOrZero);
+        }
+        $pluginArguments = $this->getParams('pluginArguments');
+        $pluginArguments = ($pluginArguments !== null) ? $pluginArguments : '';
+        $problemId = $this->getParams('id');
+        $isIdSet = ($problemId !== null) && ($problemId !== '');
 
-		if (!($lectures = Core::sendDbRequest('getLectureById', $lecture)))
-			return $this->stopDb($lectures, ErrorEffect::dbGet('lecture'));
+        // Verify privileges
+        $user = User::instance();
+        if (!$user->hasPrivileges(User::lecturesManageAll)
+            && (!$user->hasPrivileges(User::lecturesManageOwn)
+                || ($lecture->getOwner() != $user->getId()))) {
+            return $this->death(StringID::InsufficientPrivileges);
+        }
 
-		$user = User::instance();
-		if (!$user->hasPrivileges(User::lecturesManageAll)
-				&& (!$user->hasPrivileges(User::lecturesManageOwn)
-					|| ($lectures[0][DbLayout::fieldUserId] != $user->getId())))
-			return $this->stop(ErrorCode::lowPrivileges);
+        if ($isIdSet) {
+            $problem = Repositories::findEntity(Repositories::Problem, $problemId);
+            $problem->setDescription($description);
+            $problem->setPlugin($plugin);
+            $problem->setConfig($pluginArguments);
+            Repositories::persistAndFlush($problem);
+        }
+        else {
+            // Verify that there is no name conflict
+            $problem = Repositories::getRepository(Repositories::Problem)->findOneBy(array('name' => $name));
+            if ($problem !== null) {
+                return $this->death(StringID::ProblemNameExists);
+            }
 
-		if ($pluginId && !($plugins = Core::sendDbRequest('getPluginById', $pluginId)))
-			return $this->stopDb($plugins, ErrorEffect::dbGet('plugin'));
-
-		$problems = Core::sendDbRequest('getProblemByName', $name);
-		if ($problems === false)
-			return $this->stopDb($problems, ErrorEffect::dbGet('problem', 'name'));
-
-		if (!$problems)
-		{
-			if (!Core::sendDbRequest('addProblem', $lecture, $pluginId, $name, $description, $pluginArguments))
-				return $this->stopDb(false, ErrorEffect::dbAdd('problem'));
-		}
-		else if ($isIdSet)
-		{
-			$problem = $problems[0];
-			if ($id != $problem[DbLayout::fieldProblemId])
-				return $this->stop(ErrorCause::dataMismatch('problem'));
-
-			if (!Core::sendDbRequest('editProblemById', $id, $pluginId, $name, $description, $pluginArguments))
-				return $this->stopDb(false, ErrorEffect::dbEdit('problem'));
-		}
-		else
-		{
-			return $this->stop(ErrorCause::nameTaken('problem', $name));
-		}
+            $problem = new \Problem();
+            $problem->setLecture($lecture);
+            $problem->setName($name);
+            $problem->setDescription($description);
+            $problem->setPlugin($plugin);
+            $problem->setConfig($pluginArguments);
+            Repositories::persistAndFlush($problem);
+        }
 	}
 }
 

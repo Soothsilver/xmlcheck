@@ -943,8 +943,26 @@ $.widget('ui.table', {
 			var valA = self._value(a, key),
 				valB = self._value(b, key),
 				gt = asc ? 1 : -1;
-			return (valA > valB) ? -gt : ((valA == valB) ? 0 : gt);
+                if (isNaN(valA))
+                {
+                    if (isNaN(valB))
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        return gt;
+                    }
+                }
+                else if (isNaN(valB))
+                {
+                    return -gt;
+                }
+		    	else {
+                    return (valA > valB) ? -gt : ( (valA == valB) ? 0 : gt);
+                }
 		});
+        // This reverse the order. This is correct because the sort function actually sortes the rows in the opposite order than requested by user
 		$.each(rows, function (i, row) {
 			$(row).prependTo(self.body);
 		});

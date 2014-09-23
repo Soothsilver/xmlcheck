@@ -52,6 +52,12 @@ class Repositories {
     {
         return self::getEntityManager()->getRepository($entityName);
     }
+
+    public static function persistAndFlush($entity)
+    {
+        self::getEntityManager()->persist($entity);
+        self::getEntityManager()->flush($entity);
+    }
     /**
      * @return EntityManager
      */

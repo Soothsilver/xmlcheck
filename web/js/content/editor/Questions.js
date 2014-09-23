@@ -11,7 +11,7 @@ asm.ui.editor.Questions = asm.ui.DynamicTableEditor.extend({
 			formClass: asm.ui.form.Question,
 			mainStore: asm.ui.globals.stores.questions,
 			removalRequest: 'DeleteQuestion',
-			subject: 'question',
+			subject: asm.lang.subjects.question,
 			tableClass: asm.ui.table.Questions
 		};
 		this.base($.extend(defaults, config));

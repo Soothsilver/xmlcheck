@@ -445,9 +445,13 @@ $.widget('ui.field', {
 			case 'info':
 				this.input.html(o.value);
 				break;
-			case 'hidden': case 'text': case 'date':case 'checkbox':
+			case 'hidden': case 'text': case 'date':
 				this.input.val(o.value);
 				break;
+            case 'checkbox':
+                if (o.value) { this.input.attr('checked', 'checked');}
+                else { this.input.removeAttr('checked'); }
+                break;
 			case 'select':
 				var options = this._getParsedOptions(),
 					found = false,

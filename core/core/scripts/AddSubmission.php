@@ -56,16 +56,25 @@ final class AddSubmission extends DataScript
         $newSubmission->setOutputfile(''); $newSubmission->setRating(0);
 
         // Put into database
-        Repositories::getEntityManager()->persist($newSubmission);
-        Repositories::getEntityManager()->flush($newSubmission);
-        Core::launchPlugin(
-            $assignment->getProblem()->getPlugin()->getType(),
-            Config::get('paths', 'plugins') . $assignment->getProblem()->getPlugin()->getMainfile(),
-            $submissionsFolder . $file,
-            'correctSubmissionById',
-            $newSubmission->getId(),
-            explode(';', $assignment->getProblem()->getConfig())
-        );
+        Repositories::persistAndFlush($newSubmission);
+
+        // Launch plugin
+        if ($assignment->getProblem()->getPlugin() === null)
+        {
+            $newSubmission->setSuccess(100);
+            $newSubmission->setInfo(Language::get(StringID::NoPluginUsed));
+            Repositories::persistAndFlush($newSubmission);
+        }
+        else {
+            Core::launchPlugin(
+                $assignment->getProblem()->getPlugin()->getType(),
+                Config::get('paths', 'plugins') . $assignment->getProblem()->getPlugin()->getMainfile(),
+                $submissionsFolder . $file,
+                'correctSubmissionById',
+                $newSubmission->getId(),
+                explode(';', $assignment->getProblem()->getConfig())
+            );
+        }
 
             /*
 		if (!Core::sendDbRequest('addSubmission', $assignmentId, $userId, $file))

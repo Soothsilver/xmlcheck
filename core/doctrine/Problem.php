@@ -43,12 +43,6 @@ class Problem
      */
     private $description;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="pluginId", type="integer", nullable=false)
-     */
-    private $pluginid;
 
     /**
      * @var string
@@ -125,29 +119,6 @@ class Problem
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * Set pluginid
-     *
-     * @param integer $pluginid
-     * @return Problems
-     */
-    public function setPluginid($pluginid)
-    {
-        $this->pluginid = $pluginid;
-
-        return $this;
-    }
-
-    /**
-     * Get pluginid
-     *
-     * @return integer 
-     */
-    public function getPluginid()
-    {
-        return $this->pluginid;
     }
 
     /**

@@ -8276,3 +8276,23 @@
 2014-09-22 11:07:54	[not logged in]	127.0.0.1	[no lookup]	GetSubmissions
 
 50	99	Your session has become invalid. Perhaps you were inactive for too long or the program was updated to a newer version. Please log out, refresh the page (Ctrl+F5) and log in again.		
+-
+2014-09-23 12:28:04	soothsilver	127.0.0.1	[no lookup]	EditProblem
+
+50	4	query to SQL database unsuccessful	cannot add new problem to database	Cannot add or update a child row: a foreign key constraint fails (`asmregen`.`problems`, CONSTRAINT `FK_8E6662459A9A50E9` FOREIGN KEY (`pluginId`) REFERENCES `plugins` (`id`))
+-
+2014-09-23 12:28:39	soothsilver	127.0.0.1	[no lookup]	EditProblem
+
+50	4	query to SQL database unsuccessful	cannot add new problem to database	Cannot add or update a child row: a foreign key constraint fails (`asmregen`.`problems`, CONSTRAINT `FK_8E6662459A9A50E9` FOREIGN KEY (`pluginId`) REFERENCES `plugins` (`id`))
+-
+2014-09-23 12:30:17	soothsilver	127.0.0.1	[no lookup]	EditProblem
+
+50	4	query to SQL database unsuccessful	cannot add new problem to database	Cannot add or update a child row: a foreign key constraint fails (`asmregen`.`problems`, CONSTRAINT `FK_8E6662459A9A50E9` FOREIGN KEY (`pluginId`) REFERENCES `plugins` (`id`))
+-
+2014-09-23 12:30:22	soothsilver	127.0.0.1	[no lookup]	EditProblem
+
+50	4	query to SQL database unsuccessful	cannot add new problem to database	Cannot add or update a child row: a foreign key constraint fails (`asmregen`.`problems`, CONSTRAINT `FK_8E6662459A9A50E9` FOREIGN KEY (`pluginId`) REFERENCES `plugins` (`id`))
+-
+2014-09-23 13:01:30	soothsilver	127.0.0.1	[no lookup]	EditProblem
+
+50	99	Problém s tímto jménem již existuje.		

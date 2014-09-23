@@ -12,7 +12,7 @@ asm.ui.editor.Attachments = asm.ui.DynamicTableEditor.extend({
 			formClass: asm.ui.form.Attachment,
 			mainStore: asm.ui.globals.stores.attachments,
 			removalRequest: 'DeleteAttachment',
-			subject: 'attachment',
+			subject: asm.lang.subjects.attachment,
 			tableClass: asm.ui.table.Attachments
 		};
 		this.base($.extend(defaults, config));

@@ -14,8 +14,13 @@ abstract class StringID
     const InvalidInput = 7;
     const FileSystemError = 8;
     const SessionInvalidated = 9;
+
+    const ProblemNameExists = 10;
+    const NoPluginUsed = 11;
 }
+
 class Language {
+
     private static function getLanguage()
     {
         if (isset($_COOKIE["language"]))
@@ -42,6 +47,9 @@ class Language {
             case StringID::InvalidInput: return "Zadaný vstup je neúplný nebo nekorektní. Opravte ho prosím podle zobrazených instrukcí.";
             case StringID::FileSystemError: return "Nepodařilo se provést operaci na souborovém systému. Administrátor by měl zkontrolovat přístupová práva k souborům.";
             case StringID::SessionInvalidated: return "Vaše relace již není platná. Možná jste byli příliš dlouho neaktivní nebo byl program aktualizován na vyšší verzi. Odhlašte se, obnovte stránku (Ctrl+F5) a znovu se přihlašte.";
+
+            case StringID::ProblemNameExists: return "Problém s tímto jménem již existuje.";
+            case StringID::NoPluginUsed: return "Není opravováno automaticky.";
         }
         return "TRANSLATION MISSING(" . self::getEnglish($textId) . ")";
     }
@@ -60,6 +68,9 @@ class Language {
             case StringID::InvalidInput: return "Your input is incomplete or invalid. Please modify it in accordance with the displayed instructions.";
             case StringID::FileSystemError: return "A file system operation failed. The administrator should verify that correct access rights are set for relevant directories.";
             case StringID::SessionInvalidated: return "Your session has become invalid. Perhaps you were inactive for too long or the program was updated to a newer version. Please log out, refresh the page (Ctrl+F5) and log in again.";
+
+            case StringID::ProblemNameExists: return "A problem with this name already exists.";
+            case StringID::NoPluginUsed: return "This problem has no automatic grading.";
         }
         throw new \Exception("This string (" . $textId . ") does not exist.");
     }

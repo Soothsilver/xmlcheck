@@ -116,15 +116,11 @@ asm.ui.DynamicContentPanel = asm.ui.ContentPanel.extend({
 	_loadAndInitContent: function (callback) {
 		this._refreshStores($.proxy(function () {
 			if (this._loading && this._updateStoreRevisions()) {
-                setTimeout($.proxy(function()
-                {
-                    this._setLoaderText(asm.lang.general.initializing);
-                    setTimeout($.proxy(function()
-                    {
-                        this._initContent();
-                        this.trigger('panel.init');
-                    }, this), 1);
-                }, this), 1);
+
+                this._setLoaderText(asm.lang.general.initializing);
+                this._initContent();
+                this.trigger('panel.init');
+
 			}
 		}, this), $.proxy(function () {
 			this._triggerError(new asm.ui.Error('Error while loading data from server. Application may not function properly.', asm.ui.Error.FATAL));

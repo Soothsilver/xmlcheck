@@ -207,7 +207,10 @@ asm.lang = {
         group : "group",
         submission : "submission",
         user : "user",
-        userType : "userType"
+        userType : "user type",
+        problem: "problem",
+        question : "question",
+        attachment: "attachment",
     },
 
     uiLog : {
@@ -260,7 +263,7 @@ asm.lang = {
         problemName : "Problem name",
         correctivePlugin : "Correction plugin",
         pluginConfiguration : "Plugin configuration",
-        enterValuesSeparatedBySemicolon : "enter values of plugin arguments separated by a semicolon: ",
+        pluginConfigurationHint : "enter values of plugin arguments separated by a semicolon: ",
         descriptionHint : "line breaks will be preserved",
         pluginHasNoArguments : "plugin has no arguments",
         noPlugin : "[no automatic correction]"

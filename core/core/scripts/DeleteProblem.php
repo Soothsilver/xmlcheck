@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\StringID;
 use asm\db\DbLayout;
 
 /**
@@ -20,19 +21,17 @@ final class DeleteProblem extends DataScript
 
 		$id = $this->getParams('id');
 
-		if (!($problems = Core::sendDbRequest('getProblemById', $id)))
-			return $this->stopDb($problems, ErrorEffect::dbGet('problem'));
-
-		if (!($lectures = Core::sendDbRequest('getLectureById', $problems[0][DbLayout::fieldLectureId])))
-			return $this->stopDb($lectures, ErrorEffect::dbGet('lecture'));
-
+        $problem = Repositories::findEntity(Repositories::Problem, $id);
+        $lecture = $problem->getLecture();
 		$user = User::instance();
 		if (!$user->hasPrivileges(User::lecturesManageAll) && (!$user->hasPrivileges(User::lecturesManageOwn)
-				|| ($user->getId() != $lectures[0][DbLayout::fieldUserId])))
-			return $this->stop(ErrorCode::lowPrivileges);
+				|| ($user->getId() != $lecture->getOwner())))
+        {
+            return $this->death(StringID::InsufficientPrivileges);
+        }
 
-		if (($error = RemovalManager::deleteProblemById($id)))
-			return $this->stopRm($error);
+        $problem->setDeleted(true);
+        Repositories::persistAndFlush($problem);
 	}
 }
 

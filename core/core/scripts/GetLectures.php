@@ -23,17 +23,17 @@ final class GetLectures extends DataScript
 
 		$user = User::instance();
 		$displayAll = $user->hasPrivileges(User::lecturesManageAll) || $lite;
-		$lectures = Core::sendDbRequest('getLecturesVisibleByUserId', $user->getId(), $displayAll);
-		if ($lectures === null)
-			return $this->stopDb($lectures, ErrorEffect::dbGetAll('lectures'));
 
-		if ($lite)
-		{
-			$lectures = ArrayUtils::map(array('\asm\utils\ArrayUtils', 'filterByKeys'),
-					$lectures, array(DbLayout::fieldLectureDescription), false);
-		}
-
-		$this->setOutputTable($lectures);
+        /**
+         * @var $lectures \Lecture[]
+         */
+        $lectures = ($displayAll ? Repositories::getRepository('Lecture')->findBy(array('deleted'=>false)) : Repositories::getRepository('Lecture')->findBy(array('owner' => $user->getId(), 'deleted' => false)));
+        foreach($lectures as $lecture)
+        {
+            $radek = array( $lecture->getId(), $lecture->getName() );
+            if (!$lite) { $radek[] = $lecture->getDescription(); }
+            $this->addRowToOutput($radek);
+        }
 	}
 }
 
