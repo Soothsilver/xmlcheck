@@ -71,7 +71,7 @@ function echoScripts($directory)
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~ Libraries ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <script type="text/javascript" src="./web/lib/js/Base.js"></script>
-    <script type="text/javascript" src="./web/lib/js/jquery-1.5.js"></script>
+    <script type="text/javascript" src="./web/lib/js/jquery-1.7.js"></script>
     <script type="text/javascript" src="./web/lib/js/jquery-ui.js"></script>
     <script type="text/javascript" src="./web/lib/js/jquery.animate.clip.js"></script>
     <script type="text/javascript" src="./web/lib/js/jquery.json.js"></script>
