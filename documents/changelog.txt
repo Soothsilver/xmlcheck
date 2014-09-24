@@ -1,4 +1,5 @@
 1.00
+* <b>Upgraded to jQuery 1.4.3.</b> Required fixing a bug in Builder.js, where we appended to a nonexistent body. That is no longer possible.
 * <b>Bugfix.</b> Fixed a bug that caused Problems not to be editable.
 * <b>Bugfix.</b> Fixed a bug that caused the 'Public' checkbox in Group editing to not load.
 * <b>Bugfix.</b> Fixed a bug that prevented user ratings from being sorted correctly.
