@@ -11,11 +11,13 @@ asm.ui.DocLinkWrapper = asm.ui.Container.extend({
                         this._buildOutLink('./docs/', asm.ui.globals.appName + ' documentation')
 							.appendTo(this.config.target);
                         */
-                        this._buildLink('', '  Česky').addClass('outlink')
-                            .click(function() {
+                        var builtLink = this._buildLink('', '  Česky');
+                        var classedLink = builtLink.addClass('outlink');
+                        var clickableLink = classedLink.click(function() {
                                 asm.lang.setLanguage('cs');
-                            })
-                            .appendTo(this.config.target);
+                            });
+                        clickableLink.appendTo(this.config.target);
+
                         this._buildLink('', '  English').addClass('outlink')
                             .click(function() {
                                 asm.lang.setLanguage('en');

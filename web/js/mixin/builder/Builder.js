@@ -4,8 +4,7 @@
 asm.ui.Builder = Base.extend({
 	/** Element to build other elements in (hidden, accessible). */
 	_builderCanvas: $('<div></div>')
-		.addClass('ui-helper-hidden-accessible')
-		.appendTo('body'),
+        .addClass('ui-helper-hidden-accessible'),
 	/** Names of tags that can be used as single tags in XHTML. */
 	_singleTags: ['area', 'base', 'br', 'col', 'frame', 'hr', 'img', 'input', 'link', 'meta', 'param'],
 	/**
@@ -15,6 +14,14 @@ asm.ui.Builder = Base.extend({
 	 * @treturn jQueryEl created element
 	 */
 	_buildTag: function (tag, attributes) {
+        /*
+        if (this._builderCanvas === undefined)
+        {
+            this._builderCanvas = $('<div></div>')
+                .addClass('ui-helper-hidden-accessible')
+                .appendTo('body');
+        }
+        */
 		var str = '<' + tag;
 
 		if (attributes != undefined) {
@@ -27,7 +34,8 @@ asm.ui.Builder = Base.extend({
 			? '/>'
 			: '></' + tag + '>';
 
-		return $(str).appendTo(this._builderCanvas);
+        var newTag = $(str);
+		return newTag.appendTo(this._builderCanvas);
 	},
 	/**
 	 * Creates link element (optionally with icon).

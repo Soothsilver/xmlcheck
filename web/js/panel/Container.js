@@ -60,6 +60,9 @@ asm.ui.Container = asm.ui.Panel.extend({
 		for (var i in this.config.children) {
 			var newTarget = $('<div></div>')
 				.addClass('ui-container')
+                .removeData()
+                .removeAttr('data')
+                .attr('data-child-name', i)
 				.appendTo(this.config.target);
 			this.config.children[i].move(newTarget);
 		}

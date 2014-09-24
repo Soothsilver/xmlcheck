@@ -127,12 +127,20 @@ asm.ui.globals = {
 		}
 	},
 	supportedBrowsers: {
+        // This is how jMigrate plugin reports Chrome now.
 		chrome: {
 			name: 'Google Chrome',
-			flag: 'webkit',
+			flag: 'chrome',
 			style: 'webkit',
 			link: 'http://www.google.com/chrome'
 		},
+        // This is how jQuery reported Chrome previously.
+        webkit: {
+            name: 'Google Chrome (as webkit)',
+            flag: 'webkit',
+            style: 'webkit',
+            link: 'http://www.google.com/chrome'
+        },
 		firefox: {
 			name: 'Mozilla Firefox',
 			flag: 'mozilla',

@@ -120,6 +120,7 @@ asm.ui.panel.AppRootPanel = asm.ui.ContentSwitcher.extend({
 		this.base($.extend(defaults, config));
 
 		var errorManager = new asm.ui.DialogErrorManager();
+
 		this.bind('panel.error', function (params) {
 			errorManager.add(params.error);
 		});

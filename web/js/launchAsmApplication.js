@@ -64,7 +64,7 @@ $(document).ready(function () {
 			} else {
 				if ($.browser.mozilla) {
 					myWindow.focus();
-					myWindow.contentWindow.print();Vz
+					myWindow.contentWindow.print();
 				} else {
 					if ($.browser.safari && $.browser.webkit) {
 						if (printResult.chromeTimeout) {

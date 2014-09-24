@@ -60,7 +60,7 @@ asm.ui.Eventful = Base.extend({
 	 * Binds callback to be called on specified event.
 	 * @tparam string name event name
 	 * @tparam object params additional event parameters (added to those supplied
-	 *		on event trigger)
+	 *		on event trigger) [optional TODO Petr]
 	 *	@tparam function callback called when the event is triggered
 	 *	@tparam mixed scope @a callback will be called in this scope
 	 *	@treturn int ID of this bond (can be used to unbind() @a callback later)

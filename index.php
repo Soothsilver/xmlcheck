@@ -68,9 +68,10 @@ function echoScripts($directory)
     <link rel="stylesheet" type="text/css" href="./web/css/overrides.css"/>
     <link rel="stylesheet" type="text/css" id="browserStylesheet"/>
 
+
     <!-- ~~~~~~~~~~~~~~~~~~~~~ Libraries ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <script type="text/javascript" src="./web/lib/js/Base.js"></script>
-    <script type="text/javascript" src="./web/lib/js/jquery.js"></script>
+    <script type="text/javascript" src="./web/lib/js/jquery-1.4.2.js"></script>
     <script type="text/javascript" src="./web/lib/js/jquery-ui.js"></script>
     <script type="text/javascript" src="./web/lib/js/jquery.animate.clip.js"></script>
     <script type="text/javascript" src="./web/lib/js/jquery.json.js"></script>
