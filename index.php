@@ -20,7 +20,6 @@ function combinePaths($directory, $file)
     }
     return $directory . $file;
 }
-
 function echoScripts($directory)
 {
     $scriptFiles = array_diff(scandir($directory), array('..', '.'));
@@ -50,7 +49,6 @@ function echoScripts($directory)
     <!-- ~~~~~~~~~~~~~~~~~~~~~ Styles ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <link rel="stylesheet" type="text/css" href="./web/css/reset.css"/>
     <link rel="stylesheet" type="text/css" id="themeStylesheet"/>
-    <link rel="stylesheet" type="text/css" href="./web/css/jquery-ui-fix.css"/>
     <link rel="stylesheet" type="text/css" href="./web/css/widgets/cursor.css"/>
     <link rel="stylesheet" type="text/css" href="./web/css/widgets/field.css"/>
     <link rel="stylesheet" type="text/css" href="./web/css/widgets/fieldset.css"/>
@@ -67,8 +65,8 @@ function echoScripts($directory)
     <link rel="stylesheet" type="text/css" href="./web/css/content.css"/>
     <link rel="stylesheet" type="text/css" href="./web/css/overrides.css"/>
     <link rel="stylesheet" type="text/css" id="browserStylesheet"/>
-
-
+    <!-- TODO upgrade to newer UI fails because Login Form and because forms are not loaded correctly.
+     Something may be wrong now because we have high jQuery version. -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~ Libraries ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <script type="text/javascript" src="./web/lib/js/Base.js"></script>
     <script type="text/javascript" src="./web/lib/js/jquery-1.7.js"></script>
@@ -76,6 +74,10 @@ function echoScripts($directory)
     <script type="text/javascript" src="./web/lib/js/jquery.animate.clip.js"></script>
     <script type="text/javascript" src="./web/lib/js/jquery.json.js"></script>
     <script type="text/javascript" src="./web/lib/js/webtoolkit.Aim.js"></script>
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~ Hacks to third party libraries~~~~~~~~~~~~~ -->
+    <link rel="stylesheet" type="text/css" href="./web/css/jquery-ui-fix.css"/>
+    <script type="text/javascript" src="./web/lib/js/jquery-ui-fix.js"></script>
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~ Extensions ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <script type="text/javascript" src="./web/js/extensions/String.js"></script>

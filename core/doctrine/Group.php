@@ -12,7 +12,7 @@ class Group
 {
     /**
      * @var Lecture
-     * @ORM\ManyToOne(targetEntity="Lecture")
+     * @ORM\ManyToOne(targetEntity="Lecture",inversedBy="groups")
      * @ORM\JoinColumn(name="lectureId", referencedColumnName="id")
      */
     private $lecture;
@@ -24,48 +24,39 @@ class Group
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
-
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=20, nullable=false)
      */
     private $name;
-
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=false)
      */
     private $description;
-
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="ownerId", type="integer", nullable=false)
+     * @var User
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="ownerId", referencedColumnName="id")
      */
-    private $ownerid;
-
+    private $owner;
     /**
      * @var string
      *
      * @ORM\Column(name="type", type="string", nullable=false)
      */
     private $type;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="lectureId", type="integer", nullable=false)
-     */
-    private $lectureid;
     /**
      * @var boolean
      * @ORM\Column(name="deleted", type="boolean")
      */
     private $deleted = false;
-
-
+    /**
+     * @ORM\OneToMany(targetEntity="Assignment", mappedBy="group")
+     */
+    private $assignments;
     /**
      * Get id
      *
@@ -123,29 +114,6 @@ class Group
     }
 
     /**
-     * Set ownerid
-     *
-     * @param integer $ownerid
-     * @return Groups
-     */
-    public function setOwnerid($ownerid)
-    {
-        $this->ownerid = $ownerid;
-
-        return $this;
-    }
-
-    /**
-     * Get ownerid
-     *
-     * @return integer 
-     */
-    public function getOwnerid()
-    {
-        return $this->ownerid;
-    }
-
-    /**
      * Set type
      *
      * @param string $type
@@ -166,29 +134,6 @@ class Group
     public function getType()
     {
         return $this->type;
-    }
-
-    /**
-     * Set lectureid
-     *
-     * @param integer $lectureid
-     * @return Groups
-     */
-    public function setLectureid($lectureid)
-    {
-        $this->lectureid = $lectureid;
-
-        return $this;
-    }
-
-    /**
-     * Get lectureid
-     *
-     * @return integer 
-     */
-    public function getLectureid()
-    {
-        return $this->lectureid;
     }
 
     /**
@@ -235,5 +180,68 @@ class Group
     public function getDeleted()
     {
         return $this->deleted;
+    }
+
+    /**
+     * Set owner
+     *
+     * @param \User $owner
+     * @return Group
+     */
+    public function setOwner(\User $owner = null)
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
+    /**
+     * Get owner
+     *
+     * @return \User 
+     */
+    public function getOwner()
+    {
+        return $this->owner;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->assignments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add assignments
+     *
+     * @param \Assignment $assignments
+     * @return Group
+     */
+    public function addAssignment(\Assignment $assignments)
+    {
+        $this->assignments[] = $assignments;
+
+        return $this;
+    }
+
+    /**
+     * Remove assignments
+     *
+     * @param \Assignment $assignments
+     */
+    public function removeAssignment(\Assignment $assignments)
+    {
+        $this->assignments->removeElement($assignments);
+    }
+
+    /**
+     * Get assignments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAssignments()
+    {
+        return $this->assignments;
     }
 }

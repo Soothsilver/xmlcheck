@@ -12,6 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Submission
 {
+    const STATUS_BEING_EVALUATED = "new";
+    const STATUS_NORMAL = "normal";
+    const STATUS_LATEST = "latest";
+    const STATUS_REQUESTING_GRADING = "handsoff";
+    const STATUS_GRADED = "graded";
+    const STATUS_DELETED = "deleted";
+
     /**
      * @return Assignment
      */
@@ -72,7 +79,7 @@ class Submission
      *
      * @ORM\Column(name="status", type="string", nullable=false)
      */
-    private $status = 'new';
+    private $status = self::STATUS_BEING_EVALUATED;
 
     /**
      * @var integer

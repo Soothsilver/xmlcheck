@@ -19,11 +19,26 @@ final class GetGroups extends DataScript
 
 		$user = User::instance();
 		$displayAll = $user->hasPrivileges(User::groupsManageAll);
-		$groups = Core::sendDbRequest('getGroupsVisibleByUserId', $user->getId(), $displayAll);
-		if ($groups === false)
-			return $this->stopDb(false, ErrorEffect::dbGetAll('groups'));
 
-		$this->setOutputTable($groups);
+        $groups = ( $displayAll ? Repositories::getRepository(Repositories::Group)->findBy(array('deleted' => false))
+            : Repositories::getRepository(Repositories::Group)->findBy(array('deleted' => false, 'owner' => $user->getId())) );
+
+        /**
+         * @var $group \Group
+         */
+        foreach($groups as $group)
+        {
+            $row = array(
+                $group->getId(),
+                $group->getName(),
+                $group->getDescription(),
+                $group->getType(),
+                $group->getLecture()->getId(),
+                $group->getLecture()->getName(),
+                $group->getLecture()->getDescription()
+            );
+            $this->addRowToOutput($row);
+        }
 	}
 }
 ?>

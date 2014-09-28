@@ -7,6 +7,8 @@
  * that are past due or already submitted.
  */
 asm.ui.panel.Assignments = asm.ui.Container.extend({
+
+
 	constructor: function (config) {
 		var defaults = {
 			children: {
@@ -19,13 +21,30 @@ asm.ui.panel.Assignments = asm.ui.Container.extend({
 						var assignments = asm.ui.globals.stores.studentAssignments.getBy('id', this._params[0]),
 							assignmentData = assignments[0] || null;
 
+
+                        if (!assignmentData)
+                        {
+                            this._requestAdjust();
+                            return;
+                        }
+                        this._parent._displaySubmissionForm(assignmentData.id,
+                            assignmentData.submissionExists,
+                            assignmentData.submissionGraded,
+                            assignmentData.deadline < asm.ui.TimeUtils.mysqlTimestamp()
+                        );
+                        this.fill(assignmentData);
+
+
+
+/*
 						if (!assignmentData) {
+                            // The ID in hash-url does not exist.
 							this.trigger('custom.assignmentState', { state: null });
 							return;
 						}
 
-						if (assignmentData.submissionCount > 0) {
-							this.trigger('custom.assignmentState', { state: 'submitted' });
+						if (assignmentData.submissionGraded) {
+							this.trigger('custom.assignmentState', { state: 'graded' });
 						} else if (assignmentData.deadline < asm.ui.TimeUtils.mysqlTimestamp()) {
 							this.trigger('custom.assignmentState', {
                                 state: 'missed',
@@ -38,22 +57,22 @@ asm.ui.panel.Assignments = asm.ui.Container.extend({
 							});
 						}
 						this.fill(assignmentData);
+*/
 					}
 				}),
-
-				noticePanel: new asm.ui.ContentPanel().extend({
-					_buildContent: function () {
-						var panel = $('<div></div>')
-							.appendTo(this.config.target)
-							.panel({ icon: 'info' });
-						this._noticeEl = $('<span></span>')
-							.appendTo(panel);
-					},
-					_adjustContent: function () {
-						this._noticeEl.html(this._params[0]);
-					}
-				}),
-                submissionForm: new asm.ui.form.Submission()
+                noticePanel: new asm.ui.ContentPanel().extend({
+                    _buildContent: function () {
+                        var panel = $('<div></div>')
+                            .appendTo(this.config.target)
+                            .panel({ icon: 'info' });
+                        this._noticeEl = $('<span></span>')
+                            .appendTo(panel);
+                    },
+                    _adjustContent: function () {
+                        this._noticeEl.html(this._params[0]);
+                    }
+                }),
+                submissionForm: new asm.ui.form.Submission(),
 			}
 		};
 		this.base($.extend(defaults, config));
@@ -61,6 +80,7 @@ asm.ui.panel.Assignments = asm.ui.Container.extend({
 		var onAssignmentOpen = $.proxy(function (params) {
 			this._requestAdjust([params.assignmentId])
 		}, this);
+
 		this.config.children.tableCurrent.bind('studentAssignments.openAssignment', onAssignmentOpen);
 		this.config.children.tablePast.bind('studentAssignments.openAssignment', onAssignmentOpen);
 
@@ -71,7 +91,6 @@ asm.ui.panel.Assignments = asm.ui.Container.extend({
 
 		this.config.children.details.bind('custom.assignmentState', function (params, event) {
 			event.stopPropagation();
-			
 			var children = this.config.children;
 			switch (params.state) {
 				case 'ok':
@@ -92,6 +111,21 @@ asm.ui.panel.Assignments = asm.ui.Container.extend({
 			}
 		}, this);
 	},
+    _displaySubmissionForm: function (id, submissionExists, submissionGraded, deadlineMissed)
+    {
+        var children = this.config.children;
+        children.submissionForm.show();
+        children.submissionForm.field('assignmentId', 'option', 'value', id);
+        var text = submissionGraded ? asm.lang.assignments.addSubmissionButAlreadyGradedMessage :
+            (submissionExists ? asm.lang.assignments.addSubmissionButAlreadyExistsMessage :
+                asm.lang.assignments.addSubmissionFirstTimeMessage);
+        if (deadlineMissed)
+        {
+            text = text + "<br />" + asm.lang.assignments.addSubmissionAfterDeadline;
+        }
+        children.noticePanel.show(
+            [text]);
+    },
 	_showContent: function () {
 	},
 	_adjustContent: function () {

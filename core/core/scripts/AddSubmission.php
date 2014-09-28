@@ -46,14 +46,9 @@ final class AddSubmission extends DataScript
         // Create submission
         $newSubmission = new \Submission();
         $newSubmission->setAssignment($assignment);
-        $newSubmission->setStatus('new');
         $newSubmission->setSubmissionfile($file);
         $newSubmission->setUser(User::instance()->getEntity());
         $newSubmission->setDate(new \DateTime());
-
-        // Fill in empty values
-        $newSubmission->setSuccess(0); $newSubmission->setExplanation(""); $newSubmission->setInfo("");
-        $newSubmission->setOutputfile(''); $newSubmission->setRating(0);
 
         // Put into database
         Repositories::persistAndFlush($newSubmission);
@@ -75,51 +70,6 @@ final class AddSubmission extends DataScript
                 explode(';', $assignment->getProblem()->getConfig())
             );
         }
-
-            /*
-		if (!Core::sendDbRequest('addSubmission', $assignmentId, $userId, $file))
-		{
-			$this->stopDb(false, ErrorEffect::dbAdd('submission'));
-			goto removeSubmissionFile;
-		}
-
-		$submissions = Core::sendDbRequest('getSubmissionByFilename', $file);
-		if (!$submissions)
-		{
-			$this->stopDb($submissions, 'cannot retrieve id of added submission from database');
-			goto removeSubmissionFile;
-		}
-
-		$submission = $submissions[0];
-		$id = $submission[DbLayout::fieldSubmissionId];
-		$correctRequestId = 'correctSubmissionById';
-		if ($submission[DbLayout::fieldPluginType] != null)
-		{
-
-            // launch the corrective plugin synchronously
-            Core::launchPlugin(
-              $submission[DbLayout::fieldPluginType],
-                Config::get('paths', 'plugins') . $submission[DbLayout::fieldPluginMainFile],
-                $submissionsFolder . $submission[DbLayout::fieldSubmissionFile],
-                $correctRequestId,
-                $id,
-                explode(';', $submission[DbLayout::fieldProblemPluginArguments])
-            );
-		}
-		else
-		{
-			if (!Core::sendDbRequest($correctRequestId, $id, 100, '- no plugin used -', ''))
-			{
-				$this->addError(Error::levelWarning, Core::sendDbRequest(null),
-						ErrorEffect::dbEdit('submission'));
-			}
-		}
-
-		return;
-
-removeSubmissionFile:
-		Filesystem::removeFile($submissionsFolder . $file);
-            */
 	}
 }
 

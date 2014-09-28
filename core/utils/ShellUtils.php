@@ -30,9 +30,8 @@ class ShellUtils
 	{
 		$dir = (($dir != null) && (is_dir($dir))) ? realpath($dir) : getcwd();
 		$cmd = (substr(php_uname(), 0, 7) == "Windows")
-				? 'start /b "backgroundProcess" ' . $command . ' && exit'
+				? 'start /b "Assignment Manager Detached Evaluation" ' . $command . ' && exit'
 				: $command . ' > /dev/null &';
-
 
 		proc_close(proc_open($cmd, array(), $dummy, $dir));
 	}

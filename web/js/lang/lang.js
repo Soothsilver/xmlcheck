@@ -170,13 +170,18 @@ asm.lang = {
         points : "Points",
         lecture : "Lecture",
         group : "Group",
-        done : "Done",
+        somethingSubmitted : "Submission",
+        somethingSubmittedYes : "uploaded",
         submitted : "submitted",
         reward : "Reward",
         problem : "Problem",
         rewardEdit : "Reward (points)",
         rewardHint : "maximum reward that can be gained for this assignment",
-        addEditAssignmentCaption : "Add/Edit Assignment"
+        addEditAssignmentCaption : "Add/Edit Assignment",
+        addSubmissionButAlreadyGradedMessage: "<b>Warning! </b>Your teacher already graded you for this assignment. While uploading new submissions does not cancel your grade automatically, your teacher will have the possibility to erase your previous grade and replace it by grading your new submission. It is at his or her discretion, however.",
+        addSubmissionButAlreadyExistsMessage: "Your new submission will supercede your older ones for this assignment.",
+        addSubmissionFirstTimeMessage: "You can submit as many submissions as you like. Your teacher will grade your latest submission when deadline comes.",
+        addSubmissionAfterDeadline : "<b>Notice. </b>It is past deadline. Your teacher may award you fewer points because of this."
     },
 
     assignmentDetails : {
@@ -210,7 +215,7 @@ asm.lang = {
         userType : "user type",
         problem: "problem",
         question : "question",
-        attachment: "attachment",
+        attachment: "attachment"
     },
 
     uiLog : {
@@ -319,7 +324,27 @@ asm.lang = {
     submissions : {
         addSubmissionCaption : "Add a submission",
         submissionFile : "Submission file",
-        submissionFileHint : "ZIP archive per this assigment's description"
+        submissionFileHint : "ZIP archive per this assigment's description",
+
+        yourSubmissionsCaption : "Your submissions",
+        gradedSubmissionsCaption : "Graded submissions",
+        problem : "Problem",
+        deadline : "Deadline",
+        success : "Success",
+        uploaded : "Uploaded",
+        details : "Details",
+        downloadSubmission : "download submission",
+        downloadOutput : "download output",
+        handsOff : "alert teacher (click if you want your teacher to grade this even before the deadline)",
+        status : "Status",
+        statusNormal : "normal",
+        statusLatest : "latest (best)",
+        statusRequestingGrading : "teacher alerted",
+        statusGraded : "graded",
+        points : "Points",
+        note : "Note",
+        handsOffCaption : "Hands-off",
+        handsOffWarning : "Normally, your teacher will grade your latest submission and will do this at some time after the deadline. However, if you want this assignment graded before the deadline, you may alert your teacher to this fact and he or she will grade this submission sooner. By doing this, you give your teacher the right to grade your submission. Once he or she does so, you can no longer improve upon it. <b>Is this your final submission?</b>"
     },
     users : {
         caption : "Users",

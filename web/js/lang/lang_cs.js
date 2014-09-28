@@ -1,4 +1,4 @@
-asm.otherlangs = {};
+asm.otherlangs = asm.otherlangs || {};
 asm.otherlangs.cs = {
     general : {
       success : 'Úspěch',
@@ -180,7 +180,13 @@ asm.otherlangs.cs = {
         problem : "Problém",
         rewardEdit : "Odměna (maximální počet bodů)",
         rewardHint : "maximální počet bodů, který lze získat za tento úkol",
-        addEditAssignmentCaption : "Přidat/upravit úkol"
+        addEditAssignmentCaption : "Přidat/upravit úkol",
+        somethingSubmitted : "Řešení",
+        somethingSubmittedYes : "odevzdáno",
+        addSubmissionButAlreadyGradedMessage: "<b>Varování! </b>Za tento úkol jste již byli oznámkováni! Upload dalšího řešení sice automaticky nezruší vaši známku, váš cvičící ji ale pak může smazat a nahradit známkou za toto nové řešení, pokud uzná za vhodné.",
+        addSubmissionButAlreadyExistsMessage: "Vaše nové řešení přepíše vaše starší řešení tohoto úkolu..",
+        addSubmissionFirstTimeMessage: "Můžete uploadovat libovolné množství řešení. Cvičící vám opraví jen to nejnovější, a to až po termínu.",
+        addSubmissionAfterDeadline : "<b>Poznámka. </b>Již je po termínu. Váš cvičící vás za pozdní odevzdání může penalizovat."
     },
 
     assignmentDetails : {
@@ -211,7 +217,10 @@ asm.otherlangs.cs = {
         group : "skupinu",
         submission : "řešení",
         user : "uživatele",
-        userType : "typ uživatele"
+        userType : "typ uživatele",
+        problem : "problém",
+        question: "otázku",
+        attachment: "přílohu"
     },
     uiLog : {
         caption : "Log UI",
@@ -262,7 +271,7 @@ asm.otherlangs.cs = {
         problemName : "Jméno problému",
         correctivePlugin : "Opravující plugin",
         pluginConfiguration : "Parametry pluginu",
-        enterValuesSeparatedBySemicolon : "hodnoty parametrů pluginu oddělené středníkem: ",
+        pluginConfigurationHint : "hodnoty parametrů pluginu oddělené středníkem: ",
         descriptionHint : "konce řádků budou zachovány",
         pluginHasNoArguments : "plugin nemá žádné parametry",
         noPlugin : "[bez automatické opravy]"
@@ -318,7 +327,26 @@ asm.otherlangs.cs = {
     submissions : {
         addSubmissionCaption : "Odevzdat řešení",
         submissionFile : "Soubor s řešením",
-        submissionFileHint : "archiv ZIP podle popisu úkolu"
+        submissionFileHint : "archiv ZIP podle popisu úkolu",
+        yourSubmissionsCaption : "Vaše řešení",
+        gradedSubmissionsCaption : "Oznámkovaná řešení",
+        problem : "Problém",
+        deadline : "Termín",
+        success : "Úspěšnost",
+        uploaded : "Nahráno",
+        details : "Podrobnosti",
+        downloadSubmission : "stáhnout řešení",
+        downloadOutput : "stáhnout výstup",
+        handsOff : "upozornit cvičícího (klikněte, pokud chcete, aby tento úkol byl oznámkován i před termínem)",
+        status : "Stav",
+        statusNormal : "normální",
+        statusLatest : "nejnovější",
+        statusRequestingGrading : "učitel upozorněn",
+        statusGraded : "oznámkováno",
+        points : "Body",
+        note : "Poznámka",
+        handsOffCaption : "Ruce pryč",
+        handsOffWarning : "Obyčejně by váš cvičící oznámkoval vaše nejnovější řešení a udělal by to někdy po termínu. Pokud ovšem chcete mít toto řešení oznámkováno již dříve, můžete cvičícího na tento fakt upozornit. Tím dáte právo cvičícímu váš úkol oznámkovat. Jakmile to udělá, již nemůžete svoje řešení změnit. <b>Je toto vaše finální řešení?</b>"
     },
     users : {
         caption : "Uživatelé",
@@ -340,6 +368,7 @@ asm.otherlangs.cs = {
         passwordRetypeError : 'Hesla se neshodují.'
     },
     userRatings : {
+        id : "ID",
         student : "Student",
         sum : "Součet",
         ownedByYou : "jste vlastníkem této skupiny",

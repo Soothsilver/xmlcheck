@@ -17,12 +17,25 @@ final class GetAssignments extends DataScript
 			return;
 
 		$user = User::instance();
-		$displayAll = $user->hasPrivileges(User::groupsManageAll);
-		$assignments = Core::sendDbRequest('getAssignmentsVisibleByUserId', $user->getId(), $displayAll);
-		if ($assignments === false)
-			return $this->stopDb($assignments, ErrorEffect::dbGetAll('assignments'));
-
-		$this->setOutputTable($assignments);
+        $conditions = array('deleted' => false);
+        if (!$user->hasPrivileges(User::groupsManageAll)) { $conditions['owner'] = $user->getId(); }
+        /**
+         * @var $assignments \Assignment[]
+         */
+        $assignments = Repositories::getRepository(Repositories::Assignment)->findBy($conditions);
+        foreach($assignments as $assignment)
+        {
+            $row = array(
+                $assignment->getId(),
+                $assignment->getProblem()->getId(),
+                $assignment->getProblem()->getName(),
+                $assignment->getDeadline()->format('Y-m-d H:i:s'),
+                $assignment->getReward(),
+                $assignment->getGroup()->getId(),
+                $assignment->getGroup()->getName()
+            );
+            $this->addRowToOutput($row);
+        }
 	}
 }
 

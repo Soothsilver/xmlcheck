@@ -12,37 +12,46 @@ use asm\utils\ArrayUtils, asm\db\DbLayout;
 final class GetAvailableGroups extends DataScript
 {
 	protected function body ()
-	{
-		if (!$this->userHasPrivs())
-			return;
+    {
+        if (!$this->userHasPrivs())
+        {
+            return;
+        }
 
-		$user = User::instance();
-		$displayPublic = $user->hasPrivileges(User::groupsJoinPublic);
-		$displayPrivate = $user->hasPrivileges(User::groupsJoinPrivate, User::groupsRequest);
+        $user = User::instance();
+        $displayPublic = $user->hasPrivileges(User::groupsJoinPublic);
+        $displayPrivate = $user->hasPrivileges(User::groupsJoinPrivate, User::groupsRequest);
 
-		$groups = Core::sendDbRequest('getAvailableGroups', $displayPrivate);
-		if ($groups === false)
-			return $this->stopDb($groups, ErrorEffect::dbGetAll('groups'));
-
-		$subscriptions = Core::sendDbRequest('getSubscriptionsRawByUserId', $user->getId());
-		if ($subscriptions === false)
-			return $this->stopDb($subscriptions, ErrorEffect::dbGetAll('subscriptions'));
-
-		$subscribedGroupIds = array();
-		foreach ($subscriptions as $subscription)
-		{
-			$subscribedGroupIds[] = $subscription[DbLayout::fieldGroupId];
-		}
-
-		foreach ($groups as $key => $group) {
-			if (in_array($group[DbLayout::fieldGroupId], $subscribedGroupIds))
-			{
-				unset($groups[$key]);
-			}
-		}
-
-		$this->setOutputTable($groups);
-	}
+        /**
+         * @var $groups \Group[]
+         * @var $subscriptions \Subscription[]
+         */
+        $subscriptions = Repositories::getRepository(Repositories::Subscription)->findBy(array('user' => $user->getId()));
+        $subscriptionIds = array_map(function ($subscription) { return $subscription->getId(); }, $subscriptions);
+        $conditions = array('deleted' => false);
+        if (!$displayPrivate)
+        {
+            $conditions['type'] = 'public';
+        }
+        $groups = Repositories::getRepository(Repositories::Group)->findBy($conditions);
+        foreach ($groups as $group)
+        {
+            if (in_array($group->getId(), $subscriptionIds))
+            {
+                continue;
+            }
+            $row = array(
+                $group->getId(),
+                $group->getName(),
+                $group->getDescription(),
+                $group->getType(),
+                $group->getLecture()->getId(),
+                $group->getLecture()->getName(),
+                $group->getLecture()->getDescription()
+            );
+            $this->addRowToOutput($row);
+        }
+    }
 }
 
 ?>

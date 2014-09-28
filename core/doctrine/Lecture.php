@@ -54,6 +54,18 @@ class Lecture
      */
     private $deleted = false;
 
+    /**
+     * @var Group[]
+     * @ORM\OneToMany(targetEntity="Group", mappedBy="lecture")
+     */
+    private $groups;
+
+
+    /**
+     * @var Problem[]
+     * @ORM\OneToMany(targetEntity="Problem", mappedBy="lecture")
+     */
+    private $problems;
 
 
     /**
@@ -179,5 +191,78 @@ class Lecture
     public function getDeleted()
     {
         return $this->deleted;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->problems = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add problems
+     *
+     * @param \Problem $problems
+     * @return Lecture
+     */
+    public function addProblem(\Problem $problems)
+    {
+        $this->problems[] = $problems;
+
+        return $this;
+    }
+
+    /**
+     * Remove problems
+     *
+     * @param \Problem $problems
+     */
+    public function removeProblem(\Problem $problems)
+    {
+        $this->problems->removeElement($problems);
+    }
+
+    /**
+     * Get problems
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getProblems()
+    {
+        return $this->problems;
+    }
+
+    /**
+     * Add groups
+     *
+     * @param \Group $groups
+     * @return Lecture
+     */
+    public function addGroup(\Group $groups)
+    {
+        $this->groups[] = $groups;
+
+        return $this;
+    }
+
+    /**
+     * Remove groups
+     *
+     * @param \Group $groups
+     */
+    public function removeGroup(\Group $groups)
+    {
+        $this->groups->removeElement($groups);
+    }
+
+    /**
+     * Get groups
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGroups()
+    {
+        return $this->groups;
     }
 }

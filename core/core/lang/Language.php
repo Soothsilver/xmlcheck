@@ -17,6 +17,7 @@ abstract class StringID
 
     const ProblemNameExists = 10;
     const NoPluginUsed = 11;
+    const InvalidActivationCode = 12;
 }
 
 class Language {
@@ -50,6 +51,7 @@ class Language {
 
             case StringID::ProblemNameExists: return "Problém s tímto jménem již existuje.";
             case StringID::NoPluginUsed: return "Není opravováno automaticky.";
+            case StringID::InvalidActivationCode: return "Tento aktivační kód neexistuje.";
         }
         return "TRANSLATION MISSING(" . self::getEnglish($textId) . ")";
     }
@@ -71,6 +73,7 @@ class Language {
 
             case StringID::ProblemNameExists: return "A problem with this name already exists.";
             case StringID::NoPluginUsed: return "This problem has no automatic grading.";
+            case StringID::InvalidActivationCode: return "This activation code does not exist.";
         }
         throw new \Exception("This string (" . $textId . ") does not exist.");
     }

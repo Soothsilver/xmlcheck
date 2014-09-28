@@ -5,10 +5,10 @@ asm.ui.globals.stores.submissions = new asm.ui.TableStore({
 		'deadline',
 		'date',
 		'status',
-		'fulfillment',
+		'success',
 		'details',
 		'rating',
-        'explanation',
+        'note',
 		'hasOutput'
 	],
 	request: 'GetSubmissions'

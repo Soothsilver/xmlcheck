@@ -64,20 +64,11 @@ asm.ui.panel.Home = asm.ui.ContentPanel.extend({
 				assignments: {
 					description: asm.lang.home.unconfirmedAssignments,
 					filter: function (assignment) {
-						return !assignment.submissionCount;
+						return !assignment.submissionExists;
 					},
 					show: privileges.assignmentsSubmit,
                     link: 'studentAssignments',
 					store: asm.ui.globals.stores.studentAssignments
-				},
-				submissions: {
-					description: asm.lang.home.correctedButUnconfirmedSubmissions,
-					filter: function (submission) {
-						return (submission.status == 'corrected');
-					},
-					show: privileges.assignmentsSubmit,
-                    link: 'submissions',
-					store: asm.ui.globals.stores.submissions
 				},
 				correction: {
 					description: asm.lang.home.unratedSubmissions,

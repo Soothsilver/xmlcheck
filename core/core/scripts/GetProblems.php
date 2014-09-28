@@ -39,22 +39,6 @@ final class GetProblems extends DataScript
             if (!$lite) { $row[] = $problem->getLecture()->getName(); $row[] = $problem->getLecture()->getDescription(); }
             $this->addRowToOutput($row);
         }
-
-        /*
-         *
-		$problems = Core::sendDbRequest('getProblemsVisibleByUserId', $user->getId(), $displayAll);
-		if ($problems === false)
-			return $this->stopDb($problems, ErrorEffect::dbGetAll('problems'));
-
-		if ($lite)
-		{
-			$problems = ArrayUtils::map(array('\asm\utils\ArrayUtils', 'filterByKeys'),
-					$problems, array(DbLayout::fieldProblemId, DbLayout::fieldProblemName,
-					DbLayout::fieldLectureId));
-		}
-
-		$this->setOutputTable($problems);
-        */
 	}
 }
 

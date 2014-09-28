@@ -21,8 +21,8 @@ asm.ui.table.StudentAssignments = asm.ui.DynamicTable.extend({
 				reward: { label: asm.lang.assignments.points, comparable: true },
 				lecture: { label: asm.lang.assignments.lecture, comparable: true, string: true },
 				group: { label: asm.lang.assignments.group, comparable: true, string: true },
-				submissionCount: { label: asm.lang.assignments.done, renderer: function (value) {
-					return (+value) ? asm.lang.general.yes : '';
+				submissionExists: { label: asm.lang.assignments.somethingSubmitted, renderer: function (value) {
+					return (value) ? asm.lang.assignments.somethingSubmittedYes : '';
 				}}
 			},
 			title: 'irrelevant title (this will never be constructed)',

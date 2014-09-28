@@ -10,7 +10,8 @@ asm.ui.globals.stores.studentAssignments = new asm.ui.TableStore({
 		'lectureDescription',
 		'group',
 		'groupDescription',
-		'submissionCount'
+		'submissionExists',
+        'submissionGraded'
 	],
 	request: 'GetStudentAssignments'
 });

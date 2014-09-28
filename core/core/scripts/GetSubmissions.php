@@ -16,6 +16,30 @@ final class GetSubmissions extends DataScript
 		if (!$this->userHasPrivs(User::assignmentsSubmit))
 			return;
 
+        /**
+         * @var $submissions \Submission[]
+         */
+        $submissions = Repositories::getRepository(Repositories::Submission)->findBy(['user'=>User::instance()->getId()]);
+        foreach($submissions as $submission)
+        {
+            if ($submission->getStatus() == \Submission::STATUS_DELETED) { continue; }
+            $row =
+                [
+                    $submission->getId(),
+                    $submission->getAssignment()->getProblem()->getName(),
+                    $submission->getAssignment()->getDeadline()->format("Y-m-d H:i:s"),
+                    $submission->getDate()->format("Y-m-d H:i:s"),
+                    $submission->getStatus(),
+                    $submission->getSuccess(),
+                    $submission->getInfo(),
+                    $submission->getRating(),
+                    $submission->getExplanation(),
+                    ($submission->getOutputfile() != '')
+                ];
+            $this->addRowToOutput($row);
+        }
+
+        /*
 		$submissions = Core::sendDbRequest('getSubmissionsByUserId', User::instance()->getId());
 		if ($submissions === null)
 			$this->stopDb($submissions, ErrorEffect::dbGetAll('submissions'));
@@ -41,6 +65,7 @@ final class GetSubmissions extends DataScript
 		$submissions = ArrayUtils::map(array('asm\utils\ArrayUtils', 'sortByKeys'), $submissions, $fields);
 
 		$this->setOutputTable($submissions);
+        */
 	}
 }
 

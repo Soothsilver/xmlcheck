@@ -15,22 +15,21 @@ final class DeleteGroup extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->isInputValid(array('id' => 'isIndex')))
-			return;
-
-		$id = $this->getParams('id');
-
-		if (!($groups = Core::sendDbRequest('getGroupById', $id)))
-			return $this->stopDb($groups, ErrorEffect::dbGet('group'));
-
-		$user = User::instance();
-		if (!$user->hasPrivileges(User::groupsManageAll) && (!$user->hasPrivileges(User::groupsManageOwn)
-				|| ($user->getId() != $groups[0][DbLayout::fieldUserId])))
-			return $this->stop(ErrorCode::lowPrivileges);
-
-
-		if (($error = RemovalManager::deleteGroupById($id)))
-			return $this->stopRm($error);
+        if (!$this->isInputValid(array('id' => 'isIndex')))
+        {
+            return;
+        }
+        /**
+         * @var $group \Group
+         */
+        $group = Repositories::findEntity(Repositories::Group, $this->getParams('id'));
+        $user = User::instance();
+        if (!$user->hasPrivileges(User::groupsManageAll) &&
+            (!$user->hasPrivileges(User::groupsManageOwn) || ($user->getId() != $group->getOwner()->getId())))
+        {
+            return $this->death(StringID::InsufficientPrivileges);
+        }
+        RemovalManager::hideGroupAndItsAssignments($group);
 	}
 }
 

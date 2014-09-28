@@ -5,7 +5,8 @@ namespace asm\core;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
-class Repositories {
+class Repositories
+{
     // Entity names
     const Assignment = "Assignment";
     const Group = "Group";
@@ -19,16 +20,17 @@ class Repositories {
      * @var EntityManager
      */
     private static $entityManager = null;
+
     private static function connectToDatabase()
     {
         $isDevMode = true;
         $connection = array(
-            'driver' => 'pdo_mysql',
-            'user' => Config::get('database', 'user'),
+            'driver'   => 'pdo_mysql',
+            'user'     => Config::get('database', 'user'),
             'password' => Config::get('database', 'pass'),
-            'dbname' => Config::get('database', 'db'),
-            'host' => Config::get('database', 'host'),
-            'charset' => 'utf8'
+            'dbname'   => Config::get('database', 'db'),
+            'host'     => Config::get('database', 'host'),
+            'charset'  => 'utf8'
         );
         $paths = array(__DIR__ . "/../doctrine");
         $config = Setup::createConfiguration($isDevMode);
@@ -45,6 +47,7 @@ class Repositories {
     {
         return self::getEntityManager()->find($entityName, $id);
     }
+
     /**
      * @return \Doctrine\ORM\EntityRepository
      */
@@ -57,6 +60,11 @@ class Repositories {
     {
         self::getEntityManager()->persist($entity);
         self::getEntityManager()->flush($entity);
+    }
+
+    public static function flushAll()
+    {
+        self::getEntityManager()->flush();
     }
     /**
      * @return EntityManager

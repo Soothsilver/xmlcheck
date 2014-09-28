@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\StringID;
 
 /**
  * @ingroup requests
@@ -19,7 +20,7 @@ final class Activate extends DataScript
 		$code = $this->getParams('code');
 
 		if (!Core::sendDbRequest('getUsersByActivationCode', $code))
-			return $this->stop('invalid activation code');
+			return $this->death(StringID::InvalidActivationCode);
 
 		if (!Core::sendDbRequest('activateUsersByCode', $this->getParams('code')))
 			return $this->stopDb();

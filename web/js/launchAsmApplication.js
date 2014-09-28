@@ -89,9 +89,11 @@ $(document).ready(function () {
 		expires: 365
 	});
 
+
 	asm.ui.globals.config.bindChange('theme', function (theme) {
 		$('#themeStylesheet', 'head').attr('href',
-				'./web/lib/css/jquery-ui/' + theme + '/jquery-ui.css');
+            ($.ui.version === '1.8.23' ? './web/lib/themes/'  : './web/lib/css/jquery-ui/')
+                + theme + '/jquery-ui.css');
 	});
 	asm.ui.globals.config.triggerChange('theme');
 

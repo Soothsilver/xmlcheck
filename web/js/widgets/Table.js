@@ -943,6 +943,11 @@ $.widget('ui.table', {
 			var valA = self._value(a, key),
 				valB = self._value(b, key),
 				gt = asc ? 1 : -1;
+                if (typeof valA == "string")
+                {
+                    return (valA > valB) ? -gt : ( (valA == valB) ? 0 : gt);
+                }
+
                 if (isNaN(valA))
                 {
                     if (isNaN(valB))
@@ -1298,11 +1303,12 @@ $.widget('ui.table', {
         }
         this._tableFieldButton(jqueryTd, {
             text: false,
-            label: actionConfig.label,
+            //label: actionConfig.label,
             icons: {
                 primary: actionConfig.icon
             }
         });
+        jqueryTd.attr('title', actionConfig.label );
         if (disabled) {
             this._tableFieldButton(jqueryTd, 'disabled', true);
             return;

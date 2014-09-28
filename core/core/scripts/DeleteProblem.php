@@ -29,9 +29,7 @@ final class DeleteProblem extends DataScript
         {
             return $this->death(StringID::InsufficientPrivileges);
         }
-
-        $problem->setDeleted(true);
-        Repositories::persistAndFlush($problem);
+        RemovalManager::hideProblemAndItsAssignments($problem);
 	}
 }
 

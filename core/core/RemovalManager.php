@@ -8,6 +8,54 @@ use asm\utils\Filesystem, asm\db\DbLayout;
  */
 class RemovalManager
 {
+    /**
+     * @param $group \Group
+     */
+    public static function hideGroupAndItsAssignments($group)
+    {
+        $group->setDeleted(true);
+        foreach($group->getAssignments() as $assignment)
+        {
+            $assignment->setDeleted(true);
+            Repositories::getEntityManager()->persist($assignment);
+        }
+        Repositories::flushAll();
+    }
+
+    /**
+     * @param $problem \Problem
+     */
+    public static function hideProblemAndItsAssignments($problem)
+    {
+        $problem->setDeleted(true);
+        foreach($problem->getAssignments() as $assignment)
+        {
+            $assignment->setDeleted(true);
+            Repositories::getEntityManager()->persist($assignment);
+        }
+        Repositories::flushAll();
+    }
+
+    /**
+     * @param $lecture \Lecture
+     */
+    public static function hideLectureItsProblemsAndGroups($lecture)
+    {
+        $lecture->setDeleted(true);
+        foreach($lecture->getProblems() as $problem)
+        {
+            self::hideProblemAndItsAssignments($problem);
+        }
+        foreach($lecture->getGroups() as $group)
+        {
+            self::hideGroupAndItsAssignments($group);
+        }
+        Repositories::persistAndFlush($lecture);
+    }
+
+
+
+
 	/**
 	 * Deletes attachment with supplied ID (with questions+).
 	 * @param int $id attachment ID

@@ -7,8 +7,7 @@ asm.ui.form.Login = asm.ui.DynamicForm.extend({
 			formProps: {
 				simple: true,
 				submitText: asm.lang.loginScreen.loginButton
-
-    },
+            },
 			formStructure: { main: {
 				icon: asm.ui.globals.icons.login,
 				caption: asm.lang.loginScreen.caption,

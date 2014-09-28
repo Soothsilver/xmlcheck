@@ -15,21 +15,22 @@ final class DeleteAssignment extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->isInputValid(array('id' => 'isIndex')))
-			return;
-
-		$id = $this->getParams('id');
-
-		if (!($assignments = Core::sendDbRequest('getAssignmentById', $id)))
-			return $this->stopDb($assignments, ErrorEffect::dbGet('assignment'));
-
-		$user = User::instance();
-		if (!$user->hasPrivileges(User::groupsManageAll) && (!$user->hasPrivileges(User::groupsManageOwn)
-				|| ($user->getId() != $assignments[0][DbLayout::fieldUserId])))
-			return $this->stop(ErrorCode::lowPrivileges);
-
-		if (($error = RemovalManager::deleteAssignmentById($id)))
-			return $this->stopRm($error);
+        if (!$this->isInputValid(array('id' => 'isIndex')))
+        {
+            return;
+        }
+        /**
+         * @var $assignment \Assignment
+         */
+        $assignment = Repositories::findEntity(Repositories::Assignment, $this->getParams('id'));
+        $user = User::instance();
+        if (!$user->hasPrivileges(User::groupsManageAll) &&
+            (!$user->hasPrivileges(User::groupsManageOwn) || ($user->getId() != $assignment->getGroup()->getOwner()->getId())))
+        {
+            return $this->death(StringID::InsufficientPrivileges);
+        }
+        $assignment->setDeleted(true);
+        Repositories::persistAndFlush($assignment);
 	}
 }
 

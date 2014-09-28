@@ -10,7 +10,7 @@ class Problem
 {
     /**
      * @var Lecture
-     * @ORM\ManyToOne(targetEntity="Lecture")
+     * @ORM\ManyToOne(targetEntity="Lecture", inversedBy="problems")
      * @ORM\JoinColumn(name="lectureId", referencedColumnName="id")
      */
     private $lecture;
@@ -62,6 +62,11 @@ class Problem
      * @ORM\Column(name="deleted", type="boolean")
      */
     private $deleted = false;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Assignment", mappedBy="problem")
+     */
+    private $assignments;
 
 
 
@@ -234,5 +239,45 @@ class Problem
     public function getDeleted()
     {
         return $this->deleted;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->assignments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add assignments
+     *
+     * @param \Assignment $assignments
+     * @return Problem
+     */
+    public function addAssignment(\Assignment $assignments)
+    {
+        $this->assignments[] = $assignments;
+
+        return $this;
+    }
+
+    /**
+     * Remove assignments
+     *
+     * @param \Assignment $assignments
+     */
+    public function removeAssignment(\Assignment $assignments)
+    {
+        $this->assignments->removeElement($assignments);
+    }
+
+    /**
+     * Get assignments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAssignments()
+    {
+        return $this->assignments;
     }
 }

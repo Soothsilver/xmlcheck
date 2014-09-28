@@ -172,34 +172,24 @@ class Core
 	 * @param int $rowId ID of row to be updated
 	 * @param array $arguments plugin arguments
 	 */
-	public static function launchPluginDetached ($pluginType, $pluginFile, $inputFile,
+	public static function launchPluginDetached (
+        $pluginType, $pluginFile, $inputFile,
 			$dbRequest, $rowId, $arguments = array())
 	{
-		$paths = Config::get('paths');
 		$launchPluginArguments = ShellUtils::quotePhpArguments(func_get_args());
-		$autoloadFile = $paths['autoloadFile'];
-		$autoloadArguments = ShellUtils::quotePhpArguments(array(
-			call_user_func_array('array_merge', array_values(Config::get('includes'))),
-			$paths['core'],
-		));
+
+        // Get config file and autoloader file
+        $paths = Config::get('paths');
 		$configFile = $paths['configFile'];
         $internalConfigFile = $paths['internalConfigFile'];
-		
+		$vendorAutoload = $paths['composerAutoload'];
+
+        // This code will be passed, shell-escaped to the PHP CLI
 		$launchCode = <<<LAUNCH_CODE
-
-die ("launched");
-
-use asm\utils\Autoload, asm\core\Config, asm\utils\ErrorHandler, asm\core\Core;
-
-require_once '$autoloadFile';
-Autoload::setIncludePath($autoloadArguments);
-Autoload::register();
-
-Config::init('$configFile', '$internalConfigFile');
-ErrorHandler::register();
-
-Core::launchPlugin($launchPluginArguments);
-
+require_once '$vendorAutoload';
+\asm\core\Config::init('$configFile', '$internalConfigFile');
+\asm\utils\ErrorHandler::register();
+\asm\core\Core::launchPlugin($launchPluginArguments);
 LAUNCH_CODE;
 
 		ShellUtils::phpExecInBackground(Config::get('bin', 'phpCli'), $launchCode);

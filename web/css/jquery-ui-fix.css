@@ -50,3 +50,7 @@
 .ui-widget,.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button  {
     font-family: Arial;
 }
+/* https://forum.jquery.com/topic/dialog-creating-space-at-the-bottom-of-the-page */
+.ui-dialog {
+    position: fixed !important;
+}
