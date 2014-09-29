@@ -25,4 +25,3 @@ final class GetRatingSums extends DataScript
 	}
 }
 
-?>

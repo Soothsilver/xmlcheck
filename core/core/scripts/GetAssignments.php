@@ -40,4 +40,3 @@ final class GetAssignments extends DataScript
 	}
 }
 
-?>

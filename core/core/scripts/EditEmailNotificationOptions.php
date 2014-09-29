@@ -30,4 +30,3 @@ final class EditEmailNotificationOptions extends DataScript
 	}
 }
 
-?>

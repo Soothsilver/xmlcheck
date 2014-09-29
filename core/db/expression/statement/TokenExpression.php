@@ -15,4 +15,3 @@ abstract class TokenExpression extends AbstractStatement
 	}
 }
 
-?>

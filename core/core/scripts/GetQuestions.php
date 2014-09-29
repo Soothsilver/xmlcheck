@@ -27,4 +27,3 @@ final class GetQuestions extends DataScript
 	}
 }
 
-?>

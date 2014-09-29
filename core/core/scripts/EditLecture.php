@@ -68,4 +68,3 @@ final class EditLecture extends DataScript
 	}
 }
 
-?>

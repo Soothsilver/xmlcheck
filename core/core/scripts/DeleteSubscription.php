@@ -30,4 +30,3 @@ final class DeleteSubscription extends DataScript
 	}
 }
 
-?>

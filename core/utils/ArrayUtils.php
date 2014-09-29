@@ -3,30 +3,27 @@
 namespace asm\utils;
 
 /**
- * Array-oriented utility functions @module.
+ * Array-oriented utility functions.
  */
 class ArrayUtils
 {
 	/**
-	 * Strip keys from array (recursive).
-	 * @param mixed $array array to be stripped or simple value
+	 * Returns all the values of an array. All inner arrays, recursively, are transformed this way as well.
+	 * @param array $array array to be stripped or simple value
 	 * @return array @c $array recursively stripped of keys
 	 */
-	public static function stripKeys ($array)
+	public static function stripKeys (array $array)
 	{
-		if (is_array($array))
-		{
-			foreach ($array as $key => $val)
-			{
-				$array[$key] = self::stripKeys($val);
-			}
-			return array_values($array);
-		}
-		return $array;
+        foreach ($array as $key => $val)
+        {
+            $array[$key] = is_array($val) ? self::stripKeys($val) : $val;
+        }
+        return array_values($array);
 	}
 
 	/**
-	 * %Filter array by keys.
+	 * Filter the first array, keeping only the key-value pairs with keys in the second array.
+     * If the third parameter is false, instead exclude those pairs.
 	 *
 	 * Sample use:
 	 * @code
@@ -43,18 +40,18 @@ class ArrayUtils
 	 *		[h] => i
 	 * )
 	 * @endcode
-	 * @param array $array
-	 * @param array $keys keys to be filtered
+	 * @param array $array array to be shortened
+	 * @param array $keys keys to filter
 	 * @param bool $include set to false to exclude keys instead of including them
 	 * @return array only those key-value pairs from @c $array whose keys are
 	 *		in @c $keys (or are not, depending on @c $include)
 	 */
 	public static function filterByKeys (array $array, array $keys, $include = true)
 	{
-		$filtered = array();
+		$filtered = [];
 		foreach ($array as $key => $val)
 		{
-			$filter = in_array($key, $keys);
+			$filter = in_array($key, $keys, true);
 			if (($include && $filter) || (!$include && !$filter))
 			{
 				$filtered[$key] = $val;
@@ -64,7 +61,7 @@ class ArrayUtils
 	}
 
 	/**
-	 * Puts selected keys at the beginning of array.
+	 * Puts selected keys at the beginning of array, in the order given by the keys array.
 	 *
 	 * Sample use:
 	 * @code
@@ -83,14 +80,13 @@ class ArrayUtils
 	 *		[h] => i
 	 * )
 	 * @endcode
-	 * Function changes all array keys to strings.
-	 * @param array $array
+	 * @param array $array array to be transformed
 	 * @param array $keys keys to be moved to array beginning
 	 * @return array transformed array
 	 */
 	public static function sortByKeys (array $array, array $keys)
 	{
-		$sorted = array();
+		$sorted = [];
 		foreach ($keys as $key)
 		{
 			if (isset($array[$key]))
@@ -107,7 +103,8 @@ class ArrayUtils
 	}
 
 	/**
-	 * Calls supplied callback on all array elements.
+	 * Applies the callback to the elements of the given array.
+     * Additional arguments of this functions are passed to the callback as additional parameters.
 	 *
 	 * Sample use:
 	 * @code
@@ -120,15 +117,14 @@ class ArrayUtils
 	 *		[bar] => bazbazbaz
 	 * )
 	 * @endcode
-	 * @param callback $callback must accept array element as first argument and
-	 *		return something
-	 * @param array $array
-	 * @param mixed [...] additional arguments passes to callback
+	 * @param callback $callback must accept array element as first argument and return something
+	 * @param array $array array to be transformed
+	 * @param mixed [...] additional arguments passed to callback
 	 * @return array values returned by @c $callback called on @c $array elements
 	 */
-	public static function map ($callback, $array)
+	public static function map (callable $callback, array $array)
 	{
-		$mapped = array();
+		$mapped = [];
 		$args = array_slice(func_get_args(), 2);
 		foreach ($array as $key => $value)
 		{
@@ -140,4 +136,3 @@ class ArrayUtils
 	}
 }
 
-?>

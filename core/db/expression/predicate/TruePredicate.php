@@ -9,4 +9,3 @@ final class TruePredicate extends SimplePredicate
 {
 }
 
-?>

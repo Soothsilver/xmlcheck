@@ -25,4 +25,3 @@ final class GetTeacherRatingSums extends DataScript
 	}
 }
 
-?>

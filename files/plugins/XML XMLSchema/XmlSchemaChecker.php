@@ -23,4 +23,3 @@ class XmlSchemaChecker extends \asm\plugin\SingleTestPlugin
 	}
 }
 
-?>

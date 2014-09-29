@@ -74,4 +74,3 @@ final class EditGroup extends DataScript
 	}
 }
 
-?>

@@ -82,4 +82,3 @@ final class AddTest extends GenTestScript
 	}
 }
 
-?>

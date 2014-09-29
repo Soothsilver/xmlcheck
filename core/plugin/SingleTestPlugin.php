@@ -84,4 +84,3 @@ abstract class SingleTestPlugin extends Plugin {
 	}
 }
 
-?>

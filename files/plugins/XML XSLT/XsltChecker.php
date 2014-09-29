@@ -33,4 +33,3 @@ class XsltChecker extends \asm\plugin\SingleTestPlugin
 	}
 }
 
-?>

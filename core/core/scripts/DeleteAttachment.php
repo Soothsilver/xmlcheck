@@ -38,4 +38,3 @@ final class DeleteAttachment extends LectureScript
 	}
 }
 
-?>

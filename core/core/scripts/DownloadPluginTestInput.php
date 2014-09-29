@@ -17,4 +17,3 @@ final class DownloadPluginTestInput extends DownloadPluginTestFile
 	protected $defaultFilenameId = 'pluginTestFileName';
 }
 
-?>

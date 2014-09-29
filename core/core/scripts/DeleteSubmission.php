@@ -42,4 +42,3 @@ class DeleteSubmission extends DataScript
 	}
 }
 
-?>

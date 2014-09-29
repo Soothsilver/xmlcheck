@@ -23,4 +23,3 @@ class QueryAssignments extends AbstractExpressionSet
 	}
 }
 
-?>

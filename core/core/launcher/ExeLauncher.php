@@ -25,4 +25,3 @@ class ExeLauncher implements ILauncher
 	}
 }
 
-?>

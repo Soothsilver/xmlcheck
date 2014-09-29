@@ -69,4 +69,3 @@ final class GetSubmissions extends DataScript
 	}
 }
 
-?>

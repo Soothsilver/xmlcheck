@@ -6,4 +6,3 @@ class Equality extends Comparison
 {
 }
 
-?>

@@ -19,4 +19,3 @@ final class Logout extends DataScript
 	}
 }
 
-?>

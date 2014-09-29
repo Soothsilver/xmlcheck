@@ -9,4 +9,3 @@ abstract class IdentifierLiteral extends Literal
 {
 }
 
-?>

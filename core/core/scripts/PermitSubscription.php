@@ -18,4 +18,3 @@ final class PermitSubscription extends HandleSubscriptionRequest
 	}
 }
 
-?>

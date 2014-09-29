@@ -120,4 +120,3 @@ abstract class DataScript extends UiScript
 	}
 }
 
-?>

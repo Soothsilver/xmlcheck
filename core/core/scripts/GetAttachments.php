@@ -27,4 +27,3 @@ final class GetAttachments extends DataScript
 	}
 }
 
-?>

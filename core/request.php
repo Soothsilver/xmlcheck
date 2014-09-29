@@ -38,4 +38,3 @@ ErrorHandler::bind(function (Exception $e) {
 
 // Process the AJAX request.
 Core::handleUiRequest(empty($_POST) ? $_GET : $_POST, $_FILES);
-?>

@@ -38,4 +38,3 @@ class StoreUploads extends UploadScript
 	}
 }
 
-?>

@@ -24,4 +24,3 @@ final class Negation extends Predicate
 	}
 }
 
-?>

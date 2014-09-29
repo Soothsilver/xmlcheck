@@ -26,4 +26,3 @@ final class DownloadSubmissionOutput extends DownloadSubmissionFile
 	}
 }
 
-?>

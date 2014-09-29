@@ -34,4 +34,3 @@ final class DeleteLecture extends DataScript
 	}
 }
 
-?>

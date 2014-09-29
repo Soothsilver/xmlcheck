@@ -23,4 +23,3 @@ abstract class Comparison extends BinaryPredicate
 	}
 }
 
-?>

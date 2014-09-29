@@ -19,4 +19,3 @@ abstract class Literal extends ValueExpression
 	}
 }
 
-?>

@@ -33,4 +33,3 @@ final class DeleteProblem extends DataScript
 	}
 }
 
-?>

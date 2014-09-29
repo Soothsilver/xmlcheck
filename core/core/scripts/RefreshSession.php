@@ -22,4 +22,3 @@ final class RefreshSession extends DataScript
 	}
 }
 
-?>

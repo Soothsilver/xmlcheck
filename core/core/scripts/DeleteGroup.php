@@ -33,4 +33,3 @@ final class DeleteGroup extends DataScript
 	}
 }
 
-?>

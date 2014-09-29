@@ -542,4 +542,3 @@ class TestDtd2014 extends \asm\plugin\XmlTest
     }
 }
 
-?>

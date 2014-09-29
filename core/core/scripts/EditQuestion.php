@@ -80,4 +80,3 @@ final class EditQuestion extends LectureScript
 	}
 }
 
-?>

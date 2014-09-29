@@ -68,4 +68,3 @@ final class MysqlDb implements IDbImpl
 	}
 }
 
-?>

@@ -36,4 +36,3 @@ final class DeleteQuestion extends DataScript
 	}
 }
 
-?>

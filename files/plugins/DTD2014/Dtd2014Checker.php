@@ -21,4 +21,3 @@ class Dtd2014Checker extends \asm\plugin\SingleTestPlugin
 	}
 }
 
-?>

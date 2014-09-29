@@ -4,7 +4,7 @@ namespace asm\utils;
 use Exception, ErrorException;
 
 /**
- * Takes over handling of PHP errors and uncaught exceptions @module.
+ * Takes over handling of PHP errors and uncaught exceptions.
  *
  * To use this class for error handling, register() must be called to register
  * error and exception handlers. While the module is registered, all PHP errors
@@ -12,20 +12,17 @@ use Exception, ErrorException;
  * usual fashion. Uncaught exceptions are passed to all handlers bound to this
  * module by bind().
  *
- * Uncaught exceptions do not cause script execution to be stopped while the
- * module is registered.
- *
- * Class is implemented as singleton-module.
+ * Note: Class is implemented as singleton-module.
  */
 class ErrorHandler
 {
-	protected static $instance;	///< singleton instance
+	private static $instance;	///< singleton instance
 
 	/**
 	 * (Creates and) gets singleton instance.
 	 * @return ErrorHandler instance
 	 */
-	protected static function instance ()
+    private static function instance ()
 	{
 		if (!self::$instance)
 		{
@@ -34,43 +31,37 @@ class ErrorHandler
 		return self::$instance;
 	}
 
-	/**
-	 * Makes directly inaccessible singleton instance accessible as module.
-	 *
-	 * Provides static access to register(), unregister(), bind() and unbind() methods.
-	 */
-	public static function __callStatic ($name, $arguments)
-	{
-		if (in_array($name, array('register', 'unregister', 'bind', 'unbind')))
-		{
-			call_user_func_array(array(self::instance(), $name), $arguments);
-		}
-	}
-
-
-	private $callbacks = array();	///< uncaught exception handlers
+	private $callbacks = [];	///< bound exception handlers
 	private $registered = false;	///< true if class has taken over error handling
 
 	/**
-	 * Register this handler to take over all PHP error handling.
+	 * Register this handler to take over all PHP error and exception handling.
+     *
 	 * @see unregister()
 	 * @see bind()
 	 */
-	protected final function register ()
+    public static function register()
+    {
+        self::instance()->_register();
+    }
+	private function _register ()
 	{
       	if (!$this->registered)
 		{
-			set_error_handler(array($this, 'handleError'));
-			set_exception_handler(array($this, 'handleException'));
+			set_error_handler([$this, 'handleError']);
+			set_exception_handler([$this, 'handleException']);
 			$this->registered;
 		}
 	}
-
 	/**
-	 * Unregister this handler (pass PHP error handling back to previous handler).
+	 * Unregister this handler (pass PHP error and exception handling back to previous handler).
 	 * @see register()
 	 */
-	protected final function unregister ()
+    public static function unregister()
+    {
+        self::instance()->_unregister();
+    }
+    private function _unregister ()
 	{
 		if ($this->registered)
 		{
@@ -81,14 +72,24 @@ class ErrorHandler
 	}
 
 	/**
-	 * Bind supplied callback to this handler to be called for every uncaught exception.
+	 * Bind the callback to this handler. Whenever an error or unhandled exception occurs, this callback will be called,
+     * along with any other callbacks registered using this function.
+     * Callback is: function(Exception). Errors are turned into ErrorException.
+     *
 	 * @param callback $callback will be called with uncaught Exception as first argument
-	 * @return bool true if callback was bound successfully, false if it was
-	 *		already bound
+	 * @return bool true if callback was bound successfully, false if it was already bound
 	 * @see unbind()
 	 * @see register()
 	 */
-	protected final function bind ($callback)
+    public static function bind(callable $callback)
+    {
+        self::instance()->_bind($callback);
+    }
+    /**
+     * @param callable $callback
+     * @return bool
+     */
+    private function _bind (callable $callback)
 	{
 		if (!in_array($callback, $this->callbacks, true))
 		{
@@ -100,15 +101,23 @@ class ErrorHandler
 	}
 
 	/**
-	 * Unbind supplied callback (or all callbacks if none is supplied) from this handler.
+	 * Unbind the callback from this handler.
 	 * @param mixed $callback callback to be unbound or null to unbind all
 	 * @return bool false if supplied callback was not bound, true otherwise
 	 */
-	protected final function unbind ($callback = null)
+    public static function unbind(callable $callback = null)
+    {
+        self::instance()->_unbind($callback);
+    }
+    /**
+     * @param callable $callback
+     * @return bool
+     */
+	private function _unbind (callable $callback = null)
 	{
 		if ($callback === null)
 		{
-			$this->callbacks = array();
+			$this->callbacks = [];
 			return true;
 		}
 
@@ -124,24 +133,29 @@ class ErrorHandler
 
 	/**
 	 * Turns triggered PHP error to exception with appropriate data.
+     *
 	 * @param int $errno one of predefined @c E_* constants
 	 * @param string $errstr error message
-	 * @param string $errfile file in which error occured
-	 * @param int $errline line on which error occured
-	 * @throws ErrorException always
+	 * @param string $errfile file in which error occurred
+	 * @param int $errline line on which error occurred
+	 * @throws ErrorException always, unless we are inside an error-controlled (@@) function.
 	 */
-	public function handleError ($errno, $errstr, $errfile, $errline)
+	private function handleError ($errno, $errstr, $errfile, $errline)
 	{
 		if (ini_get('error_reporting') == 0)
 		{
-			return;	// error-control operator was used
+            // Error-control operator (@) was used
+            // http://php.net/manual/en/function.set-error-handler.php
+			return;
 		}
 
 		switch ($errno)
 		{
-			case \E_STRICT:
-			case \E_NOTICE:
-				break;
+
+        // Uncomment for less strict error handling.
+        //	case \E_STRICT:
+        //	case \E_NOTICE:
+        //		break;
 			default:
 				$errstr = preg_replace('| \[<a href=[^<]*</a>]|', '', $errstr);
 				throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
@@ -152,7 +166,7 @@ class ErrorHandler
 	 * Handles uncaught exception (calls bound callbacks).
 	 * @param Exception $e
 	 */
-	public function handleException (Exception $e)
+    private function handleException (Exception $e)
 	{
 		foreach ($this->callbacks as $callback)
 		{
@@ -166,5 +180,3 @@ class ErrorHandler
 		}
 	}
 }
-
-?>

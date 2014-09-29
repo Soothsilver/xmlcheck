@@ -10,4 +10,3 @@ abstract class Predicate extends AbstractExpression
 	
 }
 
-?>

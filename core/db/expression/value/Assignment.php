@@ -19,4 +19,3 @@ class Assignment extends BinaryExpression
 	}
 }
 
-?>

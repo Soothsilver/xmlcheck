@@ -2,11 +2,29 @@
 
 namespace asm\utils;
 
+// TODO continue here
 /**
- * Filesystem-related utility functions @module.
+ * Filesystem-related utility functions.
  */
 class Filesystem
 {
+    /**
+     * Gets the filenames of all traditional simple files, in the specified directory.
+     *
+     * Sample use:
+     * @code
+     * Filesystem::getFiles("hello")
+     * @endcode
+     * could return, for example,
+     * @code
+     * Array (
+     *  [0] => "hello.txt",
+     *  [1] => "super.txt"
+     * )
+     * @endcode
+     * @param $directory the directory to list files of
+     * @return array all filenames
+     */
     public static function getFiles($directory)
     {
         $scanned_directory = array_diff(scandir($directory), array('..', '.'));
@@ -186,4 +204,3 @@ class Filesystem
 	}
 }
 
-?>

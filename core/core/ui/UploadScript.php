@@ -47,4 +47,3 @@ abstract class UploadScript extends UiScript
 	}
 }
 
-?>

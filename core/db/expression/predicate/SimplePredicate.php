@@ -13,4 +13,3 @@ abstract class SimplePredicate extends Predicate
 	}
 }
 
-?>

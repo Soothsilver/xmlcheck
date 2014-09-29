@@ -23,4 +23,3 @@ class AbstractQueryFieldSet extends AbstractExpressionSet
 	}
 }
 
-?>

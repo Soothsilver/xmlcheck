@@ -17,4 +17,3 @@ interface ILauncher
 	public function launch ($file, array $arguments, &$output);
 }
 
-?>

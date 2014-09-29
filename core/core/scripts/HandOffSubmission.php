@@ -94,4 +94,3 @@ class HandOffSubmission extends DataScript
 	}
 }
 
-?>

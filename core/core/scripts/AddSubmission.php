@@ -73,4 +73,3 @@ final class AddSubmission extends DataScript
 	}
 }
 
-?>

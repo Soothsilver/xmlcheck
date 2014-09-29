@@ -498,4 +498,3 @@ abstract class UiScript
 	protected abstract function output ();
 }
 
-?>

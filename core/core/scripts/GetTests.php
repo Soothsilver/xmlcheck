@@ -27,4 +27,3 @@ final class GetTests extends DataScript
 	}
 }
 
-?>

@@ -9,4 +9,3 @@ class MalformedQueryException extends MalformedExpressionException
 {
 }
 
-?>

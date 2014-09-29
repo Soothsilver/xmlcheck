@@ -38,4 +38,3 @@ class UpdateQuery extends AbstractQuery
 	}
 }
 
-?>

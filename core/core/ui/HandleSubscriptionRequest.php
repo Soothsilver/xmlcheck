@@ -32,4 +32,3 @@ abstract class HandleSubscriptionRequest extends DataScript
 	}
 }
 
-?>

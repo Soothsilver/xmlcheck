@@ -4,17 +4,18 @@ namespace asm\utils;
 use ZipArchive, RecursiveIteratorIterator, RecursiveDirectoryIterator;
 
 /**
- * Compression-related utility functions @module.
+ * Functions for ZIP compression and decompression.
  */
 class Compression
 {
 	/**
-	 * Pack source file or folder to ZIP archive.
+	 * Pack source file or folder to a ZIP archive
+     *
 	 * @param string $source source file/folder path
-	 * @param string $dest destination file path
+	 * @param string $destination destination file path; the file must not already exist
 	 * @return bool true on success
 	 */
-	public static function zip ($source, $dest)
+	public static function zip ($source, $destination)
 	{
 		$source = realpath($source);
 		if (!file_exists($source))
@@ -23,7 +24,7 @@ class Compression
 		}
 
 		$zip = new ZipArchive();
-		if ($zip->open($dest, ZipArchive::CREATE) !== true)
+		if ($zip->open($destination, ZipArchive::CREATE) !== true)
 		{
 			return false;
 		}
@@ -38,6 +39,10 @@ class Compression
                 // and http://stackoverflow.com/questions/22020437/ziparchive-cant-unzip-files-that-ziparchive-zips-in-php/25765761#25765761
                 if (basename($file) === ".") { continue;}
                 if (basename($file) === "..") { continue; }
+                if (strpos($file, "/../") !== false || strpos($file, "../") !== false)
+                {
+                    return false;
+                }
 
 				$file = realpath($file);
 				if (is_dir($file))
@@ -46,7 +51,6 @@ class Compression
                         '', $file . DIRECTORY_SEPARATOR), 0, -1);
                     if ($dirName !== false)
                     {
-                        die ($dirName);
                         $zip->addEmptyDir($dirName);
                     }
 				}
@@ -66,13 +70,18 @@ class Compression
 
 	/**
 	 * Unpack ZIP archive to specified folder.
+     * If it contains only a single directory and nothing else, its contents are extracted instead of the entire ZIP file.
+     *
+     * This function is a security vulnerability. Possible attacks include a very large ZIP file, such as a ZIP bomb, or putting in a file with a relative path such as '../etc/passwd'.
+     *
+     *
 	 * @param string $archive source archive path
-	 * @param string $dest destination folder path
+	 * @param string $destination destination folder path
+     * @param [out]string $errorMessage why did the extraction fail?
 	 * @return true on success
 	 */
-	public static function unzip ($archive, $dest, &$errorMessage = null)
+	public static function unzip ($archive, $destination, &$errorMessage = null)
 	{
-        // TODO extracting files of any size is a security vulnerability
 		$zip = new ZipArchive();
         $errorCode = $zip->open($archive);
 		if ($errorCode !== true)
@@ -82,7 +91,7 @@ class Compression
 		}
 
         // Otherwise, this is a normal ZIP file.
-		if (!$zip->extractTo($dest))
+		if (!$zip->extractTo($destination))
 		{
 			$zip->close();
             $errorMessage = "extraction failed";
@@ -91,17 +100,15 @@ class Compression
         $zip->close();
 
         // Now, we'll check if the ZIP file contains only a single folder. If so,
-        // then we'll copy its contests to the root temporary folder
-        $files = scandir($dest);
+        // then we'll copy its contests to the root temporary folder, then remove the original folder.
+        $files = scandir($destination);
         if ($files === false)
         {
             $errorMessage = "scanning the temporary directory failed";
             return false;
         }
         // On Linux, scandir returns the "." and ".." pseudofolders we are not interested in
-        $files = array_diff($files, array( ".", ".." ));
-
-
+        $files = array_diff($files, [ ".", ".." ]);
 
         if (count($files) === 0)
         {
@@ -110,12 +117,14 @@ class Compression
         }
         elseif (count($files) === 1)
         {
-            $files = array_values($files); // We renumber the remaining file/directory so that it is at index 0. It might not have been because of the subtraction of "." and ".."
-            $soleDirectory = Filesystem::combinePaths($dest, $files[0]);
+            // We renumber the remaining file/directory so that it is at index 0. It might not have been because of the subtraction of "." and ".."
+            $files = array_values($files);
+            $soleDirectory = Filesystem::combinePaths($destination, $files[0]);
             if (is_dir($soleDirectory))
             {
-                if (Filesystem::copyIntoDirectory($soleDirectory, $dest))
+                if (Filesystem::copyIntoDirectory($soleDirectory, $destination))
                 {
+                    Filesystem::removeDir($soleDirectory);
                     return true;
                 }
                 else
@@ -129,4 +138,3 @@ class Compression
 	}
 }
 
-?>

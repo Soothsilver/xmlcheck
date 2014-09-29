@@ -17,4 +17,3 @@ class AbstractQueryTable extends AbstractExpressionWrapper
 	}
 }
 
-?>

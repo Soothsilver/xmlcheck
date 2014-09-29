@@ -26,4 +26,3 @@ final class DeletePluginTest extends DataScript
 	}
 }
 
-?>

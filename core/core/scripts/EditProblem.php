@@ -91,4 +91,3 @@ final class EditProblem extends DataScript
 	}
 }
 
-?>

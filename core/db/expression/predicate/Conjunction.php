@@ -6,4 +6,3 @@ class Conjunction extends LogicalBinaryPredicate
 {
 }
 
-?>

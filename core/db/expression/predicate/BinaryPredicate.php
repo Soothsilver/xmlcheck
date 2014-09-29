@@ -30,4 +30,3 @@ abstract class BinaryPredicate extends Predicate
 	}
 }
 
-?>

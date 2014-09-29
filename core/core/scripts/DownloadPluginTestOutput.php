@@ -16,4 +16,3 @@ final class DownloadPluginTestOutput extends DownloadPluginTestFile
 	protected $defaultFilenameId = 'pluginOutputFileName';
 }
 
-?>

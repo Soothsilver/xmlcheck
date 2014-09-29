@@ -9,4 +9,3 @@ class QueryManagerException extends \Exception
 {
 }
 
-?>

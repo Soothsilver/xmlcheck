@@ -18,4 +18,3 @@ abstract class LogicalBinaryPredicate extends BinaryPredicate
 	}
 }
 
-?>

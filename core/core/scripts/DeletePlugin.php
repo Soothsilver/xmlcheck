@@ -35,4 +35,3 @@ final class DeletePlugin extends DataScript
 	}
 }
 
-?>

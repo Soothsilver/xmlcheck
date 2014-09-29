@@ -31,4 +31,3 @@ final class ResetPassword extends DataScript
 	}
 }
 
-?>

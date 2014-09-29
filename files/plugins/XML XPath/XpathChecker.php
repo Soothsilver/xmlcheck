@@ -33,4 +33,3 @@ class XpathChecker extends \asm\plugin\SingleTestPlugin
 	}
 }
 
-?>

@@ -13,4 +13,3 @@ final class GetChangelog extends DataScript
 	}
 }
 
-?>

@@ -41,4 +41,3 @@ final class GetGroups extends DataScript
         }
 	}
 }
-?>

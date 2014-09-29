@@ -45,4 +45,3 @@ final class RequestResetLink extends DataScript
 	}
 }
 
-?>

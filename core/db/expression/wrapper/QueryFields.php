@@ -28,4 +28,3 @@ class QueryFields extends AbstractExpressionWrapper
 	}
 }
 
-?>

@@ -10,4 +10,3 @@ class PluginUseException extends PluginException
 {
 }
 
-?>

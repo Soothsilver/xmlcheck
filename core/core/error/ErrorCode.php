@@ -31,4 +31,3 @@ class ErrorCode
 	const special				=	99;	///< cause with no assigned error code
 }
 
-?>

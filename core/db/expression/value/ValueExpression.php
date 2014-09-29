@@ -11,4 +11,3 @@ abstract class ValueExpression extends AbstractExpression
 {
 }
 
-?>

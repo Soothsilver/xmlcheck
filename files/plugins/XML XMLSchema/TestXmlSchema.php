@@ -286,4 +286,3 @@ class TestXmlSchema extends \asm\plugin\XmlTest
     }
 }
 
-?>

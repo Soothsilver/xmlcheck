@@ -3,6 +3,8 @@
 * <b>Bugfix.</b> Fixed a bug that caused Problems not to be editable.
 * <b>Bugfix.</b> Fixed a bug that caused the 'Public' checkbox in Group editing to not load.
 * <b>Bugfix.</b> Fixed a bug that prevented user ratings from being sorted correctly.
+* <b>Bugfix.</b> Fixed a bug in ArrayUtils::filterByKeys where non-strict in_array was used.
+* <b>Bugfix.</b> Fixed a documentation error in ArrayUtils::sortByKeys. The function does not actually turn array keys into strings, that is not possible in PHP.
 * <b>Performance.</b> Tables now load more quickly.
 * <b>Compression.</b> Fixed a bug in the Compression utilities that created partially invalid ZIP files on Windows.
 * <b>DTD.</b> Fixed a bug where parameter entities were not recognized by the counter.

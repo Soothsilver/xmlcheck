@@ -25,4 +25,3 @@ final class GetPlugins extends DataScript
 	}
 }
 
-?>

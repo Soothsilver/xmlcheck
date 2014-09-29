@@ -36,4 +36,3 @@ abstract class DownloadSubmissionFile extends DownloadScript
 	}
 }
 
-?>

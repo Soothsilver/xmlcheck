@@ -84,4 +84,3 @@ final class RateSubmission extends DataScript
 	}
 }
 
-?>

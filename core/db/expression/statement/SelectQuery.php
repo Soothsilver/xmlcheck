@@ -39,4 +39,3 @@ class SelectQuery extends AbstractQuery
 	}
 }
 
-?>

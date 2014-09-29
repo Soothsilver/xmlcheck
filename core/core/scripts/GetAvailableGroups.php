@@ -54,4 +54,3 @@ final class GetAvailableGroups extends DataScript
     }
 }
 
-?>

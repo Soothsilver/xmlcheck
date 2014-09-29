@@ -9,4 +9,3 @@ class Asterisk extends TokenExpression
 {
 }
 
-?>

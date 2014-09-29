@@ -24,4 +24,3 @@ final class GetPluginTests extends DataScript
 	}
 }
 
-?>

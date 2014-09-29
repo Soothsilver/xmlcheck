@@ -101,4 +101,3 @@ abstract class DownloadScript extends UiScript
 	}
 }
 
-?>

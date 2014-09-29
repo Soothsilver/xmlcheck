@@ -70,4 +70,3 @@ final class GetTeacherRatings extends DataScript
 	}
 }
 
-?>

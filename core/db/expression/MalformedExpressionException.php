@@ -11,4 +11,3 @@ class MalformedExpressionException extends \Exception
 	
 }
 
-?>

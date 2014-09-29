@@ -42,4 +42,3 @@ final class DownloadAttachment extends DownloadScript
 	}
 }
 
-?>

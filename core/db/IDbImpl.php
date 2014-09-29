@@ -25,4 +25,3 @@ interface IDbImpl
 	public function getLastError ();
 }
 
-?>

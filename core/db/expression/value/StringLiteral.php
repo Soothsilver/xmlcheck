@@ -19,4 +19,3 @@ class StringLiteral extends Literal
 	}
 }
 
-?>

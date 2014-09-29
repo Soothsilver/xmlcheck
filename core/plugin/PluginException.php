@@ -14,4 +14,3 @@ class PluginException extends Exception
 	
 }
 
-?>

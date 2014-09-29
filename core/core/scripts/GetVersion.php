@@ -16,4 +16,3 @@ final class GetVersion extends DataScript
 	}
 }
 
-?>

@@ -29,4 +29,3 @@ class GetUsertypes extends DataScript
 	}
 }
 
-?>

@@ -284,4 +284,3 @@ abstract class XmlTest extends Test
 	}
 }
 
-?>

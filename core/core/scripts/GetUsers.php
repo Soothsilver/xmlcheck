@@ -24,4 +24,3 @@ class GetUsers extends DataScript
 	}
 }
 
-?>

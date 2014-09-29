@@ -126,4 +126,3 @@ abstract class TesterPlugin extends Plugin {
 	}
 }
 
-?>

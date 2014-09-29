@@ -330,4 +330,3 @@ abstract class Plugin
 	}
 }
 
-?>

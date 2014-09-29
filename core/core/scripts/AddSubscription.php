@@ -42,4 +42,3 @@ class AddSubscription extends DataScript
 	}
 }
 
-?>

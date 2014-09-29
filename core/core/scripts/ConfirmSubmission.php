@@ -86,4 +86,3 @@ class ConfirmSubmission extends DataScript
 	}
 }
 
-?>
