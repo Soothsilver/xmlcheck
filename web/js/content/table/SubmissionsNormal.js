@@ -17,7 +17,7 @@ asm.ui.table.SubmissionsNormal = asm.ui.table.SubmissionsBase.extend({
                             asm.ui.globals.stores.submissions
                         ],
                         filter: function (id, values) {
-                            return values[5] != asm.lang.submissions.statusRequestingGrading;
+                            return values['status'] != asm.lang.submissions.statusRequestingGrading;
                         },
                         icon: 'ui-icon-' + asm.ui.globals.icons.confirm,
                         label: asm.lang.submissions.handsOff,
@@ -44,7 +44,7 @@ asm.ui.table.SubmissionsNormal = asm.ui.table.SubmissionsBase.extend({
                         label: asm.lang.submissions.downloadOutput,
                         filter: function (id, values)
                         {
-                            return values[1] == 'yes';
+                            return values['hasOutput'] == 'yes';
                         },
                         action: function (id)
                         {

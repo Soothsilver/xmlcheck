@@ -159,6 +159,7 @@ function echoScripts($directory)
     <?php echoScripts("./web/js/content/stores"); ?>
 
     <!-- Tables -->
+    <script type="text/javascript" src="./web/js/content/table/CorrectionBase.js"></script>
     <?php echoScripts("./web/js/content/table"); ?>
 
     <!-- Forms -->
@@ -182,6 +183,7 @@ function echoScripts($directory)
     <script type="text/javascript" src="./web/js/content/panel/Subscriptions.js"></script>
     <script type="text/javascript" src="./web/js/content/panel/UserRatingTables.js"></script>
     <script type="text/javascript" src="./web/js/content/panel/Changelog.js"></script>
+    <script type="text/javascript" src="./web/js/content/panel/CorrectionWithSeparatedAssignments.js"></script>
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~ Starting point ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <script type="text/javascript" src="./web/js/launchAsmApplication.js"></script>

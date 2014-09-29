@@ -43,6 +43,15 @@ class Repositories
         self::$entityManager = $entityManager;
     }
 
+    /**
+     * @param $query
+     * @return \Doctrine\ORM\Query
+     */
+    public static function makeDqlQuery($query)
+    {
+        return self::getEntityManager()->createQuery($query);
+    }
+
     public static function findEntity($entityName, $id)
     {
         return self::getEntityManager()->find($entityName, $id);

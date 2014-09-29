@@ -6,7 +6,8 @@ asm.ui.globals.stores.assignments = new asm.ui.TableStore({
 		'deadline',
 		'reward',
 		'groupId',
-		'group'
+		'group',
+        'groupOwner'
 	],
 	request: 'GetAssignments'
 });

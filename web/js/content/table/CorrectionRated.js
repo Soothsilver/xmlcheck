@@ -5,11 +5,12 @@ asm.ui.table.CorrectionRated = asm.ui.table.CorrectionBase.extend({
 	constructor: function (config) {
 		var defaults = {
 			icon: asm.ui.globals.icons.submissionRated,
-			title: 'Rated submissions',
+			title:  asm.lang.grading.legacyGradedCaption,
 			stores: [asm.ui.globals.stores.correctionRated],
 			structure: {
 				date: {hidden: true},
-				rating: {label: 'Pts.', comparable: true}
+                problem: {hidden: false},
+				rating: {label: asm.lang.grading.points, comparable: true}
 			}
 		};
 		this.base($.extend(true, defaults, config));

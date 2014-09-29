@@ -15,8 +15,8 @@ asm.ui.panel.Subscriptions = asm.ui.Container.extend({
 							confirmTitle: asm.lang.subscriptions.confirmSubscriptionCancellation,
 							expire: [asm.ui.globals.stores.subscriptions, asm.ui.globals.stores.availableGroups,
 									asm.ui.globals.stores.studentAssignments],
-							filter: function (id, values, getter) {
-								return (getter('status') == 'subscribed');
+							filter: function (id, values) {
+								return (values['status'] == 'subscribed');
 							},
 							icon: 'ui-icon-' + asm.ui.globals.icons.cancel,
 							label: asm.lang.subscriptions.cancelSubscription,

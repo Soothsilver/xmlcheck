@@ -1,7 +1,7 @@
 /**
  * Table of submissions awaiting correction.
  */
-asm.ui.table.CorrectionNew = asm.ui.table.CorrectionBase.extend({
+asm.ui.table.Correction2 = asm.ui.table.CorrectionBase.extend({
 	constructor: function (config) {
 		var defaults = {
 			actions: {
@@ -11,12 +11,12 @@ asm.ui.table.CorrectionNew = asm.ui.table.CorrectionBase.extend({
 					this._createDownloadOutputActionConfig()
 				]
 			},
-            structure: {
-                problem: { hidden: false }
-            },
-			title:  asm.lang.grading.legacyAwatingGradingCaption,
-			stores: [asm.ui.globals.stores.correction]
+			title:  'this title will never be displayed',
+			stores: [asm.ui.globals.stores.correctionAll]
 		};
 		this.base($.extend(true, defaults, config));
-	}
+	},
+    _adjustContent: function() {
+        this.table('setCollapsed', true);
+    }
 });

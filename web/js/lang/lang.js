@@ -89,7 +89,8 @@ asm.lang = {
         subscriptions : "Subscriptions",
 
         assignments : "Assignments",
-        correction : "Rate Submissions",
+        correctionAll : "Rate Submissions (Legacy)",
+        correctionSeparated : "Rate Submissions",
         groups : "Groups",
         userRatings : "User Ratings",
         subscriptionRequests : "Subscription Requests",
@@ -126,7 +127,8 @@ asm.lang = {
         tasksRequireAttention : 'Following tasks require your attention:',
         currentGroupRatings : 'Current group ratings:',
         passwordChanged : 'Full name, e-mail and password changed.',
-        passwordNotChanged : 'Full name and e-mail changed. Password remains the same.'
+        passwordNotChanged : 'Full name and e-mail changed. Password remains the same.',
+        points : 'points'
 },
     userInterface : {
         caption : 'User Interface settings',
@@ -405,5 +407,32 @@ asm.lang = {
         caption : "Language Settings",
         language : "Language",
         languageHint : "saved as a cookie on this computer"
+    },
+    grading : {
+        legacyAwatingGradingCaption : "Submissions Awaiting Grading",
+        legacyGradedCaption : "Graded Submissoins",
+        downloadSubmission : "download submission",
+        downloadOutput : "download output",
+        gradeSubmission : "grade submission",
+        regradeSubmission : "regrade submission",
+        problem: "Problem",
+        group: "Group",
+        fulfillment: "%",
+        uploaded : "Uploaded",
+        details: "Details",
+        author: "Author",
+        points: "Pts.",
+        rateSubmissionCaption: "Grade Submission",
+        rating: "Grade",
+        noteToStudent: "Note to student",
+        rateButton: "Award points",
+        changeSubmissionRatingCaption : "Change Submission Grade",
+        changeButton : "Change",
+        submittedLate : "Submitted late",
+        submittedLateHint_1: 'This solution was submitted late.\nDeadline: ',
+        submittedLateHint_2: "\nSubmission: ",
+        submittedLateHint_3: "."
+
+
     }
 };

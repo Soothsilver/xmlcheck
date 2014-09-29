@@ -20,7 +20,7 @@ asm.ui.table.SubmissionsGraded= asm.ui.table.SubmissionsBase.extend({
                         label: asm.lang.submissions.downloadOutput,
                         filter: function (id, values)
                         {
-                            return values[1] == 'yes';
+                            return values['hasOutput'] == 'yes';
                         },
                         action: function (id)
                         {

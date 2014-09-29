@@ -10818,3 +10818,11 @@
 2014-09-27 20:24:21	soothsilver	127.0.0.1	[no lookup]	ConfirmSubmission
 
 50	99	submission has already been confirmed	cannot confirm submission	
+-
+2014-09-28 23:03:00	soothsilver	127.0.0.1	[no lookup]	DownloadSubmissionInput
+
+50	10	required input data missing		Missing input fields: id.
+-
+2014-09-28 23:03:02	soothsilver	127.0.0.1	[no lookup]	DownloadSubmissionInput
+
+50	10	required input data missing		Missing input fields: id.

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SpyJsConfiguration">
+    <event-filters>
+      <event-filter name="Table.js Exclusions">
+        <event-filter-conditions>
+          <event-filter-condition type="file" value="http://localhost/xmlcheck/web/js/base/Navigator.js" />
+          <event-filter-condition value="interval" />
+          <event-filter-condition value="mouseover" />
+          <event-filter-condition value="mouseout" />
+          <event-filter-condition value="timeout" />
+        </event-filter-conditions>
+      </event-filter>
+    </event-filters>
+  </component>
+</project>
+

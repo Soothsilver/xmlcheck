@@ -36,7 +36,9 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 						submissions: new asm.ui.panel.Submissions(),
 						subscriptions: new asm.ui.panel.Subscriptions(),
 
-						correction: new asm.ui.panel.Correction(),
+                        correctionSeparated: new asm.ui.panel.CorrectionWithSeparatedAssignments(),
+						correctionAll: new asm.ui.panel.Correction(),
+
 						requests: new asm.ui.table.SubscriptionRequests({
 							actions: {
 								extra: [{
@@ -68,7 +70,7 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 
 						users: new asm.ui.editor.Users(),
 						usertypes: new asm.ui.editor.Usertypes(),
-					// TODO remove	systemLog: new asm.ui.table.SystemLog(),
+					    systemLog: new asm.ui.table.SystemLog(),
                         changelog: new asm.ui.panel.Changelog(),
 						errorLog: errorLog,
 
@@ -113,12 +115,6 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 			structure: this._getMenuStructure(privileges)
 		});
 		this.base();
-
-        /* TODO remove this notice
-		this._triggerError(new asm.ui.Error('Hello ' + session.getProperty('name') + ', welcome to '
-				+ asm.ui.globals.appName + '!<br/>Your last previous login was @ <strong>'
-				+ session.getProperty('lastLogin') + '</strong>.', asm.ui.Error.NOTICE));
-        */
 	},
 	_bindContentSwitchHandlers: function () {
 		var index = {
@@ -178,7 +174,8 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 			icons: {
 				assignments: asm.ui.globals.icons.assignment,
 				attachments: asm.ui.globals.icons.attachment,
-				correction: asm.ui.globals.icons.submission,
+				correctionAll: asm.ui.globals.icons.submission,
+                correctionSeparated: asm.ui.globals.icons.submission,
 				errorLog: asm.ui.globals.icons.log,
 				groups: asm.ui.globals.icons.group,
 				lectures: asm.ui.globals.icons.lecture,
@@ -191,7 +188,6 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 				studentAssignments: asm.ui.globals.icons.assignment,
 				submissions: asm.ui.globals.icons.submission,
 				subscriptions: asm.ui.globals.icons.subscription,
-				systemLog: asm.ui.globals.icons.log,
 				tests: asm.ui.globals.icons.xtest,
 				uiSettings: asm.ui.globals.icons.settings,
 				userSettings: asm.ui.globals.icons.account,
@@ -208,7 +204,8 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 		var pagePrivs = {
 				assignments: ['groupsManageAll', 'groupsManageOwn'],
 				attachments: ['lecturesManageAll', 'lecturesManageOwn'],
-				correction: ['submissionsCorrect'],
+				correctionAll: ['submissionsCorrect'],
+                correctionSeparated: ['submissionsCorrect'],
 				groups: ['groupsAdd', 'groupsManageAll', 'groupsManageOwn'],
 				lectures: ['lecturesAdd', 'lecturesManageAll', 'lecturesManageOwn'],
 				plugins: ['pluginsExplore'],
@@ -234,7 +231,8 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 				'tutor': {
 					'assignments': asm.lang.menu.assignments,
 					'groups': asm.lang.menu.groups,
-					'correction': asm.lang.menu.correction,
+                    'correctionSeparated': asm.lang.menu.correctionSeparated,
+                    'correctionAll': asm.lang.menu.correctionAll,
 					'userRatings': asm.lang.menu.userRatings,
 					'requests': asm.lang.menu.subscriptionRequests
 				},
@@ -250,6 +248,7 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 				'system': {
                     'changelog' : asm.lang.menu.changelog,
 					'errorLog': asm.lang.menu.uiLog,
+                    'systemLog': asm.lang.menu.systemLog,
 					'users': asm.lang.menu.users,
 					'usertypes': asm.lang.menu.userTypes
 				},

@@ -10,14 +10,14 @@ asm.ui.table.CorrectionBase = asm.ui.DynamicTable.extend({
 			icon: asm.ui.globals.icons.submission,
 			structure: {
 				id: {key: true, hidden: true, comparable: true},
-				problem: {label: 'Problem', comparable: true, string: true},
-				group: {label: 'Group', comparable: true, string: true},
-				date: {label: 'Submitted', comparable: true, string: true},
-				fulfillment: {label: '%', renderer: function(percentage) { return percentage + "%"; }},
-				details: {label: 'Details', string: true},
+				problem: {label: asm.lang.grading.problem, hidden: true, comparable: true, string: true},
+				group: {label: asm.lang.grading.group, comparable: true, string: true},
+				date: {label: asm.lang.grading.uploaded, comparable: true, string: true},
+				fulfillment: {label: asm.lang.grading.fulfillment, renderer: function(percentage) { return percentage + "%"; }},
+				details: {label: asm.lang.grading.details, string: true},
 				reward: {hidden: true, comparable: true},
 				authorId: {hidden: true, comparable: true},
-				author: {label: 'Author', hidden: true, comparable: true, string: true},
+				author: {label: asm.lang.grading.author, hidden: true, comparable: true, string: true},
                 deadline: { hidden: true, comparable: true, string: true},
                 explanation: {hidden: true, string: true},
                 hasOutput: {hidden: true, renderer: function (value) {
@@ -36,15 +36,15 @@ asm.ui.table.CorrectionBase = asm.ui.DynamicTable.extend({
 		var triggerError = $.proxy(this._triggerError, this);
 		return {
 			icon: 'ui-icon-' + asm.ui.globals.icons[reRate ? 'edit' : 'rating'],
-			label: 'rate submission',
+			label: asm.lang.grading.gradeSubmission,
 			action: $.proxy(function (id, values) {
 				var options = [],
-					maxRating = values[6],
-					fulfillment = values[4],
-                    submissionDate = values[3],
-                    deadlineDate = values[9],
-					rating = values[12],
-                    explanation = values[10];
+					maxRating = values['reward'],
+					fulfillment = values['fulfillment'],
+                    submissionDate = values['date'],
+                    deadlineDate = values['deadline'],
+					rating = values['rating'],
+                    explanation = values['explanation'];
 
 				for (var i = 0; i <= maxRating; ++i) {
 					options.push(i);
@@ -69,22 +69,25 @@ asm.ui.table.CorrectionBase = asm.ui.DynamicTable.extend({
                             rating: {
                                 type: 'select',
                                 options: options,
-                                label: 'Rating',
+                                label: asm.lang.grading.rating,
                                 value: reRate ? rating : Math.floor(fulfillment * maxRating / 100)
                             },
                             explanation: {
                                type: 'textarea',
-                               label: 'Note to student',
+                               label: asm.lang.grading.noteToStudent,
                                value: explanation
                             },
                             lateNotice: {
                                 type: (late ? 'info' : 'hidden'),
-                                label: 'Submitted late',
-                                value: 'This solution was submitted late.\nDeadline: ' + deadlineDate + "\nSubmission: " + submissionDate
+                                label: asm.lang.grading.submittedLate,
+                                value:
+                                 asm.lang.grading.submittedLateHint_1 + deadlineDate +
+                                 asm.lang.grading.submittedLateHint_2 + submissionDate +
+                                 asm.lang.grading.submittedLateHint_3i
                             }
                         },
-                        submitText: reRate ? 'Change' : 'Rate'
-                    }, (reRate ? 'Change submission rating' : 'Rate submission') + (late ? " (late submission)" : "")  );
+                        submitText: reRate ? asm.lang.grading.changeButton : asm.lang.grading.rateButton
+                    }, (reRate ? asm.lang.grading.changeSubmissionRatingCaption: asm.lang.grading.gradeSubmission)  );
 
 
 			}, this)
@@ -94,7 +97,7 @@ asm.ui.table.CorrectionBase = asm.ui.DynamicTable.extend({
 		var triggerError = $.proxy(this._triggerError, this);
 		return {
 			icon: 'ui-icon-' + asm.ui.globals.icons.downloadInput,
-			label: 'download submission',
+			label: asm.lang.grading.downloadSubmission,
 			action: function (id) {
 				asm.ui.globals.fileSaver.request('DownloadSubmissionInput',
 						{id: id}, null, triggerError);
@@ -105,10 +108,10 @@ asm.ui.table.CorrectionBase = asm.ui.DynamicTable.extend({
 		var triggerError = $.proxy(this._triggerError, this);
 		return {
 			icon: 'ui-icon-' + asm.ui.globals.icons.downloadOutput,
-			label: 'download output',
+			label: asm.lang.grading.downloadOutput,
             filter: function(id, values)
             {
-              return values[11] == "yes";
+              return values['hasOutput'] == "yes";
             },
 			action: function (id) {
 				asm.ui.globals.fileSaver.request('DownloadSubmissionOutput',

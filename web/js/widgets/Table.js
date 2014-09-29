@@ -1330,16 +1330,176 @@ $.widget('ui.table', {
                 }, 400);
             }, this));
     },
+    // http://stackoverflow.com/questions/1787322/htmlspecialchars-equivalent-in-javascript
+    escapeHtml: function (text)
+    {
+        var map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, function (m) { return map[m]; });
+    },
+    _createActionFunction: function(action, keycell, values)
+    {
+        return function() {
+            action.call(window, keycell,  values);
+        };
+    },
 	/**
 	 * Initializes table body (call after manually replacing <tt>&lt;tbody&gt;</tt>
 	 * content).
 	 * @see init()
 	 */
 	initBody: function (sort, data) {
-        // New and faster process:
+        // Almost-Pure HTML process:
+        var tablebody = "";
+        var tst = "";
 
+        var rows = [];
+        var keyColumn = -1;
+        for (var column in this.options.colProps)
+        {
+            if (this.options.colProps[column].key)
+            {
+                keyColumn = column;
+                break;
+            }
+        }
+        for (var rowIndex = 0; rowIndex < data.length; rowIndex++)
+        {
+            var row = document.createElement('tr');
+            // Add actions
+            if (this.options.actions.local)
+            {
+                for (var i = 0; i < this.options.actions.local.length; i++)
+                {
+                    var actionConfig = this.options.actions.local[i];
+                    var actionCell = document.createElement('td');
+                    if (actionConfig.filter)
+                    {
+                        if (!actionConfig.filter(data[rowIndex][keyColumn], data[rowIndex]))
+                        {
+                            row.appendChild(actionCell);
+                            continue;
+                        }
+                    }
+                    actionCell.setAttribute('class', 'ui-table-action-field ui-button ui-widget ui-state-default ui-button-icon-only');
+                    actionCell.setAttribute('role', 'button');
+                    actionCell.setAttribute('title', actionConfig.label);
+                    var innerDiv = document.createElement('div');
+                    innerDiv.setAttribute('class', 'ui-table-button-wrapper');
+                    var innerSpan = document.createElement('span');
+                    innerSpan.setAttribute('class', 'ui-button-icon-primary ui-icon ' + actionConfig.icon);
+                    innerDiv.appendChild(innerSpan);
+                    actionCell.appendChild(innerDiv);
+                    actionCell.addEventListener('mouseenter', function (e) {
+                        $(e.target).closest('td').addClass('ui-state-hover');
+                    });
+                    actionCell.addEventListener('mouseleave', function (e) {
+                        $(e.target).closest('td').removeClass('ui-state-hover');
+                        $(e.target).closest('td').removeClass('ui-state-active');
+                     });
+                    actionCell.addEventListener('mousedown', function (e) {
+                        $(e.target).closest('td').addClass('ui-state-active');
+                    });
+                    actionCell.addEventListener('mouseup', function (e) {
+                        $(e.target).closest('td').removeClass('ui-state-active');
+                        $(e.target).closest('td').removeClass('ui-state-hover');
+                    });
+                    actionCell.addEventListener('click', this._createActionFunction(actionConfig.action,  data[rowIndex][keyColumn], data[rowIndex] ));
+                    row.appendChild(actionCell);
+                }
+            }
+
+            // Add fields
+            for (var col in data[rowIndex])
+            {
+                var cell = document.createElement('td');
+                // Hide fields from hidden columns
+                var tdClass = "";
+                if (this.options.colProps[col].hasOwnProperty('hidden') && this.options.colProps[col].hidden)
+                {
+                    tdClass += "ui-table-field-hidden ";
+                }
+                // This aligns text in "string" columns to the left, because they will likely be multiline
+                if (this.options.colProps[col].hasOwnProperty('string') && this.options.colProps[col].string)
+                {
+                    tdClass += "ui-table-field-string ";
+                }
+                // Put the field
+                cell.setAttribute('class', tdClass);
+                cell.innerHTML = data[rowIndex][col];
+                row.appendChild(cell);
+            }
+
+            rows.push(row);
+        }
+
+        var tbody = $('tbody', this.element);
+        tbody.append(rows);
+       // tbody.html(tablebody);
+
+        // Binding and text cutter
+        var allRows = $('tr', tbody);
+        var allCells = $('td', tbody);
+
+        var cutterLimit = this.options.fieldTextLimit;
+        // Apply text cutter
+        // But because this is expensive, only do it for cells that actually require it
+        allCells.each(function () {
+           if ($(this).text().length > cutterLimit)
+           {
+               $(this).textCutter({ limit: cutterLimit });
+           }
+        });
+
+        // React to mouse clicks and moves
+        allRows
+            .bind('mouseenter.table', $.proxy(function (event) {
+                this._getFields($(event.currentTarget)).addClass('ui-state-highlight')
+            }, this))
+            .bind('mouseleave.table', $.proxy(function (event) {
+                if (!$(event.currentTarget).hasClass('ui-selected')) {
+                    this._getFields($(event.currentTarget)).removeClass('ui-state-highlight');
+                }
+            }, this))
+            .bind('dblclick.table', $.proxy(function (event) {
+                var show = false,
+                    hide = false;
+                $(event.currentTarget).children(':ui-textCutter')
+                    .each(function () {
+                        if ($(this).textCutter('isCut') && $(this).textCutter('option', 'hidden')) {
+                            show = true;
+                        } else {
+                            hide = true;
+                        }
+                    })
+                    .textCutter('toggle', show || !hide);
+            }, this));
+
+        // Collapse the entire table via its parent DIV tag, if it should start collapsed
+        // This takes constant time.
+        this._setCollapsed();
+
+        // This sets the colspan of the global action, or of the local actions if they are shorter
+        this._adjustActionSpan();
+
+
+
+        // Apply user-selected filters in the UI.
+        this._applyFilters();
+
+        // Show the first page
+        this.page(1);
+        return this.element;
+        /*
+        // New and faster process:
         // Create basic HTML
         var tablebody = "";
+        var tst = "";
         for (var rowIndex = 0; rowIndex < data.length; rowIndex++)
         {
             var rowHtml = "<tr>";
@@ -1420,20 +1580,13 @@ $.widget('ui.table', {
         // Hard to correct:
         this._adjustActionSpan();
 
-        // Sort
-        /*
-        TODO is this needed? I think not so I removed it.
-        if (sort && (this.sortBy !== null)) {
-            this.sort();
-        }
-        */
-
         // Apply user-selected filters in the UI.
         this._applyFilters();
 
         // Show the first page
         this.page(1);
         return this.element;
+        */
 	},
 	/**
 	 * Initializes both table head and body.

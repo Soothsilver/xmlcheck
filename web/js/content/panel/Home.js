@@ -110,7 +110,7 @@ asm.ui.panel.Home = asm.ui.ContentPanel.extend({
 					var ratings = [];
 					for (var i in data) {
 						ratings.push(data[i].group + ' (' + data[i].lecture + '): <strong>'
-								+ data[i].rating + '</strong> pt' + ((data[i].rating != 1) ? 's' : ''));
+								+ data[i].rating + '</strong> ' + asm.lang.home.points);
 					}
 					appendList(asm.lang.home.currentGroupRatings, ratings);
 				}

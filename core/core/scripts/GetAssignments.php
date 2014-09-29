@@ -32,7 +32,8 @@ final class GetAssignments extends DataScript
                 $assignment->getDeadline()->format('Y-m-d H:i:s'),
                 $assignment->getReward(),
                 $assignment->getGroup()->getId(),
-                $assignment->getGroup()->getName()
+                $assignment->getGroup()->getName(),
+                $assignment->getGroup()->getOwner()->getId()
             );
             $this->addRowToOutput($row);
         }
