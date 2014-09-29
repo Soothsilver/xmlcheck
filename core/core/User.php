@@ -48,7 +48,7 @@ class User
 	const submissionsCorrect		=	0x40000;		///< correct (rate) submissions - has no purpose without @ref groupsAdd
 	const pluginsExplore				=	0x80000;		///< view all plugins' data
 	const pluginsRemove				=	0x100000;	///< delete plugins
-	const systemLogExplore			=	0x200000;	///< view system log
+	const otherAdministration    	=	0x200000;	///< view system log
 	const submissionsViewAuthors	=	0x400000;	///< view real names of submission authors
 	const submissionsModifyRated	=	0x800000;	///< modify ratings of alredy rated submissions
 	//@}
@@ -98,7 +98,7 @@ class User
 			'submissionsCorrect',
 			'lecturesAdd', 'lecturesManageOwn', 'lecturesManageAll',
 			'groupsAdd', 'groupsManageOwn', 'groupsManageAll',
-			'systemLogExplore',
+			'otherAdministration',
 			'submissionsViewAuthors',
 			'submissionsModifyRated',
 		);

@@ -104,7 +104,6 @@ asm.lang = {
         tests : "Tests",
 
         changelog : "Changelog",
-        systemLog : "System Log",
         uiLog : "UI Log",
         users : "Users",
         userTypes : "User Types",

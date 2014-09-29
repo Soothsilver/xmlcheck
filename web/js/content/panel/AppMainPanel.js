@@ -70,7 +70,6 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 
 						users: new asm.ui.editor.Users(),
 						usertypes: new asm.ui.editor.Usertypes(),
-					    systemLog: new asm.ui.table.SystemLog(),
                         changelog: new asm.ui.panel.Changelog(),
 						errorLog: errorLog,
 
@@ -216,7 +215,6 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 				submissions: ['assignmentsSubmit'],
 				subscriptions: ['assignmentsSubmit'],
 				requests: ['groupsAdd', 'groupsManageAll', 'groupsManageOwn'],
-				systemLog: ['systemLogExplore'],
 				tests: ['lecturesManageAll', 'lecturesManageOwn'],
 				users: ['usersExplore'],
 				usertypes: ['usersPrivPresets'],
@@ -248,7 +246,6 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 				'system': {
                     'changelog' : asm.lang.menu.changelog,
 					'errorLog': asm.lang.menu.uiLog,
-                    'systemLog': asm.lang.menu.systemLog,
 					'users': asm.lang.menu.users,
 					'usertypes': asm.lang.menu.userTypes
 				},

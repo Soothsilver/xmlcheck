@@ -67,6 +67,15 @@ asm.ui.Container = asm.ui.Panel.extend({
 			this.config.children[i].move(newTarget);
 		}
 	},
+    _moveSingleChild: function(childId) {
+        var newTarget = $('<div></div>')
+            .addClass('ui-container')
+            .removeData()
+            .removeAttr('data')
+            .attr('data-child-name', childId)
+            .appendTo(this.config.target);
+        this.config.children[childId].move(newTarget);
+    },
 	/**
 	 * @copybrief Panel::_moveContent()
 	 * 

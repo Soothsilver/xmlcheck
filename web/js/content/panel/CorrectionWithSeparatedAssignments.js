@@ -9,6 +9,7 @@ asm.ui.panel.CorrectionWithSeparatedAssignments = asm.ui.Container.extend({
                 asm.ui.globals.stores.assignments
             ],
 			children: {
+                tableCurrent: new asm.ui.table.StudentAssignmentsCurrent(),
 				loadingPanel: new asm.ui.ContentPanel().extend(
                     {
                         _buildContent : function() {
@@ -23,42 +24,84 @@ asm.ui.panel.CorrectionWithSeparatedAssignments = asm.ui.Container.extend({
 		};
 		this.base($.extend(true, defaults, config));
 	},
-    _loadAllTables: function(assignmentData) {
+    _filterAssignment: function(assignmentId) {
+        return function(id, values) {
+          return values["assignmentId"] == assignmentId;
+        };
+    },
+    loaded: false,
+    _showContent: function() {
+        /*
+        this.config.children = {};
+        this.config.children.tablePast = new asm.ui.table.StudentAssignmentsPast();
+        this.config.children["234"] = new asm.ui.table.StudentAssignmentsPast();
+
+        this._callOnChildren('setParent', this);
+        this._moveChildren(this.config.target);
+        this._callOnChildren('show', this._params);
+        */
+    },
+    _loadAllTables: function() {
+        var assignmentData = asm.ui.globals.stores.assignments.get();
+        var correctionData = asm.ui.globals.stores.correctionAll.get();
+        for (var submissionIndex = 0; submissionIndex < correctionData.length; submissionIndex++)
+        {
+            for (var assignmentIndex = 0; assignmentIndex < assignmentData.length; assignmentIndex++)
+            {
+                if (correctionData[submissionIndex].assignmentId == assignmentData[assignmentIndex].id &&
+                correctionData[submissionIndex].status != 'graded')
+                {
+                    assignmentData[assignmentIndex].correctible = true;
+                }
+            }
+        }
         for(var index = 0; index < assignmentData.length; index++)
         {
             var assignment = assignmentData[index];
+            if (!assignment.correctible) { continue; }
             if (!this._tables) { this._tables = []; }
+            /*
             var table = new asm.ui.table.Correction2({
-                title: assignment.problem + " (" + assignment.group + ")",
-                filter: function(id, values)
-                {
-                    return false;
-                }
+                title: assignment.problem + " (" + assignment.group + ")"//,
+             //   filter: this._filterAssignment(assignmentData[index].id)
             });
+            */
+            var table = new asm.ui.table.Assignments();
             this._tables.push(table);
             this.config.children[assignment.id] = table;
+            this.config.children[assignment.id].setParent(this);
+            this._moveSingleChild(assignment.id);
         }
-        this._callOnChildren('setParent', this);
-        this._moveChildren(this.config.target);
-        this._showContent();
-        this.config.children.loadingPanel.hide();
-        /*
-        // Grade only submission by a specific user
-        var authorId = this._params[0] || false;
-        var children = this.config.children;
-        if (this._filterIds != undefined) {
-            children.fresh.table('removeFilter', this._filterIds.fresh);
-            children.rated.table('removeFilter', this._filterIds.rated);
-        }
-        if (authorId) {
-            this._filterIds = {
-                fresh: children.fresh.table('addFilter', 'authorId', 'equal', authorId),
-                rated: children.rated.table('addFilter', 'authorId', 'equal', authorId)
-            };
-        }
-        */
+        this.adjust([], true);
     },
 	_adjustContent: function () {
-        asm.ui.globals.stores.assignments.get($.proxy(this._loadAllTables, this));
+        if (!this.loaded)
+        {
+            asm.ui.globals.stores.assignments.get(
+                $.proxy(function ()
+                {
+                    asm.ui.globals.stores.correctionAll.get($.proxy(this._loadAllTables, this));
+                }, this));
+            this.loaded = true;
+        }
+        this._callOnChildren('hide');
+        this._callOnChildren('show');
+        /*
+        this._callOnChildren('adjust', this._params);
+       */
+        /*
+        if (this.loaded)
+        {
+            this._callOnChildren('adjust', this._params);
+        }
+        else
+        {
+            asm.ui.globals.stores.assignments.get(
+                $.proxy(function ()
+                    {
+                        asm.ui.globals.stores.correctionAll.get($.proxy(this._loadAllTables, this));
+                    }, this));
+        }
+        */
 	}
 });

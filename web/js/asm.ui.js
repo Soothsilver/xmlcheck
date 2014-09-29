@@ -122,8 +122,8 @@ asm.ui.globals = {
 			'edit own': ['groupsManageOwn', 'pencil'],
 			'edit all': ['groupsManageAll', 'note']
 		},
-		log: {
-			explore: ['systemLogExplore', 'script']
+		other: {
+			'other administration': ['otherAdministration', 'script']
 		}
 	},
 	supportedBrowsers: {

@@ -15,7 +15,8 @@ asm.ui.globals.stores.correctionAll = new asm.ui.TableStore({
         'deadline',
 		'authorId',
 		'author',
-        'hasOutput'
+        'hasOutput',
+        'assignmentId'
 	],
 	request: 'GetTeacherSubmissions'
 });

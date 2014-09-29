@@ -17,6 +17,5 @@ asm.ui.table.Correction2 = asm.ui.table.CorrectionBase.extend({
 		this.base($.extend(true, defaults, config));
 	},
     _adjustContent: function() {
-        this.table('setCollapsed', true);
     }
 });

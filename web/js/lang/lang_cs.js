@@ -108,7 +108,6 @@ asm.otherlangs.cs = {
         tests : "Testy",
 
         changelog : "Changelog",
-        systemLog : "Systémový log",
         uiLog : "Log UI",
         users : "Uživatelé",
         userTypes : "Druhy uživatelů",
