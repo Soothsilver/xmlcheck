@@ -3,9 +3,7 @@
 namespace asm\core;
 use asm\core\lang\Language;
 use asm\core\lang\StringID;
-use asm\db\DbLayout;
-use asm\utils\Logger;
-use Doctrine\Common\Util\Debug;
+
 
 /**
  * @ingroup requests

@@ -7,7 +7,7 @@ use DateTime;
  * Manages error log.
  *
  * Log consists of entries, each of which should contain error information about
- * single request that went wrong. Each entry has a single header and any number
+ * a single request that went wrong. Each entry has a single header and any number
  * of 'lines' (error descriptions). Header contains timestamp and possibly other
  * customizable items. Lines are fully customizable. Header and line item sets
  * should be consistent throughout the whole log.
@@ -20,6 +20,8 @@ use DateTime;
  * number can be customized. Log is 'rotating' - when the file is full, it
  * continues writing into next one (when the last one is full, it continues with
  * the first one, etc.).
+ *
+ * The Logger flushes (writes to disk) when it is destroyed.
  */
 class Logger
 {
@@ -36,7 +38,7 @@ class Logger
 		return new self($folder);
 	}
 
-	protected $folder;	///< folder to store log files in
+    private $folder;	///< folder to store log files in
 
 	private $lines = array();		///< log entry 'lines' (error descriptions)
 	private $header = array();		///< customized entry header items
@@ -53,7 +55,7 @@ class Logger
 	 * (Creates and) sets folder for log files to be saved in.
 	 * @param string $folder logfile folder
 	 */
-	public function __construct ($folder)
+	private function __construct ($folder)
 	{
 		Filesystem::createDir($folder, 0700);
 		$this->folder = realpath($folder);
@@ -304,7 +306,7 @@ class Logger
 	 * is used to prevent logfile access clashes.
 	 * @return Logger self
 	 */
-	public final function write ()
+    private function write ()
 	{
 		if (!count($this->lines))
 		{
@@ -352,7 +354,7 @@ class Logger
 	 * Clears all events logged so far during this script execution.
 	 * @return Logger self
 	 */
-	public final function clear ()
+    private function clear ()
 	{
 		$this->lines = array();
 		return $this;

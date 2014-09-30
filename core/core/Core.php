@@ -14,6 +14,9 @@ use asm\db\Database,
 class Core
 {
 	protected static $mailer;	///< mailer instance
+    /**
+     * @var \asm\utils\Logger
+     */
 	protected static $logger;	///< logger instance
 	protected static $request = null;	///< name of UI request being handled
 
