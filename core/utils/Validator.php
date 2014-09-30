@@ -19,20 +19,10 @@ class Validator
 	{
 		switch ($filter)
 		{
-			case 'isBool':
-				return 'value is not a boolean or boolean string';
+			case 'isTrue':
+				return 'value is neither 1, on nor true';
 			case 'isEmail':
 				return 'value is not a valid e-mail address';
-			case 'isFloat':
-				return 'value is not a floating-point number';
-			case 'isInt':
-				return 'value is not an integer';
-			case 'isIp':
-				return 'value is not an IP address';
-			case 'isRegexp':
-				return 'value is not a Perl-compatible regular expression';
-			case 'isUrl':
-				return 'value is not an URL';
 			case 'isAlphaNumeric':
 				return 'value is not alphanumeric';
 			case 'isDate':

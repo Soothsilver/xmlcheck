@@ -3,8 +3,15 @@
 * <b>Bugfix.</b> Fixed a bug that caused Problems not to be editable.
 * <b>Bugfix.</b> Fixed a bug that caused the 'Public' checkbox in Group editing to not load.
 * <b>Bugfix.</b> Fixed a bug that prevented user ratings from being sorted correctly.
+
 * <b>Bugfix.</b> Fixed a bug in ArrayUtils::filterByKeys where non-strict in_array was used.
+* <b>Bugfix.</b> Fixed a bug in Filesystem::combinePaths where slash at end was left in
+* <b>Bugfix.</b> Fixed a bug in Filter::isNonNegativeInteger, which did not work.
+* <b>Bugfix.</b> Fixed a bug in Filter::isDate which outputed Notice errors if it wasn't a date
+* <b>Bugfix.</b> Removed isRegexp function which did not work and was not used.
 * <b>Bugfix.</b> Fixed a documentation error in ArrayUtils::sortByKeys. The function does not actually turn array keys into strings, that is not possible in PHP.
+* <b>Bugfix.</b> Fixed a regex bug that caused Filter::isName to always return true.
+
 * <b>Performance.</b> Tables now load more quickly.
 * <b>Compression.</b> Fixed a bug in the Compression utilities that created partially invalid ZIP files on Windows.
 * <b>DTD.</b> Fixed a bug where parameter entities were not recognized by the counter.

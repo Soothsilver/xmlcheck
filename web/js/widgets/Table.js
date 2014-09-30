@@ -1439,6 +1439,7 @@ $.widget('ui.table', {
         }
 
         var tbody = $('tbody', this.element);
+        tbody.html('');
         tbody.append(rows);
        // tbody.html(tablebody);
 

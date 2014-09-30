@@ -5,12 +5,12 @@
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Tests
+ * PluginTest
  *
  * @ORM\Table(name="tests", indexes={@ORM\Index(name="pluginId", columns={"pluginId"})})
  * @ORM\Entity
  */
-class Tests
+class PluginTest
 {
     /**
      * @var integer
@@ -34,6 +34,12 @@ class Tests
      * @ORM\Column(name="pluginId", type="integer", nullable=false)
      */
     private $pluginid;
+    /**
+     * @var \Plugin
+     * @ORM\ManyToOne(targetEntity="Plugin", inversedBy="pluginTests")
+     * @ORM\JoinColumn(referencedColumnName="id", name="pluginId")
+     */
+    private $plugin;
 
     /**
      * @var string
@@ -271,5 +277,28 @@ class Tests
     public function getOutput()
     {
         return $this->output;
+    }
+
+    /**
+     * Set plugin
+     *
+     * @param \Plugin $plugin
+     * @return PluginTest
+     */
+    public function setPlugin(\Plugin $plugin = null)
+    {
+        $this->plugin = $plugin;
+
+        return $this;
+    }
+
+    /**
+     * Get plugin
+     *
+     * @return \Plugin 
+     */
+    public function getPlugin()
+    {
+        return $this->plugin;
     }
 }

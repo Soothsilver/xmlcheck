@@ -175,11 +175,11 @@ HEADER;
 			$delimiter = "\n\n#	%s result:\n\n";
 			for ($j = 0; $j < $result->length; ++$j)
 			{
-				$output .= sprintf($delimiter, Utils::ordinalize($j + 1))
+				$output .= sprintf($delimiter, "Result " . ($j + 1))
 						. $xmlDom->saveXML($result->item($j));
 			}
 
-			Filesystem::stringToFile($output, sprintf($this->params[self::outputXpathMask], ++$exprNumber));
+			Filesystem::stringToFile(sprintf($this->params[self::outputXpathMask], ++$exprNumber), $output);
 		}
 
 		return $this->reachGoal(self::goalValidXpath);

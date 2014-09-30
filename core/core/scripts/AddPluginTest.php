@@ -55,14 +55,13 @@ final class AddPluginTest extends DataScript
 
 		$test = $tests[0];
 		$id = $test[DbLayout::fieldTestId];
-		$testCompleteRequestId = 'completeTestById';
 
 		$pluginArguments = empty($test[DbLayout::fieldTestConfig])
 				? array() : explode(';', $test[DbLayout::fieldTestConfig]);
-		Core::launchPluginDetached($test[DbLayout::fieldPluginType],
+		Core::launchPlugin($test[DbLayout::fieldPluginType],
 				Config::get('paths', 'plugins') . $test[DbLayout::fieldPluginMainFile],
 				$testFolder . $test[DbLayout::fieldTestInput],
-				$testCompleteRequestId,
+				true,
 				$id,
 				$pluginArguments);
 

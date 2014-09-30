@@ -78,7 +78,7 @@ class Core
 	 * @return bool true if no error occured
 	 */
 	public static function launchPlugin ($pluginType, $pluginFile, $inputFile,
-			$dbRequest, $rowId, $arguments = array())
+			$isTest, $rowId, $arguments = array())
 	{
         try
         {
@@ -148,18 +148,56 @@ class Core
                 }
             }
 
-            if (!Core::sendDbRequest($dbRequest, $rowId, $response->getFulfillment(),
-                    $response->getDetails(), $outputFile))
+            /**
+             * @var $pluginTest \PluginTest
+             * @var $submission \Submission
+             * @var $previousSubmissions \Submission[]
+             */
+            if ($isTest)
             {
-                Core::logError(Error::create(Error::levelError, Core::sendDbRequest(null),
-                        'Submission/test state cannot be updated'));
+                $pluginTest = Repositories::findEntity(Repositories::PluginTest, $rowId);
+                $pluginTest->setSuccess($response->getFulfillment());
+                $pluginTest->setInfo($response->getDetails());
+                $pluginTest->setOutput($outputFile);
+                Repositories::persistAndFlush($pluginTest);
+            }
+            else
+            {
+                $submission = Repositories::findEntity(Repositories::Submission, $rowId);
+                // TODO document this unsafety here, race condition, may cause two submissions to be "latest"
+                $previousSubmissions = Repositories::makeDqlQuery("SELECT s FROM Submission s WHERE s.assignment = :sameAssignment AND s.status != 'graded' AND s.status != 'deleted'");
+                foreach ($previousSubmissions as $previousSubmission)
+                {
+                    $previousSubmission->setStatus(\Submission::STATUS_NORMAL);
+                    Repositories::getEntityManager()->persist($previousSubmission);
+                }
+                $submission->setStatus(\Submission::STATUS_LATEST);
+                $submission->setInfo($response->getDetails());
+                $submission->setSuccess($response->getFulfillment());
+                $submission->setOutputfile($response->getOutput());
+                Repositories::getEntityManager()->persist($submission);
+                Repositories::flushAll();
             }
 
             return !$error;
         }
         catch (Exception $exception)
         {
-            Core::sendDbRequest($dbRequest, $rowId, 0, "Internal error. Plugin launcher or plugin failed with an internal error. Exception information: " . $exception->getMessage() . " in " . $exception->getFile() . " at " . $exception->getLine(), null);
+            $errorInformation = "Internal error. Plugin launcher or plugin failed with an internal error. Exception information: " . $exception->getMessage() . " in " . $exception->getFile() . " at " . $exception->getLine();
+            if ($isTest)
+            {
+                $pluginTest = Repositories::findEntity(Repositories::PluginTest, $rowId);
+                $pluginTest->setSuccess(0);
+                $pluginTest->setInfo($errorInformation);
+                Repositories::persistAndFlush($pluginTest);
+            }
+            else
+            {
+                $submission = Repositories::findEntity(Repositories::Submission, $rowId);
+                $submission->setStatus(\Submission::STATUS_NORMAL);
+                $submission->setInfo($errorInformation);
+                Repositories::persistAndFlush($submission);
+            }
         }
 	}
 
@@ -174,7 +212,7 @@ class Core
 	 */
 	public static function launchPluginDetached (
         $pluginType, $pluginFile, $inputFile,
-			$dbRequest, $rowId, $arguments = array())
+			$isTest, $rowId, $arguments = array())
 	{
 		$launchPluginArguments = ShellUtils::quotePhpArguments(func_get_args());
 

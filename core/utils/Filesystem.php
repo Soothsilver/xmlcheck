@@ -2,7 +2,6 @@
 
 namespace asm\utils;
 
-// TODO continue here
 /**
  * Filesystem-related utility functions.
  */
@@ -22,12 +21,12 @@ class Filesystem
      *  [1] => "super.txt"
      * )
      * @endcode
-     * @param $directory the directory to list files of
-     * @return array all filenames
+     * @param $directory string the directory to list files of
+     * @return string[] all filenames
      */
     public static function getFiles($directory)
     {
-        $scanned_directory = array_diff(scandir($directory), array('..', '.'));
+        $scanned_directory = array_diff(scandir($directory), ['..', '.']);
         foreach ($scanned_directory as $key => $scannedFile) {
             if (is_dir(static::combinePaths($directory, $scannedFile)))
             {
@@ -38,31 +37,59 @@ class Filesystem
         return $scanned_directory;
     }
     /**
-     * Combines all paths given as arguments into a single one, keeping the resultant path close to the originals
-     * and making sure extraneous slashes are not present.
-     * http://stackoverflow.com/questions/1091107/how-to-join-filesystem-path-strings-in-php
+     * Combines all paths given as arguments into a single one.
+     * (Transforms all backslashes into forward slashes. There will be no slash at the end of the resultant path,
+     * unless the result is the single character '/'. Multiple consecutive slashes are rolled into one only.)
+     *
+     * http://stackoverflow.com/a/15575293/1580088
      * Example: [ 'abc', 'def' ] turns into 'abc/def'
-     * Example: [ 'abc/', '/def' ] turns into 'abc/def'
-     * TODO test and make sure it works on Windows
-     * @return mixed
+     * Example: [ 'abc/', '/def/' ] turns into 'abc/def'
+     * Example: [ '', '' ] turns into ''
+     * Example: [ '', '/' ] turns into '/'
+     * Example: [ '/', '/a' ] turns into '/a'
+     * Example: [ '/abc' ,'def' ] turns into '/abc/def'
+     * Example: [ '', 'foo.jpg' ] turns into 'foo.jpg'
+     * Example: [ 'dir', '0', 'a.jpg' ] turns into 'dir/0/a.jpg'
+     * Example: [ 'C:\long\path\', '/shortfile' ] turns into 'C:/long/path/shortfile'
+     * TODO upgrade to PHP 5.6 and use variadic function
+     * @return string the combined paths
      */
     public static function combinePaths()
     {
-        $paths = array();
+        $paths = [];
         foreach (func_get_args() as $arg) {
-            if ($arg !== '') { $paths[] = $arg; }
+            if ($arg !== '') { $paths[] = str_replace('\\', '/', $arg); }
         }
-        return preg_replace('#/+#','/',join('/', $paths));
+        $result = preg_replace('#/+#','/',join('/', $paths));
+        if (strlen($result) > 1 && substr($result, -1) === '/')
+        {
+            $result = substr($result, 0, -1);
+        }
+        return $result;
     }
-    // TODO document and test
-    // TODO use path combining
+    /**
+     * Copies the source file or contents of the source folder into the destination folder.
+     *
+     * Note: This will create the destination folder if it does not exist.
+     * Note: If some files fail to copy, all other files will still be copied and the function will return true.
+     * @param $sourceFileOrFolder string the file or folder to copy
+     * @param $destinationFolder string where to copy the files to
+     * @return bool success?
+     */
     public static function copyIntoDirectory( $sourceFileOrFolder, $destinationFolder )
     {
+        // Remove trailing slashes and change into forward slashes.
+        $sourceFileOrFolder = self::combinePaths($sourceFileOrFolder);
+        $destinationFolder = self::combinePaths($destinationFolder);
+
         if( is_dir($sourceFileOrFolder) )
         {
             if (!file_exists($destinationFolder))
             {
-                mkdir($destinationFolder);
+                if (!self::createDir($destinationFolder, 0777))
+                {
+                    return false;
+                }
             }
             else
             {
@@ -72,20 +99,23 @@ class Filesystem
                 }
             }
             $objects = scandir($sourceFileOrFolder);
-            if( sizeof($objects) > 0 )
+            if( count($objects) > 0 )
             {
                 foreach( $objects as $file )
                 {
                     if( $file == "." || $file == ".." )
-                        continue;
-                    // go on
-                    if( is_dir( $sourceFileOrFolder.DIRECTORY_SEPARATOR.$file ) )
                     {
-                        static::copyIntoDirectory( $sourceFileOrFolder.DIRECTORY_SEPARATOR.$file, $destinationFolder.DIRECTORY_SEPARATOR.$file );
+                        continue;
+                    }
+                    $sourceFile = self::combinePaths($sourceFileOrFolder, $file);
+                    $targetFile = self::combinePaths($destinationFolder, $file);
+                    if( is_dir( $sourceFile ) )
+                    {
+                        self::copyIntoDirectory( $sourceFile, $targetFile );
                     }
                     else
                     {
-                        copy( $sourceFileOrFolder.DIRECTORY_SEPARATOR.$file, $destinationFolder.DIRECTORY_SEPARATOR.$file );
+                        copy( $sourceFile, $targetFile );
                     }
                 }
             }
@@ -93,7 +123,21 @@ class Filesystem
         }
         elseif( is_file($sourceFileOrFolder) )
         {
-            return copy($sourceFileOrFolder, $destinationFolder.DIRECTORY_SEPARATOR.basename($sourceFileOrFolder));
+            if (!file_exists($destinationFolder))
+            {
+                if (!self::createDir($destinationFolder, 0777))
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (!is_dir($destinationFolder))
+                {
+                    return false;
+                }
+            }
+            return copy($sourceFileOrFolder, self::combinePaths($destinationFolder, basename($sourceFileOrFolder)));
         }
         else
         {
@@ -101,47 +145,63 @@ class Filesystem
         }
     }
     /**
-	 * Gets absolute path from supplied relative path.
-	 * @param string $path
-	 * @return string absolute path
+	 * Gets absolute path from supplied relative path. Contrary to PHP realpath, this function will not fail
+     * if the last path component does not exist. The absolute path won't have a trailing slash.
+	 * @param string $path a relative path
+	 * @return string absolute path, or false if the directory before the last component does not exist
 	 */
 	public static function realPath ($path)
 	{
-		return realpath(dirname($path)) . DIRECTORY_SEPARATOR . basename($path);
+        $dirPath = realpath(dirname($path));
+        if ($dirPath === false)
+        {
+            return false;
+        }
+        return self::combinePaths($dirPath, basename($path));
 	}
 
 	/**
-	 * Creates new folder (recursively).
+	 * Creates a directory at the path, even recursively creating directories. If the directory already exists, it changes its access mode.
 	 * @param string $path folder path
-	 * @param int $mode unix permissions
+	 * @param int $mode unix permissions to set
+     * @return bool success?
 	 */
 	public static function createDir ($path, $mode = 0777)
 	{
-		if (!is_dir($path))
-		{
-			return @mkdir($path, $mode, true);
+		if (!file_exists($path))
+        {
+            /** @noinspection PhpUsageOfSilenceOperatorInspection */
+            return @mkdir($path, $mode, true);
 		}
-		else
+		else if (is_dir($path))
 		{
-			return @chmod($path, $mode);
+            /** @noinspection PhpUsageOfSilenceOperatorInspection */
+            return @chmod($path, $mode);
 		}
+        else {
+            return false;
+        }
 	}
 
-	/**
-	 * (Creates folders in file path and) dumps string to file.
-	 * @param string $string
-	 * @param string $filename file path
-	 * @param int $mode unix permissions
-	 */
-	public static function stringToFile ($string, $filename, $mode = 0777)
+    /**
+     * Creates a file, creating parent directories if needed, and puts the string into it.
+     * @param string $filename file path to create
+     * @param string $string string to save to file
+     * @param int    $mode unix permissions
+     * @return bool success?
+     */
+	public static function stringToFile ($filename, $string, $mode = 0777)
 	{
-		$dirname = dirname($filename);
-		self::createDir($dirname, $mode);
-		file_put_contents($filename, $string);
+		$directoryName = dirname($filename);
+		self::createDir($directoryName, $mode);
+		return (file_put_contents($filename, $string) !== false);
 	}
 
 	/**
-	 * Deletes folder and its contents.
+	 * Deletes folder and its contents. If it's a regular file or symlink, it is deleted anyway.
+     *
+     * Note: This will attempt to change its permission mode to 0777 in order for the deletion to work if needed.
+     *
 	 * @param string $dir folder to be deleted
 	 * @return bool true if folder was successfully deleted
 	 */
@@ -151,16 +211,19 @@ class Filesystem
 		if (!is_dir($dir) || is_link($dir)) return unlink($dir);
 		foreach (scandir($dir) as $item) {
 			if ($item == '.' || $item == '..') continue;
-			if (!self::removeDir($dir . "/" . $item)) {
-				 chmod($dir . "/" . $item, 0777);
-				 if (!self::removeDir($dir . "/" . $item)) return false;
+            $thisItem = self::combinePaths($dir, $item);
+			if (!self::removeDir($thisItem)) {
+				 chmod($thisItem, 0777);
+				 if (!self::removeDir($thisItem)) return false;
 			}
-	  }
-	  return rmdir($dir);
+        }
+        return rmdir($dir);
 	}
 
 	/**
-	 * Deletes file.
+	 * Deletes file, if it exists.
+     *
+     * Note: Does not generate warnings. If the file had wrong permissions, this attempts to set them to 0777 prior to deletion.
 	 * @param string $path file to be deleted
 	 * @return bool true if file was deleted successfully
 	 */
@@ -176,9 +239,11 @@ class Filesystem
 	}
 
 	/**
-	 * Creates temporary folder
-	 * @param mixed $dir parent folder or null to create subfolder of system temp
-	 * @param string $prefix folder name prefix
+	 * Creates a temporary folder and return the path to it.
+     *
+     * Note: This path is not necessarily absolute.     *
+	 * @param mixed $dir parent folder of the temporary folder or null to create it as a subfolder of system-wide temporary folder.
+	 * @param string $prefix folder name prefix, that will be suffixed by a random number
 	 * @param int $mode unix privileges
 	 * @return string temporary folder path
 	 */
@@ -189,16 +254,13 @@ class Filesystem
 			$dir = sys_get_temp_dir();
 		}
 
-		if (substr($dir, -1) != DIRECTORY_SEPARATOR)
-		{
-			$dir .= DIRECTORY_SEPARATOR;
-		}
+		$dir = self::combinePaths($dir) . "/";
 
 		do
 		{
 			$path = $dir . $prefix . mt_rand(0, 9999999);
-		} while (!self::createDir($path, $mode));
-
+		}
+        while (!self::createDir($path, $mode));
 
 		return $path;
 	}

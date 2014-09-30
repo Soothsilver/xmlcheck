@@ -56,6 +56,11 @@ class Plugin
      */
     private $config;
 
+    /**
+     * @ORM\OneToMany(targetEntity="PluginTest", mappedBy="plugin")
+     */
+    private $pluginTests;
+
 
 
     /**
@@ -181,5 +186,45 @@ class Plugin
     public function getConfig()
     {
         return $this->config;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->pluginTests = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add pluginTests
+     *
+     * @param \PluginTest $pluginTests
+     * @return Plugin
+     */
+    public function addPluginTest(\PluginTest $pluginTests)
+    {
+        $this->pluginTests[] = $pluginTests;
+
+        return $this;
+    }
+
+    /**
+     * Remove pluginTests
+     *
+     * @param \PluginTest $pluginTests
+     */
+    public function removePluginTest(\PluginTest $pluginTests)
+    {
+        $this->pluginTests->removeElement($pluginTests);
+    }
+
+    /**
+     * Get pluginTests
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPluginTests()
+    {
+        return $this->pluginTests;
     }
 }

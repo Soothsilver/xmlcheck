@@ -65,7 +65,7 @@ final class AddSubmission extends DataScript
                 $assignment->getProblem()->getPlugin()->getType(),
                 Config::get('paths', 'plugins') . $assignment->getProblem()->getPlugin()->getMainfile(),
                 $submissionsFolder . $file,
-                'correctSubmissionById',
+                false,
                 $newSubmission->getId(),
                 explode(';', $assignment->getProblem()->getConfig())
             );

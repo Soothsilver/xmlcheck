@@ -78,7 +78,7 @@ class TestXslt extends \asm\plugin\XmlTest
 			$output = $newXmlDom->saveXML();
 			$suffix = '.xml';
 		}
-		Filesystem::stringToFile($output, $outputFilenameBase . $suffix);
+		Filesystem::stringToFile($outputFilenameBase . $suffix, $output);
 
 		return true;
 	}

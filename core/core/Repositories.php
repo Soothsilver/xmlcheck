@@ -16,6 +16,7 @@ class Repositories
     const Submission = "Submission";
     const Subscription = "Subscription";
     const User = "User";
+    const PluginTest = "PluginTest";
     /**
      * @var EntityManager
      */

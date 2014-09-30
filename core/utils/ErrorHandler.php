@@ -134,13 +134,14 @@ class ErrorHandler
 	/**
 	 * Turns triggered PHP error to exception with appropriate data.
      *
+     * Note: This must be public so that _set_error_handler can find it.
 	 * @param int $errno one of predefined @c E_* constants
 	 * @param string $errstr error message
 	 * @param string $errfile file in which error occurred
 	 * @param int $errline line on which error occurred
 	 * @throws ErrorException always, unless we are inside an error-controlled (@@) function.
 	 */
-	private function handleError ($errno, $errstr, $errfile, $errline)
+	public function handleError ($errno, $errstr, $errfile, $errline)
 	{
 		if (ini_get('error_reporting') == 0)
 		{
@@ -163,10 +164,12 @@ class ErrorHandler
 	}
 
 	/**
-	 * Handles uncaught exception (calls bound callbacks).
-	 * @param Exception $e
+	 * Handles uncaught exception by calling all bound callbacks upon it.
+     *
+     * Note: This must be public so that set_exception_handler can find it.
+	 * @param Exception $e the exception that occured
 	 */
-    private function handleException (Exception $e)
+    public function handleException (Exception $e)
 	{
 		foreach ($this->callbacks as $callback)
 		{
