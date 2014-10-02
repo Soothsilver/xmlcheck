@@ -15,21 +15,19 @@ class Flags
 	 *
 	 * Sample use:
 	 * @code
-	 * if (!Flags::match($usersPrivileges, PRIV_1 | PRIV_2, PRIV_3))
-	 *		throw new \Exception('User doesn\'t have privileges required for this action');
+	 * if (!Flags::match($usersPrivileges, PRIVILEGE_1 | PRIVILEGE_2, PRIVILEGE_3))
+	 *		throw new \Exception("User doesn't have privileges required for this action");
 	 * @endcode
-	 * In this case exception is thrown if neither both @c PRIV_1 and @c PRIV_2
-	 * flags nor @c PRIV_3 flag are contained in $usersPrivileges.
-	 * @param int $set set to match against requirements
-	 * @param int [...] requirements
+	 * In this case exception is thrown if neither both @c PRIVILEGE_1 and @c PRIVILEGE_2
+	 * flags nor @c PRIVILEGE_3 flag are contained in $usersPrivileges.
+	 * @param int $set set to match against requirements (one of the others must be included in here)
+	 * @param int[] $needsOneOf one of these sets must be included in the first one
 	 * @return bool true if @c $set matches at least one set of supplied requirements
 	 *		or if no requirements were supplied
 	 */
-	public static function match ($set)
+    public static function match ($set, ...$needsOneOf)
 	{
-		$args = func_get_args();
-		array_shift($args);
-
+		$args = $needsOneOf;
 		$matched = empty($args);
 		foreach ($args as $flags)
 		{
@@ -37,18 +35,23 @@ class Flags
 			{
 				$matched = true;
 			}
+            else
+            {
+            }
 		}
 		return $matched;
 	}
 
-	protected $flags = array();	///< array with flags {\<flag name\> => bool, ...}
+	protected $flags = [];	///< array with flags {\<flag name\> => 0b1, \<flag name\> => 0b10, \<flag name\> => 0b100...}
 
 	/**
-	 * Cuts flag names to 31 and sets their flag values (1, 2, 4, 8, etc).
+	 * Creates a Flags object. Each flag value (1, 2, 4, ...) receives a name from the input array.
 	 *
+     * The array must have 31 or less elements. This is a PHP technical limitation.
+     *
 	 * Sample use:
 	 * @code
-	 * $privs = new Flags(array(
+	 * $privileges = new Flags(array(
 	 *		'can do something',
 	 *		'can do something else',
 	 *		'and this as well',
@@ -63,8 +66,10 @@ class Flags
 	 */
 	public function __construct (array $flagNames)
 	{
-		// h4ck: no more than 31 privileges (bitwise shift only works on 32-bit integers)
-		array_splice($flagNames, 31);
+		if (count($flagNames) > 31)
+        {
+            throw new \InvalidArgumentException("This class accepts only up to 31 flags.");
+        }
 
 		$flag = 1;
 		foreach ($flagNames as $name)
@@ -85,11 +90,11 @@ class Flags
 	}
 
 	/**
-	 * Turns supplied flag set to flag array.
+	 * Turns a supplied integer representing a flag set to flag array.
 	 *
 	 * Sample use (continuing example from __construct()):
 	 * @code
-	 * $privs->toArray($privs->getFlag('can do something') | $privs->getFlag('and this as well'));
+	 * $privileges->toArray($privileges->getFlag('can do something') | $privileges->getFlag('and this as well'));
 	 * @endcode
 	 * will yield
 	 * @code
@@ -99,12 +104,12 @@ class Flags
 	 *		'and this as well' => true,
 	 * );
 	 * @endcode
-	 * @param int $flags flag set
+	 * @param int $flags the set of flags that are true
 	 * @return array array with boolean flags indexed by their names
 	 */
 	public function toArray ($flags)
 	{
-		$array = array();
+		$array = [];
 		foreach ($this->flags as $name => $flag)
 		{
 			$array[$name] = self::match($flags, $flag);
@@ -113,11 +118,11 @@ class Flags
 	}
 
 	/**
-	 * Turns supplied flag array to flag set.
+	 * Turns supplied flag array to an integer representing the flags.
 	 * @param array $array flag array (as returned from toArray())
 	 * @return int flag set (binary union of flag values)
 	 */
-	public function toFlags ($array)
+	public function toInteger ($array)
 	{
 		$flags = 0;
 		foreach ($array as $name => $isSet)

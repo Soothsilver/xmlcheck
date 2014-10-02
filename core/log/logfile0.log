@@ -35,3 +35,39 @@
 #2 UiScript.php:43 asm\core\GetChangelog->body()
 #3 Core.php:212 asm\core\UiScript->run(array(), array())
 #4 handleCoreRequest.php:42 asm\core\Core::handleUiRequest(array('action' => 'GetChangelog'), array())
+-
+2014-10-01 18:06:43	[not logged in]	[localhost]	[no lookup]	Login
+
+50	99	This user does not exist or is not activated or the password is incorrect.		
+-
+2014-10-01 18:07:41	[not logged in]	[localhost]	[no lookup]	Login
+
+50	99	This user does not exist or is not activated or the password is incorrect.		
+-
+2014-10-01 18:08:01	[not logged in]	[localhost]	[no lookup]	Login
+
+50	99	This user does not exist or is not activated or the password is incorrect.		
+-
+2014-10-01 18:08:25	[not logged in]	[localhost]	[no lookup]	Login
+
+50	99	This user does not exist or is not activated or the password is incorrect.		
+-
+2014-10-01 20:18:00	[not logged in]	[localhost]	[no lookup]	Login
+
+50	99	This user does not exist or is not activated or the password is incorrect.		
+-
+2014-10-01 20:18:03	[not logged in]	[localhost]	[no lookup]	Login
+
+50	99	This user does not exist or is not activated or the password is incorrect.		
+-
+2014-10-01 20:18:47	admin	[localhost]	[no lookup]	GetMotd
+
+100	99	file_get_contents(motd.txt): failed to open stream: No such file or directory (GetMotd.php:10)	Runtime error	#0 [unknown location] asm\utils\ErrorHandler->handleError(2, 'file_get_contents(motd.txt): failed to open stream: No such file or directory', 'C:\\Apps\\UwAmp\\www\\xmlcheck\\core\\core\\scripts\\GetMotd.php', 10, array())
+#1 GetMotd.php:10 file_get_contents('motd.txt')
+#2 UiScript.php:45 asm\core\GetMotd->body()
+#3 Core.php:266 asm\core\UiScript->run(array(), array())
+#4 request.php:40 asm\core\Core::handleUiRequest(array('action' => 'GetMotd'), array())
+-
+2014-10-01 20:18:49	admin	[localhost]	[no lookup]	GetSubscriptionRequests
+
+50	99	You do not have sufficient privileges to perform this action.		

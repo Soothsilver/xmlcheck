@@ -124,7 +124,7 @@ class User
 	{
 		return ($privileges === null)
 			? $this->data['privileges']
-			: $this->privileges->toFlags($privileges);
+			: $this->privileges->toInteger($privileges);
 	}
 
 	/**
@@ -161,7 +161,8 @@ class User
 
 		/// Username is case-insensitive.
 		$name = strtolower($name);
-		
+
+
 		$users = Core::sendDbRequest('getUserByName', $name);
 		if (!empty($users))
 		{
@@ -194,7 +195,6 @@ class User
 				return true;
 			}
 		}
-
 		return false;
 	}
 

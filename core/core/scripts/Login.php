@@ -23,6 +23,7 @@ final class Login extends DataScript
 
         $user = User::instance();
 
+
 		if (!$user->login($this->getParams('name'), $this->getParams('pass')))
 			return $this->stop(Language::get(StringID::InvalidLogin));
 
