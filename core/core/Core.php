@@ -291,21 +291,6 @@ LAUNCH_CODE;
 	}
 
 	/**
-	 * Gets system log entries.
-	 * @param int $maxEntries maximum number of entries to get (no limit if set to zero)
-	 * @return array log entries
-	 */
-	public static function readLog ($maxEntries = null)
-	{
-		self::initLogger();
-
-		return self::$logger->read(array(
-			'header' => array('username', 'remoteAddr', 'remoteHost', 'request'),
-			'item' => array('level', 'code', 'cause', 'effect', 'details'),
-		), $maxEntries);
-	}
-
-	/**
 	 * Logs supplied error.
 	 * @param Error $error
 	 * @see logException()
