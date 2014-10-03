@@ -1,7 +1,7 @@
 <?php
 
 namespace asm\utils;
-use InvalidArgumentException, ErrorException;
+use ErrorException;
 
 /**
  * Utility functions not fitting in any subcategory @module.

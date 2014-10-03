@@ -1,2 +1,0 @@
-(: Two :)
-/a/b/following::b[count(d) = position()]

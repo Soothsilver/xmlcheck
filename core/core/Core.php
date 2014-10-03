@@ -286,7 +286,7 @@ LAUNCH_CODE;
 				->setLineSeparator("\n\n")
 				->setItemSeparator("\t")
 				->setDatetimeFormat('Y-m-d H:i:s')
-				->setHeaderItems($username, $remoteAddr, $remoteHost, self::$request);
+				->setHeader("User " . $username . ", IP " . $remoteAddr . ", host " . $remoteHost . ", request " . self::$request);
 		}
 	}
 
@@ -298,8 +298,7 @@ LAUNCH_CODE;
 	public static function logError (Error $error)
 	{
 		self::initLogger();
-
-		call_user_func_array(array(self::$logger, 'log'), $error->toArray());
+        self::$logger->log($error->toString());
 	}
 
 	/**

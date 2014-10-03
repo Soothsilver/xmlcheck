@@ -1,2 +1,0 @@
-(: Prijmeni vsech zamestnancu, kteri nekdy jeli ke klientovi :)
-//zamestnanec[@id=//sluzebni_cesta[@ucel="klient"]/@zamestnanec]/prijmeni/text()

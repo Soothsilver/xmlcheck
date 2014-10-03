@@ -1,2 +1,0 @@
-(: Cisla uctu zamestnancu, kteri jeli na nejakou vnitrostatni sluzebni cestu :)
-//zamestnanec[@id=//sluzebni_cesta[not (zahranicni)]/@zamestnanec]/cislo_uctu/text()

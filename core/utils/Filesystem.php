@@ -51,13 +51,13 @@ class Filesystem
      * Example: [ '', 'foo.jpg' ] turns into 'foo.jpg'
      * Example: [ 'dir', '0', 'a.jpg' ] turns into 'dir/0/a.jpg'
      * Example: [ 'C:\long\path\', '/shortfile' ] turns into 'C:/long/path/shortfile'
-     * TODO upgrade to PHP 5.6 and use variadic function
+     * @param string[] $fragments path fragments to join
      * @return string the combined paths
      */
-    public static function combinePaths()
+    public static function combinePaths(...$fragments)
     {
         $paths = [];
-        foreach (func_get_args() as $arg) {
+        foreach ($fragments as $arg) {
             if ($arg !== '') { $paths[] = str_replace('\\', '/', $arg); }
         }
         $result = preg_replace('#/+#','/',join('/', $paths));

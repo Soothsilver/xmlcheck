@@ -3,7 +3,7 @@
 namespace asm\utils;
 
 /**
- * String-oriented utility function @module.
+ * String-oriented utility functions.
  */
 class StringUtils
 {

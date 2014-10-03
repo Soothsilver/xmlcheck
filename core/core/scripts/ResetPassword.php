@@ -19,7 +19,7 @@ final class ResetPassword extends DataScript
         {
             return $this->stop("You must provide a reset link.");
         }
-        $encryptionType = Security::$hashtypePhpass;
+        $encryptionType = Security::HASHTYPE_PHPASS;
         $newPassword = $this->getParams('pass');
         $newPasswordHash = Security::hash($newPassword, $encryptionType);
 
