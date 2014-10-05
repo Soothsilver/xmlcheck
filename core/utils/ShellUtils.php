@@ -36,7 +36,7 @@ class ShellUtils
 				? 'start /b "Assignment Manager Detached Evaluation" ' . $command . ' && exit'
 				: $command . ' > /dev/null &';
 
-		proc_close(proc_open($cmd, array(), $dummy, $dir));
+		proc_close(proc_open($cmd, [], $dummy, $dir));
 	}
 
 	/**
@@ -79,7 +79,7 @@ class ShellUtils
 		}
 		elseif (is_array($arg))
 		{
-			$quoted = array();
+			$quoted = [];
 			foreach ($arg as $key => $value)
 			{
 				$quoted[] = self::quotePhpArgument($key) . ' => '
@@ -106,7 +106,7 @@ class ShellUtils
 	 */
 	public static function quotePhpArguments (array $arguments)
 	{
-		$quoted = array();
+		$quoted = [];
 		foreach ($arguments as $argument)
 		{
 			$quoted[] = self::quotePhpArgument($argument);

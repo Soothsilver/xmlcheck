@@ -229,7 +229,7 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 				'tutor': {
 					'assignments': asm.lang.menu.assignments,
 					'groups': asm.lang.menu.groups,
-                    'correctionSeparated': asm.lang.menu.correctionSeparated,
+                 // TODO replace in if finished   'correctionSeparated': asm.lang.menu.correctionSeparated,
                     'correctionAll': asm.lang.menu.correctionAll,
 					'userRatings': asm.lang.menu.userRatings,
 					'requests': asm.lang.menu.subscriptionRequests

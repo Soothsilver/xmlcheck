@@ -15,7 +15,7 @@ class Validator
 	 * @param array $options filter-specific options
 	 * @return mixed error message (string) or true for unknown filters
 	 */
-	protected static function getError ($filter, array $options = array())
+	protected static function getError ($filter, array $options = [])
 	{
 		switch ($filter)
 		{
@@ -28,7 +28,7 @@ class Validator
 			case 'isDate':
 				return 'value is not a correctly formatted date';
 			case 'hasLength':
-				$restrictions = array();
+				$restrictions = [];
 				if (isset($options['min_length']))
 				{
 					array_push($restrictions, 'minimum length of ' . $options['min_length']);
@@ -62,7 +62,7 @@ class Validator
 	 * @return mixed false in case of success and true or error message string
 	 *		in case of failure
 	 */
-	public static function validate ($value, $filter, array $options = array())
+	public static function validate ($value, $filter, array $options = [])
 	{
 		if (is_callable($filter))
 		{

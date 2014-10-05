@@ -178,7 +178,12 @@ $.widget('ui.form', {
 			if ($(this).field('check') && !incorrectField) {
 				incorrectField = $(this);
 			} else {
-				data[$(this).field('option', 'name')] = $(this).field('option', 'value');
+                var name = $(this).field('option', 'name');
+				data[name] = $(this).field('option', 'value');
+                if (data[name] === true)
+                {
+                    data[name] = "true";
+                }
 			}
 		});
 		if (incorrectField) {

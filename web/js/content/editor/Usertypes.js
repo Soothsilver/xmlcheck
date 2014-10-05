@@ -33,7 +33,7 @@ asm.ui.editor.Usertypes = asm.ui.DynamicTableEditor.extend({
 			},
 			formClass: asm.ui.form.Usertype,
 			mainStore: asm.ui.globals.stores.usertypes,
-			removalMessage: asm.lang.userType.removalMessage,
+			removalMessage: asm.lang.usertypes.removalMessage,
 			removalRequest: 'DeleteUsertype',
 			subject: asm.lang.subjects.userType,
 			tableClass: asm.ui.table.Usertypes

@@ -13,23 +13,23 @@ asm.ui.table.Usertypes = asm.ui.DynamicTable.extend({
 					})
 					.appendTo(iconized);
 			}
-			return iconized;
+			return iconized.html();
 		};
 		var defaults = {
 			icon: asm.ui.globals.icons.usertype,
 			structure: {
 				id: { key: true, hidden: true, comparable: true },
-				name: { label: 'Name', comparable: true, string: true },
-				privsUsers: { label: 'Users', renderer: iconizePrivs },
-				privsSubscriptions: { label: 'Subscriptions', renderer: iconizePrivs },
-				privsPlugins: { label: 'Plugins', renderer: iconizePrivs },
-				privsAssignments: { label: 'Assignments', renderer: iconizePrivs },
-				privsSubmissions: { label: 'Correction', renderer: iconizePrivs },
-				privsLectures: { label: 'Lectures', renderer: iconizePrivs },
-				privsGroups: { label: 'Groups', renderer: iconizePrivs },
-				privsLog: { label: 'Log', renderer: iconizePrivs }
+				name: { label: asm.lang.usertypes.name, comparable: true, string: true },
+				privsUsers: { label: asm.lang.usertypes.users, renderer: iconizePrivs },
+				privsSubscriptions: { label: asm.lang.usertypes.subscriptions, renderer: iconizePrivs },
+				privsPlugins: { label: asm.lang.usertypes.plugins, renderer: iconizePrivs },
+				privsAssignments: { label: asm.lang.usertypes.assignments, renderer: iconizePrivs },
+				privsSubmissions: { label: asm.lang.usertypes.correction, renderer: iconizePrivs },
+				privsLectures: { label: asm.lang.usertypes.lectures, renderer: iconizePrivs },
+				privsGroups: { label: asm.lang.usertypes.groups, renderer: iconizePrivs },
+				privsOther: { label: asm.lang.usertypes.other, renderer: iconizePrivs }
 			},
-			title: 'User types with their privileges',
+			title: asm.lang.usertypes.caption,
 			transformer: function (row) {
 				var privileges = row.privileges;
 				delete row.privileges;
@@ -39,7 +39,7 @@ asm.ui.table.Usertypes = asm.ui.DynamicTable.extend({
 					row[fieldId] = [];
 					for (var action in actions) {
 						if (privileges[actions[action][0]]) {
-							row[fieldId].push([action + ' ' + subj, actions[action][1]]);
+							row[fieldId].push([actions[action][2], actions[action][1]]);
 						}
 					}
 				}

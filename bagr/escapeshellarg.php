@@ -1,2 +1,3 @@
 <?php
-echo escapeshellarg('"');
+$arg = escapeshellarg('echo "hello";');
+echo `php -r $arg`;

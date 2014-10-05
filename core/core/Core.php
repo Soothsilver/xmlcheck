@@ -282,9 +282,8 @@ LAUNCH_CODE;
 			self::$logger = Logger::create(Config::get('paths', 'log'))
 				->setMaxFileSize(2097152)	// 2 * 1024 * 1024
 				->setMaxFileCount(5)
-				->setEntrySeparator("\n-\n")
-				->setLineSeparator("\n\n")
-				->setItemSeparator("\t")
+				->setEntrySeparator("\n\n")
+				->setLineSeparator("\n")
 				->setDatetimeFormat('Y-m-d H:i:s')
 				->setHeader("User " . $username . ", IP " . $remoteAddr . ", host " . $remoteHost . ", request " . self::$request);
 		}

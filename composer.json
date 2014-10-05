@@ -10,9 +10,6 @@
          "phpunit/phpunit" : "4.2.*"
     },
     "autoload": {
-        "psr-0": {
-            "" : [ "trin/src", "trin2/src" ]
-        },
         "psr-4": {
             "" : "core/doctrine",
             "asm\\core\\" :

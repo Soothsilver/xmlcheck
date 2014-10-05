@@ -3,7 +3,9 @@
 * <b>Bugfix.</b> Fixed a bug that caused Problems not to be editable.
 * <b>Bugfix.</b> Fixed a bug that caused the 'Public' checkbox in Group editing to not load.
 * <b>Bugfix.</b> Fixed a bug that prevented user ratings from being sorted correctly.
+* <b>Bugfix.</b> Assignments for problems without automatic correction were not displayed (because INNER JOIN was used instead of LEFT JOIN).
 
+* <i>Discovered by unit tests:</i>
 * <b>Bugfix.</b> Fixed a bug in ArrayUtils::filterByKeys where non-strict in_array was used.
 * <b>Bugfix.</b> Fixed a bug in Filesystem::combinePaths where slash at end was left in
 * <b>Bugfix.</b> Fixed a bug in Filter::isNonNegativeInteger, which did not work.
@@ -12,11 +14,16 @@
 * <b>Bugfix.</b> Fixed a documentation error in ArrayUtils::sortByKeys. The function does not actually turn array keys into strings, that is not possible in PHP.
 * <b>Bugfix.</b> Fixed a regex bug that caused Filter::isName to always return true.
 
-* <b>Performance.</b> Tables now load more quickly.
-* <b>Compression.</b> Fixed a bug in the Compression utilities that created partially invalid ZIP files on Windows.
+* <i>Discovered by examining past submissions:</i>
+* <b>XSD.</b> The default use of optional attributes was not recognized as such.
+* <b>XSD.</b> If a simple type was used in an attribute rather than an element and was inset in it, this was not recognized as a use of simple type.
+* <b>XSD.</b> Improved task description.
 * <b>DTD.</b> Fixed a bug where parameter entities were not recognized by the counter.
 * <b>DTD.</b> Improved task description.
 * <b>DTD.</b> Bugfix with general unparsed entities. The NDATA identifier should not in quotes.
+
+* <b>Performance.</b> Tables now load more quickly.
+* <b>Compression.</b> Fixed a bug in the Compression utilities that created partially invalid ZIP files on Windows.
 * <b>Navigation.</b> If you attempt to access a protected page (anything beyond the login screen), you are returned to the login screen, but the hashtag-address remembers where you wanted to go and will return you there when you actually log in.
 * <b>Submissions.</b> Students can now download their submissions.
 * <b>Tables.</b> Table height (default 15) is now saved as a cookie.

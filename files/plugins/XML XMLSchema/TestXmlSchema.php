@@ -1,7 +1,6 @@
 <?php
 
 use asm\plugin\CountedRequirements;
-// TODO throw error when the XML file does not refer to the XSD file
 /**
  * @ingroup plugins
  * Test for checking XMLSchema homework of XML Technologies lecture.
@@ -91,15 +90,15 @@ class TestXmlSchema extends \asm\plugin\XmlTest
 				self::simpleTypes => array('used simple types',
 					'//xs:element[not(@type=/*//xs:complexType/@name)] | //xs:attribute[not(@type=/*//xs:complexType/@name)]'),
 				self::complexTypes => array('used complex types',
-					'//xs:element[@type=/*//xs:complexType/@name]'),
+					'//xs:element[@type=/*//xs:complexType/@name] | //xs:extension[@base=/*//xs:complexType/@name]'),
 				self::elementRestrictions => array('used minOccurs or maxOccurs',
 					'//*[@minOccurs or @maxOccurs]'),
 				self::mandatoryAttributes => array('defined mandatory attributes',
 					'//xs:attribute[@use="required"]'),
 				self::optionalAttributes => array('defined optional attributes',
-					'//xs:attribute[@use!="required" and @use!="prohibited"]'),
+					'//xs:attribute[(@use!="required" and @use!="prohibited") or not(@use)]'),
 				self::derivedSimpleType => array('defined and used derived simple types',
-					'//xs:simpleType[@name=/*//xs:element/@type or @name=/*//xs:attribute/@type] | //xs:element/xs:simpleType'),
+					'//xs:simpleType[@name=/*//xs:element/@type or @name=/*//xs:attribute/@type] | //xs:element/xs:simpleType | //xs:attribute/xs:simpleType'),
 				self::textElementsWithAttributes => array('defined complex-type simple-content elements with attributes ',
 					'//xs:complexType[@name=/*//xs:element/@type][./xs:simpleContent/*/xs:attribute] | /*/*//xs:complexType[./xs:simpleContent/*/xs:attribute]'),
 				self::globalItemUses => array('used globally defined items',
@@ -117,38 +116,6 @@ class TestXmlSchema extends \asm\plugin\XmlTest
 		));
 	}
 
-	/**
-	 * Checks use of defined elements in XML.
-	 * @note Currently not implemented (goal is always reached).
-	 * @param DOMDocument $xmlDom source XML
-	 */
-	protected function checkXmlUseOfSchemaDefs (DOMDocument $xmlDom)
-	{
-		// FIXME implement
-	//	$this->reachGoal(self::goalUsedSchema);
-
-/*
-		$config = array(
-			'data' => array(
-				self::simpleTypes => array('used elements or attributes with simple type', 1),
-				self::complexTypes => array('used elements with complex type', 1),
-				self::elementRestrictions => array('used sub-elements with appearance restrictions', 1),
-				self::mandatoryAttributes => array('used mandatory attributes', 1),
-				self::optionalAttributes => array('used optional attributes', 1),
-				self::derivedSimpleType => array('used elements or attributes with derived simple type', 1),
-				self::textElementsWithAttributes => array('used text elements with attributes ', 1),
-				self::globalItemUses => array('used items globally defined in schema', 1),
-				self::localItemUses => array('used items locally defined in schema', 1),
-				self::references => array('used items using references in schema', 1),
-				self::inheritances => array('used items with extended or restricted type', 1),
-				self::identityRestrictions => array('used items with identity restrictions', 1),
-			),
-			'counts' => $this->params,
-		);
-		$reqs = new CountedRequirements($config);
-*/
-	}
-	
 	protected function main()
 	{
 		$this->addGoals(array(
@@ -177,17 +144,6 @@ class TestXmlSchema extends \asm\plugin\XmlTest
 				$this->checkValidityToXmlSchema($xmlDom, $schemaDom->saveXML());
                 $this->checkThatXmlRefersToXsd($xmlDom, $xsdFile);
 
-/*
-				if ($isSchemaCovered)
-				{
-					$this->checkXmlUseOfSchemaDefs($xmlDom);
-				}
-				else
-				{
-					$this->failGoal(self::goalUsedSchema,
-							'XMLSchema document doesn\'t contain all required constructs');
-				}
-*/
 			}
 			else
 			{
@@ -203,7 +159,7 @@ class TestXmlSchema extends \asm\plugin\XmlTest
     private function checkThatXmlRefersToXsd(DOMDocument $xmlDom, $xsdFilename)
     {
         $instanceSchema = "http://www.w3.org/2001/XMLSchema-instance";
-        $actualFilename = basename($xsdFilename); // TODO we won't catch it if it's in a subfolder, but oh well, we'll have to deal with that on a different level.
+        $actualFilename = basename($xsdFilename);
         if ($xmlDom->documentElement)
         {
             $documentElement = $xmlDom->documentElement;
@@ -217,14 +173,14 @@ class TestXmlSchema extends \asm\plugin\XmlTest
                 }
                 if (basename($parts[1]) !== $actualFilename)
                 {
-                    return $this->failGoal(self::goalRefersToSchema, "The schemaLocation's attribute value's second part is not identical to the XSD filename found.");
+                    return $this->failGoal(self::goalRefersToSchema, "The schemaLocation's attribute value's second part is not identical to the XSD filename found. It is also possible that you didn't put the XSD schema and the XML document in the same folder which is needed for this assignment.");
                 }
             }
             else if ($documentElement->hasAttributeNS($instanceSchema, "noNamespaceSchemaLocation"))
             {
                 if (basename($documentElement->getAttributeNodeNS($instanceSchema, "noNamespaceSchemaLocation")->value) !== $actualFilename)
                 {
-                    return $this->failGoal(self::goalRefersToSchema, "The noNamespaceSchemaLocation's attribute value is not identical to the XSD filename found.");
+                    return $this->failGoal(self::goalRefersToSchema, "The noNamespaceSchemaLocation's attribute value is not identical to the XSD filename found. It is also possible that you didn't put the XSD schema and the XML document in the same folder which is needed for this assignment.");
                 }
             }
             else
@@ -234,7 +190,6 @@ class TestXmlSchema extends \asm\plugin\XmlTest
             $this->reachGoal(self::goalRefersToSchema);
         }
     }
-     // TODO move elsewhere
     private function endsWith($haystack, $needle)
     {
         return $needle === "" || strtolower(substr($haystack, -strlen($needle))) === strtolower($needle);

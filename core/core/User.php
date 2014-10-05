@@ -54,7 +54,6 @@ class User
 	//@}
 	const sessionTimeout = 10800;	///< how long the user stays logged in [3 hours]
 	const sessionSpace = 'user';	///< data is stored in $_SESSION under this key
-    // TODO that constant is not used
 
     private static $instance;	///< singleton instance
 
@@ -84,12 +83,12 @@ class User
 	 */
 	protected function __construct ()
 	{
-		if (!isset($_SESSION['user']))
+		if (!isset($_SESSION[self::sessionSpace]))
 		{
-			$_SESSION['user'] = null;
+			$_SESSION[self::sessionSpace] = null;
 		}
 		
-		$this->data = & $_SESSION['user'];
+		$this->data = & $_SESSION[self::sessionSpace];
 		$privilegeNames = array(
 			'usersAdd', 'usersManage', 'usersRemove', 'usersExplore', 'usersPrivPresets',
 			'groupsJoinPublic', 'groupsJoinPrivate', 'groupsRequest',
@@ -100,7 +99,7 @@ class User
 			'groupsAdd', 'groupsManageOwn', 'groupsManageAll',
 			'otherAdministration',
 			'submissionsViewAuthors',
-			'submissionsModifyRated',
+			'submissionsModifyRated'
 		);
 		$privileges = array();
 		foreach ($privilegeNames as $name) {

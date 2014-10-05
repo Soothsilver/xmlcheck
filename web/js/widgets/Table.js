@@ -168,28 +168,20 @@ $.widget('ui.table', {
 			.corner({styles: ['left']})
 			.appendTo(newFilterForm);
 		var filterFieldSelect = $('<select></select>')
-            // TODO these two lines added by Petr Hudecek:
-            // TODO these lines may not be perfect, perhaps other methods are more in place
             .bind('focus', function() { $(this).addClass('ui-state-highlight');  } )
             .bind('blur', function() { $(this).removeClass('ui-state-highlight'); } )
 			.appendTo(newFilterInputs);
 		var filterNegSelect = $('<select></select>')
-            // TODO these two lines added by Petr Hudecek:
-            // TODO these lines may not be perfect, perhaps other methods are more in place
             .bind('focus', function() { $(this).addClass('ui-state-highlight');  } )
             .bind('blur', function() { $(this).removeClass('ui-state-highlight'); } )
 			.append($('<option>').attr('value', '').append(' '))
 			.append($('<option>').attr('value', 'not').append('!'))
 			.appendTo(newFilterInputs);
 		var filterTypeSelect = $('<select></select>')
-            // TODO these two lines added by Petr Hudecek:
-            // TODO these lines may not be perfect, perhaps other methods are more in place
             .bind('focus', function() { $(this).addClass('ui-state-highlight');  } )
             .bind('blur', function() { $(this).removeClass('ui-state-highlight'); } )
 			.appendTo(newFilterInputs);
 		var filterValueInput = $('<input type="text"/>')
-            // TODO these two lines added by Petr Hudecek:
-            // TODO these lines may not be perfect, perhaps other methods are more in place
             .bind('focus', function() { $(this).addClass('ui-state-highlight');  } )
             .bind('blur', function() { $(this).removeClass('ui-state-highlight'); } )
 			.click(function () {
@@ -879,9 +871,9 @@ $.widget('ui.table', {
 	 */
 	_getFields: function (row) {
 		if (row != undefined) {
-			return row.children(':not(.ui-table-action-field)');
+			return row.children(':not(.ui-table-action-field):not(.ui-table-empty-action-field)');
 		} else {
-			return this._getRows().children(':not(.ui-table-action-field)');
+			return this._getRows().children(':not(.ui-table-action-field):not(.ui-table-empty-action-field)');
 		}
 	},
 	/**
@@ -1382,6 +1374,7 @@ $.widget('ui.table', {
                     {
                         if (!actionConfig.filter(data[rowIndex][keyColumn], data[rowIndex]))
                         {
+                            actionCell.setAttribute('class', 'ui-table-empty-action-field');
                             row.appendChild(actionCell);
                             continue;
                         }
@@ -1600,7 +1593,6 @@ $.widget('ui.table', {
 		this._setSortable();
 		this._setHiddenHeaders();
 		this._setGlobalActions();
-	// TODO remove this, because there is never any content:	this.initBody(sort);
 		return this.element;
 	}
 });

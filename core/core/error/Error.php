@@ -12,7 +12,7 @@ class Error
 	/// @name Severity constants
 	//@{
 	const levelNotice		=	10;	///< notice (doesn't have to be error-related at all)
-	const levelWarning	=	25;	///< warning (nothing failed but something's wrong)
+	const levelWarning	    =	25;	///< warning (nothing failed but something's wrong)
 	const levelError		=	50;	///< regular error
 	const levelFatal		=	100;	///< fatal error (unexpected & fatal)
 	//@}
@@ -93,5 +93,14 @@ class Error
         }
 		return $severity . ": " . $this->cause . " causes " . $this->effect . " with details " . $this->details;
 	}
+    public function toArray()
+    {
+        return [
+            'code' => $this->code,
+            'level' => $this->level,
+            'cause' => $this->cause,
+            'effect' => $this->effect,
+            'details' => $this->details];
+    }
 }
 

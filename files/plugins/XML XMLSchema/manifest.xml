@@ -18,9 +18,10 @@
         6. Nadefinovat typ s atributy (tj. simpleContent uvnitř complexType, uvnitř nějž je definován atribut)
         7. Nadefinovat a použít globálně definovaný element, atribut nebo typ
         8. Nadefinovat lokální typ (tj. použít simpleType nebo complexType jinde, než na nejvyšší hladině)
-        9. Použít reference (tj. atribut "ref" u elementu, skupiny, atributu nebo skupiny atributů)
-        10. Použít typovou dědičnost (tj. použít "extension" nebo "restriction")
-        11. Použít unique, key nebo keyref.
+        9. Nadefinovat globální komplexní typ (tj. nějaký element se musí pomocí "type" odkazovat na nějaký complexType na nejvyšší hladině)
+        10. Použít reference (tj. atribut "ref" u elementu, skupiny, atributu nebo skupiny atributů)
+        11. Použít typovou dědičnost (tj. použít "extension" nebo "restriction")
+        12. Použít unique, key nebo keyref.
 	</description>
 	<arguments></arguments>
 </plugin-manifest>

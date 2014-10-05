@@ -17,7 +17,7 @@ class StringUtils
 	 * @return string random string
 	 */
 	public static function randomString ($length = 32,
-			$chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789')
+                                         $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789')
 	{
 		$maxIndex = strlen($chars) - 1;
 		$string = '';
@@ -70,7 +70,7 @@ class StringUtils
 	 */
 	public static function formatXml ($xmlString, $padStr = "\t")
 	{
-		// add marker linefeeds to aid the pretty-tokeniser (adds a linefeed between all tag-end boundaries)
+		// add marker linefeeds to aid the pretty-tokenizer (adds a linefeed between all tag-end boundaries)
 		$xmlString = preg_replace('/(>)(<)(\/*)/', "$1\n$2$3", $xmlString);
 
 		$xmlString = preg_replace('/(<(\w[^> ]*)(?:[^>]*[^\/])?>)(?:\n)(<\/\2>)/', '$1$3', $xmlString);
@@ -79,7 +79,7 @@ class StringUtils
 		$token = strtok($xmlString, "\n");
 		$result = ''; // holds formatted version as it is built
 		$pad = 0; // initial indent
-		$matches = array(); // returns from preg_matches()
+		$matches = []; // returns from preg_matches()
 
 		// scan each line and adjust indent based on opening/closing tags
 		while ($token !== false)
@@ -186,7 +186,7 @@ class StringUtils
 	{
 		$stl = strlen($startToken);
 		$etl = strlen($endToken);
-		$comments = array();
+		$comments = [];
 		while ((($from = strpos($string, $startToken)) !== false) && (($to = strpos($string, $endToken, $from)) !== false))
 		{
 			$comments[] = substr($string, $from + $stl, $to - $from - $stl);

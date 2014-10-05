@@ -13,7 +13,6 @@ use Exception;
  */
 class Config
 {
-    // TODO wtf why is this all protected? why not private?
 	/// default separator of section name and key in folder structure variables
 	const defaultFolderDelimiter = '.';
 	/// name of folder structure section (contains relationships between other

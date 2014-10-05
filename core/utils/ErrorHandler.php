@@ -167,7 +167,7 @@ class ErrorHandler
 	 * Handles uncaught exception by calling all bound callbacks upon it.
      *
      * Note: This must be public so that set_exception_handler can find it.
-	 * @param Exception $e the exception that occured
+	 * @param Exception $e the exception that occurred
 	 */
     public function handleException (Exception $e)
 	{

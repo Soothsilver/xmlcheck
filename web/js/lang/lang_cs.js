@@ -1,3 +1,4 @@
+asm = window.asm || {};
 asm.otherlangs = asm.otherlangs || {};
 asm.otherlangs.cs = {
     general : {
@@ -94,7 +95,9 @@ asm.otherlangs.cs = {
         subscriptions : "Členství",
 
         assignments : "Zadat úkoly",
-        correction : "Oznámkovat řešení",
+        correction : "Oznámkovat řešení (staré)",
+        correctionAll : "Oznámkovat řešení",
+        correctionSeparated: "Oznámkovat řešení (nové)",
         groups : "Skupiny",
         userRatings : "Hodnocení studentů",
         subscriptionRequests : "Žádosti o členství",
@@ -130,7 +133,8 @@ asm.otherlangs.cs = {
         tasksRequireAttention : 'Následující situace vyžadují vaši pozornost:',
         currentGroupRatings : 'Vaše aktuální hodnocení:',
         passwordChanged : 'Celé jméno, e-mail a heslo byly změněny.',
-        passwordNotChanged : 'Celé jméno a e-mail změněny. Heslo zůstává beze změny.'
+        passwordNotChanged : 'Celé jméno a e-mail změněny. Heslo zůstává beze změny.',
+        points: "bodů"
     },
     userInterface : {
         caption : 'Nastavení uživatelského rozhraní',
@@ -302,11 +306,44 @@ asm.otherlangs.cs = {
         permitRequest : "povolit členství",
         prohibitRequest : "zamítnout členství"
     },
-    userType : {
-        removalMessage : "Všihcni uživatelé tohoto typu dostanou přidělený typ STUDENT.",
+    usertypes : {
+        removalMessage : "Všem uživatelům tohoto typu bude přiřazen typ STUDENT.",
         editCaption : "Přidat nebo upravit typ uživatele",
         name : "Jméno",
-        nameHint : "zadejte jedinečné jméno typu uživatele"
+        nameHint : "zadejte jedinečné jméno typu uživatele",
+        caption: "Druhy uživatelů a jejich práva",
+        users : "Uživatelé",
+        subscriptions : "Členství ve skupinách",
+        plugins : "Pluginy",
+        assignments : "Úkoly",
+        correction : "Známkování",
+        lectures : "Přednášky",
+        groups : "Skupiny",
+        other : "Jiné",
+        users_add : "přidat uživatele",
+        users_explore : "zobrazit uživatele",
+        users_editUsers : "upravovat uživatele",
+        users_remove : "odstraňovat uživatele",
+        usertypes_edit : "upravovat druhy uživatelů",
+        subscriptions_joinpublic : "připojovat se k veřejným skupinám",
+        subscriptions_requestprivate : "žádat o členství u soukromých skupin",
+        subscriptions_joinprivate : "připojovat se k soukromým skupinám bez povolení",
+        plugins_add : "přidat pluginy",
+        plugins_explore : "zobrazovat pluginy",
+        plugins_edit : "upravovat pluginy",
+        plugins_remove : "odstraňovat pluginy",
+        plugins_test: "spouštět testy pluginů",
+        assignments_submit : "odevzdávat řešení úkolů",
+        submissions_grade : "známkovat úkoly",
+        submissions_viewAuthors : "zobrazovat autory řešení",
+        submissions_regrade : "měnit počet bodů již oznámkovaných úkolů",
+        lectures_add : "vytvářet přednášky",
+        lectures_editOwn : "upravovat vlastní přednášky",
+        lectures_editAll : "upravovat libovolné přednášky",
+        groups_add : "vytvářet skupiny",
+        groups_editOwn: "upravovat vlastní skupiny",
+        groups_editAll : 'upravovat libovolné skupiny',
+        other_administration : 'provádět jiné administrativní úkony'
     },
     groups : {
         editCaption : 'Přidat nebo upravit skupinu',
@@ -331,7 +368,7 @@ asm.otherlangs.cs = {
         gradedSubmissionsCaption : "Oznámkovaná řešení",
         problem : "Problém",
         deadline : "Termín",
-        success : "Úspěšnost",
+        success : "%",
         uploaded : "Nahráno",
         details : "Podrobnosti",
         downloadSubmission : "stáhnout řešení",
@@ -405,6 +442,31 @@ asm.otherlangs.cs = {
         caption : "Jazyková nastavení",
         language : "Jazyk",
         languageHint : "nastavení uloženo jako cookie na tomto počítači"
-    }
+    },
+    grading : {
+        legacyAwaitingGradingCaption : "Neoznámkovaná řešení",
+        legacyGradedCaption : "Oznámkovaná řešení",
+        downloadSubmission : "stáhnout řešení",
+        downloadOutput : "stáhnout vygenerovaný výstup",
+        gradeSubmission : "oznámkovat řešení",
+        regradeSubmission : "změnit počet bodů oznámkovaného řešení",
+        problem: "Problém",
+        group: "Skupina",
+        fulfillment: "%",
+        uploaded : "Nahráno",
+        details: "Podrobnosti",
+        author: "Autor",
+        points: "Body",
+        rateSubmissionCaption: "Oznámkovat řešení",
+        rating: "Počet bodů",
+        noteToStudent: "Poznámka studentovi",
+        rateButton: "Přidělit body",
+        changeSubmissionRatingCaption : "Změnit přidělený počet bodů",
+        changeButton : "Změnit",
+        submittedLate : "Odevzdáno pozdě",
+        submittedLateHint_1: 'Toto řešení bylo odevzdáno pozdě.\nTermín: ',
+        submittedLateHint_2: "\nNahráno: ",
+        submittedLateHint_3: "."
+    },
 
 };

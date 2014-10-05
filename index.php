@@ -84,17 +84,20 @@ function echoScripts($directory)
     <script type="text/javascript" src="./web/js/extensions/jQuery.js"></script>
     <script type="text/javascript" src="./web/js/extensions/jQuery.fn.js"></script>
 
+
+    <!-- ~~~~~~~~~~~~~~~~~~~~~ Language ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <script type="application/javascript" src="./web/js/utils/CookieUtils.js"></script>
+    <!-- Requires CookieUtils -->
+    <script type="text/javascript" src="./web/js/asm.ui.constants.js"></script>
+    <script type="application/javascript" src="./web/js/lang/lang_cs.js"></script>
+    <script type="application/javascript" src="./web/js/lang/lang.js"></script>
+    <script type="application/javascript" src="./web/js/lang/choose_language.js"></script>
+
     <!-- ~~~~~~~~~~~~~~~~~~~~~ Application ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
     <script type="text/javascript" src="./web/js/asm.ui.js"></script>
 
     <!-- Utils -->
     <?php echoScripts("./web/js/utils"); ?>
-
-    <!-- ~~~~~~~~~~~~~~~~~~~~~ Language ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-    <!-- Requires CookieUtils -->
-    <script type="application/javascript" src="./web/js/lang/lang_cs.js"></script>
-    <script type="application/javascript" src="./web/js/lang/lang.js"></script>
-    <script type="application/javascript" src="./web/js/lang/choose_language.js"></script>
 
 
     <!-- ~~~~~~~~~~~~~~~~~~~~~ Widgets ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
