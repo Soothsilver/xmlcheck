@@ -4,7 +4,7 @@ use asm\utils\StringUtils,
 	asm\plugin\CountedRequirements,
 	asm\plugin\XmlRegex;
 
-require_once __DIR__ . '/AuroraDTD.php';
+require_once __DIR__ . '/SoothsilverDtdParser.php';
 
 /**
  * @ingroup plugins
@@ -70,7 +70,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 
 	protected function checkDTDValidity ($dtdString, $internalSubset, &$dtdDoc)
 	{
-        $dtdDoc = \Aurora\DTD::parseText($dtdString,$internalSubset);
+        $dtdDoc = \Soothsilver\DtdParser\DTD::parseText($dtdString,$internalSubset);
         if ($dtdDoc->isWellFormedAndValid())
         {
             $this->reachGoal(self::goalValidDtd);
@@ -97,7 +97,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 	/**
 	 * Searches for occurences of required DTD constructs and marks them in supplied
 	 * index.
-	 * @param Aurora\DTD $dtdDoc source DTD
+	 * @param Soothsilver\DtdParser\DTD $dtdDoc source DTD
 	 * @param CountedRequirements $reqs occurence index
 	 */
 	protected function markDTDConstructOccurences ($dtdDoc, $reqs)
@@ -110,9 +110,9 @@ class TestDtd2014 extends \asm\plugin\XmlTest
         $reqs->addOccurences(self::dtdEntities, count($dtdDoc->parameterEntities));
 
         foreach ($dtdDoc->elements as $element) {
-            if ($element->contentSpecification === Aurora\Element::CONTENT_SPECIFICATION_EMPTY)
+            if ($element->contentSpecification === Soothsilver\DtdParser\Element::CONTENT_SPECIFICATION_EMPTY)
             { $reqs->addOccurence(self::dtdEmptyElements);}
-            else if ($element->contentSpecification === Aurora\Element::CONTENT_SPECIFICATION_ANY)
+            else if ($element->contentSpecification === Soothsilver\DtdParser\Element::CONTENT_SPECIFICATION_ANY)
             { // We don't want to count ANY content model.
             }
             else if ($element->isPureText())
@@ -128,18 +128,18 @@ class TestDtd2014 extends \asm\plugin\XmlTest
             }
             foreach ($element->attributes as $attribute) {
                 $reqs->addOccurence(self::dtdAttributes);
-                if ($attribute->defaultType === \Aurora\Attribute::DEFAULT_REQUIRED)
+                if ($attribute->defaultType === \Soothsilver\DtdParser\Attribute::DEFAULT_REQUIRED)
                 {$reqs->addOccurence(self::dtdLimitedOccurenceAttributes); }
-                if ($attribute->type === \Aurora\Attribute::ATTTYPE_ENUMERATION)
+                if ($attribute->type === \Soothsilver\DtdParser\Attribute::ATTTYPE_ENUMERATION)
                 {$reqs->addOccurence(self::dtdEnumDataTypes);}
-                if ($attribute->type === \Aurora\Attribute::ATTTYPE_CDATA)
+                if ($attribute->type === \Soothsilver\DtdParser\Attribute::ATTTYPE_CDATA)
                 {$reqs->addOccurence(self::dtdTextDataTypes);}
-                if ($attribute->type === \Aurora\Attribute::ATTTYPE_ID)
+                if ($attribute->type === \Soothsilver\DtdParser\Attribute::ATTTYPE_ID)
                 {
                     $reqs->addOccurence(self::dtdIdKeys);
                     $this->xmlAttrIDs[] = "{$element->type}>{$attribute->name}";
                 }
-                if ($attribute->type === \Aurora\Attribute::ATTTYPE_IDREF)
+                if ($attribute->type === \Soothsilver\DtdParser\Attribute::ATTTYPE_IDREF)
                 {
                     $reqs->addOccurence(self::dtdIdRefs);
                     $this->xmlAttrIDRefs[] = "{$element->type}>{$attribute->name}";
