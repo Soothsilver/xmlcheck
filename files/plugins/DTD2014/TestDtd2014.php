@@ -4,7 +4,6 @@ use asm\utils\StringUtils,
 	asm\plugin\CountedRequirements,
 	asm\plugin\XmlRegex;
 
-require_once __DIR__ . '/SoothsilverDtdParser.php';
 
 /**
  * @ingroup plugins

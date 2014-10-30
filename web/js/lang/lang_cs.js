@@ -35,7 +35,7 @@ asm.otherlangs.cs = {
         password : "Heslo",
         register : "Registrace",
         activate : "Aktivování",
-        lostPassword : "Ztracené heslo?",
+        lostPassword : "Zapomenuté heslo?",
         loginButton : "Přihlásit se",
         back : "Zpět",
         passwordResetSuccessful : "Vaše heslo bylo změněno. Můžete se nyní přihlásit s vaším novým heslem.",
@@ -110,7 +110,7 @@ asm.otherlangs.cs = {
         attachments : "Přílohy",
         tests : "Testy",
 
-        changelog : "Changelog",
+        changelog : "Seznam změn",
         uiLog : "Log UI",
         users : "Uživatelé",
         userTypes : "Druhy uživatelů",
@@ -144,11 +144,10 @@ asm.otherlangs.cs = {
         caption : 'Upozornit na e-mail při následujících událostech',
         whenRated : 'Když je moje řešení oznámkováno',
         whenGiven : 'Když je zadán nový úkol',
-        whenStudentConfirms : 'Když student odevzdá řešení',
+        whenStudentConfirms : 'Když se požádá o známkování',
         whenRatedHint : 'Poslat email, když cvičící oznámkuje moje řešení',
         whenGivenHint : 'Poslat email, když do jedné z mých skupin přibyde úkol',
-        whenStudentConfirmsHint : '[Jen cvičící] Poslat email, kdykoliv student odevzdá řešení v mé skupině',
-        submit : 'Potvrdit změny',
+        whenStudentConfirmsHint : '[Jen cvičící] Poslat email, kdykoliv student požádá o předčasné oznámkování',
         savedMessage : "Vaše nastavení emailových notifikací byla uložena."
     },
 
@@ -226,7 +225,7 @@ asm.otherlangs.cs = {
         attachment: "přílohu"
     },
     uiLog : {
-        caption : "Log UI",
+        caption : "Záznam zpráv z uživatelského rozhraní",
         timestamp : "Časová známka",
         type : "Druh",
         message : "Zpráva",

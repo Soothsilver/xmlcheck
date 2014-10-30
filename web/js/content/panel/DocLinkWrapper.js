@@ -7,18 +7,14 @@ asm.ui.DocLinkWrapper = asm.ui.Container.extend({
 					classes: ['docLinkPanel']
 				}).extend({
 					_buildContent: function () {
-						/* TODO remove this
-                        this._buildOutLink('./docs/', asm.ui.globals.appName + ' documentation')
-							.appendTo(this.config.target);
-                        */
                         var builtLink = this._buildLink('', '  Česky');
-                        var classedLink = builtLink.addClass('outlink');
+                        var classedLink = builtLink.addClass('outLink');
                         var clickableLink = classedLink.click(function() {
                                 asm.lang.setLanguage('cs');
                             });
                         clickableLink.appendTo(this.config.target);
 
-                        this._buildLink('', '  English').addClass('outlink')
+                        this._buildLink('', '  English').addClass('outLink')
                             .click(function() {
                                 asm.lang.setLanguage('en');
                             })

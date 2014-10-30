@@ -142,10 +142,10 @@ asm.lang = {
         caption : 'Notify me via e-mail when these events occur',
         whenRated : 'When my submission is rated',
         whenGiven : 'When an assignment is given',
-        whenStudentConfirms : 'When a student confirms',
+        whenStudentConfirms : 'When grading requested',
         whenRatedHint : 'Send me an e-mail whenever a tutor rates my submission',
         whenGivenHint : 'Send me an e-mail whenever a new assignment appears in one of my groups',
-        whenStudentConfirmsHint : '[Tutor only] Send me an e-mail whenever a student confirms a solution in my group',
+        whenStudentConfirmsHint : '[Tutor only] Send me an e-mail whenever a student requests grading',
         savedMessage : "Your e-mail notification settings have been saved."
     },
 
