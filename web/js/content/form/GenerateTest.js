@@ -7,16 +7,16 @@ asm.ui.form.GenerateTest = asm.ui.DynamicForm.extend({
 		var defaults = {
 			formStructure: { main: {
 				icon: asm.ui.globals.icons.xtest,
-				caption: 'Generate new test',
+				caption: asm.lang.questions.generateNewTestCaption,
 				fields: {
 					description: {
-						label: 'Description',
+						label: asm.lang.questions.description,
 						type: 'text',
 						check: 'hasLength',
 						checkParams: { minLength: 5, maxLength: 50}
 					},
 					count: {
-						label: 'Number of questions',
+						label: asm.lang.questions.numberOfQuestions,
 						type: 'select',
 						check: 'isNotEmpty'
 					},
@@ -25,9 +25,9 @@ asm.ui.form.GenerateTest = asm.ui.DynamicForm.extend({
 						check: 'isNotEmpty'
 					},
 					questionHint: {
-						label: 'Questions',
+						label: asm.lang.questions.questionsList,
 						type: 'info',
-						value: 'Select and filter questions above.'
+						value: asm.lang.questions.selectAndFilterQuestionsAbove
 					}
 				}
 			}},

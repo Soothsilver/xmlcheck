@@ -218,7 +218,8 @@ asm.lang = {
         userType : "user type",
         problem: "problem",
         question : "question",
-        attachment: "attachment"
+        attachment: "attachment",
+        test : "test"
     },
 
     uiLog : {
@@ -465,5 +466,40 @@ asm.lang = {
         editCaption : "Add/Edit User Type",
         name : "Name",
         nameHint : "enter unique usertype name"
+    },
+    questions : {
+        caption : "Questions",
+        text : "Question Text",
+        type : "Type",
+        options : "Options",
+        lecture : "Lecture",
+        generateNewTestCaption : "Generate New Test",
+        description : "Description",
+        numberOfQuestions : "Number of questions",
+        questionsList : "Questions",
+        selectAndFilterQuestionsAbove : "Check the checkbox next to each question you wish to include in the test.",
+        editCaption : "Add/Edit Question",
+        textAnswer : "text answer",
+        singleChoice : "single choice",
+        multipleChoice : "multiple choice",
+        attachments : "Attachments",
+        firstCharacterWillBeUsedAsOptionSeparator : "first character will be used as option separator"
+    },
+    attachments : {
+        caption : "Attachments",
+        name : "Name",
+        type : "Type",
+        lecture : "Lecture",
+        editCaption : "Adit/Edit Attachment",
+        attachmentBound : "attachment will be bound to this lecture",
+        file : "File"
+    },
+    tests : {
+        caption : "Tests",
+        description : "Test Description",
+        lecture : "Lecture",
+        createNewTest : "create new test",
+        printTest : "print test",
+        regenerateTest : "generate test again"
     }
 };

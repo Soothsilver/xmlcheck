@@ -14,6 +14,49 @@ class DomSaxTest extends PHPUnit_Framework_TestCase {
     {
         $this->runDomSax("PetrHudecekDomSax.zip", 100);
     }
+    public function testBotanickyUstav()
+    {
+        $this->runDomSax("domSax_correct.zip", 100);
+    }
+    public function testException()
+    {
+        $this->runDomSax("domSax_badDomScript_exception.zip", 50, "NullPointerException");
+    }
+    public function testNotCompilable()
+    {
+        $this->runDomSax("domSax_badSaxScript_notCompilable.zip", 50, "Ouch, this will not compile, I guess.");
+    }
+    public function testDtdMissing()
+    {
+        $this->runDomSax("domSax_badXml_dtdMissing.zip", 0, "The system cannot find the file specified");
+    }
+    public function testNotWellFormed()
+    {
+        $this->runDomSax("domSax_badXml_notWellFormed.zip", 0, "XML document structures must start and end within the same entity.");
+    }
+
+    public function testPrintingFromDom()
+    {
+        $this->runDomSax('domprint.zip', 100);
+    }
+
+    public function testEmptyZip()
+    {
+        $this->runDomSax('nofiles.zip', 0);
+    }
+
+    public function testCompileError()
+    {
+        $this->runDomSax('errorcompile.zip', 50, "throw new Exception(");
+    }
+
+    public function testSaxException()
+    {
+        $this->runDomSax('exception.zip', 50, "My User Exception");
+    }
+
+
+
 }
 class DomSaxMockChecker
 {

@@ -19,7 +19,7 @@ class JavaLauncher implements ILauncher
 
 		$java = Config::get('bin', 'java');
 		$arguments = ShellUtils::makeShellArguments($arguments);
-		$output = `"$java" -jar "$file" $arguments`;
+		$output = `"$java" -Dfile.encoding=UTF-8 -jar "$file" $arguments`;
 
 		return false;
 	}

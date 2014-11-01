@@ -6,39 +6,39 @@ asm.ui.form.Question = asm.ui.DynamicForm.extend({
 		var defaults = {
 			formStructure: { main: {
 				icon: asm.ui.globals.icons.question,
-				caption: 'Add/Edit question',
+				caption: asm.lang.questions.editCaption,
 				fields: {
 					id: {
 						type: 'hidden'
 					},
 					lecture: {
-						label: 'Lecture',
+						label: asm.lang.questions.lecture,
 						type: 'select',
 						hint: 'question will be bound to this lecture',
 						check: 'isNotEmpty'
 					},
 					text: {
-						label: 'Question',
+						label: asm.lang.questions.question,
 						type: 'textarea',
 						check: 'isNotEmpty'
 					},
 					type: {
-						label: 'Type',
+						label: asm.lang.questions.type,
 						type: 'select',
 						options: {
-							'text': 'text answer',
-							'choice': 'single choice',
-							'multi': 'multiple choice'
+							'text': asm.lang.questions.textAnswer,
+							'choice': asm.lang.questions.singleChoice,
+							'multi': asm.lang.questions.multipleChoice
 						},
 						check: 'isNotEmpty'
 					},
 					options: {
-						label: 'Options',
+						label: asm.lang.questions.options,
 						type: 'textarea',
 						check: 'isNotEmpty'
 					},
 					attachments: {
-						label: 'Attachments',
+						label: asm.lang.questions.attachments,
 						type: 'multiselect'
 					}
 				}
@@ -79,7 +79,7 @@ asm.ui.form.Question = asm.ui.DynamicForm.extend({
 		typeEl.unbind('change.pageInit').bind('change.pageInit', function () {
 			var type = typeEl.field('option', 'value'),
 				enableOptions = (type != 'text'),
-				hint = 'first character will be used as option separator';
+				hint = asm.lang.questions.firstCharacterWillBeUsedAsOptionSeparator;
 			optionsEl.field('option', 'type', enableOptions ? 'textarea' : 'empty')
 				.field('option', 'hint', enableOptions ? hint : '')
 				.field('option', 'editable', enableOptions);

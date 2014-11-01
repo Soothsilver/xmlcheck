@@ -222,7 +222,8 @@ asm.otherlangs.cs = {
         userType : "typ uživatele",
         problem : "problém",
         question: "otázku",
-        attachment: "přílohu"
+        attachment: "přílohu",
+        test : "test"
     },
     uiLog : {
         caption : "Záznam zpráv z uživatelského rozhraní",
@@ -467,5 +468,39 @@ asm.otherlangs.cs = {
         submittedLateHint_2: "\nNahráno: ",
         submittedLateHint_3: "."
     },
-
+    questions : {
+        caption : "Otázky",
+        text : "Text otázky",
+        type : "Druh",
+        options : "Možnosti",
+        lecture : "Přednáška",
+        generateNewTestCaption : "Vygenerovat nový test",
+        description : "Popis",
+        numberOfQuestions : "Počet otázek",
+        questionsList : "Otázky",
+        selectAndFilterQuestionsAbove : "Stiskněte na zaškrtávací tlačítko vedle každé otázky, která má být v testu.",
+        editCaption : "Přidat nebo upravit otázku",
+        textAnswer : "s otevřenou odpovědí",
+        singleChoice : "jedna správná odpověď",
+        multipleChoice : "více správných odpovědí",
+        attachments : "Přílohy",
+        firstCharacterWillBeUsedAsOptionSeparator : "první znak bude použit jako oddělovač možných odpovědí"
+    },
+    attachments : {
+        caption : "Přílohy",
+        name : "Jméno",
+        type : "Druh",
+        lecture : "Přednáška",
+        editCaption : "Přidat nebo změnit přílohu",
+        attachmentBound : "příloha bude navždy spojená s touto přednáškou",
+        file : "Soubor"
+    },
+    tests : {
+        caption : "Testy",
+        description : "Popis testu",
+        lecture : "Přednáška",
+        createNewTest : "vytvořit nový test",
+        printTest : "vytisknout test",
+        regenerateTest : "vygenerovat test znovu"
+    }
 };
