@@ -74,7 +74,7 @@ asm.otherlangs.cs = {
 
     },
     resetPasswordScreen : {
-        caption : 'Vybratn nové heslo',
+        caption : 'Vybrat nové heslo',
         resetLink : 'Kód na obnovu',
         password : 'Nové heslo',
         retypePassword: 'Nové heslo (znovu)',

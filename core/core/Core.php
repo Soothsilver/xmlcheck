@@ -126,7 +126,7 @@ class Core
                     }
                     catch (Exception $ex)
                     {
-                        $response =PluginResponse::createError('Internal error. Plugin did not supply valid response XML and this error occured: ' . $ex->getMessage());
+                        $response =PluginResponse::createError('Internal error. Plugin did not supply valid response XML and this error occured: ' . $ex->getMessage() . '. Plugin instead supplied this response string: ' . $responseString);
                     }
                 }
             }

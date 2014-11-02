@@ -14,6 +14,28 @@ class XQueryTest extends PHPUnit_Framework_TestCase {
     {
         $this->runXQuery("PetrHudecekXQuery.zip", 5, 100);
     }
+
+    public function testOuter()
+    {
+        $this->runXQuery('PetrHudecekOuter.zip', 5, 100);
+    }
+
+    public function testNoInnerQueryFolder()
+    {
+        $this->runXQuery('NoInnerQueryFolder.zip', 5, 100);
+    }
+
+    public function testMissingSomeConstruct()
+    {
+        $this->runXQuery('MissingSomeConstruct.zip', 5, 67, "Pattern 'every ... satisfies or some ... satisfies' not found in any XQuery file.");
+    }
+
+    public function testMissingOneQuery()
+    {
+        $this->runXQuery('MissingOneQuery.zip', 5, 33, "Only 2 XQuery files found (5 required)");
+    }
+
+
 }
 class XQueryMockChecker
 {
@@ -33,7 +55,7 @@ class XQueryMockChecker
                 }
                 catch (Exception $ex)
                 {
-                    $response = \asm\plugin\PluginResponse::createError('Internal error. Plugin did not supply valid response XML and this error occured: ' . $ex->getMessage());
+                    $response = \asm\plugin\PluginResponse::createError('Internal error. Plugin did not supply valid response XML and this error occured: ' . $ex->getMessage() . '. Plugin instead supplied this response string: ' . $responseString);
                 }
             }
         }

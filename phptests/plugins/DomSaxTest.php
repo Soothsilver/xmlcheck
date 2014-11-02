@@ -55,6 +55,15 @@ class DomSaxTest extends PHPUnit_Framework_TestCase {
         $this->runDomSax('exception.zip', 50, "My User Exception");
     }
 
+    public function testOuterFolderEnclosement()
+    {
+        $this->runDomSax('outer.zip', 100);
+    }
+
+    public function testOuterFolderEnclosementWithAdditionalFile()
+    {
+        $this->runDomSax('outerAndSomething.zip', 0);
+    }
 
 
 }
@@ -76,7 +85,7 @@ class DomSaxMockChecker
                 }
                 catch (Exception $ex)
                 {
-                    $response = \asm\plugin\PluginResponse::createError('Internal error. Plugin did not supply valid response XML and this error occured: ' . $ex->getMessage());
+                    $response = \asm\plugin\PluginResponse::createError('Internal error. Plugin did not supply valid response XML and this error occured: ' . $ex->getMessage() . '. Plugin instead supplied this response string: ' . $responseString);
                 }
             }
         }
