@@ -1,3 +1,0 @@
-<!ELEMENT a (#PCDATA)>
-<!NOTATION notace SYSTEM "notace.txt">
-<!-- --> <!ELEMENT a EMPTY> -->

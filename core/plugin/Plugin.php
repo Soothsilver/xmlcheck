@@ -70,7 +70,6 @@ abstract class Plugin
 
 			$this->dataFolder = Filesystem::tempDir();
 			$dataFile = array_shift($args);
-            // TODO refactor
 			if (!Compression::unzip($dataFile, $this->dataFolder, $unzipMessage))
             {
                $response = PluginResponse::createError("ZIP extraction failed (" . $unzipMessage . ").\n\nPerhaps you did not submit a ZIP file " .

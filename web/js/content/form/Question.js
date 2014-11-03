@@ -14,11 +14,11 @@ asm.ui.form.Question = asm.ui.DynamicForm.extend({
 					lecture: {
 						label: asm.lang.questions.lecture,
 						type: 'select',
-						hint: 'question will be bound to this lecture',
+						hint: asm.lang.questions.questionBound,
 						check: 'isNotEmpty'
 					},
 					text: {
-						label: asm.lang.questions.question,
+						label: asm.lang.questions.text,
 						type: 'textarea',
 						check: 'isNotEmpty'
 					},

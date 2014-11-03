@@ -6,35 +6,35 @@ asm.ui.form.Attachment = asm.ui.DynamicForm.extend({
 		var defaults = {
 			formStructure: { main: {
 				icon: asm.ui.globals.icons.attachment,
-				caption: 'Add/Edit attachment',
+				caption: asm.lang.attachments.editCaption,
 				fields: {
 					id: {
 						type: 'hidden'
 					},
 					lecture: {
-						label: 'Lecture',
+						label: asm.lang.attachments.lecture,
 						type: 'select',
-						hint: 'attachment will be bound to this lecture',
+						hint: asm.lang.attachments.attachmentBound,
 						check: 'isNotEmpty'
 					},
 					name: {
-						label: 'Name',
+						label: asm.lang.attachments.name,
 						type: 'text',
 						check: ['isName', 'hasLength'],
-						checkParams: { minLength: 5, maxLength: 20 }
+						checkParams: { minLength: 1 }
 					},
 					type: {
-						label: 'Type',
+						label: asm.lang.attachments.type,
 						type: 'select',
 						options: {
-							text: 'text',
-							code: 'code',
-							image: 'image'
+							text: asm.lang.attachments.text,
+							code: asm.lang.attachments.code,
+							image: asm.lang.attachments.image
 						},
 						check: 'isNotEmpty'
 					},
 					file: {
-						label: 'File',
+						label: asm.lang.attachments.file,
 						type: 'file',
 						check: 'isNotEmpty'
 					}
@@ -58,7 +58,7 @@ asm.ui.form.Attachment = asm.ui.DynamicForm.extend({
 		typeEl.unbind('change.pageInit').bind('change.pageInit', function () {
 			var type = typeEl.field('option', 'value'),
 				restrictExtensions = (type == 'image'),
-				hint = 'use \'image\' type for files usable as images in HTML',
+				hint = asm.lang.attachments.useImagesHint,
 				extensions = ['gif', 'png', 'jpeg', 'jpg', 'bmp'];
 			fileEl.field('reset')
 				.field('option', 'hint', restrictExtensions ? hint : '')

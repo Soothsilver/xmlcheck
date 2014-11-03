@@ -37,7 +37,9 @@ class Core
 
 		$arguments = func_get_args();
 		array_shift($arguments);
-		return Database::request($requestId, $arguments);
+		$requestResult =  Database::request($requestId, $arguments);
+
+        return $requestResult;
 	}
 
 	/**
@@ -159,6 +161,7 @@ class Core
             if ($isTest)
             {
                 $pluginTest = Repositories::findEntity(Repositories::PluginTest, $rowId);
+
                 $pluginTest->setSuccess($response->getFulfillment());
                 $pluginTest->setInfo($response->getDetails());
                 $pluginTest->setOutput($outputFile);

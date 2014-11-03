@@ -7,7 +7,8 @@ asm.lang = {
         initializing: "Constructing HTML content...",
         adjusting : "Adjusting...",
         yes : "Yes",
-        no : "No"
+        no : "No",
+        clickHere: "Click here..."
     },
     table : {
         footer_show : "Show",
@@ -483,7 +484,8 @@ asm.lang = {
         singleChoice : "single choice",
         multipleChoice : "multiple choice",
         attachments : "Attachments",
-        firstCharacterWillBeUsedAsOptionSeparator : "first character will be used as option separator"
+        firstCharacterWillBeUsedAsOptionSeparator : "first character will be used as option separator",
+        questionBound : "question will be bound to this lecture"
     },
     attachments : {
         caption : "Attachments",
@@ -492,7 +494,11 @@ asm.lang = {
         lecture : "Lecture",
         editCaption : "Adit/Edit Attachment",
         attachmentBound : "attachment will be bound to this lecture",
-        file : "File"
+        file : "File",
+        text : "text",
+        image : "image",
+        code : "source code",
+        useImagesHint : 'GIF, PNG, JPEG, JPG and BMP files are accepted'
     },
     tests : {
         caption : "Tests",

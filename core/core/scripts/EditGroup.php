@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\StringID;
 use asm\db\DbLayout;
 
 /**
@@ -17,35 +18,76 @@ use asm\db\DbLayout;
 final class EditGroup extends DataScript
 {
 	protected function body ()
-	{
-		$inputs = array(
-			'lecture' => 'isIndex',
-			'name' => array(
-				'isName',
-				'hasLength' => array(
-					'min_length' => 5,
-					'max_length' => 20,
-				),
-			),
-			'description' => 'isNotEmpty',
-		);
-		if (!$this->isInputValid($inputs))
-			return;
+    {
+        $inputs = array(
+            'lecture' => 'isIndex',
+            'name' => array(
+                'isName',
+                'hasLength' => array(
+                    'min_length' => 1
+                ),
+            ),
+            'description' => array()
+        );
+        if (!$this->isInputValid($inputs))
+        {
+            return;
+        }
+        $lectureIndex = $this->getParams('lecture');
+        $groupName = $this->getParams('name');
+        $groupDescription = $this->getParams('description');
+        $public = $this->paramExists('public') ? 'public' : 'private';
+        $groupId = $this->getParams('id');
+        $editing = $groupId !== null && $groupId !== '';
+        $user = User::instance();
+        $userId = $user->getId();
+        $lecture = Repositories::findEntity(Repositories::Lecture, $lectureIndex);
+
+        if ($editing)
+        {
+            /**
+             * @var $group \Group
+             */
+            $group = Repositories::findEntity(Repositories::Group, $groupId);
+            $sameNameGroup = Repositories::getRepository(Repositories::Group)->findBy(['name' => $groupName]);
+            if (count($sameNameGroup) == 1 && $sameNameGroup[0]->getId() !== (int)$groupId)
+            {
+                return $this->death(StringID::GroupNameExists);
+            }
+            $group->setName($groupName);
+            $group->setDescription($groupDescription);
+            $group->setType($public);
+            Repositories::persistAndFlush($group);
+        }
+        else
+        {
+            if (!$this->userHasPrivs(User::groupsAdd)) { return $this->death(StringID::InsufficientPrivileges); }
+            $sameNameGroup = Repositories::getRepository(Repositories::Group)->findBy(['name' => $groupName]);
+            if (count($sameNameGroup) > 0)
+            {
+                return $this->death(StringID::GroupNameExists);
+            }
+            $group = new \Group();
+            $group->setDeleted(false);
+            $group->setDescription($groupDescription);
+            $group->setLecture($lecture);
+            $group->setName($groupName);
+            $group->setOwner($user->getEntity());
+            $group->setType($public);
+            Repositories::persistAndFlush($group);
+        }
 
 
+        /*
 		extract($this->getParams(array_keys($inputs)));
 		$id = $this->getParams('id');
 		$isIdSet = (($id !== null) && ($id !== ''));
 		$type = $this->paramExists('public') ? 'public' : 'private';
-
 		if (!($lectures = Core::sendDbRequest('getLectureById', $lecture)))
 			return $this->stopDb($lectures, ErrorEffect::dbGet('lecture'));
-
 		$groups = Core::sendDbRequest('getGroupByName', $name);
-
 		$user = User::instance();
 		$userId = $user->getId();
-
 		if (!$groups)
 		{
 			if (!$this->userHasPrivs(User::groupsAdd))
@@ -72,6 +114,7 @@ final class EditGroup extends DataScript
 		{
 			return $this->stop(ErrorCause::nameTaken('group', $name));
 		}
+        */
 	}
 }
 

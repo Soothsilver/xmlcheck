@@ -63,9 +63,9 @@ class PluginTest
     private $status = 'running';
 
     /**
-     * @var boolean
+     * @var integer
      *
-     * @ORM\Column(name="success", type="boolean", nullable=false)
+     * @ORM\Column(name="success", type="integer", nullable=false)
      */
     private $success = '0';
 
@@ -213,7 +213,7 @@ class PluginTest
     /**
      * Set success
      *
-     * @param boolean $success
+     * @param int $success
      * @return Tests
      */
     public function setSuccess($success)
@@ -226,7 +226,7 @@ class PluginTest
     /**
      * Get success
      *
-     * @return boolean 
+     * @return int
      */
     public function getSuccess()
     {

@@ -738,7 +738,7 @@ $.widget('ui.field', {
 				case 'focus':
 					focusElements.addClass(this.options.focusClass);
 					if (!this.options.value && fileNameText) {
-						fileNameText.text('Click here...');
+						fileNameText.text(asm.lang.general.clickHere);
 					}
 					// continue to show hint
 				case 'untouched':

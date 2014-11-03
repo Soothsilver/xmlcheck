@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\core;
+use SebastianBergmann\Exporter\Exception;
 
 /**
  * @ref ILauncher "Launcher" of php scripts.
@@ -31,7 +32,6 @@ class PhpLauncher implements ILauncher
 		}
 
 		$output = $script->run($arguments);
-
 		return false;
 	}
 }

@@ -19,6 +19,7 @@ abstract class StringID
     const NoPluginUsed = 11;
     const InvalidActivationCode = 12;
     const NotAuthorizedForName = 13;
+    const GroupNameExists = 14;
 }
 
 class Language {
@@ -52,6 +53,7 @@ class Language {
             case StringID::SessionInvalidated: return "Vaše relace již není platná. Možná jste byli příliš dlouho neaktivní nebo byl program aktualizován na vyšší verzi. Odhlašte se, obnovte stránku (Ctrl+F5) a znovu se přihlašte.";
 
             case StringID::ProblemNameExists: return "Problém s tímto jménem již existuje.";
+            case StringID::GroupNameExists: return "Skupina s tímto jménem již existuje.";
             case StringID::NoPluginUsed: return "Není opravováno automaticky.";
             case StringID::InvalidActivationCode: return "Tento aktivační kód neexistuje.";
             case StringID::NotAuthorizedForName: return "skryto";
@@ -75,6 +77,7 @@ class Language {
             case StringID::SessionInvalidated: return "Your session has become invalid. Perhaps you were inactive for too long or the program was updated to a newer version. Please log out, refresh the page (Ctrl+F5) and log in again.";
 
             case StringID::ProblemNameExists: return "A problem with this name already exists.";
+            case StringID::GroupNameExists: return "A group with this name already exists.";
             case StringID::NoPluginUsed: return "This problem has no automatic grading.";
             case StringID::InvalidActivationCode: return "This activation code does not exist.";
             case StringID::NotAuthorizedForName: return "hidden";

@@ -2,6 +2,7 @@
 
 namespace asm\plugin;
 use asm\utils\Utils, asm\utils\StringUtils, SimpleXMLElement;
+use SebastianBergmann\Exporter\Exception;
 
 /**
  * Wrapper for plugin response [immutable].

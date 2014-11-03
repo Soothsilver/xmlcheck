@@ -37,8 +37,11 @@ final class EditQuestion extends LectureScript
 		if (!$this->checkGenTestPrivs($lecture))
 			return;
 
+
 		$user = User::instance();
-		$visibleAttachments = Core::sendDbRequest('getAttachmentsVisibleByUserId', $user->getId());
+        $userId = $user->getId();
+        $visibleAttachments = Core::sendDbRequest('getAttachmentsVisibleByUserId', $userId, $this->userHasPrivs(User::lecturesManageAll) );
+
 		if ($visibleAttachments === false)
 			return $this->stopDb(false, ErrorEffect::dbGetAll('attachments'));
 
@@ -59,6 +62,7 @@ final class EditQuestion extends LectureScript
 			return $this->stop(ErrorCause::invalidInput('Following attachment IDs are invalid or inaccessible: ' .
 					implode(', ', $attTmp) . '.', 'attachments'));
 		}
+
 
 		if (!$isIdSet)
 		{

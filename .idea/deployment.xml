@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="Localhost In Place">
+  <component name="PublishConfigData" serverName="Localhost Deployment Server">
     <serverData>
-      <paths name="Localhost In Place">
+      <paths name="Localhost Deployment Server">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/xmlcheck/" />
+            <mapping local="$PROJECT_DIR$/../" web="/" />
           </mappings>
         </serverdata>
       </paths>

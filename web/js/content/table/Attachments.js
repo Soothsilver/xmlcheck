@@ -8,7 +8,20 @@ asm.ui.table.Attachments = asm.ui.DynamicTable.extend({
 			structure: {
 				id: { key: true, hidden: true, comparable: true },
 				name: { label: asm.lang.attachments.name, string: true, comparable: true },
-				type: { label: asm.lang.attachments.type, string: true, comparable: true },
+				type: {
+                    label: asm.lang.attachments.type,
+                    string: true,
+                    comparable: true,
+                    renderer: function(kind) {
+                        switch(kind)
+                        {
+                            case "image": return asm.lang.attachments.image;
+                            case "code": return asm.lang.attachments.code;
+                            case "text": return asm.lang.attachments.text;
+                            default: return kind;
+                        }
+                    }
+                },
 				lectureId: { hidden: true, comparable: true },
 				lecture: { label: asm.lang.attachments.lecture, comparable: true, string: true }
 			},

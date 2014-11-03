@@ -32,7 +32,8 @@ ErrorHandler::register();
 ErrorHandler::bind(['asm\core\Core', 'logException']);
 ErrorHandler::bind(function (Exception $e) {
 	Core::sendUiResponse(UiResponse::create([], [
-			Error::create(Error::levelFatal, $e->getMessage(), \asm\core\lang\Language::get(\asm\core\lang\StringID::ServerSideRuntimeError))]));
+			Error::create(Error::levelFatal, $e->getMessage() . "[details: code " . $e->getCode() . ", file " . $e->getFile() . ", line " . $e->getLine() . ", trace: \n" . $e->getTraceAsString() . "]",
+                \asm\core\lang\Language::get(\asm\core\lang\StringID::ServerSideRuntimeError))]));
 });
 
 // Process the AJAX request.

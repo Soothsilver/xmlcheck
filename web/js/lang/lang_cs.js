@@ -8,7 +8,8 @@ asm.otherlangs.cs = {
       initializing: "Konstrukce HTML obsahu...",
       adjusting: 'Obnovení...',
       yes : "Ano",
-      no : "Ne"
+      no : "Ne",
+      clickHere : "Klikněte sem..."
     },
     table : {
         footer_show : "Zobrazit",
@@ -484,7 +485,8 @@ asm.otherlangs.cs = {
         singleChoice : "jedna správná odpověď",
         multipleChoice : "více správných odpovědí",
         attachments : "Přílohy",
-        firstCharacterWillBeUsedAsOptionSeparator : "první znak bude použit jako oddělovač možných odpovědí"
+        firstCharacterWillBeUsedAsOptionSeparator : "první znak bude použit jako oddělovač možných odpovědí",
+        questionBound : "otázka bude navždy spojená s touto přednáškou"
     },
     attachments : {
         caption : "Přílohy",
@@ -493,7 +495,11 @@ asm.otherlangs.cs = {
         lecture : "Přednáška",
         editCaption : "Přidat nebo změnit přílohu",
         attachmentBound : "příloha bude navždy spojená s touto přednáškou",
-        file : "Soubor"
+        file : "Soubor",
+        text : "text",
+        image : "obrázek",
+        code : "zdrojový kód",
+        useImagesHint : 'nahrát lze soubory GIF, PNG, JPEG, JPG nebo BMP'
     },
     tests : {
         caption : "Testy",
