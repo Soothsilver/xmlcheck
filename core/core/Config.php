@@ -13,7 +13,6 @@ use Exception;
  */
 class Config
 {
-    // TODO wtf why is this all protected? why not private?
 	/// default separator of section name and key in folder structure variables
 	const defaultFolderDelimiter = '.';
 	/// name of folder structure section (contains relationships between other
@@ -24,56 +23,65 @@ class Config
 	const folderDelimiterId = 'delimiter';
 
     /** @var Config */
-	protected static $instance;	///< singleton instance
+	private static $instance;	///< singleton instance
 
-	/**
-	 * Initializes this class' singleton instance from supplied INI file.
-	 * @param string $iniFile path to INI file with application configuration
-     * // TODO update documentation
-	 */
-	public static function init ()
+    /**
+     * Initializes this class' singleton instance from supplied INI files.
+     * @param string[] $filenames paths to .ini files to be merged into configuration
+     */
+	public static function init (...$filenames)
 	{
         // Load all specified .ini files
-		self::$instance = new self(func_get_args());
+		self::$instance = new self($filenames);
 	}
 
-    // TODO wtf why magic method?
-	/**
-	 * Makes directly inaccessible singleton instance accessible as module.
-	 *
-	 * Provides static access to get() method if singleton instance is initialized,
-	 * otherwise throws an exception.
-	 */
-	public static function __callStatic ($method, $arguments)
-	{
-		if (!self::$instance)
-		{
-			throw new Exception("Configuration is not initialized");
-		}
 
-		if ($method == 'get')
-		{
-			return call_user_func_array(array(self::$instance, $method), $arguments);
-		}
-        if ($method == 'getHttpRoot')
+    /**
+     * Gets the value of a configuration property with supplied section name and key (or whole section if no property given).
+     *
+     * @param string $section section name
+     * @param string $property property to get, or null to get all properties
+     * @throws Exception when Config::init was not called before
+     * @internal param mixed $name property key (string) or null
+     * @return mixed property value (if @c $name is not null) or array with all
+     *        properties from @c $section
+     */
+    public static function get($section, $property = null)
+    {
+        if (!self::$instance)
         {
-            return call_user_func_array(array(self::$instance, $method), $arguments);
+            throw new Exception("Configuration is not initialized");
         }
+        return self::$instance->_get($section, $property);
+    }
 
-		return null;
-	}
+    /**
+     * Returns the web address of the running application.
+     *
+     * For example, this might return http://xmlcheck.projekty.ms.mff.cuni.cz/
+     * @return string the web address of the running instance of XMLCheck
+     * @throws Exception when Config::init was not called before
+     */
+    public static function getHttpRoot()
+    {
+        if (!self::$instance)
+        {
+            throw new Exception("Configuration is not initialized");
+        }
+        return self::$instance->_get("roots", "http");
+    }
 
-	protected $config;	///< associative array with configuration properties
+	private $config;	///< associative array with configuration properties
 
-	/**
-	 * Parses supplied INI file and initializes instance with extracted data.
-	 *
-	 * Section @ref folderStructureId is removed from data and used to turn partial
-	 * paths in configuration into full paths.
-	 * @param string $iniFile path to INI file
-     * // TODO update documentation
-	 */
-	protected function __construct ($iniFiles)
+    /**
+     * Parses supplied INI files, merges them and initializes instance with extracted data.
+     *
+     * Section @ref folderStructureId is removed from data and used to turn partial
+     * paths in configuration into full paths.
+     * @param string[] $iniFiles paths to INI files
+     * @throws Exception when there is no folderStructure section in any of the .ini files
+     */
+    private function __construct ($iniFiles)
 	{
         $config = array();
         foreach($iniFiles as $iniFile)
@@ -82,7 +90,6 @@ class Config
             $config = array_merge($config, $configFile);
         }
 
-        // TODO scream loudly on failure
         if (isset($config[self::folderStructureId]))
         {
             $folderStructure = $config[self::folderStructureId];
@@ -97,10 +104,12 @@ class Config
 
             $config = $this->resolvePaths($config, $folderStructure, $delimiter);
         }
+        else
+        {
+            throw new Exception("No 'folderStructure' section found in any of the loaded INI files.");
+        }
         $this->config = $config;
 	}
-
-
 
 
 	/**
@@ -111,7 +120,7 @@ class Config
 	 *		OS-dependent directory separators replaced by UNIX-style slashes (or
 	 *		@c $child if <tt>$parent . $child</tt> path doesn't exist)
 	 */
-	protected function resolvePath ($parent, $child)
+    private function resolvePath ($parent, $child)
 	{
 		$realPath = realpath($parent . $child);
 		if ($realPath !== false)
@@ -122,21 +131,22 @@ class Config
 		return $child;
 	}
 
-	/**
-	 * Resolves parent-child relationships in configuration using supplied data.
-	 * @param array $config unresolved configuration
-	 * @param array $folderStructure parent-child key-value pairs
-	 * @param string $delimiter separator of section names and property keys
-	 * @return array configuration with relationships resolved
-	 */
-	protected function resolvePaths ($config, $folderStructure, $delimiter)
+    /**
+     * Resolves parent-child relationships in configuration using supplied data.
+     * @param array $config unresolved configuration
+     * @param array $folderStructure parent-child key-value pairs
+     * @param string $delimiter separator of section names and property keys
+     * @throws Exception when some properties or sections referenced by folderStructure values are not present in any .ini file
+     * @return array configuration with relationships resolved
+     */
+    private function resolvePaths ($config, $folderStructure, $delimiter)
 	{
 		foreach ($folderStructure as $parent => $children)
 		{
 			list($parentSection, $parentName) = explode($delimiter, $parent);
 			if (!isset($config[$parentSection][$parentName]))
 			{
-				continue; // TODO throw exception? YES YES YES YES YES YES
+                throw new Exception ("Property {$parentName} within section {$parentSection} was expected, but not found in any .ini file.");
 			}
 
 			foreach ($children as $child)
@@ -144,7 +154,7 @@ class Config
 				list($childSection, $childName) = explode($delimiter, $child);
 				if (!isset($config[$childSection]))
 				{
-					continue; // TODO throw exception?
+                    throw new Exception("Section {$childSection} expected, but not found in any .ini file.");
 				}
 
 				if (isset($childName))
@@ -154,7 +164,10 @@ class Config
 						$config[$childSection][$childName] = $this->resolvePath(
 								$config[$parentSection][$parentName], $config[$childSection][$childName]);
 					}
-					// TODO else throw exception?
+                    else
+                    {
+                        throw new Exception("Property {$childName} within section {$childSection} was expected, but not found in any .ini file.");
+                    }
 				}
 				else
 				{
@@ -177,20 +190,14 @@ class Config
 	 * @return mixed property value (if @c $name is not null) or array with all
 	 *		properties from @c $section
 	 */
-	protected function get ($section, $name = null)
+    private function _get ($section, $name = null)
 	{
 		if ($name === null)
 		{
 			return (isset($this->config[$section]) ? $this->config[$section] : null);
 		}
-
 		
 		return (isset($this->config[$section][$name]) ? $this->config[$section][$name] : null);
 	}
-
-    protected function getHttpRoot()
-    {
-        return $this->get('roots', 'http');
-    }
 }
 
