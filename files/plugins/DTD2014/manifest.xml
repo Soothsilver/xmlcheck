@@ -3,7 +3,7 @@
 	<mainFile>Dtd2014Checker.php</mainFile>
 	<type>php</type>
 	<description>
-        Vaše řešení musí obsahovat právě jeden .xml soubor a právě jeden .dtd soubor. Oba soubory musí být v UTF-8 nebo UTF-16 s Byte Order Mark.
+        Vaše řešení musí obsahovat právě jeden .xml soubor a právě jeden .dtd soubor. Oba soubory musí být v UTF-8 bez Byte Order Mark nebo UTF-16 s Byte Order Mark.
 
         Používejte XML verze 1.0.
 

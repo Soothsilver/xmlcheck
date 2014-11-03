@@ -1,2 +1,0 @@
-(: Mesto sluzebnich cest, u kterych shrnuti cesty obsahuje alespon dve zminky o zamestnancich. :)
-//sluzebni_cesta[count(shrnuti_cesty/zamestnanec_ref)>=2]/mesto/text()

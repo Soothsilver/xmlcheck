@@ -1,3 +1,4 @@
+asm = window.asm || {};
 asm.lang = {
     general : {
         success : "Success",
@@ -89,8 +90,9 @@ asm.lang = {
         subscriptions : "Subscriptions",
 
         assignments : "Assignments",
-        correctionAll : "Rate Submissions (Legacy)",
-        correctionSeparated : "Rate Submissions",
+        correction : "Grade Submissions (Legacy)",
+        correctionAll : "Grade Submissions",
+        correctionSeparated : "Grade Submissions (New)",
         groups : "Groups",
         userRatings : "User Ratings",
         subscriptionRequests : "Subscription Requests",
@@ -140,10 +142,10 @@ asm.lang = {
         caption : 'Notify me via e-mail when these events occur',
         whenRated : 'When my submission is rated',
         whenGiven : 'When an assignment is given',
-        whenStudentConfirms : 'When a student confirms',
+        whenStudentConfirms : 'When grading requested',
         whenRatedHint : 'Send me an e-mail whenever a tutor rates my submission',
         whenGivenHint : 'Send me an e-mail whenever a new assignment appears in one of my groups',
-        whenStudentConfirmsHint : '[Tutor only] Send me an e-mail whenever a student confirms a solution in my group',
+        whenStudentConfirmsHint : '[Tutor only] Send me an e-mail whenever a student requests grading',
         savedMessage : "Your e-mail notification settings have been saved."
     },
 
@@ -180,7 +182,7 @@ asm.lang = {
         rewardHint : "maximum reward that can be gained for this assignment",
         addEditAssignmentCaption : "Add/Edit Assignment",
         addSubmissionButAlreadyGradedMessage: "<b>Warning! </b>Your teacher already graded you for this assignment. While uploading new submissions does not cancel your grade automatically, your teacher will have the possibility to erase your previous grade and replace it by grading your new submission. It is at his or her discretion, however.",
-        addSubmissionButAlreadyExistsMessage: "Your new submission will supercede your older ones for this assignment.",
+        addSubmissionButAlreadyExistsMessage: "Your new submission will supersede your older ones for this assignment.",
         addSubmissionFirstTimeMessage: "You can submit as many submissions as you like. Your teacher will grade your latest submission when deadline comes.",
         addSubmissionAfterDeadline : "<b>Notice. </b>It is past deadline. Your teacher may award you fewer points because of this."
     },
@@ -216,7 +218,8 @@ asm.lang = {
         userType : "user type",
         problem: "problem",
         question : "question",
-        attachment: "attachment"
+        attachment: "attachment",
+        test : "test"
     },
 
     uiLog : {
@@ -241,7 +244,6 @@ asm.lang = {
         inputFileHint : "ZIP archive with test input",
         completedTests : "Completed tests",
         runningTests : "Running tests",
-        description: "Description",
         config : "Config",
         pluginDescription : "Plugin description",
         downloadInput : "download input",
@@ -301,12 +303,6 @@ asm.lang = {
         permitRequest : "permit request",
         prohibitRequest : "prohibit request"
     },
-    userType : {
-        removalMessage : "All users of this type will be assigned type student.",
-        editCaption : "Add/Edit User Type",
-        name : "Name",
-        nameHint : "enter unique usertype name"
-    },
     groups : {
         editCaption : 'Add/Edit Group',
         lecture : "Lecture",
@@ -325,7 +321,7 @@ asm.lang = {
     submissions : {
         addSubmissionCaption : "Add a submission",
         submissionFile : "Submission file",
-        submissionFileHint : "ZIP archive per this assigment's description",
+        submissionFileHint : "ZIP archive per this assignment's description",
 
         yourSubmissionsCaption : "Your submissions",
         gradedSubmissionsCaption : "Graded submissions",
@@ -408,8 +404,8 @@ asm.lang = {
         languageHint : "saved as a cookie on this computer"
     },
     grading : {
-        legacyAwatingGradingCaption : "Submissions Awaiting Grading",
-        legacyGradedCaption : "Graded Submissoins",
+        legacyAwaitingGradingCaption : "Submissions Awaiting Grading",
+        legacyGradedCaption : "Graded Submissions",
         downloadSubmission : "download submission",
         downloadOutput : "download output",
         gradeSubmission : "grade submission",
@@ -431,7 +427,79 @@ asm.lang = {
         submittedLateHint_1: 'This solution was submitted late.\nDeadline: ',
         submittedLateHint_2: "\nSubmission: ",
         submittedLateHint_3: "."
-
-
+    },
+    usertypes : {
+        caption: "Usertypes with their privileges",
+        users : "Users",
+        subscriptions : "Subscriptions",
+        plugins : "Plugins",
+        assignments : "Assignments",
+        correction : "Grading",
+        lectures : "Lectures",
+        groups : "Groups",
+        other : "Other",
+        users_add : "add users",
+        users_explore : "view users",
+        users_editUsers : "edit users",
+        users_remove : "remove users",
+        usertypes_edit : "edit usertypes",
+        subscriptions_joinpublic : "join public groups",
+        subscriptions_requestprivate : "request subscription in private groups",
+        subscriptions_joinprivate : "join private groups without asking",
+        plugins_add : "add plugins",
+        plugins_explore : "view plugins",
+        plugins_edit : "edit plugins",
+        plugins_remove : "remove plugins",
+        plugins_test: "run plugin tests",
+        assignments_submit : "submit submissions for assignments",
+        submissions_grade : "grade submissions",
+        submissions_viewAuthors : "view authors of submissions",
+        submissions_regrade : "re-grade already graded submissions",
+        lectures_add : "create lectures",
+        lectures_editOwn : "edit owned lectures",
+        lectures_editAll : "edit any and all lectures",
+        groups_add : "create groups",
+        groups_editOwn: "edit owned groups",
+        groups_editAll : 'edit any and all groups',
+        other_administration : 'perform other administration',
+        removalMessage : "All users of this type will be assigned type student.",
+        editCaption : "Add/Edit User Type",
+        name : "Name",
+        nameHint : "enter unique usertype name"
+    },
+    questions : {
+        caption : "Questions",
+        text : "Question Text",
+        type : "Type",
+        options : "Options",
+        lecture : "Lecture",
+        generateNewTestCaption : "Generate New Test",
+        description : "Description",
+        numberOfQuestions : "Number of questions",
+        questionsList : "Questions",
+        selectAndFilterQuestionsAbove : "Check the checkbox next to each question you wish to include in the test.",
+        editCaption : "Add/Edit Question",
+        textAnswer : "text answer",
+        singleChoice : "single choice",
+        multipleChoice : "multiple choice",
+        attachments : "Attachments",
+        firstCharacterWillBeUsedAsOptionSeparator : "first character will be used as option separator"
+    },
+    attachments : {
+        caption : "Attachments",
+        name : "Name",
+        type : "Type",
+        lecture : "Lecture",
+        editCaption : "Adit/Edit Attachment",
+        attachmentBound : "attachment will be bound to this lecture",
+        file : "File"
+    },
+    tests : {
+        caption : "Tests",
+        description : "Test Description",
+        lecture : "Lecture",
+        createNewTest : "create new test",
+        printTest : "print test",
+        regenerateTest : "generate test again"
     }
 };

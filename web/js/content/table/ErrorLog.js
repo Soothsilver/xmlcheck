@@ -12,7 +12,7 @@ asm.ui.table.ErrorLog = asm.ui.DynamicTable.extend({
 				message: { label: asm.lang.uiLog.message, comparable: true, string: true },
 				details: { label: asm.lang.uiLog.details, string: true }
 			},
-			title: 'UI Log'
+			title: asm.lang.uiLog.caption
 		};
 		this.base($.extend(defaults, config));
 	},

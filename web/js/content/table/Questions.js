@@ -7,24 +7,24 @@ asm.ui.table.Questions = asm.ui.DynamicTable.extend({
 			icon: asm.ui.globals.icons.question,
 			structure: {
 				id: { key: true, hidden: true, comparable: true },
-				text: { label: 'Text', string: true, comparable: true },
-				type: { label: 'Type', string: true, comparable: true, renderer: function (val) {
+				text: { label: asm.lang.questions.text, string: true, comparable: true },
+				type: { label: asm.lang.questions.type, string: true, comparable: true, renderer: function (val) {
 					switch (val) {
 						case 'text':
-							return 'text answer';
+							return asm.lang.questions.textAnswer;
 						case 'choice':
-							return 'single choice';
+							return asm.lang.questions.singleChoice;
 						case 'multi':
-							return 'multiple choice';
+							return asm.lang.questions.multipleChoice;
 						default:
 							return val;
 					}
 				} },
-				options: { label: 'Options', string: true },
+				options: { label: asm.lang.questions.options, string: true },
 				lectureId: { hidden: true, comparable: true },
-				lecture: { label: 'Lecture', comparable: true, string: true }
+				lecture: { label: asm.lang.questions.lecture, comparable: true, string: true }
 			},
-			title: 'Questions',
+			title: asm.lang.questions.caption,
 			stores: [asm.ui.globals.stores.questions]
 		};
 		this.base($.extend(true, defaults, config));

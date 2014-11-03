@@ -608,7 +608,7 @@ $.widget('ui.field', {
 	_bindChange: function () {
 		var o = this.options;
 		switch (o.type) {
-			case 'text': case 'password': case 'checkbox': case 'select':
+			case 'text': case 'password':case 'select':
 			case 'textarea': case 'date':
 				this.input.unbind('change.field')
 					.bind('change.field', $.proxy(function (event) {
@@ -616,7 +616,14 @@ $.widget('ui.field', {
 					}, this))
 					.bind('change.field', $.proxy(this._change, this));
 				break;
-			case 'multiselect':
+            case 'checkbox':
+                this.input.unbind('change.field')
+                    .bind('change.field', $.proxy(function (event) {
+                        o.value = event.currentTarget.checked;
+                    }, this))
+                    .bind('change.field', $.proxy(this._change, this));
+                break;
+            case 'multiselect':
 				this.input.unbind('change.field')
 					.bind('change.field', $.proxy(function (event) {
 						var values = $(event.currentTarget).val();

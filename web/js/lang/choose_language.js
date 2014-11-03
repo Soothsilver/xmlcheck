@@ -1,7 +1,8 @@
 if (cookies.exists('language'))
 {
     var displayLanguage = cookies.get('language');
-    if (displayLanguage === 'cs')
+    // Default is Czech language.
+    if (displayLanguage !== 'en')
     {
         asm.lang = $.extend(true, asm.lang, asm.otherlangs.cs);
     }

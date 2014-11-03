@@ -1,47 +1,61 @@
 <?php
 
 namespace asm\utils;
-require_once('PasswordHash.php');
+require_once(__DIR__ . '/PasswordHash.php');
 
+/**
+ * Contains static functions that handle hashing passwords.
+ */
 class Security {
-    public static $hashtypePhpass = 'phpass';
-    public static $hashtypeMd5 = 'md5';
+    const HASHTYPE_PHPASS = 'phpass';
+    const HASHTYPE_MD5 = 'md5';
     /**
-     * @param $plainPassword password to hash
-     * @param $encryptionType md5 or phpasss
+     * Creates a hash of the password given using the specified encryption method.
+     * @param $plainPassword string password to hash
+     * @param $encryptionType string md5 or phpass
+     * @return string the hash
      */
-    public static function hash($plainPassword, $encryptionType)
+    public static function hash($plainPassword, $encryptionType = self::HASHTYPE_PHPASS)
     {
-        if ($encryptionType === static::$hashtypeMd5)
+        if ($encryptionType === self::HASHTYPE_MD5)
         {
             return md5($plainPassword);
         }
-        else if ($encryptionType === static::$hashtypePhpass)
+        else if ($encryptionType === self::HASHTYPE_PHPASS)
         {
-            $hasher = new \PasswordHash(8, false);
-            return $hasher->HashPassword($plainPassword); // TODO check for errors?
+            $passwordHash = new \PasswordHash(8, false);
+            return $passwordHash->HashPassword($plainPassword);
         }
         else
         {
-         // TODO deal with this more properly
-            die("Assert Error: Unknown Encryption Type");
+            throw new \InvalidArgumentException("Only 'md5' and 'phpass' encryption methods are supported.");
         }
     }
-    public static function check($incomingPassword, $databaseHash, $encryptionType)
+
+    /**
+     * Hashes the given password and compares it to the given hash using the specified method.
+     *
+     * Returns true if the hashes match.
+     *
+     * @param $incomingPassword string the password typed just now by the user
+     * @param $databaseHash string the hash in the database
+     * @param $encryptionType string md5 or phpass
+     * @return bool do the passwords match?
+     */
+    public static function check($incomingPassword, $databaseHash, $encryptionType = self::HASHTYPE_PHPASS)
     {
-        if ($encryptionType === static::$hashtypeMd5)
+        if ($encryptionType === self::HASHTYPE_MD5)
         {
             return md5($incomingPassword) === $databaseHash;
         }
-        else if ($encryptionType === static::$hashtypePhpass)
+        else if ($encryptionType === self::HASHTYPE_PHPASS)
         {
-            $hasher = new \PasswordHash(8, false);
-            return $hasher->CheckPassword($incomingPassword, $databaseHash);
+            $passwordHash = new \PasswordHash(8, false);
+            return $passwordHash->CheckPassword($incomingPassword, $databaseHash);
         }
         else
         {
-            // TODO deal with this more properly
-            die("Assert Error: Unknown Encryption Type");
+            throw new \InvalidArgumentException("Only 'md5' and 'phpass' encryption methods are supported.");
         }
     }
 } 

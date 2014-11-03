@@ -126,7 +126,7 @@ class Core
                     }
                     catch (Exception $ex)
                     {
-                        $response =PluginResponse::createError('Internal error. Plugin did not supply valid response XML and this error occured: ' . $ex->getMessage());
+                        $response =PluginResponse::createError('Internal error. Plugin did not supply valid response XML and this error occured: ' . $ex->getMessage() . '. Plugin instead supplied this response string: ' . $responseString);
                     }
                 }
             }
@@ -282,27 +282,11 @@ LAUNCH_CODE;
 			self::$logger = Logger::create(Config::get('paths', 'log'))
 				->setMaxFileSize(2097152)	// 2 * 1024 * 1024
 				->setMaxFileCount(5)
-				->setEntrySeparator("\n-\n")
-				->setLineSeparator("\n\n")
-				->setItemSeparator("\t")
+				->setEntrySeparator("\n\n")
+				->setLineSeparator("\n")
 				->setDatetimeFormat('Y-m-d H:i:s')
-				->setHeaderItems($username, $remoteAddr, $remoteHost, self::$request);
+				->setHeader("User " . $username . ", IP " . $remoteAddr . ", host " . $remoteHost . ", request " . self::$request);
 		}
-	}
-
-	/**
-	 * Gets system log entries.
-	 * @param int $maxEntries maximum number of entries to get (no limit if set to zero)
-	 * @return array log entries
-	 */
-	public static function readLog ($maxEntries = null)
-	{
-		self::initLogger();
-
-		return self::$logger->read(array(
-			'header' => array('username', 'remoteAddr', 'remoteHost', 'request'),
-			'item' => array('level', 'code', 'cause', 'effect', 'details'),
-		), $maxEntries);
 	}
 
 	/**
@@ -313,8 +297,7 @@ LAUNCH_CODE;
 	public static function logError (Error $error)
 	{
 		self::initLogger();
-
-		call_user_func_array(array(self::$logger, 'log'), $error->toArray());
+        self::$logger->log($error->toString());
 	}
 
 	/**

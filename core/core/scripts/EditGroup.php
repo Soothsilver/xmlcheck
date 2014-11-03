@@ -32,10 +32,11 @@ final class EditGroup extends DataScript
 		if (!$this->isInputValid($inputs))
 			return;
 
+
 		extract($this->getParams(array_keys($inputs)));
 		$id = $this->getParams('id');
 		$isIdSet = (($id !== null) && ($id !== ''));
-		$type = $this->getParams('public') ? 'public' : 'private';
+		$type = $this->paramExists('public') ? 'public' : 'private';
 
 		if (!($lectures = Core::sendDbRequest('getLectureById', $lecture)))
 			return $this->stopDb($lectures, ErrorEffect::dbGet('lecture'));

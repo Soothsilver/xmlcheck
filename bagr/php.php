@@ -1,3 +1,5 @@
 <?php
-var_dump(filter_var('email@123.123.123.123', FILTER_VALIDATE_EMAIL));
-var_dump(filter_var('email@111.222.333.44444', FILTER_VALIDATE_EMAIL));
+require_once '../vendor/autoload.php';
+//require_once '../vendor/soothsilver/dtd-parser/SoothsilverDtdParser.php';
+$dtd = Soothsilver\DtdParser\DTD::parseText('<!ELEMENT e EMPTY>');
+echo $dtd->elements['e']->type;

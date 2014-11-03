@@ -26,12 +26,6 @@ asm.ui.editor = asm.ui.editor || {};
 asm.ui.form = asm.ui.form || {};
 asm.ui.panel = asm.ui.panel || {};
 asm.ui.table = asm.ui.table || {};
-asm.ui.constants = {
-    passwordMinLength: 5,
-    passwordMaxLength: 200,
-    usernameMinLength: 5,
-    usernameMaxLength: 200
-}
 
 asm.ui.globals = {
 	stores: {},
@@ -86,44 +80,44 @@ asm.ui.globals = {
 		'vader'],
 	privilegesBreakdown: {
 		users: {
-			add: ['usersAdd', 'plus'],
-			explore: ['usersExplore', 'search'],
-			edit: ['usersManage', 'pencil'],
-			remove: ['usersRemove', 'trash'],
-			'edit types of': ['usersPrivPresets', 'wrench']
+			add: ['usersAdd', 'plus', asm.lang.usertypes.users_add],
+			explore: ['usersExplore', 'search', asm.lang.usertypes.users_explore],
+			edit: ['usersManage', 'pencil', asm.lang.usertypes.users_editUsers],
+			remove: ['usersRemove', 'trash', asm.lang.usertypes.users_remove],
+			'edit types of': ['usersPrivPresets', 'wrench', asm.lang.usertypes.usertypes_edit]
 		},
 		subscriptions: {
-			'public': ['groupsJoinPublic', 'unlocked'],
-			'request private': ['groupsRequest', 'comment'],
-			'private': ['groupsJoinPrivate', 'locked']
+			'public': ['groupsJoinPublic', 'unlocked', asm.lang.usertypes.subscriptions_joinpublic],
+			'request private': ['groupsRequest', 'comment', asm.lang.usertypes.subscriptions_requestprivate],
+			'private': ['groupsJoinPrivate', 'locked', asm.lang.usertypes.subscriptions_joinprivate]
 		},
 		plugins: {
-			add: ['pluginsAdd', 'plus'],
-			explore: ['pluginsExplore', 'search'],
-			edit: ['pluginsManage', 'pencil'],
-			remove: ['pluginsRemove', 'trash'],
-			test: ['pluginsTest', 'gear']
+			add: ['pluginsAdd', 'plus', asm.lang.usertypes.plugins_add],
+			explore: ['pluginsExplore', 'search', asm.lang.usertypes.plugins_explore],
+			edit: ['pluginsManage', 'pencil', asm.lang.usertypes.plugins_edit],
+			remove: ['pluginsRemove', 'trash', asm.lang.usertypes.plugins_remove],
+			test: ['pluginsTest', 'gear', asm.lang.usertypes.plugins_test]
 		},
 		assignments: {
-			submit: ['assignmentsSubmit', 'mail-closed']
+			submit: ['assignmentsSubmit', 'mail-closed', asm.lang.usertypes.assignments_submit]
 		},
 		submissions: {
-			correct: ['submissionsCorrect', 'tag'],
-			'view authors of': ['submissionsViewAuthors', 'person'],
-			're-rate': ['submissionsModifyRated', 'pencil']
+			correct: ['submissionsCorrect', 'tag', asm.lang.usertypes.submissions_grade],
+			'view authors of': ['submissionsViewAuthors', 'person', asm.lang.usertypes.submissions_viewAuthors],
+			're-rate': ['submissionsModifyRated', 'pencil', asm.lang.usertypes.submissions_regrade]
 		},
 		lectures: {
-			add: ['lecturesAdd', 'plus'],
-			'edit own': ['lecturesManageOwn', 'pencil'],
-			'edit all': ['lecturesManageAll', 'note']
+			add: ['lecturesAdd', 'plus', asm.lang.usertypes.lectures_add],
+			'edit own': ['lecturesManageOwn', 'pencil', asm.lang.usertypes.lectures_editOwn],
+			'edit all': ['lecturesManageAll', 'note', asm.lang.usertypes.lectures_editAll]
 		},
 		groups: {
-			add: ['groupsAdd', 'plus'],
-			'edit own': ['groupsManageOwn', 'pencil'],
-			'edit all': ['groupsManageAll', 'note']
+			add: ['groupsAdd', 'plus', asm.lang.usertypes.groups_add],
+			'edit own': ['groupsManageOwn', 'pencil', asm.lang.usertypes.groups_editOwn],
+			'edit all': ['groupsManageAll', 'note', asm.lang.usertypes.groups_editAll]
 		},
 		other: {
-			'other administration': ['otherAdministration', 'script']
+			'other administration': ['otherAdministration', 'script', asm.lang.usertypes.other_administration]
 		}
 	},
 	supportedBrowsers: {

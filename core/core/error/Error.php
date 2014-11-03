@@ -1,6 +1,8 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\Language;
+use asm\core\lang\StringID;
 
 /**
  * Contains information about a single error.
@@ -10,7 +12,7 @@ class Error
 	/// @name Severity constants
 	//@{
 	const levelNotice		=	10;	///< notice (doesn't have to be error-related at all)
-	const levelWarning	=	25;	///< warning (nothing failed but something's wrong)
+	const levelWarning	    =	25;	///< warning (nothing failed but something's wrong)
 	const levelError		=	50;	///< regular error
 	const levelFatal		=	100;	///< fatal error (unexpected & fatal)
 	//@}
@@ -74,19 +76,31 @@ class Error
 		return $this->level;
 	}
 
-	/**
-	 * Creates array with error data.
-	 * @return array associative array with error data {'level'=>severity,'code','cause','effect','details}
-	 */
-	public function toArray ()
+
+    /**
+     * Returns a line describing this error that can be written to the error log file.
+     * @return string
+     */
+	public function toString ()
 	{
-		return array(
-			'level' => $this->level,
-			'code' => $this->code,
-			'cause' => $this->cause,
-			'effect' => $this->effect,
-			'details' => $this->details,
-		);
+        $severity = "Unknown severity";
+        switch($this->level)
+        {
+            case Error::levelNotice: $severity = "Notice"; break;
+            case Error::levelWarning: $severity = "Warning"; break;
+            case Error::levelError: $severity = "Error"; break;
+            case Error::levelFatal: $severity = "Fatal Error"; break;
+        }
+		return $severity . ": " . $this->cause . " causes " . $this->effect . " with details " . $this->details;
 	}
+    public function toArray()
+    {
+        return [
+            'code' => $this->code,
+            'level' => $this->level,
+            'cause' => $this->cause,
+            'effect' => $this->effect,
+            'details' => $this->details];
+    }
 }
 

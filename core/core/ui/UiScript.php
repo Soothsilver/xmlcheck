@@ -20,162 +20,167 @@ use asm\utils\Filesystem, asm\utils\Validator;
  */
 abstract class UiScript
 {
-	private $errors = array();	///< (array) script errors
-	private $failed = false;	///< (bool) true if script failed to finish successfully
-	private $params = array();	///< (array) script arguments (associative)
+    private $errors = array();    ///< (array) script errors
+    private $failed = false;    ///< (bool) true if script failed to finish successfully
+    private $params = array();    ///< (array) script arguments (associative)
 
-	/**
-	 * Runs the request handler with supplied arguments.
-	 *
-	 * Handler is initialized first using init() override and in case of no errors,
-	 * body() override is run. After it finishes (whether successfully or not), errors are
-	 * logged and output is sent using output() override.
-	 * @param array $params associative array of script arguments
-	 * @param array $files associative array with info about files uploaded with request
-	 * @see init()
-	 * @see body()
-	 * @see output()
-	 */
-	public final function run (array $params = array(), array $files = array())
-	{
-		$this->init($params, $files);
+    /**
+     * Runs the request handler with supplied arguments.
+     *
+     * Handler is initialized first using init() override and in case of no errors,
+     * body() override is run. After it finishes (whether successfully or not), errors are
+     * logged and output is sent using output() override.
+     * @param array $params associative array of script arguments
+     * @param array $files associative array with info about files uploaded with request
+     * @see init()
+     * @see body()
+     * @see output()
+     */
+    public final function run(array $params = array(), array $files = array())
+    {
+        $this->init($params, $files);
 
-		if (!$this->isFailed())
-		{
-			$this->body();
-		}
-		
-		$this->logErrors();
-		$this->output();
-	}
+        if (!$this->isFailed())
+        {
+            $this->body();
+        }
 
-	/**
-	 * Convenience method for adding error and stopping script execution at the same time.
-	 *
-	 * Typical use in script body:
-	 * @code
-	 * if (($error = foo()) !== false)
-	 *		return $this->stop($error);
-	 * @endcode
-	 * @param mixed $cause code of error cause (int) or cause message (string) if it doesn't have own code
-	 * @param string $effect error effect
-	 * @param string $details additional error info
-	 * @return bool false
-	 * @see addError()
-	 * @see stopDb()
-	 * @see stopRm()
-	 */
-	protected final function stop ($cause = null, $effect = null, $details = null)
-	{
-		$this->addError(Error::levelError, $cause, $effect, $details);
-		return false;
-	}
-    protected  final function death ($stringID)
+        $this->logErrors();
+        $this->output();
+    }
+
+    /**
+     * Convenience method for adding error and stopping script execution at the same time.
+     *
+     * Typical use in script body:
+     * @code
+     * if (($error = foo()) !== false)
+     *        return $this->stop($error);
+     * @endcode
+     * @param mixed  $cause code of error cause (int) or cause message (string) if it doesn't have own code
+     * @param string $effect error effect
+     * @param string $details additional error info
+     * @return bool false
+     * @see addError()
+     * @see stopDb()
+     * @see stopRm()
+     */
+    protected final function stop($cause = null, $effect = null, $details = null)
+    {
+        $this->addError(Error::levelError, $cause, $effect, $details);
+        return false;
+    }
+
+    protected final function death($stringID)
     {
         $this->addError(Error::levelError, Language::get($stringID));
         return false;
     }
 
-	/**
-	 * Extension of stop() for errors caused by failed request to database.
-	 *
-	 * Typical use in script body:
-	 * @code
-	 * if (empty($result = Core::sendDbRequest('foo')))
-	 *		return $this->stopDb($result);
-	 * @endcode
-	 * @param mixed $result database request result (array or bool)
-	 * @param string $effect error effect
-	 * @param string $details additional error info
-	 * @return bool false
-	 * @see stop()
-	 */
-	protected final function stopDb ($result = false, $effect = null, $details = null)
-	{
-		if (!is_array($result) && !is_bool($result))
-		{
-			return $this->stop($result, $effect, $details);
-		}
+    /**
+     * Extension of stop() for errors caused by failed request to database.
+     *
+     * Typical use in script body:
+     * @code
+     * if (empty($result = Core::sendDbRequest('foo')))
+     *        return $this->stopDb($result);
+     * @endcode
+     * @param mixed  $result database request result (array or bool)
+     * @param string $effect error effect
+     * @param string $details additional error info
+     * @return bool false
+     * @see stop()
+     */
+    protected final function stopDb($result = false, $effect = null, $details = null)
+    {
+        if (!is_array($result) && !is_bool($result))
+        {
+            return $this->stop($result, $effect, $details);
+        }
 
-		list($cause, $dbDetails) = $this->getDbStopInfo($result);
-		$details = $this->joinDetails($dbDetails, $details);
+        list($cause, $dbDetails) = $this->getDbStopInfo($result);
+        $details = $this->joinDetails($dbDetails, $details);
 
-		return $this->stop($cause, $effect, $details);
-	}
+        return $this->stop($cause, $effect, $details);
+    }
 
-	/**
-	 * Turns database request result into array containing error cause and details.
-	 * @param mixed $result database request result (array or bool)
-	 * @return array error info {cause, details}
-	 * @see stopDb()
-	 */
-	protected final function getDbStopInfo ($result = false)
-	{
-		$cause = null;
-		$details = null;
-		if ($result === false)
-		{
-			$cause = ErrorCode::dbRequest;
-			$details = Core::sendDbRequest(null);
-		}
-		elseif (is_array($result) && empty($result))
-		{
-			$cause = ErrorCode::dbEmptyResult;
-		}
-		return array($cause, $details);
-	}
+    /**
+     * Turns database request result into array containing error cause and details.
+     * @param mixed $result database request result (array or bool)
+     * @return array error info {cause, details}
+     * @see stopDb()
+     */
+    protected final function getDbStopInfo($result = false)
+    {
+        $cause = null;
+        $details = null;
+        if ($result === false)
+        {
+            $cause = ErrorCode::dbRequest;
+            $details = Core::sendDbRequest(null);
+        }
+        elseif (is_array($result) && empty($result))
+        {
+            $cause = ErrorCode::dbEmptyResult;
+        }
+        return array($cause, $details);
+    }
 
-	/**
-	 * Extension of stop() for errors caused by failure of one of RemovalManager removal methods.
-	 * @param mixed $removalManagerError either simple error cause (code or message)
-	 *		or array with database request result and error message {result, message}
-	 * @param string $effect error effect
-	 * @param string $details additional error info
-	 * @return bool false
-	 * @see stop()
-	 */
-	protected final function stopRm ($removalManagerError, $effect = null, $details = null)
-	{
-		if (!is_array($removalManagerError))
-		{
-			return $this->stop($removalManagerError, $effect, $details);
-		}
+    /**
+     * Extension of stop() for errors caused by failure of one of RemovalManager removal methods.
+     * @param mixed  $removalManagerError either simple error cause (code or message)
+     *        or array with database request result and error message {result, message}
+     * @param string $effect error effect
+     * @param string $details additional error info
+     * @return bool false
+     * @see stop()
+     */
+    protected final function stopRm($removalManagerError, $effect = null, $details = null)
+    {
+        if (!is_array($removalManagerError))
+        {
+            return $this->stop($removalManagerError, $effect, $details);
+        }
 
-		list($result, $rmDetails) = $removalManagerError;
-		$details = $this->joinDetails($rmDetails, $details);
-		
-		return $this->stopDb($result, $effect, $details);
-	}
+        list($result, $rmDetails) = $removalManagerError;
+        $details = $this->joinDetails($rmDetails, $details);
 
-	/**
-	 * Joins two error details strings together with a newline in between.
-	 * @param string $details1 error details
-	 * @param string $details2 error details
-	 * @return string joined error details
-	 */
-	protected final function joinDetails ($details1, $details2)
-	{
-		$details = array();
-		if ($details1)
-		{
-			array_push($details, $details1);
-		}
-		if ($details2)
-		{
-			array_push($details, $details2);
-		}
-		return implode("\n", $details);
-	}
+        return $this->stopDb($result, $effect, $details);
+    }
 
-	/**
-	 * Sets request handler arguments to be accessible by getParams().
-	 * @param array $params associative array of script arguments
-	 * @see getParams()
-	 */
-	protected function setParams ($params)
-	{
-		$this->params = $params;
-	}
+    /**
+     * Joins two error details strings together with a newline in between.
+     * @param string $details1 error details
+     * @param string $details2 error details
+     * @return string joined error details
+     */
+    protected final function joinDetails($details1, $details2)
+    {
+        $details = array();
+        if ($details1)
+        {
+            array_push($details, $details1);
+        }
+        if ($details2)
+        {
+            array_push($details, $details2);
+        }
+        return implode("\n", $details);
+    }
+
+    /**
+     * Sets request handler arguments to be accessible by getParams().
+     * @param array $params associative array of script arguments
+     * @see getParams()
+     */
+    protected function setParams($params)
+    {
+        $this->params = $params;
+    }
+
+    protected function paramExists($paramName){
+        return array_key_exists($paramName, $this->params);
+    }
 
 	/**
 	 * Gets script argument with supplied key or all arguments.

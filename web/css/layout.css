@@ -102,10 +102,6 @@
 	top: 0.5em;
 }
 
-.app-container .docLinkPanel a {
-	opacity: .3;
-}
-
 .app-container .docLinkPanel a > .linkText {
 	text-decoration: none;
 }

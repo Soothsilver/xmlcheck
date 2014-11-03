@@ -14,7 +14,7 @@ asm.ui.table.CorrectionNew = asm.ui.table.CorrectionBase.extend({
             structure: {
                 problem: { hidden: false }
             },
-			title:  asm.lang.grading.legacyAwatingGradingCaption,
+			title:  asm.lang.grading.legacyAwaitingGradingCaption,
 			stores: [asm.ui.globals.stores.correction]
 		};
 		this.base($.extend(true, defaults, config));

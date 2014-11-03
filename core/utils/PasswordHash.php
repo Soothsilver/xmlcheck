@@ -1,4 +1,5 @@
 <?php
+// This is an external code.
 #
 # Portable PHP password hashing framework.
 #

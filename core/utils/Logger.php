@@ -21,13 +21,18 @@ use DateTime;
  * continues writing into next one (when the last one is full, it continues with
  * the first one, etc.).
  *
+ * The rotation works like this: Suppose the maximum file count is 5. When the fifth is written,
+ * there will be files log0, log1, log2, log3, log4. When a log (in this case log4) is full,
+ * we find the first log that does not exist in order (log5) and create it. We will delete the oldest,
+ * log0, so we now have log1, log2, ... log5. When log5 becomes full, the first log that does not exist
+ * is log0, so we create that and delete log1, and we now have log0, log2, log3, log4, log5.
+ *
+ * By the position of this "break" in file names, we keep track of which file is the oldest and newest.
+ *
  * The Logger flushes (writes to disk) when it is destroyed.
  */
 class Logger
 {
-	const minFileSize = 1024;	///< minimum for maximum file size (see setMaxFileSize())
-	const minFileCount = 2;		///< minimum for maximum file count (see setMaxFileCount())
-
 	/**
 	 * Creates new Logger instance.
 	 * @param string $folder folder in which the log files are (to be) located
@@ -40,15 +45,14 @@ class Logger
 
     private $folder;	///< folder to store log files in
 
-	private $lines = array();		///< log entry 'lines' (error descriptions)
-	private $header = array();		///< customized entry header items
+	private $lines = [];		///< log entry 'lines' (error descriptions)
+	private $header = 'Log Entry';  ///< customized entry header
 	private $prefix = 'logfile';	///< logfile name prefix
 	private $suffix = '.log';		///< logfile name suffix
 	private $maxFileSize = 1048576;	///< maximum size of individual log files in bytes (default is 1MB)
 	private $maxFileCount = 5;		///< maximum number of log files
 	private $entrySeparator = "\n#ENTRY\n";	///< entry separator
 	private $lineSeparator = "\n#LINE\n";		///< 'line' separator
-	private $itemSeparator = "\n#ITEM\n";		///< item separator
 	private $datetimeFormat = DateTime::ISO8601;	///< entry timestamp format
 
 	/**
@@ -66,7 +70,11 @@ class Logger
 	 */
 	function  __destruct ()
 	{
-		@$this->flush();
+
+        // Writing into a log file is not very important.
+        // The silence operator will ensure the user gets the results even if logging fails.
+        /** @noinspection PhpUsageOfSilenceOperatorInspection */
+        @$this->flush();
 	}
 
 	/**
@@ -98,7 +106,7 @@ class Logger
 	 */
 	public final function setMaxFileSize ($size)
 	{
-		$this->maxFileSize = max((int)$size, self::minFileSize);
+		$this->maxFileSize = (int)$size;
 		return $this;
 	}
 
@@ -109,12 +117,12 @@ class Logger
 	 */
 	public final function setMaxFileCount ($count)
 	{
-		$this->maxFileCount = max((int)$count, self::minFileCount);
+		$this->maxFileCount = (int)$count;
 		return $this;
 	}
 
 	/**
-	 * Sets entry separator (will be stripped from all log entry data and used to separate log entries).
+	 * Sets entry separator.
 	 * @param string $separator
 	 * @return Logger self
 	 */
@@ -125,7 +133,7 @@ class Logger
 	}
 
 	/**
-	 * Sets line separator (will be stripped from all log entry data and used to separate log 'lines').
+	 * Sets line separator.
 	 * @param string $separator
 	 * @return Logger self
 	 */
@@ -135,16 +143,6 @@ class Logger
 		return $this;
 	}
 
-	/**
-	 * Sets item separator (will be stripped from all log entry data and used to separate log data chunks).
-	 * @param string $separator
-	 * @return Logger self
-	 */
-	public final function setItemSeparator ($separator)
-	{
-		$this->itemSeparator = (string)$separator;
-		return $this;
-	}
 
 	/**
 	 * Sets timestamp format.
@@ -154,56 +152,29 @@ class Logger
 	 */
 	public final function setDatetimeFormat ($format)
 	{
-		$this->datetimeFormat = $this->stripSeparators($format);
+		$this->datetimeFormat = $format;
 		return $this;
 	}
 
 	/**
 	 * Sets items to be saved in log entry header apart from timestamp.
-	 * @param mixed [...] items to be included in entry header
+	 * @param string $headerText the title of the next log entry to be written
 	 * @return Logger self
 	 */
-	public final function setHeaderItems ()
+	public final function setHeader ($headerText)
 	{
-		$items = array();
-		foreach (func_get_args() as $item)
-		{
-			$items[] = $this->stripSeparators($item);
-		}
-		$this->header = $items;
-
+		$this->header = $headerText;
 		return $this;
 	}
 
 	/**
-	 * Strips entry, line, and item separators from supplied item.
-	 * @param mixed $str value will be turned to string by @c print_r function
-	 *		and stripped of separators
-	 * @return string value ready to be added to log
-	 */
-	protected final function stripSeparators ($str)
-	{
-		$str = print_r($str, true);
-		$str = str_replace($this->entrySeparator, '', $str);
-		$str = str_replace($this->lineSeparator, '', $str);
-		return str_replace($this->itemSeparator, '', $str);
-	}
-
-	/**
 	 * Log error (or anything really).
-	 * @param mixed [...] items to be saved as single log 'line' (will be
-	 *		stripped of separators)
+	 * @param string $line line to be saved to log
 	 * @return Logger self
 	 */
-	public function log ()
+	public function log ($line)
 	{
-		$items = array();
-		foreach (func_get_args() as $item)
-		{
-			$items[] = $this->stripSeparators($item);
-		}
-		$this->lines[] = $items;
-		
+        $this->lines[] = $line;
 		return $this;
 	}
 
@@ -219,6 +190,7 @@ class Logger
 
 	/**
 	 * Create index of currently existing log files with info about current log file index.
+     * The first element of the array is the oldest file.
 	 * @return array combined array with logfile names as simple entries and an
 	 *		additional entry 'lastIndex' indicating index of most recent logfile
 	 */
@@ -227,8 +199,8 @@ class Logger
 		$lastIndex = null;
 		$lastFoundIndex = 0;
 		$reachedBreak = false;
-		$beforeBreak = array();
-		$afterBreak = array();
+		$beforeBreak = [];
+		$afterBreak = [];
 		for ($i = 0; $i <= $this->maxFileCount; ++$i)
 		{
 			$filename = $this->getLogFilename($i);
@@ -279,14 +251,9 @@ class Logger
 	 */
 	private function entryToString ()
 	{
-		$headerLine = implode($this->itemSeparator, array_merge(
-				array(date($this->datetimeFormat)), $this->header));
+		$headerLine = date($this->datetimeFormat) . " " . $this->header;
 
-		$lines = array($headerLine);
-		foreach ($this->lines as $entry)
-		{
-			$lines[] = implode($this->itemSeparator, $entry);
-		}
+		$lines = array_merge( [$headerLine], $this->lines);
 
 		$entry = $this->entrySeparator . implode($this->lineSeparator, $lines);
 
@@ -330,7 +297,7 @@ class Logger
 		}
 
 		$currentFile = fopen($this->getLogFilename($currentIndex), 'a');
-		$lock = flock($currentFile, LOCK_EX);
+		flock($currentFile, LOCK_EX);
 
 		if ($deleteOldest)
 		{
@@ -356,13 +323,15 @@ class Logger
 	 */
     private function clear ()
 	{
-		$this->lines = array();
+		$this->lines = [];
 		return $this;
 	}
 
 	/**
 	 * Writes logged events to logfile and remove them from this instance (to avoid
 	 * saving them more than once).
+     *
+     * Will only write if there is at least one line to write.
 	 * @return Logger self
 	 */
 	public final function flush ()
@@ -370,80 +339,5 @@ class Logger
 		return $this->write()->clear();
 	}
 
-	/**
-	 * Loads and parses previously logged entries.
-	 * @param mixed $keyMaps either null if result should be returned as is or
-	 * array with log data keys
-	 *	@arg @a header (optional) keys of header items
-	 * @arg @a item (optional) keys of 'line' items
-	 * @n Header/'line' data will be cut to number of supplied keys and indexed with them.
-	 * @param int $maxEntries maximum number of most recent entries to fetch (no
-	 *		limit if set to zero
-	 * @return array previous log entries (sorted from most recent to oldest)
-	 */
-	public final function read ($keyMaps = null, $maxEntries = 0)
-	{
-		$headerKeys = isset($keyMaps['header']) ? $keyMaps['header'] : null;
-		$itemKeys = isset($keyMaps['item']) ? $keyMaps['item'] : null;
-		$noMax = ($maxEntries == 0);
-		$logFiles = $this->getLogFiles();
-		unset($logFiles['lastIndex']);
-		$parsedLog = array();
-
-		while (($logFile = array_pop($logFiles)) != null)
-		{
-			$contents = file_get_contents($logFile);
-			$entries = explode($this->entrySeparator, $contents);
-			array_shift($entries);
-			$parsedEntries = array();
-
-			foreach ($entries as $entry)
-			{
-				$lines = explode($this->lineSeparator, $entry);
-				$headerLine = explode($this->itemSeparator, array_shift($lines));
-				$datetime = array_shift($headerLine);
-
-				if ($headerKeys)
-				{
-					array_splice($headerLine, count($headerKeys));
-					$headerLine = array_combine($headerKeys, $headerLine);
-				}
-
-				foreach ($lines as $i => $line)
-				{
-					$lines[$i] = $line = explode($this->itemSeparator, $line);
-					if ($itemKeys)
-					{
-						array_splice($line, count($itemKeys));
-						$lines[$i] = array_combine($itemKeys, $line);
-					}
-				}
-
-				$parsedEntries[] = array(
-					'datetime' => $datetime,
-					'header' => $headerLine,
-					'lines' => $lines,
-				);
-			}
-
-			if ($maxEntries > 0)
-			{
-				if ($maxEntries < count($parsedEntries))
-				{
-					$parsedEntries = array_slice($parsedEntries, 0, $maxEntries);
-				}
-				$maxEntries -= count($parsedEntries);
-			}
-			
-			$parsedLog = array_merge($parsedEntries, $parsedLog);
-
-			if (!$noMax && ($maxEntries <= 0))
-			{
-				break;
-			}
-		}
-
-		return $parsedLog;
-	}
 }
 

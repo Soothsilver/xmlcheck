@@ -31,7 +31,8 @@ class Language {
         }
         else
         {
-            return "en";
+            // Default is Czech
+            return "cs";
         }
     }
     private static function getCzech($textId)

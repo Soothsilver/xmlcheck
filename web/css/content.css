@@ -83,3 +83,9 @@ a.compositeLink>.ui-icon {
 a.compositeLink>.linkText {
 	text-decoration: underline;
 }
+a.compositeLink.outLink {
+    font-weight: bold;
+}
+a.compositeLink.outLink:hover {
+    text-decoration: underline;
+}

@@ -83,7 +83,7 @@ final class EditUser extends DataScript
 		$isTypeSet = ($type !== null);
 		$code = '';
         $unhashedPass = $pass;
-		$pass = \asm\utils\Security::hash($pass, \asm\utils\Security::$hashtypePhpass);
+		$pass = \asm\utils\Security::hash($pass, \asm\utils\Security::HASHTYPE_PHPASS);
 		$canAddUsers = User::instance()->hasPrivileges(User::usersAdd);
 		$canEditUsers = User::instance()->hasPrivileges(User::usersManage);
 		$isEditingSelf = ($id === User::instance()->getId());
@@ -104,7 +104,7 @@ final class EditUser extends DataScript
 			}
 
             // TODO add user options here and make them a transaction
-			if (!Core::sendDbRequest('addUser', $type, $name, $pass, $realname, $email, $code, \asm\utils\Security::$hashtypePhpass))
+			if (!Core::sendDbRequest('addUser', $type, $name, $pass, $realname, $email, $code, \asm\utils\Security::HASHTYPE_PHPASS))
 				return $this->stopDb(false, ErrorEffect::dbAdd('user'));
 		}
 		elseif ($isIdSet) // edit existing user
@@ -126,7 +126,7 @@ final class EditUser extends DataScript
 
             if ($unhashedPass)
             {
-                if (!Core::sendDbRequest('editUserById', $id, $name, $type, $pass, $realname, $email, \asm\utils\Security::$hashtypePhpass))
+                if (!Core::sendDbRequest('editUserById', $id, $name, $type, $pass, $realname, $email, \asm\utils\Security::HASHTYPE_PHPASS))
                     return $this->stopDb(false, ErrorEffect::dbEdit('user'));
             }
             else

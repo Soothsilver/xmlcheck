@@ -1,6 +1,8 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\Language;
+use asm\core\lang\StringID;
 use asm\utils\ArrayUtils;
 
 /**
@@ -16,7 +18,7 @@ final class GetStudentAssignments extends DataScript
 		if (!$this->userHasPrivs())
 			return;
 
-        $query = "SELECT a, p, l, z, g FROM Assignment a JOIN a.problem p JOIN p.plugin z JOIN p.lecture l JOIN a.group g WITH g.id IN (SELECT IDENTITY(k.group) FROM \Subscription k WHERE k.user = :id)";
+        $query = "SELECT a, p, l, z, g FROM Assignment a JOIN a.problem p LEFT JOIN p.plugin z JOIN p.lecture l JOIN a.group g WITH g.id IN (SELECT IDENTITY(k.group) FROM \Subscription k WHERE k.user = :id AND a.deleted = false)";
         /**
          * @var $assignments \Assignment[]
          */
@@ -24,6 +26,7 @@ final class GetStudentAssignments extends DataScript
         $assignments = Repositories::getEntityManager()->createQuery($query)
             ->setParameter('id', $userId)
             ->getResult();
+
 
         foreach($assignments as $assignment)
         {
@@ -33,7 +36,7 @@ final class GetStudentAssignments extends DataScript
                 $assignment->getId(),
                 $assignment->getProblem()->getName(),
                 $assignment->getProblem()->getDescription(),
-                $assignment->getProblem()->getPlugin()->getDescription(),
+                ($assignment->getProblem()->getPlugin() ? $assignment->getProblem()->getPlugin()->getDescription() : Language::get(StringID::NoPluginUsed)),
                 $assignment->getDeadline()->format("Y-m-d H:i:s"),
                 $assignment->getReward(),
                 $assignment->getProblem()->getLecture()->getName(),
@@ -45,16 +48,6 @@ final class GetStudentAssignments extends DataScript
             ];
             $this->addRowToOutput($row);
         }
-
-
-        /*
-         * TODO remove
-		$assignments = Core::sendDbRequest('getAssignmentsByUserId', User::instance()->getId());
-		if ($assignments === null)
-			return $this->stopDb($assignments, ErrorEffect::dbGetAll('assignments'));
-
-		$this->setOutputTable($assignments);
-        */
 	}
 }
 

@@ -27,7 +27,7 @@ final class EditUsertype extends DataScript
 		if (!$this->userHasPrivs(User::usersPrivPresets))
 			return;
 
-		$privilegeGroups = array('users', 'subscriptions', 'plugins', 'assignments', 'submissions', 'lectures', 'groups', 'log');
+		$privilegeGroups = array('users', 'subscriptions', 'plugins', 'assignments', 'submissions', 'lectures', 'groups', 'other');
 		$inputs = array_merge(array(
 			'name' => array(
 				'isAlphaNumeric',

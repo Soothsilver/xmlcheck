@@ -7,12 +7,12 @@ asm.ui.table.Attachments = asm.ui.DynamicTable.extend({
 			icon: asm.ui.globals.icons.attachment,
 			structure: {
 				id: { key: true, hidden: true, comparable: true },
-				name: { label: 'Name', string: true, comparable: true },
-				type: { label: 'Type', string: true, comparable: true },
+				name: { label: asm.lang.attachments.name, string: true, comparable: true },
+				type: { label: asm.lang.attachments.type, string: true, comparable: true },
 				lectureId: { hidden: true, comparable: true },
-				lecture: { label: 'Lecture', comparable: true, string: true }
+				lecture: { label: asm.lang.attachments.lecture, comparable: true, string: true }
 			},
-			title: 'Attachments',
+			title: asm.lang.attachments.caption,
 			stores: [asm.ui.globals.stores.attachments]
 		};
 		this.base($.extend(true, defaults, config));
