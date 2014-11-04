@@ -928,7 +928,6 @@ class QueryManager
                 DbLayout::fieldUserEncryptionType,
 			), $args, self::makeFieldEqualityCondition(DbLayout::tableUsers, DbLayout::fieldUserId, $id));
 
-       // TODO my change, test:
         case 'editUserByIdButKeepPassword':
             $id = array_shift($args);
             return self::updateQuery(DbLayout::tableUsers, array(

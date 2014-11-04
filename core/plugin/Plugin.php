@@ -140,7 +140,6 @@ abstract class Plugin
 	 */
 	protected final function makeFullSources ($sources)
 	{
-        // TODO this overwrites the parameter, is it desired?
 		foreach ($sources as $key => $val)
 		{
 			$sources[$key] = $this->getSourceFile($val);

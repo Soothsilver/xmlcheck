@@ -1,4 +1,5 @@
 1.01
+* <b>Attachments.</b> When you delete an attachment, the reference to it from questions is also removed.
 * <b>Bugfix.</b> Fixed bugs introduced in the previous version.
 
 1.00

@@ -64,7 +64,7 @@ final class EditUser extends DataScript
             // A new user must have full password
             if ((strlen($pass) < Constants::PasswordMinLength || strlen($pass) > Constants::PasswordMaxLength) && $pass !== "")
             {
-                return $this->stop(ErrorCause::invalidInput("password must have between 6 and 20 characters, or be empty", "pass"));
+                return $this->stop(ErrorCause::invalidInput("password must have between 6 and 200 characters, or be empty", "pass"));
             }
         }
         else
@@ -72,7 +72,7 @@ final class EditUser extends DataScript
             // A new user must have full password
             if (strlen($pass) < Constants::PasswordMinLength || strlen($pass) > Constants::PasswordMaxLength)
             {
-                return $this->stop(ErrorCause::invalidInput("password must have between 6 and 20 characters", "pass"));
+                return $this->stop(ErrorCause::invalidInput("password must have between 6 and 200 characters", "pass"));
             }
         }
 

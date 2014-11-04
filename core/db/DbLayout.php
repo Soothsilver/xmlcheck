@@ -672,7 +672,7 @@ class DbLayout
 		self::fieldSpecialRatingSum => array(self::typeNumber, array(0, 549755813887)),
 
         self::fieldEmailNotificationSettingsId => self::typeId,
-        self::fieldUserOptionSendEmailOnNewSubmission => array(self::typeNumber, array(0, 2) ), // TODO is 2 needed? refactor.
+        self::fieldUserOptionSendEmailOnNewSubmission => array(self::typeNumber, array(0, 2) ),
         self::fieldUserOptionSendEmailOnSubmissionRated => array(self::typeNumber, array(0, 2) ),
         self::fieldUserOptionSendEmailOnNewAssignment => array(self::typeNumber, array(0, 2) ),
 	);
