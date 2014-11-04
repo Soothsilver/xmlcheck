@@ -294,12 +294,16 @@ class User
 	 * @return bool true if no privileges are supplied or if at least
 	 * one supplied set of privileges is matched with user's privileges
 	 */
-	public function hasPrivileges ()
+	public function hasPrivileges (...$setsOfPrivileges)
 	{
 		if ($this->isLogged())
 		{
+            return Flags::match($this->data['privileges'], ...$setsOfPrivileges);
+            /*
+             * TODO remove this later:
 			return call_user_func_array(array('asm\utils\Flags', 'match'),
 				array_merge(array($this->data['privileges']), func_get_args()));
+            */
 		}
 		return false;
 	}

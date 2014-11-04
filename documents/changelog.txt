@@ -1,3 +1,6 @@
+1.01
+* <b>Bugfix.</b> Fixed bugs introduced in the previous version.
+
 1.00
 * <b>Upgraded to jQuery 1.4.3.</b> Required fixing a bug in Builder.js, where we appended to a nonexistent body. That is no longer possible.
 * <b>Bugfix.</b> Fixed a bug that caused Problems not to be editable.

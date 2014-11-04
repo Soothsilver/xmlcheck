@@ -17,6 +17,9 @@ class Repositories
     const Subscription = "Subscription";
     const User = "User";
     const PluginTest = "PluginTest";
+    const Question = "Question";
+    const Xtest = "Xtest";
+    const Attachment = "Attachment";
     /**
      * @var EntityManager
      */
@@ -56,6 +59,12 @@ class Repositories
     public static function findEntity($entityName, $id)
     {
         return self::getEntityManager()->find($entityName, $id);
+    }
+
+    public static function remove($entity)
+    {
+        self::getEntityManager()->remove($entity);
+        self::getEntityManager()->flush($entity);
     }
 
     /**

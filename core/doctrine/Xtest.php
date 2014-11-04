@@ -5,12 +5,12 @@
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Xtests
+ * Xtest
  *
  * @ORM\Table(name="xtests")
  * @ORM\Entity
  */
-class Xtests
+class Xtest
 {
     /**
      * @var integer
@@ -50,11 +50,12 @@ class Xtests
     private $generated;
 
     /**
-     * @var integer
+     * @var \Lecture
      *
-     * @ORM\Column(name="lectureId", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Lecture", inversedBy="xtests")
+     * @ORM\JoinColumn(name="lectureId", referencedColumnName="id")
      */
-    private $lectureid;
+    private $lecture;
 
 
 
@@ -161,25 +162,25 @@ class Xtests
     }
 
     /**
-     * Set lectureid
+     * Set lecture
      *
-     * @param integer $lectureid
-     * @return Xtests
+     * @param \Lecture $lecture
+     * @return Xtest
      */
-    public function setLectureid($lectureid)
+    public function setLecture(\Lecture $lecture = null)
     {
-        $this->lectureid = $lectureid;
-
+        $this->lecture = $lecture;
+    
         return $this;
     }
 
     /**
-     * Get lectureid
+     * Get lecture
      *
-     * @return integer 
+     * @return \Lecture 
      */
-    public function getLectureid()
+    public function getLecture()
     {
-        return $this->lectureid;
+        return $this->lecture;
     }
 }

@@ -30,7 +30,7 @@ final class DeleteLecture extends DataScript
         {
 			return $this->death(StringID::InsufficientPrivileges);
         }
-        RemovalManager::hideLectureItsProblemsAndGroups($lecture);
+        RemovalManager::hideLectureItsProblemsGroupsQuestionsAttachmentsAndXtests($lecture);
 	}
 }
 

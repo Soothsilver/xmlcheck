@@ -10,8 +10,11 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="questions", indexes={@ORM\Index(name="lectureId", columns={"lectureId"})})
  * @ORM\Entity
  */
-class Questions
+class Question
 {
+    const TYPE_TEXT = 'text';
+    const TYPE_IMAGE = 'image';
+    const TYPE_CODE = 'code';
     /**
      * @var integer
      *
@@ -33,7 +36,7 @@ class Questions
      *
      * @ORM\Column(name="type", type="string", nullable=false)
      */
-    private $type = 'text';
+    private $type = self::TYPE_TEXT;
 
     /**
      * @var string
@@ -50,11 +53,12 @@ class Questions
     private $attachments;
 
     /**
-     * @var integer
+     * @var \Lecture
      *
-     * @ORM\Column(name="lectureId", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Lecture", inversedBy="questions")
+     * @ORM\JoinColumn(referencedColumnName="id", name="lectureId")
      */
-    private $lectureid;
+    private $lecture;
 
 
 
@@ -161,25 +165,25 @@ class Questions
     }
 
     /**
-     * Set lectureid
+     * Set lecture
      *
-     * @param integer $lectureid
-     * @return Questions
+     * @param \Lecture $lecture
+     * @return Question
      */
-    public function setLectureid($lectureid)
+    public function setLecture(\Lecture $lecture = null)
     {
-        $this->lectureid = $lectureid;
-
+        $this->lecture = $lecture;
+    
         return $this;
     }
 
     /**
-     * Get lectureid
+     * Get lecture
      *
-     * @return integer 
+     * @return \Lecture 
      */
-    public function getLectureid()
+    public function getLecture()
     {
-        return $this->lectureid;
+        return $this->lecture;
     }
 }

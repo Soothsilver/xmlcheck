@@ -5,12 +5,12 @@
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Attachments
+ * Attachment
  *
  * @ORM\Table(name="attachments")
  * @ORM\Entity
  */
-class Attachments
+class Attachment
 {
     /**
      * @var integer
@@ -43,11 +43,11 @@ class Attachments
     private $file;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="lectureId", type="integer", nullable=false)
+     * @var \Lecture
+     * @ORM\ManyToOne(targetEntity="Lecture", inversedBy="attachments")
+     * @ORM\JoinColumn(name="lectureId", referencedColumnName="id")
      */
-    private $lectureid;
+    private $lecture;
 
 
 
@@ -131,25 +131,25 @@ class Attachments
     }
 
     /**
-     * Set lectureid
+     * Set lecture
      *
-     * @param integer $lectureid
-     * @return Attachments
+     * @param \Lecture $lecture
+     * @return Attachment
      */
-    public function setLectureid($lectureid)
+    public function setLecture(\Lecture $lecture = null)
     {
-        $this->lectureid = $lectureid;
-
+        $this->lecture = $lecture;
+    
         return $this;
     }
 
     /**
-     * Get lectureid
+     * Get lecture
      *
-     * @return integer 
+     * @return \Lecture 
      */
-    public function getLectureid()
+    public function getLecture()
     {
-        return $this->lectureid;
+        return $this->lecture;
     }
 }

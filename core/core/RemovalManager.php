@@ -39,7 +39,7 @@ class RemovalManager
     /**
      * @param $lecture \Lecture
      */
-    public static function hideLectureItsProblemsAndGroups($lecture)
+    public static function hideLectureItsProblemsGroupsQuestionsAttachmentsAndXtests($lecture)
     {
         $lecture->setDeleted(true);
         foreach($lecture->getProblems() as $problem)
@@ -50,6 +50,20 @@ class RemovalManager
         {
             self::hideGroupAndItsAssignments($group);
         }
+        foreach($lecture->getXtests() as $xtest)
+        {
+            Repositories::remove($xtest);
+        }
+        foreach ($lecture->getQuestions() as $question)
+        {
+            Repositories::remove($question);
+        }
+        foreach ($lecture->getAttachments() as $attachment)
+        {
+            Repositories::remove($attachment);
+        }
+
+
         Repositories::persistAndFlush($lecture);
     }
 
@@ -64,19 +78,28 @@ class RemovalManager
 	 */
 	public static function deleteAttachmentById ($id)
 	{
-		if (($questions = Core::sendDbRequest('getQuestionsVisibleByUserId', User::instance()->getId())) === false)
-			return self::retrievalError($questions, 'question', 'owner', $id);
-
-		foreach ($questions as $question)
-		{
-			$attachmentIds = array();
-			// TODO
-		}
-
-		if (!Core::sendDbRequest('deleteAttachmentById', $id))
-			return self::removalError('attachment', $id);
-
-		return false;
+        $attachment = Repositories::findEntity(Repositories::Attachment, $id);
+        $questions = CommonQueries::getQuestionsVisibleToActiveUser();
+        foreach($questions as $question)
+        {
+            $modificationMade = false;
+            $attachments = explode(';', $question->getAttachments());
+            for ($i = 0; $i < count($attachments); $i++)
+            {
+                if ($attachments[$i] === (string)$id)
+                {
+                    unset($attachments[$i]);
+                    $modificationMade = true;
+                }
+            }
+            if ($modificationMade)
+            {
+                $question->setAttachments(implode(';', $attachments));
+                Repositories::persistAndFlush($question);
+            }
+        }
+        Repositories::remove($attachment);
+        return false;
 	}
 
 	/**
@@ -87,6 +110,7 @@ class RemovalManager
 	 */
 	public static function deletePluginById ($id)
 	{
+        // TODO zmenit,prostě jen u problémů nastavit opravovadlo na "no corrective plugin" = NULL
 		if (($tests = Core::sendDbRequest('getTestsByPluginId', $id)) === false)
 			return self::retrievalError($tests, 'test', 'plugin', $id);
 
@@ -144,145 +168,6 @@ class RemovalManager
 
 		return false;
 	}
-	
-	/**
-	 * Deletes lecture with supplied ID (with groups+, problems).
-	 * @param int $id lecture ID
-	 * @return array error properties provided by removalError() or retrievalError(),
-	 * or false in case of success
-	 */
-	public static function deleteLectureById ($id)
-	{
-		if (($groups = Core::sendDbRequest('getGroupsByLectureId', $id)) === false)
-			return self::retrievalError($groups, 'group', 'lecture', $id);
 
-		foreach ($groups as $group)
-		{
-			$groupId = $group[DbLayout::fieldGroupId];
-			if (($error = self::deleteGroupById($groupId)))
-				return $error;
-		}
-
-		if (($problems = Core::sendDbRequest('getProblemsByLectureId', $id)) === false)
-			return self::retrievalError($problems, 'problem', 'lecture', $id);
-
-		foreach ($problems as $problem)
-		{
-			$problemId = $problem[DbLayout::fieldProblemId];
-			if (!Core::sendDbRequest('deleteProblemById', $problemId))
-				return self::removalError('problem', $problemId);
-		}
-
-		if (!Core::sendDbRequest('deleteLectureById', $id))
-			return self::removalError('lecture', $id);
-
-		return false;
-	}
-
-	/**
-	 * Deletes problem with supplied ID (with assignments+).
-	 * @param int $id problem ID
-	 * @return array error properties provided by removalError() or retrievalError(),
-	 * or false in case of success
-	 */
-	public static function deleteProblemById ($id)
-	{
-		if (($assignments = Core::sendDbRequest('getAssignmentsByProblemId', $id)) === false)
-			return self::retrievalError($assignments, 'assignment', 'problem', $id);
-
-		foreach ($assignments as $assignment)
-		{
-			$assignmentId = $assignment[DbLayout::fieldAssignmentId];
-			if (($error = self::deleteAssignmentById($assignmentId)))
-				return $error;
-		}
-
-		if (!Core::sendDbRequest('deleteProblemById', $id))
-			return self::removalError('problem', $id);
-
-		return false;
-	}
-
-	/**
-	 * Deletes group with supplied ID (with assignments+, subscriptions).
-	 * @param int $id group ID
-	 * @return array error properties provided by removalError() or retrievalError(),
-	 * or false in case of success
-	 */
-	public static function deleteGroupById ($id)
-	{
-		if (($assignments = Core::sendDbRequest('getAssignmentsByGroupId', $id)) === false)
-			return self::retrievalError($assignments, 'assignment', 'group', $id);
-
-		foreach ($assignments as $assignment)
-		{
-			$assignmentId = $assignment[DbLayout::fieldAssignmentId];
-			if (($error = self::deleteAssignmentById($assignmentId)))
-				return $error;
-		}
-
-		if (($subscriptions = Core::sendDbRequest('getSubscriptionsByGroupId', $id)) === false)
-			return self::retrievalError($subscriptions, 'subscription', 'group', $id);
-
-		foreach ($subscriptions as $subscription)
-		{
-			$subscriptionId = $subscription[DbLayout::fieldSubscriptionId];
-			if (!Core::sendDbRequest('deleteSubscriptionById', $subscriptionId))
-				return self::removalError('subscription', $subscriptionId);
-		}
-
-		if (!Core::sendDbRequest('deleteGroupById', $id))
-			return self::removalError('group', $id);
-
-		return false;
-	}
-
-	/**
-	 * Deletes assignment with supplied ID (with submissions).
-	 * @param int $id assignment ID
-	 * @return array error properties provided by removalError() or retrievalError(),
-	 * or false in case of success
-	 */
-	public static function deleteAssignmentById ($id)
-	{
-		if (($submissions = Core::sendDbRequest('getSubmissionsByAssignmentId', $id)) === false)
-			return self::retrievalError($submissions, 'submission', 'assignment', $id);
-
-		foreach ($submissions as $submission)
-		{
-			$submissionId = $submission[DbLayout::fieldSubmissionId];
-			if (!Core::sendDbRequest('hideSubmissionById', $submissionId))
-				return self::removalError('submission', $submissionId);
-		}
-
-		if (!Core::sendDbRequest('deleteAssignmentById', $id))
-			return self::removalError('assignment', $id);
-
-		return false;
-	}
-
-	/**
-	 * Creates unified error properties array for removal error.
-	 * @param string $subject type of subject that could not be removed
-	 * @param int $id subject ID
-	 * @return array {false, error message}
-	 */
-	protected static function removalError ($subject, $id)
-	{
-		return array(false, "$subject $id could not be deleted");
-	}
-
-	/**
-	 * Creates unified error properties array for retrieval error.
-	 * @param mixed $result result of retrieval request
-	 * @param string $subject type of subject that could not be retrieved
-	 * @param string $object type of object on which subjects depend
-	 * @param int $id object ID
-	 * @return array {retrieval request result, error message}
-	 */
-	protected static function retrievalError ($result, $subject, $object, $id)
-	{
-		return array($result, "could not retrieve {$subject}s for {$object} $id");
-	}
 }
 

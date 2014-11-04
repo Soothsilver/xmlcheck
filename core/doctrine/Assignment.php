@@ -34,7 +34,7 @@ class Assignment
      *
      * @ORM\Column(name="deadline", type="datetime", nullable=false)
      */
-    private $deadline = 'CURRENT_TIMESTAMP';
+    private $deadline = null;
     /**
      * @var integer
      *

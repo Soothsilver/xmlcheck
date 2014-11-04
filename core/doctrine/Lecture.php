@@ -66,6 +66,21 @@ class Lecture
      * @ORM\OneToMany(targetEntity="Problem", mappedBy="lecture")
      */
     private $problems;
+    /**
+     * @var Attachment[]
+     * @ORM\OneToMany(targetEntity="Attachment", mappedBy="lecture")
+     */
+    private $attachments;
+    /**
+     * @var Question[]
+     * @ORM\OneToMany(targetEntity="Question", mappedBy="lecture")
+     */
+    private $questions;
+    /**
+     * @var Xtest[]
+     * @ORM\OneToMany(targetEntity="Xtest", mappedBy="lecture")
+     */
+    private $xtests;
 
 
     /**
@@ -264,5 +279,104 @@ class Lecture
     public function getGroups()
     {
         return $this->groups;
+    }
+
+    /**
+     * Add attachments
+     *
+     * @param \Attachment $attachments
+     * @return Lecture
+     */
+    public function addAttachment(\Attachment $attachments)
+    {
+        $this->attachments[] = $attachments;
+    
+        return $this;
+    }
+
+    /**
+     * Remove attachments
+     *
+     * @param \Attachment $attachments
+     */
+    public function removeAttachment(\Attachment $attachments)
+    {
+        $this->attachments->removeElement($attachments);
+    }
+
+    /**
+     * Get attachments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAttachments()
+    {
+        return $this->attachments;
+    }
+
+    /**
+     * Add questions
+     *
+     * @param \Question $questions
+     * @return Lecture
+     */
+    public function addQuestion(\Question $questions)
+    {
+        $this->questions[] = $questions;
+    
+        return $this;
+    }
+
+    /**
+     * Remove questions
+     *
+     * @param \Question $questions
+     */
+    public function removeQuestion(\Question $questions)
+    {
+        $this->questions->removeElement($questions);
+    }
+
+    /**
+     * Get questions
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQuestions()
+    {
+        return $this->questions;
+    }
+
+    /**
+     * Add xtests
+     *
+     * @param \Xtest $xtests
+     * @return Lecture
+     */
+    public function addXtest(\Xtest $xtests)
+    {
+        $this->xtests[] = $xtests;
+    
+        return $this;
+    }
+
+    /**
+     * Remove xtests
+     *
+     * @param \Xtest $xtests
+     */
+    public function removeXtest(\Xtest $xtests)
+    {
+        $this->xtests->removeElement($xtests);
+    }
+
+    /**
+     * Get xtests
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getXtests()
+    {
+        return $this->xtests;
     }
 }
