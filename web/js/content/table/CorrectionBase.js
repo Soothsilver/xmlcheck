@@ -83,7 +83,7 @@ asm.ui.table.CorrectionBase = asm.ui.DynamicTable.extend({
                                 value:
                                  asm.lang.grading.submittedLateHint_1 + deadlineDate +
                                  asm.lang.grading.submittedLateHint_2 + submissionDate +
-                                 asm.lang.grading.submittedLateHint_3i
+                                 asm.lang.grading.submittedLateHint_3
                             }
                         },
                         submitText: reRate ? asm.lang.grading.changeButton : asm.lang.grading.rateButton

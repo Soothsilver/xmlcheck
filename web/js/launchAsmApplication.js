@@ -53,8 +53,8 @@ $(document).ready(function () {
 		}
 	};
 	asm.ui.globals.fileSaver = new asm.ui.FileSaver(fileDownloaderConfig);
-	asm.ui.globals.fileViewer = new asm.ui.FileViewer(fileDownloaderConfig); // TODO now, not used
-	asm.ui.globals.filePrinter = new asm.ui.FileSaver({                      // TODO now, used only in tests
+	asm.ui.globals.fileViewer = new asm.ui.FileViewer(fileDownloaderConfig);
+	asm.ui.globals.filePrinter = new asm.ui.FileSaver({
 		url: asm.ui.globals.coreUrl,
 		resultHandler: function printResult (args, myWindow) {
 			args[0] = args[0].replace(/^<pre[^>]*>/, '').replace(/<\/pre>?/, '');

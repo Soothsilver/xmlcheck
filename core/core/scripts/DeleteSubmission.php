@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\StringID;
 use asm\utils\Filesystem, asm\db\DbLayout;
 
 /**
@@ -14,31 +15,49 @@ class DeleteSubmission extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->isInputSet(array('id')))
+        if (!$this->isInputSet(array('id')))
 			return;
+        $id = $this->getParams('id');
+        /**
+         * @var $submission \Submission
+         */
+        $submission = Repositories::findEntity(Repositories::Submission, $id);
+        if ($submission->getUser()->getId() !== User::instance()->getId())
+        {
+            return $this->death(StringID::InsufficientPrivileges);
+        }
+        if ($submission->getStatus() === \Submission::STATUS_GRADED)
+        {
+            return $this->death(StringID::CannotDeleteGradedSubmissions);
+        }
+        $status = $submission->getStatus();
+        $submission->setStatus(\Submission::STATUS_DELETED);
+        Repositories::persist($submission);
 
-		$id = $this->getParams('id');
+        // Make something else latest
+        if ($status === \Submission::STATUS_LATEST)
+        {
+            $latestSubmission = null;
+            /**
+             * @var $submissions \Submission[]
+             * @var $latestSubmission \Submission
+             */
+            $submissions = Repositories::getRepository(Repositories::Submission)->findBy(['status' => \Submission::STATUS_NORMAL, 'assignment' => $submission->getAssignment()->getId(), 'user' => User::instance()->getId()]);
+            foreach ($submissions as $olderSolution)
+            {
+                if ($latestSubmission === null || $olderSolution->getDate() > $latestSubmission->getDate())
+                {
+                    $latestSubmission = $olderSolution;
+                }
+            }
+            if ($latestSubmission !== null)
+            {
+                $latestSubmission->setStatus(\Submission::STATUS_LATEST);
+                Repositories::persist($latestSubmission);
+            }
+        }
+        Repositories::flushAll();
 
-		if (!$submissions = Core::sendDbRequest('getSubmissionById', $id))
-			return $this->stopDb($submissions, ErrorEffect::dbGet('submission'));
-
-		$submission = $submissions[0];
-
-		if ($submission[DbLayout::fieldUserId] != User::instance()->getId())
-			return $this->stop(ErrorCause::notOwned('submission'));
-
-		$status = $submission[DbLayout::fieldSubmissionStatus];
-		if (($status == 'confirmed') || ($status == 'rated'))
-			return $this->stop('cannot delete confirmed submission');
-
-		Filesystem::removeFile(Config::get('paths', 'submissions') . $submission[DbLayout::fieldSubmissionFile]);
-		if ($submission[DbLayout::fieldSubmissionOutputFile])
-		{
-			Filesystem::removeFile($submission[DbLayout::fieldSubmissionOutputFile]);
-		}
-
-		if (!Core::sendDbRequest('hideSubmissionById', $id))
-			return $this->stopDb(false, ErrorEffect::dbRemove('submission'));
 	}
 }
 

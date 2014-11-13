@@ -17,7 +17,6 @@ asm.ui.panel.Changelog = asm.ui.ContentPanel.extend({
 	},
 
     _adjustContent: function () {
-        // TODO when error, do something rather than be quiet
         asm.ui.globals.stores.changelog.get(function(data) { _changelogPanel.html(data.changelog); });
     }
 });

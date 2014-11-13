@@ -165,7 +165,7 @@ class TestXslt extends \asm\plugin\XmlTest
         $files = \asm\utils\Filesystem::getFiles($fromWhere);
         foreach ($files as $file)
         {
-            if ($this->endsWith(strtolower($file), ".xml"))
+            if (Utils::endsWith(strtolower($file), ".xml"))
             {
                 if ($xmlFile === false)
                 {
@@ -176,7 +176,7 @@ class TestXslt extends \asm\plugin\XmlTest
                     $this->addError("There are two or more .xml files in your submission. There must only be one.");
                 }
             }
-            if ($this->endsWith(strtolower($file), ".xsl"))
+            if (Utils::endsWith(strtolower($file), ".xsl"))
             {
                 if ($xslFile === false)
                 {
@@ -197,11 +197,6 @@ class TestXslt extends \asm\plugin\XmlTest
         {
             $this->addError("Your submission must contain an XSL file ending with '.xsl'.");
         }
-    }
-    // TODO move elsewhere
-    private function endsWith($haystack, $needle)
-    {
-        return $needle === "" || strtolower(substr($haystack, -strlen($needle))) === strtolower($needle);
     }
 }
 

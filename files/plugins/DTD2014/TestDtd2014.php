@@ -89,7 +89,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 	{
 		$this->useLibxmlErrors();
 		$xmlDom->validate();
-		return $this->reachGoalOnNoLibxmlErrors(self::goalValidXml, null); // TODO the source... really...null
+		return $this->reachGoalOnNoLibxmlErrors(self::goalValidXml, null);
 	}
 
     /*************************************************************************************** THIS ***/
@@ -340,7 +340,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 			'data' => array(
 				self::specialEntities => array('entities', $xmlRegex->PEReference, $xmlRegex->Reference),
 				self::specialInstructions => array('processing instructions', // $xmlRegex->PI), // < hangs PHP on preg_match (PHP bug)
-						$xmlRegex->wrap('.{7}\<\?', null, XmlRegex::DOT_MATCH_ALL)), // < fixme (temporary hack because of PHP bug ^)
+						$xmlRegex->wrap('.{7}\<\?', null, XmlRegex::DOT_MATCH_ALL)),
 				self::specialCdata => array('CDATA sections', $xmlRegex->CDSect),
 				self::specialComments => array('comments', $xmlRegex->Comment),
 			),
@@ -384,11 +384,6 @@ class TestDtd2014 extends \asm\plugin\XmlTest
         return $this->resolveCountedRequirements($reqs, self::goalCoveredSpecials);
 	}
 
-    // TODO move elsewhere
-    private function endsWith($haystack, $needle)
-    {
-        return $needle === "" || strtolower(substr($haystack, -strlen($needle))) === strtolower($needle);
-    }
 	protected function main ()
 	{
         // Load the two files
@@ -412,8 +407,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
         ));
 
 	    StringUtils::removeBomFromFile($dtdFile);
-		$dtdString = file_get_contents($dtdFile); // TODO add internal subset to the DTD contents
-        // TODO find a better way to remove BOM from utf-8 files, if necessary at all
+		$dtdString = file_get_contents($dtdFile);
         $xmlString = file_get_contents($xmlFile);
         $dtdString = $this->convertToUtf8($dtdString);
         $xmlString = $this->convertToUtf8($xmlString);
@@ -459,11 +453,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
                     $this->failGoal(self::goalCorrectReferral, "The XML file refers to a different DTD than the one provided.");
                 }
 
-                // This is due to bug https://bugs.php.net/bug.php?id=67081.
-                $internalSubset =
-                    (version_compare(phpversion(), '5.5.13', '<') ?
-                        "" :
-                        $xmlDomDocument->doctype->internalSubset);
+                $internalSubset = $xmlDomDocument->doctype->internalSubset;
 
                 if ($this->checkDTDValidity($dtdString, $internalSubset, $dtdDoc))
                 {
@@ -506,7 +496,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
         $files = \asm\utils\Filesystem::getFiles($fromWhere);
         foreach ($files as $file)
         {
-            if ($this->endsWith(strtolower($file), ".xml"))
+            if (Utils::endsWith(strtolower($file), ".xml"))
             {
                 if ($xmlFile === false)
                 {
@@ -517,7 +507,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
                     $this->addError("There are two or more .xml files in your submission. There must only be one.");
                 }
             }
-            if ($this->endsWith(strtolower($file), ".dtd"))
+            if (Utils::endsWith(strtolower($file), ".dtd"))
             {
                 if ($dtdFile === false)
                 {

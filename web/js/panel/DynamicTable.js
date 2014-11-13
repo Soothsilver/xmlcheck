@@ -280,13 +280,6 @@ asm.ui.DynamicTable = asm.ui.DynamicContentPanel.extend({
         var transformedData = this._transformData(filteredData);
         var renderedFields = this._renderFields(transformedData);
         this.table('initBody', true, renderedFields);
-
-
-    /*    TODO old and slow
-        var builtTableBody = this._buildTableBody(renderedFields);
-		$('tbody', this._tableElem).replaceWith(builtTableBody);
-		this.table('initBody', true);*/
-
 	}
 });
 asm.ui.DynamicTable.implement(asm.ui.TableBuilder);

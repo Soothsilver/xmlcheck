@@ -1116,7 +1116,6 @@ $.widget('ui.table', {
 	 *		(defaults to ascending if table is currently sorted by different column,
 	 *		descending otherwise)
 	 */
-        // TODO hey, this is weird:
 	sort: function (key, asc) {
 		if (key == undefined) {
 			key = this.sortBy;

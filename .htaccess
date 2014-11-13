@@ -15,7 +15,6 @@ RewriteRule ^core/config.ini$ - [F]
 # files/output/      | because these contain uploaded or generated files from test cases
 # files/submissions/ | of other users
 # files/test/        |
-# install/, because the users could delete the database with access to this
 RewriteRule ^files/.* - [F]
 
 # Allow access to everything else.

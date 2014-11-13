@@ -1,4 +1,5 @@
 $ = $ || jQuery;
+// Adds the function 'cookie' to jQuery object
 
 /**
  * %jQuery extensions.
@@ -18,7 +19,7 @@ $.extend({
 	 * @treturn mixed returns cookie value if @a value wasn't supplied, nothing
 	 *		otherwise
 	 */
-	cookie: function (key, value, options) {	// TODO: remake as normal module class
+	cookie: function (key, value, options) {
 		if (value !== undefined) { // setter
 			var defaults = {
 				expires: 1,

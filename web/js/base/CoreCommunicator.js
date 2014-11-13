@@ -36,7 +36,7 @@ asm.ui.CoreCommunicator = Base.extend({
 	 */
 	request: function (request, data, successCallback, failureCallback, callback) {
 		if ($.isFunction(data)) {
-            callback = failureCallback; // TODO added by Petr
+            callback = failureCallback;
 			failureCallback = successCallback;
 			successCallback = data;
 			data = {};

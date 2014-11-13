@@ -188,7 +188,7 @@ abstract class XmlTest extends Test
         libxml_clear_errors();
         libxml_use_internal_errors();
         return $errors;
-        // TODO refactor
+
 		$errors = libxml_get_errors();
 		libxml_clear_errors();
 		libxml_use_internal_errors();

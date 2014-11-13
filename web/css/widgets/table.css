@@ -49,7 +49,7 @@
 }
 
 .ui-table-autoCollapsed caption div.ui-table-caption:after {
-	/* TODO remove content: ' (empty)'; */
+	 content: ' (∅)';
 }
 
 .ui-table-with-caption caption div.ui-icon-label {
@@ -82,7 +82,6 @@
 }
 
 .ui-table>table tr {
-	/* TODO why was this even here: -moz-user-select: none; */
 	cursor: default;
 }
 

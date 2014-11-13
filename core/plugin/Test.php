@@ -318,7 +318,7 @@ abstract class Test
 	protected final function reachGoalErrorBased ($id, $sourceId)
 	{
 		$errors = $this->getTriggeredErrors();
-        $errors = array_values($errors); // This is because some triggered errors may have been removed and their indices too TODO make better
+        $errors = array_values($errors); // This is because some triggered errors may have been removed and their indices too
 		if (!empty($errors))
 		{
 			$error = $errors[0];
@@ -334,11 +334,11 @@ abstract class Test
     protected final function reachGoalIfNoErrorThenClearErrors ($id)
     {
         $errors = $this->getTriggeredErrors(true);
-        $errors = array_values($errors); // This is because some triggered errors may have been removed and their indices too TODO make better
+        $errors = array_values($errors); // This is because some triggered errors may have been removed and their indices too
         if (!empty($errors))
         {
             $error = $errors[0];
-            return $this->failGoal($id, htmlentities($error['error'])); // TODO information about source file and line are lost
+            return $this->failGoal($id, htmlentities($error['error']));
         }
         else
         {

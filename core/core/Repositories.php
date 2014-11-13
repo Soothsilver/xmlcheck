@@ -64,6 +64,10 @@ class Repositories
         return self::getEntityManager()->find($entityName, $id);
     }
 
+    /**
+     * Removes the entity from the database and flushes this removal.
+     * @param $entity the entity to remove from the database
+     */
     public static function remove($entity)
     {
         self::getEntityManager()->remove($entity);

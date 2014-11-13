@@ -193,7 +193,7 @@ abstract class Plugin
 			$realDataFolderPath = realpath($this->dataFolder);
 			$str = str_ireplace($realDataFolderPath, '.', $str);
 			$str = str_ireplace(str_replace(\DIRECTORY_SEPARATOR, '/', $realDataFolderPath),
-					'.', $str); // TODO redundant?
+					'.', $str);
 		}
 		return $str;
 	}

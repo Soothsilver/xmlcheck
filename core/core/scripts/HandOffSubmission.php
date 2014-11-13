@@ -4,6 +4,7 @@ namespace asm\core;
 use asm\core\lang\StringID;
 use asm\db\Database;
 use asm\db\DbLayout;
+use asm\utils\Utils;
 
 /**
  * @ingroup requests
@@ -37,9 +38,24 @@ class HandOffSubmission extends DataScript
             $previouslyHandedOffSubmission->setStatus(\Submission::STATUS_NORMAL);
             Repositories::persistAndFlush($previouslyHandedOffSubmission);
         }
+
+        // Hand off the submission
         Repositories::persistAndFlush($submission);
 
-        // TODO send email
-	}
+        $emailText = file_get_contents(Config::get("paths", "newSubmissionEmail"));
+        $emailText = str_replace( "%{RealName}", User::instance()->getRealName(), $emailText);
+        $emailText = str_replace( "%{Email}", User::instance()->getEmail(), $emailText);
+        $emailText = str_replace( "%{Link}", Config::getHttpRoot() . "#correctionAll#submission#" . $submission->getId(), $emailText);
+        $lines = explode("\n", $emailText);
+        $subject = $lines[0]; // The first line is subject.
+        $text = preg_replace('/^.*\n/', '', $emailText); // Everything except the first line.
+
+        $to = $submission->getAssignment()->getGroup()->getOwner()->getEmail();
+        if (!Core::sendEmail($to, $subject, $text))
+        {
+            return $this->death(StringID::MailError);
+        }
+
+    }
 }
 

@@ -41,7 +41,8 @@ class Filesystem
      * (Transforms all backslashes into forward slashes. There will be no slash at the end of the resultant path,
      * unless the result is the single character '/'. Multiple consecutive slashes are rolled into one only.)
      *
-     * http://stackoverflow.com/a/15575293/1580088
+     * Source: http://stackoverflow.com/a/15575293/1580088
+     *
      * Example: [ 'abc', 'def' ] turns into 'abc/def'
      * Example: [ 'abc/', '/def/' ] turns into 'abc/def'
      * Example: [ '', '' ] turns into ''
@@ -221,7 +222,7 @@ class Filesystem
 	}
 
 	/**
-	 * Deletes file, if it exists.
+	 * Deletes regular file, if it exists.
      *
      * Note: Does not generate warnings. If the file had wrong permissions, this attempts to set them to 0777 prior to deletion.
 	 * @param string $path file to be deleted
@@ -229,7 +230,7 @@ class Filesystem
 	 */
 	public static function removeFile ($path)
 	{
-		if (!file_exists($path)) return true;
+		if (!is_file($path)) return true;
 		if (unlink($path)) return true;
 		else
 		{

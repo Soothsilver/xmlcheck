@@ -26,11 +26,9 @@ asm.ui.panel.UserRatingTables = asm.ui.DynamicContentPanel.extend({
 			var group = data[groupId];
 
 			var colProps = {
-				// TODO is id needed here? userId: {hidden: true, key: true, comparable: true},
-				name: {comparable: true, string: true}
+                name: {comparable: true, string: true}
 			};
 			var headers = {
-				//userId: asm.lang.userRatings.id,
 				name: asm.lang.userRatings.student
 			};
 			for (var assignmentId in group['assignments']) {
@@ -45,7 +43,6 @@ asm.ui.panel.UserRatingTables = asm.ui.DynamicContentPanel.extend({
 			var rows = [];
 			for (var userId in group['students']) {
 				var student = group['students'][userId];
-				// TODO is id needed here? var row = [userId, '<span style="font-weight:bold">' + student['name'] + '</span>'];
                 var row = ['<span style="font-weight:bold">' + student['name'] + '</span>'];
 				var ratings = student['ratings'];
 				for (var assignmentId in group['assignments']) {

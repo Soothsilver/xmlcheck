@@ -299,11 +299,6 @@ class User
 		if ($this->isLogged())
 		{
             return Flags::match($this->data['privileges'], ...$setsOfPrivileges);
-            /*
-             * TODO remove this later:
-			return call_user_func_array(array('asm\utils\Flags', 'match'),
-				array_merge(array($this->data['privileges']), func_get_args()));
-            */
 		}
 		return false;
 	}

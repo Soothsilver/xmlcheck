@@ -23,6 +23,7 @@ abstract class StringID
 
     const YouCannotRemoveYourself = 15;
     const CannotRemoveBasicStudentType = 16;
+    const CannotDeleteGradedSubmissions = 17;
 }
 
 class Language {
@@ -63,6 +64,7 @@ class Language {
 
             case StringID::YouCannotRemoveYourself: return "Nemůžete odstranit sami sebe.";
             case StringID::CannotRemoveBasicStudentType: return "Druh uživatele 'STUDENT' (ID 1) nelze odstranit, protože tento typ je automaticky přiřazován nově registrovaným uživatelům.";
+            case StringID::CannotDeleteGradedSubmissions: return "Není možné smazat již oznámkované řešení.";
         }
         return "TRANSLATION MISSING(" . self::getEnglish($textId) . ")";
     }
@@ -90,6 +92,7 @@ class Language {
 
             case StringID::YouCannotRemoveYourself: return "You cannot remove yourself.";
             case StringID::CannotRemoveBasicStudentType: return "User type 'STUDENT' (ID 1) cannot be removed, because this type is automatically assigned to newly registered users.";
+            case StringID::CannotDeleteGradedSubmissions: return "It is not permitted to delete a graded submission.";
         }
         throw new \Exception("This string (" . $textId . ") does not exist.");
     }

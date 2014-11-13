@@ -18,7 +18,7 @@ use asm\core\Config,
  * 5. Calls Core::handleUiRequest with data from user.
  */
 
-// Session is used to keep tract of user login and perhaps something else? TODO
+// Session is used to keep track of logged in user, and is used for file uploads.
 session_start();
 
 // Load up the Composer-generated autoloader. All PHP classes are loaded using this autoloader.

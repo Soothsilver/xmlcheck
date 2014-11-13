@@ -59,9 +59,11 @@ asm.ui.ContentSwitcher = asm.ui.Container.extend({
 	 * @tparam string childName name of child to be displayed
 	 */
 	_switchContent: function (childName) {
-		var params = this._params.slice((childName == '') ? 0 : 1); // TODO tohle je trochu hack kvůli hlavnímu panelu
-        // dělá to, že když je prvním parametr prázdný řetězec, tak ho nechá, v params, ale neprázdný odstraní.
-        // tím pádem se do AppMainPanelu dostane celý hash-řetězec, zatímco k registračnímu formuláři a tak jen část za názvem formuláře
+		var params = this._params.slice((childName == '') ? 0 : 1);
+        // This is hack existing because of the AppMainPanel
+        // It works this way: When the first parameter is an empty string, it is left in params, but if it's not empty, it is removed.
+        // This way, AppMainPanel gets the entire hashstring, while the registration form and other forms before login only get the part behind the form name.
+
 		if (childName != this.config.current) {
 			this._callOnCurrentChild('hide');
 			this.config.current = childName;

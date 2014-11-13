@@ -56,14 +56,14 @@ asm.ui.JsonCoreCommunicator = asm.ui.CoreCommunicator.extend({
                 errors :
                 [
                     {
-                        "level" : 100,
-                        "code" : "TODO",
+                        "level" : 100, // Fatal error
+                        "code" : "= no code =",
                         "cause": "Invalid response",
                         "effect" : "PHP",
                         "details" : response
 
                     }
-                ] // TODO unmagic number and improve when you understand it
+                ]
             };
             return response;
         }

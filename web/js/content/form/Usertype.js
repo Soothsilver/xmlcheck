@@ -27,7 +27,7 @@ asm.ui.form.Usertype = asm.ui.DynamicForm.extend({
 		$.each(asm.ui.globals.privilegesBreakdown, function (subject, privs) {
 			var options = {};
 			$.each(privs, function (action, data) {
-				options[data[0]] = [data[2]/* TODO remove action + ' ' + subject*/, data[1]];
+				options[data[0]] = [data[2], data[1]];
 			});
 			formStructure.main.fields[subject] = {
 				type: 'checkset',

@@ -141,31 +141,32 @@ class RemovalManager
 	 */
 	public static function deletePluginById ($id)
 	{
-        // TODO zmenit,prostě jen u problémů nastavit opravovadlo na "no corrective plugin" = NULL
-		if (($tests = Core::sendDbRequest('getTestsByPluginId', $id)) === false)
-			return self::retrievalError($tests, 'test', 'plugin', $id);
+        /**
+         * @var $plugin \Plugin
+         * @var $tests \Test[]
+         * @var $problems \Problem[]
+         */
+        $plugin = Repositories::findEntity(Repositories::Plugin, $id);
 
+        // Destroy plugin tests testing this plugin
+        $tests = Repositories::getRepository(Repositories::PluginTest)->findBy(['plugin' => $id]);
 		foreach ($tests as $test)
 		{
-			$testId = $test[DbLayout::fieldTestId];
-			if (($error = self::deleteTestById($testId)))
-				return $error;
-		}
+			self::deleteTestById($test->getId());
+        }
 
-		if (($problems = Core::sendDbRequest('getProblemsByPluginId', $id)) === false)
-			return self::retrievalError($problems, 'problem', 'plugin', $id);
+        // Problems that relied on this plugin are now without plugin
+        $problems = Repositories::getRepository(Repositories::Problem)->findBy(['plugin' => $id]);
+        foreach ($problems as $problem)
+        {
+            $problem->setPlugin(null);
+            Repositories::persist($problem);
+        }
+        Repositories::flushAll();
 
-		foreach ($problems as $problem)
-		{
-			$problemId = $problem[DbLayout::fieldProblemId];
-			if (($error = self::deleteProblemById($problemId)))
-				return $error;
-		}
-
-		if (!Core::sendDbRequest('deletePluginById', $id))
-			return self::removalError('plugin', $id);
-
-		return false;
+        // Delete the plugin
+        Repositories::remove($plugin);
+        return false;
 	}
 
 	/**
@@ -176,27 +177,23 @@ class RemovalManager
 	 */
 	public static function deleteTestById ($id)
 	{
-		if (!($tests = Core::sendDbRequest('getTestById', $id)))
-			return "test $id not found";
+        /**
+         * @var $test \PluginTest
+         */
+        $test = Repositories::findEntity(Repositories::PluginTest, $id);
+        $testFolder = Config::get('paths', 'tests');
 
-		$test = $tests[0];
-		$fields = array(
-			DbLayout::fieldTestInput => 'test input file',
-			DbLayout::fieldTestOutput => 'test output file',
-		);
-		$testFolder = Config::get('paths', 'tests');
-		foreach ($fields as $fieldName => $item)
-		{
-			if (is_file($testFolder . $test[$fieldName]))
-			{
-				if (!Filesystem::removeFile($testFolder . $test[$fieldName]))
-					return "could not remove $item";
-			}
-		}
-
-		if (!Core::sendDbRequest('deleteTestById', $id))
-			return self::removalError('test', $id);
-
+        // Delete input solution file
+        if (is_file(Filesystem::combinePaths($testFolder, $test->getInput())))
+        {
+            Filesystem::removeFile(Filesystem::combinePaths($testFolder, $test->getInput()));
+        }
+        // Delete plugin test output
+        if (is_file(Filesystem::combinePaths($testFolder, $test->getOutput())))
+        {
+            Filesystem::removeFile(Filesystem::combinePaths($testFolder, $test->getOutput()));
+        }
+        Repositories::remove($test);
 		return false;
 	}
 

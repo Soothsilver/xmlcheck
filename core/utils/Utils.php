@@ -49,5 +49,27 @@ class Utils
 
 		return (bool)$val;
 	}
+
+    /**
+     * Determines whether the supplied string ends with supplied suffix by performing a case-insensitive comparison.
+     * @param string $string The string that should end with suffix.
+     * @param string $suffix The suffix the string should end with.
+     * @return bool does the string end with the suffix?
+     */
+    public static function endsWithIgnoreCase($string, $suffix)
+    {
+        return $suffix === "" || strtolower(substr($string, -strlen($suffix))) === strtolower($string);
+    }
+
+    /**
+     * Determines whether the supplied string ends with supplied suffix by performing a case-sensitive comparison.
+     * @param string $string The string that should end with suffix.
+     * @param string $suffix The suffix the string should end with.
+     * @return bool does the string end with the suffix?
+     */
+    public static function endsWith($string, $suffix)
+    {
+        return $suffix === "" || substr($string, -strlen($suffix)) === $string;
+    }
 }
 

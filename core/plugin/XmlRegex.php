@@ -89,18 +89,6 @@ class XmlRegex
 
 		$this->Mixed = "\\({$this->S}*#PCDATA({$this->S}*\\|{$this->S}*{$this->Name})*{$this->S}*\\)\\*|\\({$this->S}*#PCDATA{$this->S}*\\)";
 
-		/* TODO: infinite nesting *
-		$this->seq = "\\({$this->S}*{$this->cp}({$this->S}*\\|{$this->S}*{$this->cp})*{$this->S}*\\)";
-		$this->choice = "\\({$this->S}*{$this->cp}({$this->S}*,{$this->S}*{$this->cp})*{$this->S}*\\)";
-		$this->cp = "({$this->Name}|{$this->choice}|{$this->seq})(\\?|\\*|\\+)?";
-		$this->children = "({$this->choice}|{$this->seq})(\\?|\\*|\\+)?";
-		/* END infinite nesting */
-
-		/* TODO: nesting dependent *
-		$this->contentspec = "EMPTY|ANY|{$this->Mixed}|{$this->children}";
-		$this->elementdecl = "<!ELEMENT{$this->S}+{$this->Name}{$this->S}+{$this->contentspec}{$this->S}*>";
-		/* END nesting dependent */
-
 		$this->StringType = "CDATA";
 		$this->TokenizedType = "ID|IDREF|IDREFS|ENTITY|ENTITIES|NMTOKEN|NMTOKENS";
 		$this->NotationType = "NOTATION{$this->S}+\\({$this->S}*{$this->Name}({$this->S}*\\|{$this->S}*{$this->Name})*{$this->S}*\\)";
@@ -130,15 +118,6 @@ class XmlRegex
 		$this->XMLDecl = "<\\?xml{$this->VersionInfo}({$this->EncodingDecl})?{$this->SDDecl}*{$this->S}*\\?>";
 		$this->Misc = "{$this->Comment}|{$this->PI}|{$this->S}+";
 
-		/* TODO: infinite nesting *
-		$this->Attribute = "{$this->Name}{$this->Eq}{$this->AttValue}";
-		$this->EmptyElemTag = "<{$this->Name}({$this->S}+{$this->Attribute})*{$this->S}*\/>";
-		$this->STag = "<{$this->Name}({$this->S}+{$this->Attribute})*{$this->S}*>";
-		$this->element = "{$this->EmptyElemTag}|{$this->STag}{$this->content}{$this->ETag}";
-		$this->content = "({$this->CharData})?(({$this->element}|{$this->Reference}|{$this->CDSect}|{$this->PI}|{$this->Comment})({$this->CharData})?)*";
-		$this->extParsedEnt = "({$this->TextDecl})?{$this->content}";
-		/* END of nesting */
-
 		$this->ExternalID = "SYSTEM{$this->S}+{$this->SystemLiteral}|PUBLIC{$this->S}+{$this->PubidLiteral}{$this->S}+{$this->SystemLiteral}";
 		$this->NDataDecl = "{$this->S}+NDATA{$this->S}+{$this->Name}";
 		$this->PublicID = "PUBLIC{$this->S}+{$this->PubidLiteral}";
@@ -149,25 +128,6 @@ class XmlRegex
 		$this->PEDef = "{$this->EntityValue}|{$this->ExternalID}";
 		$this->PEDecl = "<!ENTITY{$this->S}+%{$this->S}+{$this->Name}{$this->S}+{$this->PEDef}{$this->S}*>";
 		$this->EntityDecl = "{$this->GEDecl}|{$this->PEDecl}";
-
-		/* TODO: nesting dependent *
-		$this->markupdecl = "{$this->elementdecl}|{$this->AttlistDecl}|{$this->EntityDecl}|{$this->NotationDecl}|{$this->PI}|{$this->Comment}";
-		$this->intSubset = "({$this->markupdecl}|{$this->DeclSep})*";
-		$this->doctypedecl = "<!DOCTYPE{$this->S}+{$this->Name}{$this->S}*({$this->ExternalID})?{$this->S}*(\\[{$this->intSubset}]{$this->S}*)?>";
-
-		$this->prolog = "({$this->XMLDecl})?({$this->Misc})*({$this->doctypedecl}({$this->Misc})*)?";
-		$this->document = "{$this->prolog}{$this->element}({$this->Misc})*";
-		/* END nesting dependent */
-
-		/* TODO: infinite nesting *
-		$this->extSubsetDecl = "({$this->markupdecl}|{$this->conditionalSect}|{$this->DeclSep})*";
-		$this->extSubset = "({$this->TextDecl})?{$this->extSubsetDecl}";
-		$this->includeSect = "<!\\[{$this->S}*INCLUDE{$this->S}*\\[{$this->extSubsetDecl}]]>";
-		$this->Ignore = "(({$this->Char})?|]({$this->Char})+?]({$this->Char})*?>|]]({$this->Char})+?>|<({$this->Char})+?!({$this->Char})*?\\[|<!({$this->Char})+?\\[)*";
-		$this->ignoreSectContents = "{$this->Ignore}(<!\\[{$this->ignoreSectContents}]]>{$this->Ignore})*";
-		$this->ignoreSect = "<!\\[{$this->S}*IGNORE{$this->S}*\\[({$this->ignoreSectContents})*]]>";
-		$this->conditionalSect = "{$this->includeSect}|{$this->ignoreSect}";
-		/* END of nesting */
 
 		$this->_locked = true;
 	}

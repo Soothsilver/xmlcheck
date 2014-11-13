@@ -17,5 +17,39 @@ class UtilsTest extends PHPUnit_Framework_TestCase {
 
         $this->assertNull(\asm\utils\Utils::parseBool('sthelse'));
     }
+
+    public function testEndsWith()
+    {
+        $this->assertTrue(\asm\utils\Utils::endsWith("HELLO", "LLO"));
+        $this->assertTrue(\asm\utils\Utils::endsWith("HELLO", ""));
+        $this->assertTrue(\asm\utils\Utils::endsWith("HELLO", "LO"));
+        $this->assertTrue(\asm\utils\Utils::endsWith("HELLO", "O"));
+        $this->assertTrue(\asm\utils\Utils::endsWith("HELLO", "ELLO"));
+        $this->assertTrue(\asm\utils\Utils::endsWith("HELLO", "HELLO"));
+        $this->assertFalse(\asm\utils\Utils::endsWith("HELLO", "hello"));
+        $this->assertFalse(\asm\utils\Utils::endsWith("HELLO", "lo"));
+        $this->assertFalse(\asm\utils\Utils::endsWith("HELLO", "HESTR"));
+        $this->assertFalse(\asm\utils\Utils::endsWith("HELLO", "H"));
+        $this->assertFalse(\asm\utils\Utils::endsWith("HELLO", "ALLO"));
+        $this->assertFalse(\asm\utils\Utils::endsWith("HELLO", "Some long string"));
+    }
+
+    public function testEndsWithCaseInsensitive()
+    {
+        $this->assertTrue(\asm\utils\Utils::endsWith("HELLO", "LLO"));
+        $this->assertTrue(\asm\utils\Utils::endsWith("HELLO", ""));
+        $this->assertTrue(\asm\utils\Utils::endsWith("HELLO", "LO"));
+        $this->assertTrue(\asm\utils\Utils::endsWith("HELLO", "O"));
+        $this->assertTrue(\asm\utils\Utils::endsWith("HELLO", "ELLO"));
+        $this->assertTrue(\asm\utils\Utils::endsWith("HELLO", "HELLO"));
+        $this->assertTrue(\asm\utils\Utils::endsWith("HELLO", "hello"));
+        $this->assertTrue(\asm\utils\Utils::endsWith("HELLO", "lo"));
+        $this->assertFalse(\asm\utils\Utils::endsWith("HELLO", "HESTR"));
+        $this->assertFalse(\asm\utils\Utils::endsWith("HELLO", "H"));
+        $this->assertFalse(\asm\utils\Utils::endsWith("HELLO", "ALLO"));
+        $this->assertFalse(\asm\utils\Utils::endsWith("HELLO", "Some long string"));
+    }
+
+
 }
  

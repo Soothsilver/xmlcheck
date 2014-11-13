@@ -2,16 +2,10 @@
     "name" : "mff/xmlcheck",
     "description" : "System for semi-automatic correction of university homework",
     "license" : "proprietary",
-    "repositories": [
-        {
-            "type" : "vcs",
-            "url"  : "https://github.com/Soothsilver/dtd-parser"
-        }
-    ],
     "require": {
         "swiftmailer/swiftmailer" : "5.2.1",
         "doctrine/orm" : "2.4.*",
-        "soothsilver/dtd-parser" : "dev-master",
+        "soothsilver/dtd-parser" : "~0.1.0",
         "php" : ">=5.6"
     },
     "require-dev": {

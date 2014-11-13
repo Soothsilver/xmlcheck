@@ -170,7 +170,9 @@ class Core
             else
             {
                 $submission = Repositories::findEntity(Repositories::Submission, $rowId);
-                // TODO document this unsafety here, race condition, may cause two submissions to be "latest"
+                // There is a sort of a race condition in here.
+                // It is, in theory, possible, that there will be two submissions with the "latest" status after all is done
+                // This should not happen in practice, though, and even if it does, it will have negligible negative effects.
                 $previousSubmissions = Repositories::makeDqlQuery("SELECT s FROM Submission s WHERE s.assignment = :sameAssignment AND s.status != 'graded' AND s.status != 'deleted'");
                 foreach ($previousSubmissions as $previousSubmission)
                 {

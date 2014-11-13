@@ -5,7 +5,6 @@ namespace asm\db;
 /**
  * Database implementation for MySQL databases.
  */
-// TODO recently upgraded to mysqli Warning
 final class MysqlDb implements IDbImpl
 {
 	protected $connection;	///< open connection to MySQL server

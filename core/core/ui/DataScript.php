@@ -81,17 +81,6 @@ abstract class DataScript extends UiScript
 
     protected final function addRowToOutput($array)
     {
-        /*
-         * TODO remove
-         * Because we use innerHTML once again, this may no longer be necessary
-        $array = array_map(
-            function ($thing) {
-                if (is_numeric($thing))
-                { return $thing; }
-                else
-                { return htmlspecialchars($thing); }
-            }, $array);
-        */
         $this->result[] = $array;
     }
 

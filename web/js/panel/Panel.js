@@ -182,7 +182,7 @@ asm.ui.Panel = Base.extend({
 			this._addCustomClasses();
 			this._showAndAdjustContent();
 		} else {
-			this.adjust(params, false) // TODO Petr modified
+			this.adjust(params, false)
 		}
 		return this;
 	},

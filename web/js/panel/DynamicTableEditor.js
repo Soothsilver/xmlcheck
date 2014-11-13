@@ -90,9 +90,7 @@ asm.ui.DynamicTableEditor = asm.ui.ContentSwitcher.extend({
 							o = thisTableEditor.config,
 							repo = this.config.actions.extra;
 
-                        // TODO is this really necessary here?
 						if (o.subject) {
-
 							if (a.add) {
 								repo.push({
 									callback: $.proxy(thisTableEditor.add, thisTableEditor),
@@ -101,7 +99,6 @@ asm.ui.DynamicTableEditor = asm.ui.ContentSwitcher.extend({
 									label: asm.lang.edit.add + ' ' + o.subject
 								});
 							}
-
 							if (a.manage) {
 								repo.push({
 									callback: $.proxy(thisTableEditor.edit, thisTableEditor),
@@ -109,7 +106,6 @@ asm.ui.DynamicTableEditor = asm.ui.ContentSwitcher.extend({
 									label: asm.lang.edit.edit + ' ' + o.subject
 								});
 							}
-
 							if (a.remove) {
 								repo.push(asm.ui.Macros.trashAction(o));
 							}

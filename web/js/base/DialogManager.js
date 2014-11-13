@@ -12,11 +12,11 @@ asm.ui.DialogManager = Base.extend({
      * <a href="http://jqueryui.com/demos/dialog/">jQuery dialog widget</a>. New
      * defaults are set for some of the options:
      * @arg @a closeOnEscape true to close dialog window on @c [Esc] key pressed (default)
-     * @arg @a draggable ... @c false // TODO
+     * @arg @a draggable ... @c true
      * @arg @a minHeight ... 100
      * @arg @a minWidth ... 100
-     * @arg @a resizable ... @c false // TODO
-     * @arg @a width ... 355 // TODO
+     * @arg @a resizable ... @c true
+     * @arg @a width ... 400
      *
      * Following options can not be changed:
      * @arg @a autoOpen (@c false)
@@ -31,7 +31,7 @@ asm.ui.DialogManager = Base.extend({
                 $('button:first', $(this).siblings('.ui-dialog-buttonpane')).focus();
             },
             resizable: true,
-            width: 400 // TODO previously 355
+            width: 400
         };
         this.config = $.extend(defaults, config);
         this.dialog = $('<div></div>')
