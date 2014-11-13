@@ -102,17 +102,28 @@ final class EditUser extends DataScript
 
         if (!$userExists) // create/register new user
         {
-            if (!$canAddUsers)
+            if ($this->getParams('fromRegistrationForm'))
             {
                 if ($type != Repositories::StudentUserType)
                     return $this->death(StringID::InsufficientPrivileges);
 
                 $code = md5(uniqid(mt_rand(), true));
-                $text = $this->getRegistrationEmail($realname, $code);
-                $returnCode = Core::sendEmail($email, '[XMLCheck] Your activation code', $text); // TODO move somewhere (when localizing) (won't always be [XMLCheck]
+                $emailText = file_get_contents(Config::get("paths", "registrationEmail"));
+                $emailText = str_replace( "%{Username}", $username, $emailText);
+                $emailText = str_replace( "%{ActivationCode}", $code, $emailText);
+                $emailText = str_replace( "%{Link}", Config::getHttpRoot() . "#activate", $emailText);
+                $lines = explode("\n", $emailText);
+                $subject = $lines[0]; // The first line is subject.
+                $text = preg_replace('/^.*\n/', '', $emailText); // Everything except the first line.
+
+                $returnCode = Core::sendEmail($email, $subject, $text);
 
                 if (!$returnCode)
                     return $this->stop(ErrorCode::mail, 'user registration failed', 'email could not be sent');
+            }
+            else if (!$canAddUsers)
+            {
+                return $this->death(StringID::InsufficientPrivileges);
             }
             $user = new \User();
             $typeEntity = Repositories::findEntity(Repositories::UserType, $type);
@@ -148,19 +159,6 @@ final class EditUser extends DataScript
         {
             return $this->death(StringID::UserNameExists);
         }
-	}
-
-	protected function getRegistrationEmail($name, $code)
-	{
-		return <<<EMAIL
-Hello $name.
-
-To complete registration of your account, please use following activation code:
-
-$code
-
-This e-mail is automated, do not reply.
-EMAIL;
 	}
 }
 

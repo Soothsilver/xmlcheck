@@ -87,7 +87,7 @@ asm.ui.table.CorrectionBase = asm.ui.DynamicTable.extend({
                             }
                         },
                         submitText: reRate ? asm.lang.grading.changeButton : asm.lang.grading.rateButton
-                    }, (reRate ? asm.lang.grading.changeSubmissionRatingCaption: asm.lang.grading.gradeSubmission)  );
+                    }, (reRate ? asm.lang.grading.changeSubmissionRatingCaption: asm.lang.grading.gradeSubmissionCaption)  );
 
 
 			}, this)

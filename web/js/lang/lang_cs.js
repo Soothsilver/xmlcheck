@@ -459,7 +459,7 @@ asm.otherlangs.cs = {
         details: "Podrobnosti",
         author: "Autor",
         points: "Body",
-        rateSubmissionCaption: "Oznámkovat řešení",
+        gradeSubmissionCaption: "Oznámkovat řešení",
         rating: "Počet bodů",
         noteToStudent: "Poznámka studentovi",
         rateButton: "Přidělit body",

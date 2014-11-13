@@ -15,6 +15,10 @@ asm.ui.form.Register = asm.ui.DynamicForm.extend({
 						type: 'hidden',
 						value: '1' // This is a code for "create new user with default role". The basic usertype Student has always ID 1.
 					},
+                    fromRegistrationForm: {
+                        type: 'hidden',
+                        value: '1'
+                    },
 					realname: {
 						label: asm.lang.registrationScreen.fullName,
 						type: 'text',

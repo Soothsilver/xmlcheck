@@ -419,7 +419,7 @@ asm.lang = {
         details: "Details",
         author: "Author",
         points: "Pts.",
-        rateSubmissionCaption: "Grade Submission",
+        gradeSubmissionCaption: "Grade Submission",
         rating: "Grade",
         noteToStudent: "Note to student",
         rateButton: "Award points",
