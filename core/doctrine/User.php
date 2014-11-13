@@ -29,9 +29,9 @@ class User
     private $name;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="type", type="integer", nullable=false)
+     * @var \UserType
+     * @ORM\ManyToOne(targetEntity="UserType")
+     * @ORM\JoinColumn(name="type", referencedColumnName="id")
      */
     private $type;
 
@@ -61,7 +61,7 @@ class User
      *
      * @ORM\Column(name="lastAccess", type="datetime", nullable=false)
      */
-    private $lastaccess = 'CURRENT_TIMESTAMP';
+    private $lastaccess;
 
     /**
      * @var string
@@ -111,6 +111,28 @@ class User
      */
     private $sendEmailOnNewSubmission = '1';
 
+    /**
+     * @var  boolean
+     * @ORM\Column(name="deleted", type="boolean", nullable=false)
+     * */
+    private $deleted = false;
+
+    /**
+     * @var Group[]
+     * @ORM\OneToMany(targetEntity="Group", mappedBy="owner")
+     */
+    private $groups;
+    /**
+     * @var Lecture[]
+     * @ORM\OneToMany(targetEntity="Lecture", mappedBy="owner")
+     */
+    private $lectures;
+    /**
+     * @var Submission[]
+     * @ORM\OneToMany(targetEntity="Submission", mappedBy="user")
+     */
+    private $submissions;
+
 
     /**
      * Get id
@@ -145,28 +167,7 @@ class User
         return $this->name;
     }
 
-    /**
-     * Set type
-     *
-     * @param integer $type
-     * @return Users
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
 
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return integer 
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
 
     /**
      * Set pass
@@ -419,5 +420,160 @@ class User
     public function getSendEmailOnNewSubmission()
     {
         return $this->sendEmailOnNewSubmission;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     * @return User
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return boolean 
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * Set type
+     *
+     * @param \UserType $type
+     * @return User
+     */
+    public function setType(\UserType $type = null)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \UserType
+     */
+    public function getType()
+    {
+        return $this->type;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->lectures = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->submissions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->lastaccess = new DateTime();
+    }
+
+    /**
+     * Add groups
+     *
+     * @param \Group $group
+     * @return User
+     */
+    public function addGroup(\Group $group)
+    {
+        $this->groups[] = $group;
+
+        return $this;
+    }
+
+    /**
+     * Remove groups
+     *
+     * @param \Group $group
+     */
+    public function removeGroup(\Group $group)
+    {
+        $this->groups->removeElement($group);
+    }
+
+    /**
+     * Get groups
+     *
+     * @return Group[]
+     */
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    /**
+     * Add lecture
+     *
+     * @param \Lecture $lectures
+     * @return User
+     */
+    public function addLecture(\Lecture $lecture)
+    {
+        $this->lectures[] = $lectures;
+
+        return $this;
+    }
+
+    /**
+     * Remove lecture
+     *
+     * @param \Lecture $lecture
+     */
+    public function removeLecture(\Lecture $lecture)
+    {
+        $this->lectures->removeElement($lecture);
+    }
+
+    /**
+     * Get lectures
+     *
+     * @return Lecture[]
+     */
+    public function getLectures()
+    {
+        return $this->lectures;
+    }
+
+    /**
+     * Add submission
+     *
+     * @param \Submission $submission
+     * @return User
+     */
+    public function addSubmission(\Submission $submission)
+    {
+        $this->submissions[] = $submission;
+
+        return $this;
+    }
+
+    /**
+     * Remove submission
+     *
+     * @param \Submission $submission
+     */
+    public function removeSubmission(\Submission $submission)
+    {
+        $this->submissions->removeElement($submission);
+    }
+
+    /**
+     * Get submissions
+     *
+     * @return Submission[]
+     */
+    public function getSubmissions()
+    {
+        return $this->submissions;
     }
 }

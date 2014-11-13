@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\StringID;
 use asm\db\DbLayout;
 
 /**
@@ -21,11 +22,13 @@ class DeleteUser extends DataScript
 			return;
 
 		$id = $this->getParams('id');
-		if ($id == DbLayout::rootUserId)
-			return $this->stop('cannot delete root user');
+        if ($id == User::instance()->getId())
+        {
+            return $this->death(StringID::YouCannotRemoveYourself);
+        }
 
-		if (!Core::sendDbRequest('deleteUserById', $id))
-			return $this->stopDb();
+        $user = Repositories::findEntity(Repositories::User, $id);
+        RemovalManager::hideUserAndAllHeOwns($user);
 	}
 }
 

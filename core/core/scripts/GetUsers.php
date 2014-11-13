@@ -16,11 +16,24 @@ class GetUsers extends DataScript
 		if (!$this->userHasPrivs(User::usersExplore))
 			return;
 
-		$users = Core::sendDbRequest('getUsers');
-		if (!$users)
-			$this->stopDb($users, ErrorEffect::dbGetAll('users'));
+        /**
+         * @var $users \User[]
+         */
+        $users = Repositories::getRepository(Repositories::User);
 
-		$this->setOutputTable($users);
+        foreach ($users as $user)
+        {
+            if ($user->getDeleted() == true) { continue; }
+            $this->addRowToOutput([
+                $user->getId(),
+                $user->getName(),
+                $user->getType()->getId(),
+                $user->getType()->getPrivileges(),
+                $user->getRealname(),
+                $user->getEmail(),
+                $user->getLastaccess()
+            ]);
+        }
 	}
 }
 

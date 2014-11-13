@@ -9,11 +9,40 @@ use asm\utils\Filesystem, asm\db\DbLayout;
 class RemovalManager
 {
     /**
+     * @param $user \User
+     */
+    public static function hideUserAndAllHeOwns($user)
+    {
+        $user->setDeleted(true);
+        $user->setEmail("= ACCOUNT DELETED =");
+        $user->setPass("= ACCOUNT DELETED =");
+        $user->setSendEmailOnNewAssignment(0);
+        $user->setSendEmailOnNewSubmission(0);
+        $user->setSendEmailOnSubmissionRated(0);
+        $user->setResetlink("");
+        Repositories::persist($user);
+        foreach($user->getGroups() as $group)
+        {
+            self::hideGroupAndItsAssignments($group);
+        }
+        foreach($user->getLectures() as $lecture)
+        {
+            self::hideLectureItsProblemsGroupsQuestionsAttachmentsAndXtests($lecture);
+        }
+        foreach ($user->getSubmissions() as $submission)
+        {
+            $submission->setStatus(\Submission::STATUS_DELETED);
+            Repositories::persist($submission);
+        }
+        Repositories::flushAll();
+    }
+    /**
      * @param $group \Group
      */
     public static function hideGroupAndItsAssignments($group)
     {
         $group->setDeleted(true);
+        Repositories::persist($group);
         foreach($group->getAssignments() as $assignment)
         {
             $assignment->setDeleted(true);
@@ -28,6 +57,7 @@ class RemovalManager
     public static function hideProblemAndItsAssignments($problem)
     {
         $problem->setDeleted(true);
+        Repositories::persist($problem);
         foreach($problem->getAssignments() as $assignment)
         {
             $assignment->setDeleted(true);
@@ -42,6 +72,7 @@ class RemovalManager
     public static function hideLectureItsProblemsGroupsQuestionsAttachmentsAndXtests($lecture)
     {
         $lecture->setDeleted(true);
+        Repositories::persist($lecture);
         foreach($lecture->getProblems() as $problem)
         {
             self::hideProblemAndItsAssignments($problem);

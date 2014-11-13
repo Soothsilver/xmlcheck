@@ -7,6 +7,8 @@ use Doctrine\ORM\EntityManager;
 
 class Repositories
 {
+    const StudentUserType = 1;
+
     // Entity names
     const Assignment = "Assignment";
     const Group = "Group";
@@ -16,6 +18,7 @@ class Repositories
     const Submission = "Submission";
     const Subscription = "Subscription";
     const User = "User";
+    const UserType = "UserType";
     const PluginTest = "PluginTest";
     const Question = "Question";
     const Xtest = "Xtest";
@@ -75,6 +78,10 @@ class Repositories
         return self::getEntityManager()->getRepository($entityName);
     }
 
+    public static function persist($entity)
+    {
+        self::getEntityManager()->persist($entity);
+    }
     public static function persistAndFlush($entity)
     {
         self::getEntityManager()->persist($entity);

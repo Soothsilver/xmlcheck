@@ -32,7 +32,7 @@ class Submission
      */
     private $assignment;
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="submissions")
      * @ORM\JoinColumn(name="userId", referencedColumnName="id")
      */
     private $user;

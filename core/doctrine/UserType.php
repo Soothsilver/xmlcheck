@@ -5,12 +5,12 @@
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Privileges
+ * UserType
  *
  * @ORM\Table(name="privileges", uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name"})})
  * @ORM\Entity
  */
-class Privileges
+class UserType
 {
     /**
      * @var integer
@@ -51,7 +51,7 @@ class Privileges
      * Set name
      *
      * @param string $name
-     * @return Privileges
+     * @return UserType
      */
     public function setName($name)
     {
@@ -74,7 +74,7 @@ class Privileges
      * Set privileges
      *
      * @param integer $privileges
-     * @return Privileges
+     * @return UserType
      */
     public function setPrivileges($privileges)
     {

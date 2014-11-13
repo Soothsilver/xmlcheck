@@ -37,7 +37,9 @@ asm.ui.panel.Home = asm.ui.ContentPanel.extend({
 	_adjustContent: function () {
         // Message of the day:
 
-        asm.ui.globals.stores.motd.get($.proxy(function(data) { this._panels.messageOfTheDay.html(asm.lang.home.motd+ "<br><br>" + data.motd); }, this));
+        asm.ui.globals.stores.motd.get($.proxy(function(data) {
+            this._panels.messageOfTheDay.html(asm.lang.home.motd+ "<br><br>" + data.motd);
+        }, this));
         // Tasks requiring your attention and ratings
 		var homePanel = this._panels.home,
 			panelIsEmpty = true,

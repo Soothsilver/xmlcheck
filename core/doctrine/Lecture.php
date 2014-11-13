@@ -14,7 +14,7 @@ class Lecture
 {
     /**
      * @var User
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="lectures")
      * @ORM\JoinColumn(name="ownerId", referencedColumnName="id")
      */
     private $owner;

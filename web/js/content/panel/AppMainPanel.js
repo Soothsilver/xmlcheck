@@ -72,6 +72,7 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 						usertypes: new asm.ui.editor.Usertypes(),
                         changelog: new asm.ui.panel.Changelog(),
 						errorLog: errorLog,
+                        otherAdministration: new asm.ui.form.OtherAdministration(),
 
 						userSettings: new asm.ui.form.UserAccount({
 							callbacks: {
@@ -194,7 +195,8 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 				usertypes: asm.ui.globals.icons.usertype,
                 changelog: asm.ui.globals.icons.log,
                 emailSettings: asm.ui.globals.icons.attachment,
-                languageSettings: asm.ui.globals.icons.settings
+                languageSettings: asm.ui.globals.icons.settings,
+                otherAdministration: asm.ui.globals.icons.settings
 			},
 			noCache: true
 		});
@@ -219,6 +221,7 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 				users: ['usersExplore'],
 				usertypes: ['usersPrivPresets'],
 				userRatings: ['groupsManageAll', 'groupsManageOwn', 'submissionsCorrect'],
+                otherAdministration: [ 'otherAdministration' ]
 			},
 			baseStructure = {
 				'student': {
@@ -247,7 +250,8 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
                     'changelog' : asm.lang.menu.changelog,
 					'errorLog': asm.lang.menu.uiLog,
 					'users': asm.lang.menu.users,
-					'usertypes': asm.lang.menu.userTypes
+					'usertypes': asm.lang.menu.userTypes,
+                    'otherAdministration': asm.lang.menu.otherAdministration
 				},
 				'settings': {
 					'userSettings': asm.lang.menu.accountSettings,

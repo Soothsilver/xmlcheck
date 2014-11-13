@@ -1,7 +1,9 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\StringID;
 use asm\db\DbLayout;
+use asm\utils\Security;
 
 /**
  * @ingroup requests
@@ -47,24 +49,36 @@ final class EditUser extends DataScript
 		if (!$this->isInputValid($inputs))
 			return;
 
-		extract($this->getParams(array_keys($inputs)));
-		$id = $this->getParams('id');
+        // Extract input data
+        $username = strtolower( $this->getParams('name') );
+        $realname = $this->getParams('realname');
+        $email = $this->getParams('email');
+        $pass = $this->getParams('pass');
+        $repass = $this->getParams('repass');
+        $id = $this->getParams('id');
+        $type = $this->getParams('type');
+        $user = null;
+        $isIdSet = ($id !== null && $id !== '');
+        $isTypeSet = ($type !== null && $type !== '');
 
-       	$name = strtolower($name);
-		$users = Core::sendDbRequest('getUserByName', $name);
-		$userExists = (bool)$users;
+        // Extract database data
+        if ($id)
+        {
+            $user = Repositories::findEntity($user, $id);
+        }
+        $userExists = ($user != null);
+        $sameNameUserExists = count(Repositories::getRepository(Repositories::User)->findBy(['name' => $username])) > 0;
 
-        // Verify password
+        // Custom verification of input data
         if ($pass !== $repass)
         {
-            return $this->stop(ErrorCause::invalidInput("passwords do not match", "repass"));
+            return $this->death(StringID::InvalidInput);
         }
         if ($userExists)
         {
-            // A new user must have full password
             if ((strlen($pass) < Constants::PasswordMinLength || strlen($pass) > Constants::PasswordMaxLength) && $pass !== "")
             {
-                return $this->stop(ErrorCause::invalidInput("password must have between 6 and 200 characters, or be empty", "pass"));
+                return $this->death(StringID::InvalidInput);
             }
         }
         else
@@ -72,73 +86,68 @@ final class EditUser extends DataScript
             // A new user must have full password
             if (strlen($pass) < Constants::PasswordMinLength || strlen($pass) > Constants::PasswordMaxLength)
             {
-                return $this->stop(ErrorCause::invalidInput("password must have between 6 and 200 characters", "pass"));
+                return $this->death(StringID::InvalidInput);
             }
         }
 
-
-
-        $isIdSet = (($id !== null) && ($id !== ''));
-		$type = $this->getParams('type');
-		$isTypeSet = ($type !== null);
-		$code = '';
+        $code = '';
         $unhashedPass = $pass;
-		$pass = \asm\utils\Security::hash($pass, \asm\utils\Security::HASHTYPE_PHPASS);
-		$canAddUsers = User::instance()->hasPrivileges(User::usersAdd);
-		$canEditUsers = User::instance()->hasPrivileges(User::usersManage);
-		$isEditingSelf = ($id === User::instance()->getId());
+        $pass = \asm\utils\Security::hash($pass, \asm\utils\Security::HASHTYPE_PHPASS);
+        $canAddUsers = User::instance()->hasPrivileges(User::usersAdd);
+        $canEditUsers = User::instance()->hasPrivileges(User::usersManage);
+        $isEditingSelf = ($id === User::instance()->getId());
+        /**
+         * @var $user \User
+         */
 
-		if (!$userExists) // create/register new user
-		{
-			if (!$canAddUsers)
-			{
-				if ($type != 0) // TODO this zero means student (0=student, 1=admin unchangeable user types)
-					return $this->stop(ErrorCode::lowPrivileges, 'cannot add new user of specified type to database');
+        if (!$userExists) // create/register new user
+        {
+            if (!$canAddUsers)
+            {
+                if ($type != Repositories::StudentUserType)
+                    return $this->death(StringID::InsufficientPrivileges);
 
-				$code = md5(uniqid(mt_rand(), true));
-				$text = $this->getRegistrationEmail($realname, $code);
-				$returnCode = Core::sendEmail($email, '[XMLCheck] Your activation code', $text); // TODO move somewhere (when localizing) (won't always be [XMLCheck]
+                $code = md5(uniqid(mt_rand(), true));
+                $text = $this->getRegistrationEmail($realname, $code);
+                $returnCode = Core::sendEmail($email, '[XMLCheck] Your activation code', $text); // TODO move somewhere (when localizing) (won't always be [XMLCheck]
 
-				if (!$returnCode)
-					return $this->stop(ErrorCode::mail, 'user registration failed', 'email could not be sent');
-			}
+                if (!$returnCode)
+                    return $this->stop(ErrorCode::mail, 'user registration failed', 'email could not be sent');
+            }
+            $user = new \User();
+            $typeEntity = Repositories::findEntity(Repositories::UserType, $type);
+            $user->setType($typeEntity);
+            $user->setPass($pass);
+            $user->setName($username);
+            $user->setEmail($email);
+            $user->setActivationcode($code);
+            $user->setEncryptiontype(Security::HASHTYPE_PHPASS);
+            $user->setRealname($realname);
+            Repositories::persistAndFlush($user);
+        }
+        elseif ($isIdSet && !$sameNameUserExists) // edit existing user
+        {
+            if (!$canEditUsers && ($isTypeSet || (!$isEditingSelf)))
+                return $this->stop(ErrorCode::lowPrivileges, 'cannot edit data of users other than yourself');
 
-            // TODO add user options here and make them a transaction
-			if (!Core::sendDbRequest('addUser', $type, $name, $pass, $realname, $email, $code, \asm\utils\Security::HASHTYPE_PHPASS))
-				return $this->stopDb(false, ErrorEffect::dbAdd('user'));
-		}
-		elseif ($isIdSet) // edit existing user
-		{
-			$user = $users[0];
-			if ($id != $user[DbLayout::fieldUserId])
-				return $this->stop(ErrorCause::dataMismatch('user'));
-			
-			if (!$canEditUsers && ($isTypeSet || (!$isEditingSelf)))
-				return $this->stop(ErrorCode::lowPrivileges, 'cannot edit data of users other than yourself');
-
-			$type = $isTypeSet ? $type : $user[DbLayout::fieldUsertypeId];
-			if ($isTypeSet && ($id == DbLayout::rootUserId) && ($type != DbLayout::rootUsertypeId))
-			{
-				$type = DbLayout::rootUsertypeId;
-				$this->addError(Error::levelWarning, 'cannot change user type of root user',
-						'user type hasn\'t been modified');
-			}
+            $type = $isTypeSet ? $type : $user->getType()->getId();
+            $typeEntity = Repositories::findEntity(Repositories::UserType, $type);
 
             if ($unhashedPass)
             {
-                if (!Core::sendDbRequest('editUserById', $id, $name, $type, $pass, $realname, $email, \asm\utils\Security::HASHTYPE_PHPASS))
-                    return $this->stopDb(false, ErrorEffect::dbEdit('user'));
+                $user->setPass($pass);
+                $user->setEncryptiontype(Security::HASHTYPE_PHPASS);
             }
-            else
-            {
-                if (!Core::sendDbRequest('editUserByIdButKeepPassword', $id, $name, $type, $realname, $email))
-                    return $this->stopDb(false, ErrorEffect::dbEdit('user'));
-            }
-		}
-		else
-		{
-			return $this->stop(ErrorCause::nameTaken('user', $name));
-		}
+            $user->setType($typeEntity);
+            $user->setEmail($email);
+            $user->setActivationcode('');
+            $user->setRealname($realname);
+            Repositories::persistAndFlush($user);
+        }
+        else
+        {
+            return $this->death(StringID::UserNameExists);
+        }
 	}
 
 	protected function getRegistrationEmail($name, $code)

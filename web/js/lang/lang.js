@@ -110,6 +110,7 @@ asm.lang = {
         uiLog : "UI Log",
         users : "Users",
         userTypes : "User Types",
+        otherAdministration : "Other Administration",
 
         accountSettings : "Account settings",
         emailNotification : "Email notifications",
@@ -507,5 +508,10 @@ asm.lang = {
         createNewTest : "create new test",
         printTest : "print test",
         regenerateTest : "generate test again"
+    },
+    otherAdministration: {
+        caption : "Other Administration Tasks",
+        firstParagraphLabel: "Information",
+        firstParagraphText: "Information about plugins is loaded from the manifest file at the time the plugin is first uploaded to the system. Then, even if the manifest file is modified, the database (and therefore, the user interface) does not reflect this. Use the following button to reload plugin descriptions from the manifest files into the database."
     }
 };

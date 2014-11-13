@@ -20,6 +20,9 @@ abstract class StringID
     const InvalidActivationCode = 12;
     const NotAuthorizedForName = 13;
     const GroupNameExists = 14;
+
+    const YouCannotRemoveYourself = 15;
+    const CannotRemoveBasicStudentType = 16;
 }
 
 class Language {
@@ -57,6 +60,9 @@ class Language {
             case StringID::NoPluginUsed: return "Není opravováno automaticky.";
             case StringID::InvalidActivationCode: return "Tento aktivační kód neexistuje.";
             case StringID::NotAuthorizedForName: return "skryto";
+
+            case StringID::YouCannotRemoveYourself: return "Nemůžete odstranit sami sebe.";
+            case StringID::CannotRemoveBasicStudentType: return "Druh uživatele 'STUDENT' (ID 1) nelze odstranit, protože tento typ je automaticky přiřazován nově registrovaným uživatelům.";
         }
         return "TRANSLATION MISSING(" . self::getEnglish($textId) . ")";
     }
@@ -81,6 +87,9 @@ class Language {
             case StringID::NoPluginUsed: return "This problem has no automatic grading.";
             case StringID::InvalidActivationCode: return "This activation code does not exist.";
             case StringID::NotAuthorizedForName: return "hidden";
+
+            case StringID::YouCannotRemoveYourself: return "You cannot remove yourself.";
+            case StringID::CannotRemoveBasicStudentType: return "User type 'STUDENT' (ID 1) cannot be removed, because this type is automatically assigned to newly registered users.";
         }
         throw new \Exception("This string (" . $textId . ") does not exist.");
     }

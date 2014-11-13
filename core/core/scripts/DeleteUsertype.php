@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\StringID;
 use asm\db\DbLayout;
 
 /**
@@ -21,14 +22,24 @@ class DeleteUsertype extends DataScript
 			return;
 
 		$id = $this->getParams('id');
-		if ($id == DbLayout::rootUsertypeId)
-			return $this->stop('cannot delete root user type');
-
-		if (!Core::sendDbRequest('demoteUsersByType', $id))
-			return $this->stopDb(false, 'cannot change type of affected users');
-
-		if (!Core::sendDbRequest('deleteUsertypeById', $id))
-			return $this->stopDb();
+        if ($id == Repositories::StudentUserType)
+        {
+            return $this->death(StringID::CannotRemoveBasicStudentType);
+        }
+        /**
+         * @var $deletedType \UserType
+         */
+        $deletedType = Repositories::findEntity(Repositories::UserType, $id);
+        $users = Repositories::getRepository(Repositories::User)->findBy(['type' => $id]);
+        $studentType = Repositories::findEntity(Repositories::UserType, Repositories::StudentUserType);
+        foreach($users as $user)
+        {
+            /** @var $user \User */
+            $user->setType($studentType);
+            Repositories::persist($user);
+        }
+        Repositories::remove($deletedType);
+        Repositories::flushAll();
 	}
 }
 

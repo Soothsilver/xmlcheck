@@ -115,6 +115,7 @@ asm.otherlangs.cs = {
         uiLog : "Log UI",
         users : "Uživatelé",
         userTypes : "Druhy uživatelů",
+        otherAdministration : "Jiná administrace",
 
         accountSettings : "Hlavní nastavení",
         emailNotification : "Emailové notifikace",
