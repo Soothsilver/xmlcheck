@@ -58,7 +58,7 @@ class Utils
      */
     public static function endsWithIgnoreCase($string, $suffix)
     {
-        return $suffix === "" || strtolower(substr($string, -strlen($suffix))) === strtolower($string);
+        return $suffix === "" || strtolower(substr($string, -strlen($suffix))) === strtolower($suffix);
     }
 
     /**
@@ -69,7 +69,7 @@ class Utils
      */
     public static function endsWith($string, $suffix)
     {
-        return $suffix === "" || substr($string, -strlen($suffix)) === $string;
+        return $suffix === "" || substr($string, -strlen($suffix)) === $suffix;
     }
 }
 

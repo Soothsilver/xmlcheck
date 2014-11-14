@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/dtd-parser/dtd-parser.iml" filepath="$PROJECT_DIR$/dtd-parser/dtd-parser.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java-plugins/java-plugins.iml" filepath="$PROJECT_DIR$/java-plugins/java-plugins.iml" />
+      <module fileurl="file://$PROJECT_DIR$/phptests/phptests.iml" filepath="$PROJECT_DIR$/phptests/phptests.iml" />
       <module fileurl="file://$PROJECT_DIR$/root.iml" filepath="$PROJECT_DIR$/root.iml" />
       <module fileurl="file://$PROJECT_DIR$/www/www.iml" filepath="$PROJECT_DIR$/www/www.iml" />
     </modules>

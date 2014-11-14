@@ -1,0 +1,52 @@
+<!ENTITY user_details "ud">
+<!ENTITY % reference_attrs
+"id  ID #REQUIRED" >
+<!ELEMENT root-element ((users))>
+<!ELEMENT users ((user+))>
+<!ELEMENT user ((ud, todo_list))>
+<!ATTLIST user
+	id ID #REQUIRED
+>
+<!ELEMENT ud ((login, password_hash, salt, name))>
+<!ELEMENT login (#PCDATA)>
+<!ELEMENT name ((first_name, last_name))>
+<!ELEMENT first_name (#PCDATA)>
+<!ELEMENT last_name (#PCDATA)>
+<!ELEMENT password_hash (#PCDATA)>
+<!ELEMENT salt (#PCDATA)>
+<!ELEMENT todo_list ((category+))>
+<!ELEMENT items ((item*))>
+<!ELEMENT category ((items))>
+<!ATTLIST category
+	name NMTOKEN #REQUIRED
+	non CDATA #FIXED "42"
+>
+<!ELEMENT item ((from, to, subject, note?, state))>
+<!-- Here is defined ID.-->	
+<!ATTLIST item
+	id ID #REQUIRED
+	priority  (1 | 2 | 3 | 4 | 5) #IMPLIED
+>
+<!ELEMENT from ((date))>
+<!ELEMENT to ((date))>
+<!ELEMENT subject (#PCDATA)>
+<!ELEMENT note (#PCDATA | note_ref)*>
+<!ELEMENT note_ref (#PCDATA)>
+<!-- Here is defined IDREF and IDREFS.-->	
+<!ATTLIST note_ref 
+	%reference_attrs;
+	refid IDREF #IMPLIED
+	refsid IDREFS #IMPLIED
+>
+<!ELEMENT state EMPTY>
+<!ATTLIST state
+	status (undone | fleshed | done) "undone"
+	must NMTOKENS #IMPLIED
+>
+<!ELEMENT date EMPTY>
+<!ATTLIST date
+	day  CDATA #REQUIRED
+	month CDATA #REQUIRED
+	year CDATA #REQUIRED
+>
+

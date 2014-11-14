@@ -1,0 +1,47 @@
+<!-- Entity: -->
+<!ENTITY at "@">
+
+<!-- Elementy: -->
+<!ELEMENT netDB ((net)*,(contact)*)>
+<!ATTLIST netDB
+	xmlns:xsi CDATA #IMPLIED
+	xsi:noNamespaceSchemaLocation CDATA #IMPLIED>
+	<!ELEMENT net (owner, address, protection, computersNum, employeesNum, (webPages)?, (additionalFiles)?, (notes)?, contacts, domains)>
+	<!ATTLIST net
+		id CDATA #REQUIRED>
+		<!ELEMENT owner (#PCDATA)>
+		<!ELEMENT address (city, zipCode, street)>
+			<!ELEMENT city (#PCDATA)>
+			<!ELEMENT zipCode (#PCDATA)>
+			<!ELEMENT street (#PCDATA)>
+		<!ELEMENT protection EMPTY>
+		<!ATTLIST protection
+			type (none | hardware | software | NAT | unknown) "none">
+		<!ELEMENT computersNum (#PCDATA)>
+		<!ELEMENT employeesNum (#PCDATA)>
+		<!ELEMENT webPages (webAddress)*>
+			<!ELEMENT webAddress (#PCDATA)>
+		<!ELEMENT additionalFiles (webAddress)*>
+		<!ELEMENT notes (#PCDATA | webAddress | email)*>
+		<!ELEMENT contacts (contactLink)+>
+			<!ELEMENT contactLink EMPTY>
+			<!ATTLIST contactLink
+				idref IDREF #REQUIRED>
+		<!ELEMENT domains (domain)+>
+			<!ELEMENT domain (domainName, primaryDNS, (secondaryDNS)*, subnetRanges)>
+				<!ELEMENT domainName (#PCDATA)>
+				<!ELEMENT primaryDNS (ipAddress)>
+				<!ELEMENT secondaryDNS (ipAddress)>
+					<!ELEMENT ipAddress (#PCDATA)>
+				<!ELEMENT subnetRanges (subnetRange)+>
+					<!ELEMENT subnetRange (#PCDATA)>
+	<!ELEMENT contact (name, (phoneNumber)*, (email)?)>
+	<!ATTLIST contact
+		id ID #REQUIRED>
+		<!ELEMENT name (firstName, lastName)>
+			<!ELEMENT firstName (#PCDATA)>
+			<!ELEMENT lastName (#PCDATA)>
+		<!ELEMENT phoneNumber (#PCDATA)>
+		<!ATTLIST phoneNumber
+			type (wired | mobile) #IMPLIED>
+		<!ELEMENT email (#PCDATA)>
