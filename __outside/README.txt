@@ -1,1 +1,0 @@
-This directory is not under GitHub control.
