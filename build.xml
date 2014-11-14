@@ -1,0 +1,77 @@
+<project name="XML Check" basedir=".">
+    <description>
+        This buildfile allows you to do perform various actions on the XMLCheck project.
+    </description>
+
+    <property name="jarfile.framework" value="AsmPluginFramework.jar" />
+    <property name="jarfile.domSax" value="DomSaxPlugin.jar" />
+    <property name="jarfile.xQuery" value="XQueryPlugin.jar" />
+    <property name="dir.java-plugins" location="java-plugins"/>
+    <property name="dir.tests" location="phptests"/>
+    <property name="dir.www"  location="www" />
+    <property name="dir.www.domSaxFolder" value="files/plugins/XML DomSax" />
+    <property name="dir.www.xQueryFolder" value="files/plugins/XML XQuery" />
+    <property name="dir.java-plugins.src" location="${dir.java-plugins}/src" />
+    <property name="dir.java-plugins.lib" location="${dir.java-plugins}/lib" />
+    <property name="dir.java-plugins.generated-files" location="${dir.java-plugins}/generated-files" />
+    <property name="dir.java-plugins.build" location="${dir.java-plugins}/generated-files/build" />
+    <property name="dir.java-plugins.jars" location="${dir.java-plugins}/generated-files/jars" />
+
+    <path id="classpath.java-plugins">
+        <fileset dir="${dir.java-plugins.lib}">
+            <include name="**/*.jar" />
+        </fileset>
+    </path>
+    <target name="update-plugins" depends="jar-domsax, jar-xquery" description="Recompile the two Java-based plugins and copy them to the main application.">
+        <copy file="${dir.java-plugins.jars}/${jarfile.domSax}" tofile="${dir.www}/${dir.www.domSaxFolder}/${jarfile.domSax}" />
+        <copy file="${dir.java-plugins.jars}/${jarfile.xQuery}" tofile="${dir.www}/${dir.www.xQueryFolder}}/${jarfile.xQuery}" />
+    </target>
+    <target name="init" description="Create temporary directories in the generated-files directory.">
+        <mkdir dir="${dir.java-plugins.generated-files}" />
+        <mkdir dir="${dir.java-plugins.build}" />
+        <mkdir dir="${dir.java-plugins.jars}" />
+    </target>
+    <target name="compile" depends="init" description="Compile both Java verification plugins.">
+        <javac srcdir="${dir.java-plugins.src}" destdir="${dir.java-plugins.build}" includeantruntime="false">
+            <classpath refid="classpath.java-plugins" />
+        </javac>
+    </target>
+    <target name="jar-framework" depends="compile" description="Create the hon2a AsM plugin framework jar file.">
+        <jar jarfile="${dir.java-plugins.jars}/${jarfile.framework}" basedir="${dir.java-plugins.build}" excludes="name/hon2a/asmp/**/*">
+            <zipfileset src="${dir.java-plugins.lib}/tools.jar" />
+            <zipfileset src="${dir.java-plugins.lib}/ecs.jar" />
+        </jar>
+    </target>
+    <target name="jar-domsax" depends="compile,jar-framework" description="Create the executable JAR file for the DomSax plugin.">
+        <jar
+                jarfile="${dir.java-plugins.jars}/${jarfile.domSax}"
+                basedir="${dir.java-plugins.build}"
+                includes="name/hon2a/asmp/domsax/*.class">
+            <zipfileset src="${dir.java-plugins.jars}/${jarfile.framework}" />
+            <manifest>
+                <attribute name="Main-Class" value="name.hon2a.asmp.domsax.Main" />
+            </manifest>
+        </jar>
+    </target>
+    <target name="jar-xquery" depends="compile,jar-framework" description="Create the executable JAR file for the XQuery plugin.">
+        <jar
+                jarfile="${dir.java-plugins.jars}/${jarfile.xQuery}"
+                basedir="${dir.java-plugins.build}"
+                includes="name/hon2a/asmp/xquery/*.class">
+            <zipfileset src="${dir.java-plugins.jars}/${jarfile.framework}" />
+            <zipfileset src="${dir.java-plugins.lib}/saxon9.jar" />
+            <zipfileset src="${dir.java-plugins.lib}/saxon9-dom.jar" />
+            <manifest>
+                <attribute name="Main-Class" value="name.hon2a.asmp.xquery.Main" />
+            </manifest>
+        </jar>
+    </target>
+    <target name="make-jars" depends="jar-domsax,jar-xquery" description="Create executable JAR files for both Java-based plugins for XML Check.">
+    </target>
+    <target name="clean" description="Remove all temporary automatically generated files." >
+        <delete includeemptydirs="true">
+            <fileset dir="${dir.java-plugins.build}" includes="**/*" />
+            <fileset dir="${dir.java-plugins.jars}" includes="**/*" />
+        </delete>
+    </target>
+</project>

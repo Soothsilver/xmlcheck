@@ -72,6 +72,12 @@ public class DomJavaTest extends JavaTest {
 	@Override
 	protected void doTest () throws TestException {
 
+
+		PrintStream systemErrorStream = System.err;
+		PrintStream systemOutputStream = System.out;
+		System.setErr(new PrintStream(new NullOutputStream()));
+		System.setOut(new PrintStream(new NullOutputStream()));
+
 		this.requireSources(DomJavaTest.sourceJava, DomJavaTest.sourceXml);
 		this.requireParams(DomJavaTest.paramDomScript, DomJavaTest.paramOutputFile);
 
@@ -84,17 +90,11 @@ public class DomJavaTest extends JavaTest {
 		Map<Class, Object> transformArgs = new HashMap<Class, Object>();
 		transformArgs.put(Document.class, xmlDocument);
 
-        PrintStream systemErrorStream = System.err;
-        PrintStream systemOutputStream = System.out;
-        System.setErr(new PrintStream(new NullOutputStream()));
-        System.setOut(new PrintStream(new NullOutputStream()));
 
         // Here, the user's source code is run
 		this.runJavaSource(javaSourcesFolder, this.getParam(DomJavaTest.paramDomScript),
 				domScriptMainMethod, transformArgs);
 
-        System.setOut(systemOutputStream);
-        System.setErr(systemErrorStream);
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		DOMSource source = new DOMSource(xmlDocument);
@@ -110,6 +110,10 @@ public class DomJavaTest extends JavaTest {
 		} catch (Exception e) {
 			throw new TestDataException("Document cannot be transformed by provided transformations", e);
 		}
+
+
+		System.setOut(systemOutputStream);
+		System.setErr(systemErrorStream);
 
 		this.saveTextFile(this.getParam(DomJavaTest.paramOutputFile),
 				new ByteArrayInputStream(baos.toByteArray()));
