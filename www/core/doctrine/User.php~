@@ -29,9 +29,9 @@ class User
     private $name;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="type", type="integer", nullable=false)
+     * @var \Privileges
+     * @ORM\ManyToOne(targetEntity="Privileges")
+     * @ORM\JoinColumn(name="type", referencedColumnName="id")
      */
     private $type;
 
@@ -111,6 +111,28 @@ class User
      */
     private $sendEmailOnNewSubmission = '1';
 
+    /**
+     * @var  boolean
+     * @ORM\Column(name="deleted", type="boolean", nullable=false)
+     * */
+    private $deleted = false;
+
+    /**
+     * @var Group[]
+     * @ORM\OneToMany(targetEntity="Group", mappedBy="owner")
+     */
+    private $groups;
+    /**
+     * @var Lecture[]
+     * @ORM\OneToMany(targetEntity="Lecture", mappedBy="owner")
+     */
+    private $lectures;
+    /**
+     * @var Submission[]
+     * @ORM\OneToMany(targetEntity="Submission", mappedBy="user")
+     */
+    private $submissions;
+
 
     /**
      * Get id
@@ -145,28 +167,7 @@ class User
         return $this->name;
     }
 
-    /**
-     * Set type
-     *
-     * @param integer $type
-     * @return Users
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
 
-        return $this;
-    }
-
-    /**
-     * Get type
-     *
-     * @return integer 
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
 
     /**
      * Set pass
@@ -351,24 +352,6 @@ class User
     {
         return $this->resetlinkexpiry;
     }
-    /**
-     * Get user email options
-     *
-     * @return \UserEmailOptions
-     */
-    public function getUserEmailOptions()
-    {
-        return $this->userEmailOptions;
-    }
-    /**
-     * Set user email options
-     *
-     * @param \UserEmailOptions
-     */
-    public function setUserEmailOptions(UserEmailOptions $userEmailOptions)
-    {
-        $this->userEmailOptions = $userEmailOptions;
-    }
 
     /**
      * Set sendEmailOnSubmissionRated
@@ -437,5 +420,51 @@ class User
     public function getSendEmailOnNewSubmission()
     {
         return $this->sendEmailOnNewSubmission;
+    }
+
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     * @return User
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+
+    /**
+     * Get deleted
+     *
+     * @return boolean 
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
+    }
+
+    /**
+     * Set type
+     *
+     * @param \Privileges $type
+     * @return User
+     */
+    public function setType(\Privileges $type = null)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \Privileges 
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

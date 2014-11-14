@@ -5,12 +5,12 @@
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Plugins
+ * Attachment
  *
- * @ORM\Table(name="plugins", uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name"}), @ORM\UniqueConstraint(name="folder", columns={"mainFile"})})
+ * @ORM\Table(name="attachments")
  * @ORM\Entity
  */
-class Plugin
+class Attachment
 {
     /**
      * @var integer
@@ -33,28 +33,21 @@ class Plugin
      *
      * @ORM\Column(name="type", type="string", nullable=false)
      */
-    private $type = 'exe';
+    private $type;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="text", nullable=false)
+     * @ORM\Column(name="file", type="string", length=100, nullable=false)
      */
-    private $description;
+    private $file;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="mainFile", type="string", length=100, nullable=false)
+     * @var \Lecture
+     * @ORM\ManyToOne(targetEntity="Lecture", inversedBy="attachments")
+     * @ORM\JoinColumn(name="lectureId", referencedColumnName="id")
      */
-    private $mainfile;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="config", type="text", nullable=false)
-     */
-    private $config;
+    private $lecture;
 
 
 
@@ -72,7 +65,7 @@ class Plugin
      * Set name
      *
      * @param string $name
-     * @return Plugins
+     * @return Attachments
      */
     public function setName($name)
     {
@@ -95,7 +88,7 @@ class Plugin
      * Set type
      *
      * @param string $type
-     * @return Plugins
+     * @return Attachments
      */
     public function setType($type)
     {
@@ -115,71 +108,48 @@ class Plugin
     }
 
     /**
-     * Set description
+     * Set file
      *
-     * @param string $description
-     * @return Plugins
+     * @param string $file
+     * @return Attachments
      */
-    public function setDescription($description)
+    public function setFile($file)
     {
-        $this->description = $description;
+        $this->file = $file;
 
         return $this;
     }
 
     /**
-     * Get description
+     * Get file
      *
      * @return string 
      */
-    public function getDescription()
+    public function getFile()
     {
-        return $this->description;
+        return $this->file;
     }
 
     /**
-     * Set mainfile
+     * Set lecture
      *
-     * @param string $mainfile
-     * @return Plugins
+     * @param \Lecture $lecture
+     * @return Attachment
      */
-    public function setMainfile($mainfile)
+    public function setLecture(\Lecture $lecture = null)
     {
-        $this->mainfile = $mainfile;
-
+        $this->lecture = $lecture;
+    
         return $this;
     }
 
     /**
-     * Get mainfile
+     * Get lecture
      *
-     * @return string 
+     * @return \Lecture 
      */
-    public function getMainfile()
+    public function getLecture()
     {
-        return $this->mainfile;
-    }
-
-    /**
-     * Set config
-     *
-     * @param string $config
-     * @return Plugins
-     */
-    public function setConfig($config)
-    {
-        $this->config = $config;
-
-        return $this;
-    }
-
-    /**
-     * Get config
-     *
-     * @return string 
-     */
-    public function getConfig()
-    {
-        return $this->config;
+        return $this->lecture;
     }
 }

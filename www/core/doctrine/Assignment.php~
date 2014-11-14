@@ -1,7 +1,5 @@
 <?php
 
-
-
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -13,13 +11,13 @@ class Assignment
 {
     /**
      * @var Problem
-     * @ORM\ManyToOne(targetEntity="Problem")
+     * @ORM\ManyToOne(targetEntity="Problem", inversedBy="assignments")
      * @ORM\JoinColumn(name="problemId", referencedColumnName="id")
      */
     private $problem;
     /**
      * @var Group
-     * @ORM\ManyToOne(targetEntity="Group")
+     * @ORM\ManyToOne(targetEntity="Group",inversedBy="assignments")
      * @ORM\JoinColumn(name="groupId", referencedColumnName="id")
      */
     private $group;
@@ -36,7 +34,7 @@ class Assignment
      *
      * @ORM\Column(name="deadline", type="datetime", nullable=false)
      */
-    private $deadline = 'CURRENT_TIMESTAMP';
+    private $deadline = null;
     /**
      * @var integer
      *
@@ -44,22 +42,11 @@ class Assignment
      */
     private $reward;
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="groupId", type="integer", nullable=false)
-     */
-    private $groupid;
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="problemId", type="integer", nullable=false)
-     */
-    private $problemid;
-    /**
      * @var boolean
      * @ORM\Column(name="deleted", type="boolean")
      */
     private $deleted = false;
+
     /**
      * Get id
      *
@@ -90,7 +77,6 @@ class Assignment
     {
         return $this->deadline;
     }
-
     /**
      * Set reward
      *
@@ -103,7 +89,6 @@ class Assignment
 
         return $this;
     }
-
     /**
      * Get reward
      *
@@ -113,53 +98,6 @@ class Assignment
     {
         return $this->reward;
     }
-
-    /**
-     * Set groupid
-     *
-     * @param integer $groupid
-     * @return Assignments
-     */
-    public function setGroupid($groupid)
-    {
-        $this->groupid = $groupid;
-
-        return $this;
-    }
-
-    /**
-     * Get groupid
-     *
-     * @return integer 
-     */
-    public function getGroupid()
-    {
-        return $this->groupid;
-    }
-
-    /**
-     * Set problemid
-     *
-     * @param integer $problemid
-     * @return Assignments
-     */
-    public function setProblemid($problemid)
-    {
-        $this->problemid = $problemid;
-
-        return $this;
-    }
-
-    /**
-     * Get problemid
-     *
-     * @return integer 
-     */
-    public function getProblemid()
-    {
-        return $this->problemid;
-    }
-
     /**
      * Set problem
      *
@@ -172,7 +110,6 @@ class Assignment
 
         return $this;
     }
-
     /**
      * Get problem
      *
@@ -182,7 +119,6 @@ class Assignment
     {
         return $this->problem;
     }
-
     /**
      * Set group
      *
@@ -195,7 +131,6 @@ class Assignment
 
         return $this;
     }
-
     /**
      * Get group
      *
@@ -204,5 +139,26 @@ class Assignment
     public function getGroup()
     {
         return $this->group;
+    }
+    /**
+     * Set deleted
+     *
+     * @param boolean $deleted
+     * @return Assignment
+     */
+    public function setDeleted($deleted)
+    {
+        $this->deleted = $deleted;
+
+        return $this;
+    }
+    /**
+     * Get deleted
+     *
+     * @return boolean 
+     */
+    public function getDeleted()
+    {
+        return $this->deleted;
     }
 }
