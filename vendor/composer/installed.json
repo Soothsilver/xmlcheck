@@ -1436,8 +1436,8 @@
     },
     {
         "name": "soothsilver/dtd-parser",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "0.1.0",
+        "version_normalized": "0.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/Soothsilver/dtd-parser.git",

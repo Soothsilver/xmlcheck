@@ -23,6 +23,7 @@ asm.ui.form.Usertype = asm.ui.DynamicForm.extend({
 					}
 				}
 			}};
+
 		
 		$.each(asm.ui.globals.privilegesBreakdown, function (subject, privs) {
 			var options = {};
