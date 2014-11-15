@@ -27,6 +27,6 @@
         Kromě toho by měla šablona být dostatečně komplexní.
 	</description>
 	<arguments>
-		<argument>used templates and calls min.</argument>
+		<argument>Minimální počet xsl:template a (xsl:call-template nebo xsl:apply-templates)</argument>
 	</arguments>
 </plugin-manifest>

@@ -23,10 +23,7 @@ final class EditAttachment extends LectureScript
 			'lecture' => 'isIndex',
 			'name' => array(
 				'isName',
-				'hasLength' => array(
-					'min_length' => 5,
-					'max_length' => 20,
-				),
+				'isNotEmpty'
 			),
 			'type' => array('isEnum' => array('text', 'code', 'image'))
 		);

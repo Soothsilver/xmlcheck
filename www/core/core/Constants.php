@@ -2,8 +2,8 @@
 namespace asm\core;
 
 class Constants {
-    const UsernameMinLength = 1;
+    const UsernameMinLength = 5;
     const UsernameMaxLength = 200;
-    const PasswordMinLength = 1;
+    const PasswordMinLength = 5;
     const PasswordMaxLength = 200;
 } 

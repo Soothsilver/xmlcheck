@@ -41,6 +41,10 @@ asm.ui.DynamicForm = asm.ui.DynamicContentPanel.extend({
 		this._formElem = this._buildForm(o.formStructure)
 			.form($.extend({}, {
 				submit: $.proxy(function (form, data) {
+					if (o.preSubmitAction)
+					{
+						o.preSubmitAction(form, data);
+					}
 					var nonEditableFields = $();
 					$(form).form('getFields').each(function () {
 						var field = $(this);

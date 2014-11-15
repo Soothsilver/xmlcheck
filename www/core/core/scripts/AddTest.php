@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\StringID;
 use asm\db\DbLayout;
 
 /**
@@ -19,16 +20,72 @@ final class AddTest extends GenTestScript
 {
 	protected function body ()
 	{
+		$questions = $this->getParams('questions');
+		if ($questions === null || $questions === '')
+		{
+			return $this->death(StringID::ChooseAtLeastOneQuestion);
+			// Put this in front to have a more specific, comprehensible error message
+		}
+
 		$inputs = array(
-			'description' => array('hasLength' => array(
-				'min_length' => 5,
-				'max_length' => 50
-			)),
+			'description' => 'isNotEmpty',
 			'count' => 'isNonNegativeInt',
 			'questions' => 'isNotEmpty',
 		);
 		if (!$this->isInputValid($inputs))
 			return;
+		$description = $this->getParams('description');
+		$count = $this->getParams('count');
+		$questions = $this->getParams('questions');
+		$questionsArray = explode(',', $questions);
+
+
+		$user = User::instance();
+		$visibleQuestions = CommonQueries::GetQuestionsVisibleToActiveUser();
+
+		$lecture = null;
+
+
+		foreach ($visibleQuestions as $vq)
+		{
+			$qId = $vq->getId();
+			$index = array_search($qId, $questionsArray);
+			if ($index !== false)
+			{
+				array_splice($questionsArray, $index, 1);
+				if ($lecture === null)
+				{
+					$lecture = $vq->getLecture();
+				}
+				elseif ($lecture->getId() !== $vq->getLecture()->getId())
+				{
+					return $this->death(StringID::TestCannotContainQuestionsOfDifferentLectures);
+				}
+			}
+		}
+		if (count($questionsArray))
+		{
+			return $this->stop(ErrorCause::invalidInput('Following question IDs are invalid or inaccessible: ' .
+				implode(', ', $questionsArray) . '.', 'questions'));
+		}
+		if ($lecture === null)
+		{
+			return $this->death(StringID::ChooseAtLeastOneQuestion);
+		}
+
+		if (!$this->checkGenTestPrivs($lecture->getId()))
+			return $this->death(StringID::InsufficientPrivileges);
+
+		$randomized = $this->generateTest($questions, $count);
+
+		$xtest = new \Xtest();
+		$xtest->setDescription($description);
+		$xtest->setCount($count);
+		$xtest->setLecture($lecture);
+		$xtest->setTemplate($questions);
+		$xtest->setGenerated(implode(',', $randomized));
+		Repositories::persistAndFlush($xtest);
+		/*
 
 		extract($this->getParams(array_keys($inputs)));
 
@@ -79,6 +136,7 @@ final class AddTest extends GenTestScript
 		if (!Core::sendDbRequest('addGenTest', $lectureId, $description, $questions,
 				$count, implode(',', $randomized)))
 			return $this->stopDb(false, ErrorEffect::dbAdd('test'));
+		*/
 	}
 }
 

@@ -20,8 +20,7 @@ asm.ui.form.Attachment = asm.ui.DynamicForm.extend({
 					name: {
 						label: asm.lang.attachments.name,
 						type: 'text',
-						check: ['isName', 'hasLength'],
-						checkParams: { minLength: 1 }
+						check: ['isName', 'isNotEmpty']
 					},
 					type: {
 						label: asm.lang.attachments.type,

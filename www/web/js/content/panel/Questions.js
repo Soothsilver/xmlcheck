@@ -14,7 +14,7 @@ asm.ui.panel.Questions = asm.ui.Container.extend({
 		var children = this.config.children;
 		children.genForm.bind('form.success', $.proxy(function (o) {
 			asm.ui.globals.stores.tests.expire();
-			this._triggerError(new asm.ui.Error('Test generated successfully.', asm.ui.Error.NOTICE));
+			this._triggerError(new asm.ui.Error(asm.lang.tests.testGeneratedSuccessfully, asm.ui.Error.NOTICE));
 			this.trigger('questions.showTests');
 		}, this));
 		children.editor.bind('editor.stateChange', function (o) {
@@ -22,12 +22,7 @@ asm.ui.panel.Questions = asm.ui.Container.extend({
 			children.genForm[showForm ? 'show' : 'hide']();
 		});
 		children.editor.bind('table.selectionChange', function (o) {
-			var getId = function (item) {
-					return item.id;
-				},
-				selected = $.map(o.selected, getId),
-				filtered = $.map(o.filtered, getId);
-			children.genForm.setQuestions(selected, filtered);
+			children.genForm.setQuestionCount(o.filtered.length);
 		});
 	}
 });

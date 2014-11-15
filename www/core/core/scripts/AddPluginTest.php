@@ -20,12 +20,7 @@ final class AddPluginTest extends DataScript
 			return;
 
 		$inputs = array(
-			'description' => array(
-				'hasLength' => array(
-					'min_length' => 5,
-					'max_length' => 50,
-				),
-			),
+			'description' => 'isNotEmpty',
 			'plugin' => 'isIndex',
 			'config' => null,
 		);

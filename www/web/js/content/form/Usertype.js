@@ -2,10 +2,6 @@
  * User type add/edit form.
  */
 asm.ui.form.Usertype = asm.ui.DynamicForm.extend({
-    _getLabel : function(subject)
-    {
-        return "Groupies";
-    },
 	constructor: function (config) {
 		var formStructure = { main: {
 				icon: asm.ui.globals.icons.usertype,
@@ -18,8 +14,7 @@ asm.ui.form.Usertype = asm.ui.DynamicForm.extend({
 						label: asm.lang.usertypes.name,
 						type: 'text',
 						hint: asm.lang.usertypes.nameHint,
-						check: ['isAlphaNumeric', 'hasLength', asm.ui.Macros.nameCheck('usertypes')],
-						checkParams: { minLength: 5, maxLength: 15 }
+						check: ['isAlphaNumeric', 'isNotEmpty', asm.ui.Macros.nameCheck('usertypes')]
 					}
 				}
 			}};

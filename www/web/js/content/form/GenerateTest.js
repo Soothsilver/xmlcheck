@@ -5,6 +5,11 @@
 asm.ui.form.GenerateTest = asm.ui.DynamicForm.extend({
 	constructor: function (config) {
 		var defaults = {
+			preSubmitAction : function(form, data)
+			{
+				form[3].value =  asm.ui.globals.selectedIds.join(',');
+				data.questions  =asm.ui.globals.selectedIds.join(',');
+			},
 			formStructure: { main: {
 				icon: asm.ui.globals.icons.xtest,
 				caption: asm.lang.questions.generateNewTestCaption,
@@ -12,8 +17,7 @@ asm.ui.form.GenerateTest = asm.ui.DynamicForm.extend({
 					description: {
 						label: asm.lang.questions.description,
 						type: 'text',
-						check: 'hasLength',
-						checkParams: { minLength: 5, maxLength: 50}
+						check: ['hasLength', 'isNotEmpty']
 					},
 					count: {
 						label: asm.lang.questions.numberOfQuestions,
@@ -35,24 +39,17 @@ asm.ui.form.GenerateTest = asm.ui.DynamicForm.extend({
 		};
 		this.base($.extend(true, defaults, config));
 	},
-	/**
-	 * Set questions to be used for test generation.
-	 * @tparam array questions an array of question IDs
-	 */
-	setQuestions: function (selectedIds, filteredIds) {
-		var questionsEl = this.form('getFieldByName', 'questions'),
-			countEl = this.form('getFieldByName', 'count'),
-			countOptions = [],
-			i = selectedIds.length;
-		while (i) {
-			asm.ui.ArrayUtils.remove(selectedIds[--i], filteredIds);
-		}
-		var fullCount = selectedIds.length + filteredIds.length,
-			questionStr = selectedIds.join(',') + ';' + filteredIds.join(',');
-		for (var j = Math.max(selectedIds.length, 1); j <= fullCount; ++j) {
+
+	setQuestionCount: function ( questionCount) {
+		// var questionsEl = this.form('getFieldByName', 'questions'),
+		var	countEl = this.form('getFieldByName', 'count'),
+			countOptions = [];
+
+		var fullCount = questionCount;
+
+		for (var j = 1; j <= fullCount; ++j) {
 			countOptions.push(j);
 		}
-		questionsEl.field('option', 'value', questionStr);
 		countEl.field('option', 'options', countOptions);
 	}
 });

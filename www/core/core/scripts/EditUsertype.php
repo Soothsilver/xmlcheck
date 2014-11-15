@@ -31,10 +31,7 @@ final class EditUsertype extends DataScript
 		$inputs = array_merge(array(
 			'name' => array(
 				'isAlphaNumeric',
-				'hasLength' => array(
-					'min_length' => 5,
-					'max_length' => 15,
-				),
+				'isNotEmpty'
 			),
 		), array_combine($privilegeGroups, array_pad(array(), count($privilegeGroups), array())));
 		if (!$this->isInputValid($inputs))

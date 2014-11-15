@@ -16,21 +16,18 @@ abstract class GenTestScript extends LectureScript
 
 	protected function generateTest ($template, $count)
 	{
-		list($selected, $filtered) = $this->parseQuestions($template);
-
-		for ($i = $count - count($selected); $i; --$i)
-		{
-			$items = array_splice($filtered, rand(0, count($filtered) - 1), 1);
-			array_push($selected, $items[0]);
-		}
+		$questions = explode(',', $template);
 
 		$randomized = array();
-		for ($j = count($selected); $j; --$j)
+		for ($j = count($questions); $j; --$j)
 		{
-			$items = array_splice($selected, rand(0, count($selected) - 1), 1);
+			$items = array_splice($questions, rand(0, count($questions) - 1), 1);
 			array_push($randomized, $items[0]);
+			if (count($randomized) == $count)
+			{
+				break;
+			}
 		}
-
 		return $randomized;
 	}
 }

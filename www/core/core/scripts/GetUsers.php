@@ -13,25 +13,27 @@ class GetUsers extends DataScript
 {
 	protected function body ()
 	{
+
 		if (!$this->userHasPrivs(User::usersExplore))
 			return;
 
         /**
          * @var $users \User[]
          */
-        $users = Repositories::getRepository(Repositories::User);
+        $users = Repositories::getRepository(Repositories::User)->findAll();
 
         foreach ($users as $user)
         {
             if ($user->getDeleted() == true) { continue; }
+
             $this->addRowToOutput([
                 $user->getId(),
                 $user->getName(),
                 $user->getType()->getId(),
-                $user->getType()->getPrivileges(),
+                $user->getType()->getName(),
                 $user->getRealname(),
                 $user->getEmail(),
-                $user->getLastaccess()
+                $user->getLastaccess()->format("Y-m-d H:i:s")
             ]);
         }
 	}

@@ -26,10 +26,7 @@ final class EditProblem extends DataScript
 			'lecture' => 'isIndex',
 			'name' => array(
 				'isName',
-				'hasLength' => array(
-                    'min_length' => 1,
-					'max_length' => 255,
-				),
+                'isNotEmpty'
 			),
 			'description' => array(),
 			'pluginId' => 'isIndex',

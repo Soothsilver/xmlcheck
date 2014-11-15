@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\StringID;
 use asm\db\DbLayout;
 
 /**
@@ -54,7 +55,7 @@ final class EditQuestion extends LectureScript
 			{
 				array_splice($attTmp, $index, 1);
 				if ($va[DbLayout::fieldLectureId] != $lecture)
-					return $this->stop('A question cannot have attachments belonging to a different lecture.');
+					return $this->death(StringID::AttachmentBelongsToAnotherLecture);
 			}
 		}
 		if (count($attTmp))

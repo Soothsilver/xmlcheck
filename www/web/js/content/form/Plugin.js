@@ -12,8 +12,7 @@ asm.ui.form.Plugin = asm.ui.DynamicForm.extend({
 						label: asm.lang.plugins.name,
 						type: 'text',
 						hint: asm.lang.plugins.nameHint,
-						check: ['isName', 'hasLength', asm.ui.Macros.nameCheck('plugins')],
-						checkParams: { minLength: 5, maxLength: 20 }
+						check: ['isName', 'isNotEmpty', asm.ui.Macros.nameCheck('plugins')]
 					},
 					plugin: {
 						label: asm.lang.plugins.file,

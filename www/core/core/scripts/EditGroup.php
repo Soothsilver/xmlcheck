@@ -23,9 +23,7 @@ final class EditGroup extends DataScript
             'lecture' => 'isIndex',
             'name' => array(
                 'isName',
-                'hasLength' => array(
-                    'min_length' => 1
-                ),
+                'isNotEmpty',
             ),
             'description' => array()
         );

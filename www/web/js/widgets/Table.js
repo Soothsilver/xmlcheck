@@ -1383,9 +1383,33 @@ $.widget('ui.table', {
                     actionCell.setAttribute('title', actionConfig.label);
                     var innerDiv = document.createElement('div');
                     innerDiv.setAttribute('class', 'ui-table-button-wrapper');
-                    var innerSpan = document.createElement('span');
-                    innerSpan.setAttribute('class', 'ui-button-icon-primary ui-icon ' + actionConfig.icon);
-                    innerDiv.appendChild(innerSpan);
+
+					if (actionConfig.hasOwnProperty('isToggleButton'))
+					{
+						var checkmark = document.createElement('span');
+						checkmark.setAttribute('class', 'ui-button-icon-primary ui-icon ui-icon-circle-check');
+						innerDiv.appendChild(checkmark);
+						actionCell.addEventListener('click', function(e) {
+							var row = $(e.target).closest('tr')[0];
+							if (row.getAttribute('data-selected') === 'true')
+							{
+								row.setAttribute('data-selected', 'false');
+								row.setAttribute('class', '');
+							}
+							else
+							{
+								row.setAttribute('data-selected', 'true');
+								row.setAttribute('class', 'question-row-selected');
+							}
+						});
+					}
+					else
+					{
+						var innerSpan = document.createElement('span');
+						innerSpan.setAttribute('class', 'ui-button-icon-primary ui-icon ' + actionConfig.icon);
+						innerDiv.appendChild(innerSpan);
+					}
+
                     actionCell.appendChild(innerDiv);
                     actionCell.addEventListener('mouseenter', function (e) {
                         $(e.target).closest('td').addClass('ui-state-hover');
@@ -1401,6 +1425,7 @@ $.widget('ui.table', {
                         $(e.target).closest('td').removeClass('ui-state-active');
                         $(e.target).closest('td').removeClass('ui-state-hover');
                     });
+
                     actionCell.addEventListener('click', this._createActionFunction(actionConfig.action,  data[rowIndex][keyColumn], data[rowIndex] ));
                     row.appendChild(actionCell);
                 }

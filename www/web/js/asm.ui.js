@@ -47,6 +47,7 @@ asm.ui.globals = {
 		'delete': 'trash',
 		downloadInput: 'circle-arrow-n',
 		downloadOutput: 'circle-arrow-s',
+		check: 'circle-check',
 		edit: 'pencil',
 		group: 'link',
 		lecture: 'bookmark',
@@ -152,5 +153,6 @@ asm.ui.globals = {
 			version: /^9./,
 			link: 'http://www.beautyoftheweb.com/'
 		}
-	}
+	},
+	selectedIds: [] // array of selected questions for test generation
 };

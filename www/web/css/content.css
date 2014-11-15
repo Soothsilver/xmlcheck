@@ -89,3 +89,6 @@ a.compositeLink.outLink {
 a.compositeLink.outLink:hover {
     text-decoration: underline;
 }
+.question-row-selected {
+	background-color: #ffff00;
+}

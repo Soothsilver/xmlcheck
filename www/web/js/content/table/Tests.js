@@ -21,7 +21,7 @@ asm.ui.table.Tests = asm.ui.DynamicTable.extend({
 					label: asm.lang.tests.printTest
 				}, {
 					callback: $.proxy(function () {
-						this._triggerError(new asm.ui.Error('Test generated successfully.', asm.ui.Error.NOTICE));
+						this._triggerError(new asm.ui.Error(asm.lang.tests.testGeneratedSuccessfully, asm.ui.Error.NOTICE));
 					}, this),
 					icon: 'ui-icon-' + asm.ui.globals.icons.xtestGenerate,
 					label: asm.lang.tests.regenerateTest,

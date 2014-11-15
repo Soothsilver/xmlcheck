@@ -21,10 +21,7 @@ final class AddPlugin extends DataScript
 		$inputs = array(
 			'name' => array(
 				'isName',
-				'hasLength' => array(
-					'min_length' => 5,
-					'max_length' => 20,
-				),
+				'isNotEmpty'
 			),
 		);
 		if (!$this->isInputValid($inputs))

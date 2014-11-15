@@ -13,19 +13,19 @@ asm.ui.table.Lectures = asm.ui.DynamicTable.extend({
 					}, this)
 				}, {
 					icon: 'ui-icon-' + asm.ui.globals.icons.question,
-					label: 'show questions for this lecture',
+					label: asm.lang.lectures.showQuestions,
 					action: $.proxy(function (id) {
 						this.trigger('lectures.showQuestions', { lectureId: id });
 					}, this)
 				}, {
 					icon: 'ui-icon-' + asm.ui.globals.icons.attachment,
-					label: 'show attachments for this lecture',
+					label: asm.lang.lectures.showAttachments,
 					action: $.proxy(function (id) {
 						this.trigger('lectures.showAttachments', { lectureId: id });
 					}, this)
 				}, {
 					icon: 'ui-icon-' + asm.ui.globals.icons.xtest,
-					label: 'show tests for this lecture',
+					label: asm.lang.lectures.showTests,
 					action: $.proxy(function (id) {
 						this.trigger('lectures.showTests', { lectureId: id });
 					}, this)

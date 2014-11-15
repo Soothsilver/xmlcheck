@@ -160,11 +160,11 @@ asm.otherlangs.cs = {
         newPassword : 'Nové heslo',
         retypeNewPassword : 'Nové heslo (znovu)',
         nameHint : 'křestní jméno a příjmení oddělené mezerou',
-        passwordHint : 'ponechat prázdné pro zachování starého hesla; 6 až 20 znaků',
+        passwordHint : 'ponechat prázdné pro zachování starého hesla; alespoň ' + asm.ui.constants.passwordMinLength + ' znaků.',
         retypeHint : 'musí být stejné jako heslo výše',
         submit : 'Potvrdit změny',
-        tooFewCharactersError : 'Heslo musí mít alespoň 6 znaků.',
-        tooManyCharactersError : 'Heslo nesmí mít více než 20 znaků.',
+        tooFewCharactersError : 'Heslo musí mít alespoň ' + asm.ui.constants.passwordMinLength  + ' znaků.',
+        tooManyCharactersError : 'Heslo nesmí mít více než ' + asm.ui.constants.passwordMaxLength + ' znaků.',
         retypeError : 'Hesla si neodpovídají.'
     },
 
@@ -391,18 +391,18 @@ asm.otherlangs.cs = {
         lastLogin: "Poslední přihlášení",
         editCaption : 'Přidat nebo upravit uživatele',
         username : "Uživatelské jméno",
-        usernameHint : "jedinečné, alfanumerické, 5 až 15 znaků",
+        usernameHint : "jedinečné, alfanumerické, " + asm.ui.constants.usernameMinLength + ' až ' + asm.ui.constants.usernameMaxLength + " znaků",
         type : "Typ",
         typeHint : "určuje práva uživatele",
         realName : "Celé jméno",
         realNameHint : 'křestní jméno a příjmení oddělená mezerou',
         email : "Email",
         password : "Heslo",
-        passwordHint : 'nechat prázdné pro zachování stávajícího hesla; 6 až 20 znaků',
+        passwordHint : 'nechat prázdné pro zachování stávajícího hesla; alespoň ' + asm.ui.constants.passwordMinLength +" znaků",
         retypePassword : "Heslo (znovu)",
         retypePasswordHint: 'musí se shodovat s heslem výše',
-        passwordTooShort : "Heslo musí mít alespoň 6 znaků..",
-        passwordTooLong :"Heslo nesmí mít více než 20 znaků",
+        passwordTooShort : 'Heslo musí mít alespoň ' + asm.ui.constants.passwordMinLength  + ' znaků.',
+        passwordTooLong : 'Heslo nesmí mít více než ' + asm.ui.constants.passwordMaxLength + ' znaků.',
         passwordRetypeError : 'Hesla se neshodují.'
     },
     userRatings : {
@@ -509,5 +509,11 @@ asm.otherlangs.cs = {
         createNewTest : "vytvořit nový test",
         printTest : "vytisknout test",
         regenerateTest : "vygenerovat test znovu"
+    },
+    otherAdministration: {
+        reloadManifestsCaption : "Akce: Obnovení z manifestů",
+        reloadManifestsButton : "Znovu načíst popisy pluginů z manifestů",
+        reloadManifestsLabel: "O akci",
+        reloadManifestsDescription: "Informace o pluginech se načítá ze souboru manifestu, když je plugin poprvé nahrán do systému. Pak, i když se soubor manifestu změní, v databázi (a tedy i v uživatelském rozhraní) zůstává popis starý. Použijte tuto akci pro znovunačtení popisů pluginů z manifestů do databáze."
     }
 };

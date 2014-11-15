@@ -42,7 +42,6 @@ class Config
      * @param string $section section name
      * @param string $property property to get, or null to get all properties
      * @throws Exception when Config::init was not called before
-     * @internal param mixed $name property key (string) or null
      * @return mixed property value (if @c $name is not null) or array with all
      *        properties from @c $section
      */

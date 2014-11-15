@@ -284,8 +284,10 @@ span.attachment {
 					  '</pre>';
 				break;
 			case 'image':
-				echo '<img class="attachment" src="./', '?action=DownloadAttachment&id=',
+				$httpRoot = Config::getHttpRoot();
+				echo '<img class="attachment" src="', $httpRoot, '/core/request.php', '?action=DownloadAttachment&id=',
 						$data['id'], '"/>';
+
 				break;
 			default:
 				echo '<span class="attachment">',

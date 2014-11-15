@@ -5,6 +5,25 @@ asm.ui.table.Questions = asm.ui.DynamicTable.extend({
 	constructor: function (config) {
 		var defaults = {
 			icon: asm.ui.globals.icons.question,
+			actions : {
+				raw: [
+					{
+						icon: 'ui-icon-' + asm.ui.globals.icons.xtest,
+						label: asm.lang.questions.check,
+						isToggleButton: true,
+						action: $.proxy(function(id)
+						{
+							if (asm.ui.ArrayUtils.inArray(id, asm.ui.globals.selectedIds))
+							{
+								asm.ui.ArrayUtils.remove(id,  asm.ui.globals.selectedIds);
+							}
+							else {
+								asm.ui.globals.selectedIds.push(id);
+							}
+						}, this)
+					}
+				]
+			},
 			structure: {
 				id: { key: true, hidden: true, comparable: true },
 				text: { label: asm.lang.questions.text, string: true, comparable: true },

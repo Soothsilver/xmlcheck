@@ -20,8 +20,7 @@ asm.ui.form.Problem = asm.ui.DynamicForm.extend({
 					name: {
 						label: asm.lang.problems.problemName,
 						type: 'text',
-						check: ['isName', 'hasLength', asm.ui.Macros.nameCheck('problems')],
-						checkParams: { minLength: 5, maxLength: 50 }
+						check: ['isName', 'isNotEmpty', asm.ui.Macros.nameCheck('problems')]
 					},
 					description: {
 						label: asm.lang.problems.description,

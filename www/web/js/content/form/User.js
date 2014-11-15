@@ -16,7 +16,7 @@ asm.ui.form.User = asm.ui.DynamicForm.extend({
 						type: 'text',
 						hint: asm.lang.users.usernameHint,
 						check: ['isAlphaNumeric', 'hasLength', asm.ui.Macros.nameCheck('users')],
-						checkParams: { minLength: 5, maxLength: 15 }
+						checkParams: { minLength: asm.ui.constants.usernameMinLength, maxLength: asm.ui.constants.usernameMaxLength }
 					},
 					type: {
 						label: asm.lang.users.type,
@@ -41,8 +41,8 @@ asm.ui.form.User = asm.ui.DynamicForm.extend({
                         hint: asm.lang.users.passwordHint,
                         check: function(value, field) {
                             if (value.length == 0) { return false; }
-                            if (value.length < 6) { return asm.lang.users.passwordTooShort; }
-                            if (value.length > 20) { return asm.lang.users.passwordTooLong; }
+                            if (value.length < asm.ui.constants.passwordMinLength) { return asm.lang.users.passwordTooShort; }
+                            if (value.length > asm.ui.constants.passwordMaxLength) { return asm.lang.users.passwordTooLong; }
                             return false;
                         }
 					},

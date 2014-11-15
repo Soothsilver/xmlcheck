@@ -158,10 +158,10 @@ asm.lang = {
         newPassword : 'New password',
         retypeNewPassword : 'Retype password',
         nameHint : 'first name and surname separated by space',
-        passwordHint : 'leave blank to leave password unchanged; 6 to 20 characters',
+        passwordHint : 'leave blank to leave password unchanged; at least ' + asm.ui.constants.passwordMinLength + ' characters',
         retypeHint : 'must match the password above',
-        tooFewCharactersError : 'Password must have at least 6 characters.',
-        tooManyCharactersError : 'Password must have at most 20 characters.',
+        tooFewCharactersError : 'Password must have at least ' + asm.ui.constants.passwordMinLength + ' characters.',
+        tooManyCharactersError : 'Password must have at most ' + asm.ui.constants.passwordMaxLength + ' characters.',
         retypeError : 'Password retyped incorrectly.'
     },
 
@@ -282,10 +282,14 @@ asm.lang = {
         caption : "Lectures",
         name : "Name",
         description : "Description",
-        showProblems : "Show problems for this lecture",
+        showProblems : "show problems associated with this lecture",
+        showQuestions : "show questions associated with this lecture",
+        showAttachments : "show attachments associated with this lecture",
+        showTests : "show tests associated with this lecture",
         editCaption : "Add/Edit Lecture",
         lectureName : "Lecture name",
         lectureNameHint : "unique lecture name"
+
     },
     subscriptions : {
         group : 'Group',
@@ -350,18 +354,18 @@ asm.lang = {
         lastLogin: "Last Login",
         editCaption : 'Add/Edit User',
         username : "Username",
-        usernameHint : "unique, alphanumeric, 5 to 15 characters",
+        usernameHint : "unique, alphanumeric, " + asm.ui.constants.usernameMinLength + " to " + asm.ui.constants.usernameMaxLength + " characters",
         type : "Privileges",
         typeHint : "determines user's privileges",
         realName : "Full name",
         realNameHint : 'user\'s first name and surname separated by space',
         email : "E-mail",
         password : "Password",
-        passwordHint : 'leave blank to leave password unchanged; 6 to 20 characters',
+        passwordHint : 'leave blank to leave password unchanged; at least ' + asm.ui.constants.passwordMinLength + ' characters',
         retypePassword : "Retype password",
         retypePasswordHint: 'must match the password above',
-        passwordTooShort : "Password must have at least 6 characters.",
-        passwordTooLong :"Password must have at most 20 characters.",
+        passwordTooShort : 'Password must have at least ' + asm.ui.constants.passwordMinLength + ' characters.',
+        passwordTooLong : 'Password must have at most ' + asm.ui.constants.passwordMaxLength + ' characters.',
         passwordRetypeError : 'Password retyped incorrectly.'
     },
     userRatings : {
@@ -470,6 +474,7 @@ asm.lang = {
         nameHint : "enter unique usertype name"
     },
     questions : {
+        check : "Click this button to add or remove this question from the test you will generate. Questions highlighted in yellow will be in the test.",
         caption : "Questions",
         text : "Question Text",
         type : "Type",
@@ -507,11 +512,13 @@ asm.lang = {
         lecture : "Lecture",
         createNewTest : "create new test",
         printTest : "print test",
-        regenerateTest : "generate test again"
+        regenerateTest : "generate test again",
+        testGeneratedSuccessfully : "Test generated successfully."
     },
     otherAdministration: {
-        caption : "Other Administration Tasks",
-        firstParagraphLabel: "Information",
-        firstParagraphText: "Information about plugins is loaded from the manifest file at the time the plugin is first uploaded to the system. Then, even if the manifest file is modified, the database (and therefore, the user interface) does not reflect this. Use the following button to reload plugin descriptions from the manifest files into the database."
+        reloadManifestsCaption : "Task: Reload Manifests",
+        reloadManifestsButton : "Reload Plugin Descriptions From Manifests",
+        reloadManifestsLabel: "About Task",
+        reloadManifestsDescription: "Information about plugins is loaded from the manifest file at the time the plugin is first uploaded to the system. Then, even if the manifest file is modified, the database (and therefore, the user interface) does not reflect this. Use this action to reload plugin descriptions from the manifest files into the database."
     }
 };

@@ -11,8 +11,7 @@ asm.ui.form.PluginTest = asm.ui.DynamicForm.extend({
 					description: {
 						label: asm.lang.pluginTests.description,
 						type: 'text',
-						check: 'hasLength',
-						checkParams: { minLength: 5, maxLength: 50}
+						check: 'isNotEmpty'
 					},
 					plugin: {
 						label: asm.lang.pluginTests.plugin,

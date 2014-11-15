@@ -37,11 +37,11 @@ asm.ui.form.UserAccount = asm.ui.DynamicForm.extend({
 						type: 'password',
 						hint: asm.lang.accountSettings.passwordHint,
 						check: function(value, field) {
-                          if (value.length == 0) { return false; }
-                          if (value.length < 6) { return asm.lang.accountSettings.tooFewCharactersError; }
-                          if (value.length > 20) { return asm.lang.accountSettings.tooManyCharactersError; }
-                          return false;
-                        }
+							if (value.length == 0) { return false; }
+							if (value.length < asm.ui.constants.passwordMinLength) { return asm.lang.accountSettings.tooFewCharactersError;}
+							if (value.length > asm.ui.constants.passwordMaxLength) { return asm.lang.accountSettings.tooManyCharactersError }
+							return false;
+						}
 					},
 					repass: {
 						label: asm.lang.accountSettings.retypeNewPassword,

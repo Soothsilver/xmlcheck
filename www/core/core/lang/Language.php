@@ -24,6 +24,16 @@ abstract class StringID
     const YouCannotRemoveYourself = 15;
     const CannotRemoveBasicStudentType = 16;
     const CannotDeleteGradedSubmissions = 17;
+
+    const ReloadManifests_InvalidFolder = 18;
+    const ReloadManifests_MalformedXmlOrFileMissing = 19;
+    const ReloadManifests_DescriptionMismatch = 20;
+    const ReloadManifests_ArgumentsMismatch = 21;
+    const ReloadManifests_DatabaseCorrespondsToManifests = 22;
+
+    const TestCannotContainQuestionsOfDifferentLectures = 23;
+    const ChooseAtLeastOneQuestion = 24;
+    const AttachmentBelongsToAnotherLecture = 25;
 }
 
 class Language {
@@ -65,6 +75,16 @@ class Language {
             case StringID::YouCannotRemoveYourself: return "Nemůžete odstranit sami sebe.";
             case StringID::CannotRemoveBasicStudentType: return "Druh uživatele 'STUDENT' (ID 1) nelze odstranit, protože tento typ je automaticky přiřazován nově registrovaným uživatelům.";
             case StringID::CannotDeleteGradedSubmissions: return "Není možné smazat již oznámkované řešení.";
+
+            case StringID::ReloadManifests_InvalidFolder: return "V databázi nemá plugin správně vyplněnou položku mainfile a pravděpodobně nebude fungovat. Teď nic nebylo změněno.";
+            case StringID::ReloadManifests_MalformedXmlOrFileMissing: return "XML manifest není správně zformovaný nebo neexistuje. Teď nic nebylo změněno.";
+            case StringID::ReloadManifests_DescriptionMismatch: return "Popisy se neshodovaly. Popis v databázi byl aktualizován.";
+            case StringID::ReloadManifests_ArgumentsMismatch: return "Popisy argumentů pluginu se neshodovaly. Popisy v databázi byly aktualizovány.";
+            case StringID::ReloadManifests_DatabaseCorrespondsToManifests: return "Popisy všech pluginů v databázi se již shodovaly s popisy v manifestech.";
+
+            case StringID::TestCannotContainQuestionsOfDifferentLectures: return "Test nemůže obsahovat otázky z několika různých přednášek.";
+            case StringID::ChooseAtLeastOneQuestion: return "Je třeba vybrat alespoň jednu otázku.";
+            case StringID::AttachmentBelongsToAnotherLecture: return "Pro otázku můžete vybírat pouze přílohy, které patří ke stejné přednášce.";
         }
         return "TRANSLATION MISSING(" . self::getEnglish($textId) . ")";
     }
@@ -93,6 +113,17 @@ class Language {
             case StringID::YouCannotRemoveYourself: return "You cannot remove yourself.";
             case StringID::CannotRemoveBasicStudentType: return "User type 'STUDENT' (ID 1) cannot be removed, because this type is automatically assigned to newly registered users.";
             case StringID::CannotDeleteGradedSubmissions: return "It is not permitted to delete a graded submission.";
+
+
+            case StringID::ReloadManifests_InvalidFolder: return "In the database, this plugin does not have a correctly filled mainfile entry and will probably not work. Nothing was changed now.";
+            case StringID::ReloadManifests_MalformedXmlOrFileMissing: return "The manifest XML file is missing or malformed. Nothing was changed now.";
+            case StringID::ReloadManifests_DescriptionMismatch: return "Descriptions did not match. Database description amended.";
+            case StringID::ReloadManifests_ArgumentsMismatch: return "Argument descriptions did not match. Database argument descriptions amended.";
+            case StringID::ReloadManifests_DatabaseCorrespondsToManifests: return "All plugin descriptions in the database already matched the plugin descriptions in the manifests.";
+
+            case StringID::TestCannotContainQuestionsOfDifferentLectures: return "A test cannot contain questions from two different lectures.";
+            case StringID::ChooseAtLeastOneQuestion: return "At least one question must be chosen.";
+            case StringID::AttachmentBelongsToAnotherLecture: return "One of the attachments to this question are associated with another lecture.";
         }
         throw new \Exception("This string (" . $textId . ") does not exist.");
     }
