@@ -1,7 +1,7 @@
 <?php
 
 namespace asm\plugin;
-use InvalidArgumentException, DOMDocument, SimpleXMLElement, asm\utils\Flags;
+use InvalidArgumentException, DOMDocument, SimpleXMLElement;
 
 /**
  * Base for tests for XML input checking.
@@ -10,21 +10,24 @@ use InvalidArgumentException, DOMDocument, SimpleXMLElement, asm\utils\Flags;
  */
 abstract class XmlTest extends Test
 {
-	/**
-	 * Loads and parses XML file to get XML DOM.
-	 * @param string $xmlFile XML file path
-	 * @param[out] DOMDocument $xmlDom XML DOM (in case of success)
-	 * @param[out] string $error error message (in case of failure)
-	 * @return bool true if loading and parsing was successful
-	 */
-	protected function loadXml ($xmlFile, $performDTDvalidation, &$xmlDom, &$error)
+    /**
+     * Loads and parses XML file to get XML DOM.
+     * @param string $xmlFile XML file path
+     * @param $performDtdValidation
+     * @param $xmlDom
+     * @param $error
+     * @internal param $ [out] DOMDocument $xmlDom XML DOM (in case of success)
+     * @internal param $ [out] string $error error message (in case of failure)
+     * @return bool true if loading and parsing was successful
+     */
+	protected function loadXml ($xmlFile, $performDtdValidation, &$xmlDom, &$error)
 	{
 		$this->useLibxmlErrors();
 		$xmlDom = new DOMDocument();
 		$xmlDom->preserveWhiteSpace = false;
 		$xmlDom->formatOutput = true;
         // libxml_use_internal_errors(false);
-		if (!$xmlDom->load($xmlFile, LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_NOENT | ($performDTDvalidation ? LIBXML_DTDVALID : 0)))
+		if (!$xmlDom->load($xmlFile, LIBXML_DTDLOAD | LIBXML_DTDATTR | LIBXML_NOENT | ($performDtdValidation ? LIBXML_DTDVALID : 0)))
         {
           $errors = libxml_get_errors();
           foreach ($errors as $libxmlError)
@@ -45,7 +48,7 @@ abstract class XmlTest extends Test
 		if ($errors)
 		{
 			$basename = basename($xmlFile);
-            $allerrors = "";
+            $allErrors = "";
             foreach($errors as $error)
             {
                 /**
@@ -58,9 +61,9 @@ abstract class XmlTest extends Test
                 {
                     $libxmlMessage .= ". This is only a warning and not an error. This does not make your document ill-formed or invalid. However, you must avoid warnings in this assignment.";
                 }
-                $allerrors .= $libxmlMessage . "\n";
+                $allErrors .= $libxmlMessage . "\n";
             }
-			$error = "The file in '$basename' is not valid XML (errors triggered: " . count($errors) . "):\n" . $allerrors;
+			$error = "The file in '$basename' is not valid XML (errors triggered: " . count($errors) . "):\n" . $allErrors;
 			return false;
 		}
 		return true;
@@ -151,16 +154,16 @@ abstract class XmlTest extends Test
 			$config = array_merge($config, array('extras' => array('xpath')));
 		}
 		
-		$reqs = new CountedRequirements($config);
-		foreach ($reqs->getNames() as $name)
+		$requirements = new CountedRequirements($config);
+		foreach ($requirements->getNames() as $name)
 		{
-			$results = $sourceXML->xpath($reqs->getExtra('xpath', $name));
+			$results = $sourceXML->xpath($requirements->getExtra('xpath', $name));
 			if ($results)
 			{
-				$reqs->addOccurences($name, count($results));
+				$requirements->addOccurrences($name, count($results));
 			}
 		}
-		return $this->resolveCountedRequirements($reqs, $goalId);
+		return $this->resolveCountedRequirements($requirements, $goalId);
 	}
 
 	/**
@@ -176,32 +179,16 @@ abstract class XmlTest extends Test
 
 	/**
 	 * Gets stores libxml errors and turns off special libxml error handling.
-	 * @param int $dropLevels there error levels will be dropped
 	 * @return array errors caught since special libxml error handling was turned on
 	 * @see useLibxmlErrors()
 	 * @see reachGoalOnNoLibxmlErrors()
 	 */
-	protected function getLibxmlErrors ($dropLevels = 0)
+	protected function getLibxmlErrors ()
 	{
-        // Drop nothing.
         $errors = libxml_get_errors();
         libxml_clear_errors();
         libxml_use_internal_errors();
         return $errors;
-
-		$errors = libxml_get_errors();
-		libxml_clear_errors();
-		libxml_use_internal_errors();
-
-		foreach ($errors as $i => $error)
-		{
-			if (Flags::match($error->level, $dropLevels))
-			{
-				array_splice($errors, $i, 1);
-			}
-		}
-		
-		return $errors;
 	}
 
 	/**

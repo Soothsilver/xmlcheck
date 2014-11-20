@@ -47,7 +47,7 @@ class User
      *
      * @ORM\Column(name="realName", type="string", length=30, nullable=false)
      */
-    private $realname;
+    private $realName;
 
     /**
      * @var string
@@ -61,35 +61,35 @@ class User
      *
      * @ORM\Column(name="lastAccess", type="datetime", nullable=false)
      */
-    private $lastaccess;
+    private $lastAccess;
 
     /**
      * @var string
      *
      * @ORM\Column(name="activationCode", type="string", length=32, nullable=false)
      */
-    private $activationcode;
+    private $activationCode;
 
     /**
      * @var string
      *
      * @ORM\Column(name="encryptionType", type="string", length=255, nullable=false)
      */
-    private $encryptiontype = 'md5';
+    private $encryptionType = 'md5';
 
     /**
      * @var string
      *
      * @ORM\Column(name="resetLink", type="string", length=255, nullable=true)
      */
-    private $resetlink;
+    private $resetLink;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="resetLinkExpiry", type="datetime", nullable=true)
      */
-    private $resetlinkexpiry;
+    private $resetLinkExpiry;
     /**
      * @var boolean
      *
@@ -148,7 +148,7 @@ class User
      * Set name
      *
      * @param string $name
-     * @return Users
+     * @return User
      */
     public function setName($name)
     {
@@ -173,7 +173,7 @@ class User
      * Set pass
      *
      * @param string $pass
-     * @return Users
+     * @return User
      */
     public function setPass($pass)
     {
@@ -193,33 +193,33 @@ class User
     }
 
     /**
-     * Set realname
+     * Set realName
      *
-     * @param string $realname
-     * @return Users
+     * @param string $realName
+     * @return User
      */
-    public function setRealname($realname)
+    public function setRealName($realName)
     {
-        $this->realname = $realname;
+        $this->realName = $realName;
 
         return $this;
     }
 
     /**
-     * Get realname
+     * Get realName
      *
      * @return string 
      */
-    public function getRealname()
+    public function getRealName()
     {
-        return $this->realname;
+        return $this->realName;
     }
 
     /**
      * Set email
      *
      * @param string $email
-     * @return Users
+     * @return User
      */
     public function setEmail($email)
     {
@@ -239,118 +239,118 @@ class User
     }
 
     /**
-     * Set lastaccess
+     * Set lastAccess
      *
-     * @param \DateTime $lastaccess
-     * @return Users
+     * @param \DateTime $lastAccess
+     * @return User
      */
-    public function setLastaccess($lastaccess)
+    public function setLastAccess($lastAccess)
     {
-        $this->lastaccess = $lastaccess;
+        $this->lastAccess = $lastAccess;
 
         return $this;
     }
 
     /**
-     * Get lastaccess
+     * Get lastAccess
      *
      * @return \DateTime 
      */
-    public function getLastaccess()
+    public function getLastAccess()
     {
-        return $this->lastaccess;
+        return $this->lastAccess;
     }
 
     /**
-     * Set activationcode
+     * Set activationCode
      *
-     * @param string $activationcode
-     * @return Users
+     * @param string $activationCode
+     * @return User
      */
-    public function setActivationcode($activationcode)
+    public function setActivationCode($activationCode)
     {
-        $this->activationcode = $activationcode;
+        $this->activationCode = $activationCode;
 
         return $this;
     }
 
     /**
-     * Get activationcode
+     * Get activationCode
      *
      * @return string 
      */
-    public function getActivationcode()
+    public function getActivationCode()
     {
-        return $this->activationcode;
+        return $this->activationCode;
     }
 
     /**
-     * Set encryptiontype
+     * Set encryptionType
      *
-     * @param string $encryptiontype
-     * @return Users
+     * @param string $encryptionType
+     * @return User
      */
-    public function setEncryptiontype($encryptiontype)
+    public function setEncryptionType($encryptionType)
     {
-        $this->encryptiontype = $encryptiontype;
+        $this->encryptionType = $encryptionType;
 
         return $this;
     }
 
     /**
-     * Get encryptiontype
+     * Get encryptionType
      *
      * @return string 
      */
-    public function getEncryptiontype()
+    public function getEncryptionType()
     {
-        return $this->encryptiontype;
+        return $this->encryptionType;
     }
 
     /**
-     * Set resetlink
+     * Set resetLink
      *
-     * @param string $resetlink
-     * @return Users
+     * @param string $resetLink
+     * @return User
      */
-    public function setResetlink($resetlink)
+    public function setResetLink($resetLink)
     {
-        $this->resetlink = $resetlink;
+        $this->resetLink = $resetLink;
 
         return $this;
     }
 
     /**
-     * Get resetlink
+     * Get resetLink
      *
      * @return string 
      */
-    public function getResetlink()
+    public function getResetLink()
     {
-        return $this->resetlink;
+        return $this->resetLink;
     }
 
     /**
-     * Set resetlinkexpiry
+     * Set resetLinkExpiry
      *
-     * @param \DateTime $resetlinkexpiry
-     * @return Users
+     * @param \DateTime $resetLinkExpiry
+     * @return User
      */
-    public function setResetlinkexpiry($resetlinkexpiry)
+    public function setResetLinkExpiry($resetLinkExpiry)
     {
-        $this->resetlinkexpiry = $resetlinkexpiry;
+        $this->resetLinkExpiry = $resetLinkExpiry;
 
         return $this;
     }
 
     /**
-     * Get resetlinkexpiry
+     * Get resetLinkExpiry
      *
      * @return \DateTime 
      */
-    public function getResetlinkexpiry()
+    public function getResetLinkExpiry()
     {
-        return $this->resetlinkexpiry;
+        return $this->resetLinkExpiry;
     }
 
     /**
@@ -475,7 +475,7 @@ class User
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
         $this->lectures = new \Doctrine\Common\Collections\ArrayCollection();
         $this->submissions = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->lastaccess = new DateTime();
+        $this->lastAccess = new DateTime();
     }
 
     /**
@@ -514,12 +514,12 @@ class User
     /**
      * Add lecture
      *
-     * @param \Lecture $lectures
+     * @param Lecture $lecture
      * @return User
      */
     public function addLecture(\Lecture $lecture)
     {
-        $this->lectures[] = $lectures;
+        $this->lectures[] = $lecture;
 
         return $this;
     }

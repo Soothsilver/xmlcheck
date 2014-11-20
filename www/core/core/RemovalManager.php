@@ -19,7 +19,7 @@ class RemovalManager
         $user->setSendEmailOnNewAssignment(0);
         $user->setSendEmailOnNewSubmission(0);
         $user->setSendEmailOnSubmissionRated(0);
-        $user->setResetlink("");
+        $user->setResetLink("");
         Repositories::persist($user);
         foreach($user->getGroups() as $group)
         {

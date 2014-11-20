@@ -55,7 +55,7 @@ final class GetTeacherSubmissions extends DataScript
                 $submission->getAssignment()->getReward(),
                 $submission->getAssignment()->getDeadline()->format("Y-m-d H:i:s"),
                 ($canViewAuthors ? $submission->getUser()->getId() : 0),
-                ($canViewAuthors ? $submission->getUser()->getRealname(): Language::get(StringID::NotAuthorizedForName)),
+                ($canViewAuthors ? $submission->getUser()->getRealName(): Language::get(StringID::NotAuthorizedForName)),
                 ($submission->getOutputfile() != ''),
                 $submission->getAssignment()->getId()
             ];

@@ -44,7 +44,7 @@ abstract class Test
 	 * @return array associative array containing following members:
 	 * @arg @a name test name
 	 * @arg @a results array with test results (goals)
-	 * @arg @a errors array with errors that occured during test execution
+	 * @arg @a errors array with errors that occurred during test execution
 	 * @see main()
 	 */
 	public final function run ($paths, $params = array())
@@ -231,9 +231,15 @@ abstract class Test
 	 * @param string $errfile file in which error was triggered
 	 * @param int $errline line on which error was triggered
 	 */
-	public function triggeredErrorHandler ($errno, $errstr, $errfile = null, $errline = null)
+	public function triggeredErrorHandler (
+		/** @noinspection PhpUnusedParameterInspection */
+		$errno,
+		$errstr,
+		$errfile = null,
+		$errline = null)
 	{
-		//$errstr = preg_replace("/^.+:\s*/", "", $errstr);
+		// $errno is not used currently and is discarded.
+		// It does not provide any useful information anyway.
 		$this->triggeredErrors[] = array(
 			'error' => $errstr,
 			'file' => $errfile,
@@ -243,7 +249,7 @@ abstract class Test
 
 	/**
 	 * Starts error-based test section.
-	 * Inside such section of code all catchable errors are supressed and stored
+	 * Inside such section of code all catchable errors are suppressed and stored
 	 * to be available for retrieval later. This is useful when you with to use
 	 * errors triggered by PHP functions as failure info.
 	 * @see reachGoalErrorBased()
@@ -347,7 +353,7 @@ abstract class Test
     }
 
 	/**
-	 * Mark goal as reached/failed based on CountedRequirements intance.
+	 * Mark goal as reached/failed based on CountedRequirements instance.
 	 * @param CountedRequirements $requirements requirements for goal to be reached
 	 * @param string $goalId goal ID
 	 * @param string $failString failure info template (must contain placeholders
@@ -358,9 +364,9 @@ abstract class Test
 	protected final function resolveCountedRequirements (CountedRequirements $requirements,
 		$goalId, $failString = 'Documents contain %d %s (minimum of %d required)')
 	{
-		if (!$requirements->resolve($description, $occured, $required))
+		if (!$requirements->resolve($description, $occurred, $required))
 		{
-			return $this->failGoal($goalId, sprintf($failString, $occured, $description, $required));
+			return $this->failGoal($goalId, sprintf($failString, $occurred, $description, $required));
 		}
 		return $this->reachGoal($goalId);
 	}

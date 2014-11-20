@@ -42,13 +42,6 @@ class Lecture
     private $description;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="ownerId", type="integer", nullable=false)
-     */
-    private $ownerid;
-
-    /**
      * @var boolean
      * @ORM\Column(name="deleted", type="boolean")
      */
@@ -97,7 +90,7 @@ class Lecture
      * Set name
      *
      * @param string $name
-     * @return Lectures
+     * @return Lecture
      */
     public function setName($name)
     {
@@ -120,7 +113,7 @@ class Lecture
      * Set description
      *
      * @param string $description
-     * @return Lectures
+     * @return Lecture
      */
     public function setDescription($description)
     {
@@ -139,28 +132,6 @@ class Lecture
         return $this->description;
     }
 
-    /**
-     * Set ownerid
-     *
-     * @param integer $ownerid
-     * @return Lectures
-     */
-    public function setOwnerid($ownerid)
-    {
-        $this->ownerid = $ownerid;
-
-        return $this;
-    }
-
-    /**
-     * Get ownerid
-     *
-     * @return integer 
-     */
-    public function getOwnerid()
-    {
-        return $this->ownerid;
-    }
 
     /**
      * Set owner
@@ -268,6 +239,7 @@ class Lecture
      */
     public function removeGroup(\Group $groups)
     {
+        /** @noinspection PhpUndefinedMethodInspection */
         $this->groups->removeElement($groups);
     }
 
@@ -301,6 +273,7 @@ class Lecture
      */
     public function removeAttachment(\Attachment $attachments)
     {
+        /** @noinspection PhpUndefinedMethodInspection */
         $this->attachments->removeElement($attachments);
     }
 
@@ -334,6 +307,7 @@ class Lecture
      */
     public function removeQuestion(\Question $questions)
     {
+        /** @noinspection PhpUndefinedMethodInspection */
         $this->questions->removeElement($questions);
     }
 
@@ -367,6 +341,7 @@ class Lecture
      */
     public function removeXtest(\Xtest $xtests)
     {
+        /** @noinspection PhpUndefinedMethodInspection */
         $this->xtests->removeElement($xtests);
     }
 

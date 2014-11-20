@@ -101,7 +101,7 @@ abstract class Plugin
 		{
 			$response = PluginResponse::createError('Runtime error: ' . $e->getMessage() . " (file " . $e->getFile() . ", line " . $e->getLine());
 		}
-        // If an exception occured during $this->setUp or $this->execute, we must still change the current directory back,
+        // If an exception occurred during $this->setUp or $this->execute, we must still change the current directory back,
         // in case more plugins are to be run (in a test case battery)
         chdir($cwd);
 
@@ -134,7 +134,8 @@ abstract class Plugin
 	/**
 	 * Replaces supplied relative source file paths with absolute paths.
 	 * @param array $sources array with source file paths relative to input folder
-	 *		(keys will be preserved)
+	 *        (keys will be preserved)
+	 * @return array array of absolute paths
 	 * @see getSourceFile()
 	 * @see getOutputFile()
 	 */
@@ -184,7 +185,7 @@ abstract class Plugin
 	 * Input folder is just temporary, therefore its path should not appear in
 	 * any info/error messages returned by plugin.
 	 * @param string $str
-	 * @return string @c $str with source file paths relativized
+	 * @return string @c $str with source file paths made relative
 	 */
 	private function clipPaths ($str)
 	{

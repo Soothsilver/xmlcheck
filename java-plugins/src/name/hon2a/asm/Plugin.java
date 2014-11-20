@@ -105,7 +105,7 @@ public abstract class Plugin {
 	/**
 	 * Default constructor.
 	 */
-	public Plugin () {
+	protected Plugin () {
 	}
 
 	/**
@@ -139,6 +139,7 @@ public abstract class Plugin {
 	 * passed to Plugin::setUp method.
 	 * @return XML string conform to Assignment Manager specs
 	 */
+	@SuppressWarnings("ConstantConditions") // we know the dataFolder exists, so listFiles will not return null
 	public final String run (String [] args) {
 		try {
 			if ((args == null) || (args.length < MIN_ARGUMENTS)) {

@@ -18,19 +18,19 @@ import java.util.Map;
  */
 public abstract class JavaTest extends Test {
 
-	public JavaTest (Map<String, String> sources, Map<String, String> params, File outputFolder) {
+	protected JavaTest(Map<String, String> sources, Map<String, String> params, File outputFolder) {
 		super(sources, params, outputFolder);
 	}
 
-	public JavaTest (Map<String, String> sources, Map<String, String> params) {
+	protected JavaTest(Map<String, String> sources, Map<String, String> params) {
 		super(sources, params, null);
 	}
 
-	public JavaTest (Map<String, String> sources, File outputFolder) {
+	protected JavaTest(Map<String, String> sources, File outputFolder) {
 		super(sources, null, outputFolder);
 	}
 
-	public JavaTest (Map<String, String> sources) {
+	protected JavaTest(Map<String, String> sources) {
 		super(sources, null, null);
 	}
 
@@ -45,8 +45,6 @@ public abstract class JavaTest extends Test {
 		OutputStream errorStream = new ByteArrayOutputStream();
 		final PrintWriter pw = new PrintWriter(errorStream);
 
-    //    javax.tovols.JavaCompiler jc = javax.tools.ToolProvider.getSystemJavaCompiler();
-   //     int errorCode = jc.run(null, null, errorStream, source.getAbsolutePath());
 		int errorCode = com.sun.tools.javac.Main.compile(javacArguments, pw);
 
         pw.flush();
@@ -63,20 +61,12 @@ public abstract class JavaTest extends Test {
 	 * @throws name.hon2a.asm.TestException in case some source file cannot be compiled
 	 */
 	protected final void compileJavaSources (File sourcePath) throws TestException {
-		File[] subFolders = sourcePath.listFiles(new FileFilter() {
-			public boolean accept(File file) {
-				return file.isDirectory();
-			}
-		});
+		File[] subFolders = sourcePath.listFiles(File::isDirectory);
 		for (File subFolder : subFolders) {
 			this.compileJavaSources(subFolder);
 		}
 
-		File[] sourceFiles = sourcePath.listFiles(new FilenameFilter() {
-			public boolean accept(File dir, String name) {
-				return name.endsWith(".java");
-			}
-		});
+		File[] sourceFiles = sourcePath.listFiles((dir, name) -> name.endsWith(".java"));
 		for (File sourceFile : sourceFiles) {
 			this.compileJavaSource(sourceFile);
 		}
@@ -103,17 +93,18 @@ public abstract class JavaTest extends Test {
 	 * @param methodName name of method to be invoked
 	 * @param args arguments passed to run script
 	 * @throws name.hon2a.asm.TestException in case script cannot be loaded or throws an exception
-	 * @see JavaTest ::runJavaUserScript(File, String, String)
-	 * @see JavaTest ::compileJavaSources()
 	 */
+	@SuppressWarnings({"ToArrayCallWithZeroLengthArrayArgument", "unchecked"})
+	// ToArrayCallWithZeroLengthArrayArgument is suppressed because the performance gains are doubtful, and it would clutter the code
+	// unchecked is suppressed because the type of the parameters is unknown (depends on whether DomJavaTest or SaxJavaTest is used)
 	protected final Object runJavaSource (File classPath, String className,
 			  String methodName, Map<Class, Object> args)
 			throws TestException {
 		try {
-			URLClassLoader loader = URLClassLoader.newInstance(new URL[] { classPath.toURI().toURL() });
+			URLClassLoader loader = URLClassLoader.newInstance(new URL[]{classPath.toURI().toURL()});
 			Class userClass = loader.loadClass(className);
-			Method userMethod = userClass.getMethod(methodName, args.keySet().toArray(new Class[] {}));
-			return userMethod.invoke(userClass.newInstance(), args.values().toArray(new Object[] {}));
+			Method userMethod = userClass.getMethod(methodName, args.keySet().toArray(new Class[]{}));
+			return userMethod.invoke(userClass.newInstance(), args.values().toArray(new Object[]{}));
 		} catch (Exception e) {
 			this.triggerError(Utils.indentError("Error while running external Java script",
 					  Utils.getMessageTrace(e, true)), ErrorType.DATA_ERROR);
@@ -128,10 +119,9 @@ public abstract class JavaTest extends Test {
 	 * @param className name of class to be loaded
 	 * @param methodName name of method to be invoked
 	 * @throws name.hon2a.asm.TestException in case script cannot be loaded or throws an exception
-	 * @see JavaTest ::runJavaUserScript(File, String, String, Map<Class, Object>)
 	 */
 	protected final Object runJavaSource (File classPath, String className, String methodName)
 			  throws TestException {
-		return this.runJavaSource(classPath, className, methodName, new HashMap<Class, Object>());
+		return this.runJavaSource(classPath, className, methodName, new HashMap<>());
 	}
 }

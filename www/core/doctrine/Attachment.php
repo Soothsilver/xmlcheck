@@ -65,7 +65,7 @@ class Attachment
      * Set name
      *
      * @param string $name
-     * @return Attachments
+     * @return Attachment
      */
     public function setName($name)
     {
@@ -88,7 +88,7 @@ class Attachment
      * Set type
      *
      * @param string $type
-     * @return Attachments
+     * @return Attachment
      */
     public function setType($type)
     {
@@ -111,7 +111,7 @@ class Attachment
      * Set file
      *
      * @param string $file
-     * @return Attachments
+     * @return Attachment
      */
     public function setFile($file)
     {

@@ -21,7 +21,7 @@ public class SaxJavaTest extends JavaTest {
 	/// param ID of main class of user script
 	public static final String paramSaxScript = "userClass";
 	public static final String paramOutputFile = "outputFile"; ///< param ID of output file path
-	public static final String goalParseXmlUsingUserHandler = "parse"; ///< goal ID of parse xml goal
+	private static final String goalParseXmlUsingUserHandler = "parse"; ///< goal ID of parse xml goal
 
 	/// name of main method (access point) of user DOM script
 	protected static final String domScriptMainMethod = "transform";
@@ -63,8 +63,8 @@ public class SaxJavaTest extends JavaTest {
 		this.requireParams(SaxJavaTest.paramSaxScript, SaxJavaTest.paramOutputFile);
 		PrintStream systemOutStream = System.out;
 		PrintStream systemErrStream = System.err;
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		System.setOut(new PrintStream(baos));
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		System.setOut(new PrintStream(byteArrayOutputStream));
 		System.setErr(new PrintStream(new NullOutputStream()));
 
 		File sourcePath = this.getSourceFile(SaxJavaTest.sourceJava);
@@ -105,7 +105,7 @@ public class SaxJavaTest extends JavaTest {
 		}
 
 		this.saveTextFile(this.getParam(SaxJavaTest.paramOutputFile),
-				new ByteArrayInputStream(baos.toByteArray()));
+				new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
 
 		this.getGoal(SaxJavaTest.goalParseXmlUsingUserHandler).reach();
 	}

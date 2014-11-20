@@ -71,7 +71,7 @@ class Group
      * Set name
      *
      * @param string $name
-     * @return Groups
+     * @return Group
      */
     public function setName($name)
     {
@@ -94,7 +94,7 @@ class Group
      * Set description
      *
      * @param string $description
-     * @return Groups
+     * @return Group
      */
     public function setDescription($description)
     {
@@ -117,7 +117,7 @@ class Group
      * Set type
      *
      * @param string $type
-     * @return Groups
+     * @return Group
      */
     public function setType($type)
     {

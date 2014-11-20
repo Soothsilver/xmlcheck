@@ -2,7 +2,7 @@
 
 namespace asm\plugin;
 use asm\utils\Utils, asm\utils\StringUtils, SimpleXMLElement;
-use SebastianBergmann\Exporter\Exception;
+
 
 /**
  * Wrapper for plugin response [immutable].
@@ -51,8 +51,7 @@ class PluginResponse
 	 * @see toXml()
 	 */
 	public static function fromXml (SimpleXMLElement $xml)
-	{
-		if ($xml->error)
+	{		if ($xml->error)
 		{
 			return self::createError((string)$xml->error);
 		}

@@ -31,9 +31,9 @@ class GetUsers extends DataScript
                 $user->getName(),
                 $user->getType()->getId(),
                 $user->getType()->getName(),
-                $user->getRealname(),
+                $user->getRealName(),
                 $user->getEmail(),
-                $user->getLastaccess()->format("Y-m-d H:i:s")
+                $user->getLastAccess()->format("Y-m-d H:i:s")
             ]);
         }
 	}

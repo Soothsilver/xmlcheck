@@ -129,7 +129,7 @@ class TestXpath extends \asm\plugin\XmlTest
 			foreach ($expressions as $expr)
 			{
 				$matches = preg_match_all($reqs->getExtra('xpathRegex', $name), $expr, $dummy);
-				$reqs->addOccurences($name, $matches);
+				$reqs->addOccurrences($name, $matches);
 			}
 		}
 		

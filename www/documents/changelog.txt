@@ -13,7 +13,7 @@
 * <b>Bugfix.</b> Fixed a bug in ArrayUtils::filterByKeys where non-strict in_array was used.
 * <b>Bugfix.</b> Fixed a bug in Filesystem::combinePaths where slash at end was left in
 * <b>Bugfix.</b> Fixed a bug in Filter::isNonNegativeInteger, which did not work.
-* <b>Bugfix.</b> Fixed a bug in Filter::isDate which outputed Notice errors if it wasn't a date
+* <b>Bugfix.</b> Fixed a bug in Filter::isDate which outputted Notice errors if it wasn't a date
 * <b>Bugfix.</b> Removed isRegexp function which did not work and was not used.
 * <b>Bugfix.</b> Fixed a documentation error in ArrayUtils::sortByKeys. The function does not actually turn array keys into strings, that is not possible in PHP.
 * <b>Bugfix.</b> Fixed a regex bug that caused Filter::isName to always return true.
@@ -36,7 +36,7 @@
 * <b>AuroraDTD.</b> It can now handle internal subset.
 * <b>AuroraDTD.</b> Conditional sections are forbidden in internal subset.
 * <b>Composer.</b> We now use Composer for SwiftMailer.
-* <b>Refactoring.</b> Major refactoring occured.
+* <b>Refactoring.</b> Major refactoring occurred.
 <small>
 * <b>No more installer.</b> The project will no longer have an installer.
 * <b>SwiftMailer.</b> Instead of the PHP module Mail, we are now using SwiftMailer. We are no longer dependent on any PEAR modules.
@@ -45,7 +45,7 @@
 </small>
 
 0.78
-* <b>File copy bug.</b> Fixed a bug introduced in 0.72 which caused output and submission files to be written to wrong folders because the configuration from 'internal.ini' was not loaded into autocorrect plugins.
+* <b>File copy bug.</b> Fixed a bug introduced in 0.72 which caused output and submission files to be written to wrong folders because the configuration from 'internal.ini' was not loaded into auto-correct plugins.
 * <b>Home. </b> Fixed a bug where previously, sometimes not all tasks requiring attention would be displayed, if the callback functions were called in a wrong pseudorandom order.
 * <b>Home. </b> Tasks "requiring attention" can now be clicked to get to the appropriate screen.
 * <b>DTD.</b> NDATA entities are now properly parsed.
@@ -89,10 +89,10 @@
 * <b>New DTD parser provides these new features:</b>
 ** Conditional sections are properly parsed.
 ** The DTD is declared invalid if it does not meet the specification (previously, it was only scanned for &lt;!ELEMENT&gt; and &lt;!ATTLIST&gt; tags). This does not make the auto-correct more strict since the DTD subsystem of libxml2 checks the validity of the DTD anyway.
-** It parses and extracts NOTATIONs.
+** It parses and extracts notations.
 ** It parses and extracts both general and parametric entities.
-** It allows the character "&gt;" inside valeus.
-** It performs substition of parametric entities for their replacement text.
+** It allows the character "&gt;" inside values.
+** It performs substitution of parametric entities for their replacement text.
 * <b>Submissions can be submitted late.</b> A student is now able to confirm a solution after deadline. The student and the tutor will both be warned that the solution is being submitted after its deadline.
 * <b>Files by any name are now allowed in the new XML/DTD plugin.</b> The names "data.xml" and "data.dtd" are no longer enforced.
 * <b>XPath auto-correct recognizes position tests better.</b> Use of last() now counts as a position test.
@@ -131,7 +131,7 @@
 0.72
 * Whenever a submission is rated by a tutor, an e-mail will be sent to the user who submitted it.
 * Previously, the XML/DTD plugin crashed when encountering the percent sign in a notation (like this: &lt;!NOTATION something "%SYSTEMROOT%/paint.exe"&gt). This is legal according to the standard but due to a bug in PHP, it is not possible to parse such files. The plugin will now instead ask the user not to use the percent sign.
-* Previously, if a PHP error or warning occured during a server request, the request would silently fail. Now, in some cases, it will instead be shown to the user.
+* Previously, if a PHP error or warning occurred during a server request, the request would silently fail. Now, in some cases, it will instead be shown to the user.
 * <small>Configuration has been split to 'config.ini' for user configuration and 'internal.ini' for version, file and directory information. This will allow for easier upgrades.</small>
 
 0.71

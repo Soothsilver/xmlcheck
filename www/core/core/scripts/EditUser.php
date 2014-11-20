@@ -15,7 +15,7 @@ use asm\utils\Security;
  * @li @c id @optional user ID (required for edit)
  * @li @c type @optional (required for creation of active user account)
  * @li @c name username (must match user ID for edit)
- * @li @c realname user's real name
+ * @li @c realName user's real name
  * @li @c email
  * @li @c pass account password
  * @li @c repass must match ^
@@ -131,9 +131,9 @@ final class EditUser extends DataScript
             $user->setPass($pass);
             $user->setName($username);
             $user->setEmail($email);
-            $user->setActivationcode($code);
-            $user->setEncryptiontype(Security::HASHTYPE_PHPASS);
-            $user->setRealname($realname);
+            $user->setActivationCode($code);
+            $user->setEncryptionType(Security::HASHTYPE_PHPASS);
+            $user->setRealName($realname);
             Repositories::persistAndFlush($user);
         }
         elseif ($isIdSet && !$sameNameUserExists) // edit existing user
@@ -147,12 +147,12 @@ final class EditUser extends DataScript
             if ($unhashedPass)
             {
                 $user->setPass($pass);
-                $user->setEncryptiontype(Security::HASHTYPE_PHPASS);
+                $user->setEncryptionType(Security::HASHTYPE_PHPASS);
             }
             $user->setType($typeEntity);
             $user->setEmail($email);
-            $user->setActivationcode('');
-            $user->setRealname($realname);
+            $user->setActivationCode('');
+            $user->setRealName($realname);
             Repositories::persistAndFlush($user);
         }
         else

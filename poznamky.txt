@@ -1,11 +1,6 @@
 STUDENT: 2816
 ADMIN: 16777215
 
-attachment v javascriptu má nastavenou minimální délku 1
-
-CHCI:
-vše má minimální délku 1, potenciálně kromě jmen a hesel
-
 AppMainPanel._triggerError(asm.ui.Error)
 
 Error: (message, severity)

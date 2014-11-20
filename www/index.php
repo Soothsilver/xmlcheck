@@ -27,7 +27,7 @@ function echoScripts($directory)
         if (endsWith($scriptFile, ".js"))
         {
             $path = combinePaths($directory, $scriptFile);
-            echo "\t<script type=\"text/javascript\" src=\"{$path}\"></script>\n";
+            echo "\t<!--suppress HtmlUnknownTarget --><script type=\"text/javascript\" src=\"{$path}\"></script>\n";
         }
     }
 

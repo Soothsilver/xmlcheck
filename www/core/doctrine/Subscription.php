@@ -58,7 +58,7 @@ class Subscription
      * Set status
      *
      * @param string $status
-     * @return Subscriptions
+     * @return Subscription
      */
     public function setStatus($status)
     {

@@ -16,6 +16,9 @@ use asm\utils\StringUtils;
  */
 abstract class TesterPlugin extends Plugin {
 
+	/**
+	 * @var $tests Test[]
+	 */
 	private $tests = array();			///< managed tests
 	private $sources = array();		///< sources for manages tests
 	private $params = array();			///< parameters for managed tests
@@ -72,7 +75,7 @@ abstract class TesterPlugin extends Plugin {
 	 * For criterion to be passed, all goals specified for that criterion when
 	 * @ref addTesterCriterion() "adding it" must be reached. Otherwise the
 	 * criterion is failed with fulfillment percentage based on number of failed
-	 * goals and failure info created by joining failure infos of failed goals.
+	 * goals and failure info created by joining failure information of failed goals.
 	 */
 	private function checkTesterCriteria ()
 	{

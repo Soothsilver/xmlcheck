@@ -63,6 +63,7 @@ public class XqueryTest extends Test {
 		this.addGoal(XqueryTest.goalValidQueries, "XQuery expressions are valid and can be executed on supplied XML");
 	}
 
+	@SuppressWarnings("ConstantConditions") // we know the dataFolder exists, so listFiles cannot return null
 	@Override
 	protected void doTest () throws TestException {
 		this.requireSources(XqueryTest.sourceXml);
@@ -104,15 +105,15 @@ public class XqueryTest extends Test {
 	}
 
 	protected String[] loadQueries (String pathMask) throws TestException {
-		List<String> ret = new ArrayList<String>();
+		List<String> ret = new ArrayList<>();
 
-		for (int i = 1; true; ++i) {
-			File file = new File(String.format(pathMask, i));
-			if (!file.canRead()) {
-				break;
-			}
-
+		int i = 1;
+		File file = new File(String.format(pathMask, i));
+		while (file.canRead())
+		{
 			ret.add(this.stripXqueryComments(this.loadTextFile(file)));
+			file = new File(String.format(pathMask, i));
+			i++;
 		}
 
 		return ret.toArray(new String[ret.size()]);
@@ -134,7 +135,7 @@ public class XqueryTest extends Test {
 			{"if.*then.*else", "if ... then ... else"}
 		};
 
-		List<String> errors = new ArrayList<String>();
+		List<String> errors = new ArrayList<>();
 		loopRequirements: for (String[] req : requirements) {
 			Pattern pattern = Pattern.compile(req[0], Pattern.UNICODE_CASE
 					| Pattern.CASE_INSENSITIVE | Pattern.MULTILINE | Pattern.DOTALL);
@@ -147,7 +148,7 @@ public class XqueryTest extends Test {
 			errors.add("Pattern '" + req[1] + "' not found in any XQuery file.");
 		}
 		
-		return Utils.join(errors.toArray(new String[] {}), "\n");
+		return Utils.join(errors.toArray(new String[errors.size()]), "\n");
 	}
 
 	protected String runQueries (String[] queries, String baseUri, Document xmlDocument, String outputPathMask)

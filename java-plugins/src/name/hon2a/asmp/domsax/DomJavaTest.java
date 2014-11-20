@@ -30,10 +30,10 @@ public class DomJavaTest extends JavaTest {
 	/// param ID of main class of user script
 	public static final String paramDomScript = "userClass";
 	public static final String paramOutputFile = "outputFile"; ///< param ID of output file path
-	public static final String goalTransformXml = "transform"; ///< goal ID of transform xml goal
+	private static final String goalTransformXml = "transform"; ///< goal ID of transform xml goal
 
 	/// name of main method (access point) of user DOM script
-	protected static final String domScriptMainMethod = "transform";
+	private static final String domScriptMainMethod = "transform";
 
 	/**
 	 * Required source: DomJavaTest::sourceJava, DomJavaTest::sourceXml;
@@ -86,7 +86,7 @@ public class DomJavaTest extends JavaTest {
 
 		this.compileJavaSources(javaSourcesFolder);
 
-		Map<Class, Object> transformArgs = new HashMap<Class, Object>();
+		Map<Class, Object> transformArgs = new HashMap<>();
 		transformArgs.put(Document.class, xmlDocument);
 
 
@@ -95,9 +95,9 @@ public class DomJavaTest extends JavaTest {
 				domScriptMainMethod, transformArgs);
 
 
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
 		DOMSource source = new DOMSource(xmlDocument);
-		StreamResult result = new StreamResult(baos);
+		StreamResult result = new StreamResult(byteArrayOutputStream);
 		Transformer transformer;
 		try {
 			transformer = TransformerFactory.newInstance().newTransformer();
@@ -115,7 +115,7 @@ public class DomJavaTest extends JavaTest {
 		System.setErr(systemErrorStream);
 
 		this.saveTextFile(this.getParam(DomJavaTest.paramOutputFile),
-				new ByteArrayInputStream(baos.toByteArray()));
+				new ByteArrayInputStream(byteArrayOutputStream.toByteArray()));
 
 		this.getGoal(DomJavaTest.goalTransformXml).reach();
 

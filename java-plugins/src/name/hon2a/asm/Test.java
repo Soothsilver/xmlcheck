@@ -57,7 +57,7 @@ public abstract class Test implements Runnable {
 	/**
 	 * test sources
 	 *
-	 * Test sources are supplied by plugin and adressed by string id, so that test
+	 * Test sources are supplied by plugin and addressed by string id, so that test
 	 * doesn't depend on specific file names.
 	 */
 	private Map<String, String> sources;
@@ -78,7 +78,7 @@ public abstract class Test implements Runnable {
 	 * @param params associative array of test parameters
 	 * @param outputFolder folder for test output
 	 */
-	public Test (Map<String, String> sources, Map<String, String> params, File outputFolder) {
+	protected Test (Map<String, String> sources, Map<String, String> params, File outputFolder) {
 		this.init(sources, params, outputFolder);
 	}
 
@@ -124,7 +124,7 @@ public abstract class Test implements Runnable {
 		this.params = (params != null) ? params : new HashMap<>();
 		this.outputFolder = outputFolder;
 
-		this.goals = new HashMap<String, Goal>();
+		this.goals = new HashMap<>();
 		this.stage = STAGE_SET_GOALS;
 		try {
 			this.setGoals();
@@ -236,7 +236,6 @@ public abstract class Test implements Runnable {
 	 * inside its body.
 	 *
 	 * @throws TestException
-	 * @see name.hon2a.asm.Test::run()
 	 */
 	protected abstract void doTest () throws TestException;
 
@@ -245,7 +244,6 @@ public abstract class Test implements Runnable {
 	 *
 	 * Public test access point. Can be called only once or test fails implicitly.
 	 *
-	 * @see name.hon2a.asm.Test::doTest()
 	 */
 	public final void run () {
 		try {
@@ -258,17 +256,13 @@ public abstract class Test implements Runnable {
 		} catch (TestException e) {
 			this.error = new Error(Utils.getMessageTrace(e));
 		} catch (Exception e) {
-			this.error = new Error(new StringBuilder("Runtime error")
-					  .append(Utils.indent(Utils.getMessageTrace(e, true)))
-					  .toString());
+			this.error = new Error("Runtime error" + Utils.indent(Utils.getMessageTrace(e, true)));
 		}
 		this.stage = STAGE_CLEANUP;
 	}
 
 	/**
 	 * Start error-driven section (as opposed to exception-driven).
-
-	 * @see name.hon2a.asm.Test::activateExceptions()
 	 */
 	protected final void suppressExceptions () {
 		this.suppressExceptions = true;
@@ -276,8 +270,7 @@ public abstract class Test implements Runnable {
 
 	/**
 	 * Close error-driven section (and start exception-driven flow again).
-	 * 
-	 * @see name.hon2a.asm.Test::suppressExceptions()
+	 *
 	 */
 	protected final void activateExceptions () {
 		this.suppressExceptions = false;
@@ -325,7 +318,7 @@ public abstract class Test implements Runnable {
 	 * }
 	 * @endcode
 	 * @code
-	 * this.supressExceptions(); // only use once to open error-driven section
+	 * this.suppressExceptions(); // only use once to open error-driven section
 	 * this.foo();
 	 * this.getGoal("someGoal").reachOnNoError(this.getLastError());
 	 * this.activateExceptions(); // only use once after whole error-driven section
@@ -335,7 +328,6 @@ public abstract class Test implements Runnable {
 	 * @param type error type (see @ref ErrorType)
 	 * @param cause exception that caused this error
 	 * @throws TestException as error wrapper in case of Test::suppressExceptions set to false
-	 * @see name.hon2a.asm.Test::suppressExceptions()
 	 */
 	protected final void triggerError (String message, ErrorType type, Throwable cause)
 			  throws TestException {
@@ -361,8 +353,6 @@ public abstract class Test implements Runnable {
 	 * @param message message describing error in terms of test
 	 * @param type error type (see @ref ErrorType)
 	 * @throws TestException as error wrapper in case of Test::suppressExceptions set to false
-	 * @see name.hon2a.asm.Test::suppressExceptions()
-	 * @see name.hon2a.asm.Test::triggerError()
 	 */
 	protected final void triggerError (String message, ErrorType type) throws TestException {
 		this.triggerError(message, type, null);
@@ -374,8 +364,6 @@ public abstract class Test implements Runnable {
 	 * @param message message describing error in terms of test
 	 * @param cause exception that caused this error
 	 * @throws TestException as error wrapper in case of Test::suppressExceptions set to false
-	 * @see name.hon2a.asm.Test::suppressExceptions()
-	 * @see name.hon2a.asm.Test::triggerError()
 	 */
 	protected final void triggerError (String message, Throwable cause) throws TestException {
 		this.triggerError(message, ErrorType.EXCEPTION, cause);
@@ -386,8 +374,6 @@ public abstract class Test implements Runnable {
 	 *
 	 * @param cause exception that caused this error
 	 * @throws TestException as error wrapper in case of Test::suppressExceptions set to false
-	 * @see name.hon2a.asm.Test::suppressExceptions()
-	 * @see name.hon2a.asm.Test::triggerError()
 	 */
 	protected final void triggerError (Throwable cause) throws TestException {
 		this.triggerError("Runtime error", cause);
@@ -396,11 +382,9 @@ public abstract class Test implements Runnable {
 	/**
 	 *	Retrieve last error and clear buffer.
 	 *
-	 * Use only after switching to error-driven flow with Test::supressExceptions().
+	 * Use only after switching to error-driven flow with Test::suppressExceptions().
 	 *
 	 * @return Last error or null in case of no error or Test::suppressExceptions not being set.
-	 * @see name.hon2a.asm.Test::suppressExceptions()
-	 * @see name.hon2a.asm.Test::triggerError()
 	 */
 	protected final String getLastError () {
 		String e = this.lastError;
@@ -419,7 +403,6 @@ public abstract class Test implements Runnable {
 	 *		Test::getGoal()
 	 * @param description goal description to be used in reports
 	 * @throws TestException in case this method is called outside of Test::setGoals()
-	 * @see name.hon2a.asm.Test::getGoal()
 	 */
 	protected final void addGoal (String id, String description) throws TestException {
 		if (this.stage != STAGE_SET_GOALS) {
@@ -434,7 +417,6 @@ public abstract class Test implements Runnable {
 	 *
 	 * @param id ID of goal to be retrieved
 	 * @return Goal if ID exists, or null.
-	 * @see name.hon2a.asm.Test::addGoal()
 	 */
 	protected final Goal getGoal (String id) {
 		return this.goals.get(id);
@@ -548,8 +530,6 @@ public abstract class Test implements Runnable {
 	 * @param binary true if file is to be saved as binary (otherwise it's saved as text)
 	 * @param charsetName name of charset for saving as text
 	 * @throws TestException in case file could not be saved
-	 * @see name.hon2a.asm.Test::saveTextFile()
-	 * @see name.hon2a.asm.Test::saveBinaryFile()
 	 */
 	private void saveFile (String path, InputStream contents, boolean binary,
 			  String charsetName) throws TestException{
@@ -579,7 +559,6 @@ public abstract class Test implements Runnable {
 	 * @param contents data to be saved
 	 * @param charsetName name of charset for saving as text
 	 * @throws TestException in case file could not be saved
-	 * @see name.hon2a.asm.Test::saveBinaryFile()
 	 */
 	protected final void saveTextFile (String path, InputStream contents,
 			  String charsetName) throws TestException {
@@ -592,8 +571,6 @@ public abstract class Test implements Runnable {
 	 * @param path path relative to base output folder
 	 * @param contents data to be saved
 	 * @throws TestException in case file could not be saved
-	 * @see name.hon2a.asm.Test::saveTextFile(String, InputStream, String)
-	 * @see name.hon2a.asm.Test::saveBinaryFile()
 	 */
 	protected final void saveTextFile (String path, InputStream contents)
 			  throws TestException {
@@ -606,7 +583,6 @@ public abstract class Test implements Runnable {
 	 * @param path path relative to base output folder
 	 * @param contents data to be saved
 	 * @throws TestException in case file could not be saved
-	 * @see name.hon2a.asm.Test::saveTextFile()
 	 */
 	protected final void saveBinaryFile (String path, InputStream contents)
 			  throws TestException {

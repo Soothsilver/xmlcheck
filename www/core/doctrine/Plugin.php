@@ -77,7 +77,7 @@ class Plugin
      * Set name
      *
      * @param string $name
-     * @return Plugins
+     * @return Plugin
      */
     public function setName($name)
     {
@@ -100,7 +100,7 @@ class Plugin
      * Set type
      *
      * @param string $type
-     * @return Plugins
+     * @return Plugin
      */
     public function setType($type)
     {
@@ -123,7 +123,7 @@ class Plugin
      * Set description
      *
      * @param string $description
-     * @return Plugins
+     * @return Plugin
      */
     public function setDescription($description)
     {
@@ -146,7 +146,7 @@ class Plugin
      * Set mainfile
      *
      * @param string $mainfile
-     * @return Plugins
+     * @return Plugin
      */
     public function setMainfile($mainfile)
     {
@@ -169,7 +169,7 @@ class Plugin
      * Set config
      *
      * @param string $config
-     * @return Plugins
+     * @return Plugin
      */
     public function setConfig($config)
     {

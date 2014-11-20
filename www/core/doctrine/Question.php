@@ -76,7 +76,7 @@ class Question
      * Set text
      *
      * @param string $text
-     * @return Questions
+     * @return Question
      */
     public function setText($text)
     {
@@ -99,7 +99,7 @@ class Question
      * Set type
      *
      * @param string $type
-     * @return Questions
+     * @return Question
      */
     public function setType($type)
     {
@@ -122,7 +122,7 @@ class Question
      * Set options
      *
      * @param string $options
-     * @return Questions
+     * @return Question
      */
     public function setOptions($options)
     {
@@ -145,7 +145,7 @@ class Question
      * Set attachments
      *
      * @param string $attachments
-     * @return Questions
+     * @return Question
      */
     public function setAttachments($attachments)
     {

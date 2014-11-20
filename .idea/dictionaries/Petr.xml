@@ -2,14 +2,27 @@
   <dictionary name="Petr">
     <words>
       <w>&amp;amp</w>
+      <w>asmp</w>
+      <w>autocorrect</w>
       <w>autoload</w>
       <w>autoloader</w>
       <w>autoloading</w>
       <w>bazbazbaz</w>
+      <w>blowfish</w>
+      <w>bugfix</w>
+      <w>bugzilla</w>
+      <w>buildfile</w>
       <w>changelog</w>
+      <w>classmap</w>
       <w>contentspec</w>
+      <w>cuni</w>
+      <w>debian</w>
       <w>decl</w>
+      <w>didn</w>
+      <w>doctype</w>
+      <w>doesn</w>
       <w>domsax</w>
+      <w>effff</w>
       <w>endcode</w>
       <w>endian</w>
       <w>endlink</w>
@@ -18,47 +31,77 @@
       <w>errno</w>
       <w>errstr</w>
       <w>escapeshellarg</w>
+      <w>fdcf</w>
+      <w>fffd</w>
+      <w>ffff</w>
+      <w>fieldset</w>
       <w>filenames</w>
       <w>foofoofoo</w>
       <w>formedness</w>
       <w>fullname</w>
+      <w>handsoff</w>
+      <w>hashtag</w>
       <w>hashtype</w>
       <w>hudecek</w>
       <w>hudeček</w>
       <w>idref</w>
       <w>idrefs</w>
+      <w>inno</w>
       <w>intelli</w>
+      <w>inversed</w>
+      <w>isam</w>
+      <w>jarfile</w>
       <w>joinprivate</w>
       <w>joinpublic</w>
+      <w>konopasek</w>
       <w>linefeeds</w>
       <w>localweb</w>
       <w>logfiles</w>
+      <w>mainfile</w>
+      <w>minima</w>
       <w>motd</w>
+      <w>ndata</w>
       <w>nmtokens</w>
+      <w>noninfringement</w>
+      <w>nullable</w>
+      <w>outputfile</w>
       <w>pakosz</w>
       <w>passwd</w>
       <w>phpass</w>
       <w>phptests</w>
+      <w>projectname</w>
+      <w>projekty</w>
       <w>prolog</w>
       <w>pseudofolders</w>
+      <w>pseudorandom</w>
       <w>realpath</w>
       <w>regexes</w>
       <w>requestprivate</w>
       <w>scandir</w>
       <w>shortfile</w>
+      <w>smtp</w>
       <w>soothsilver</w>
       <w>struct</w>
       <w>subfolder</w>
+      <w>subfolders</w>
       <w>substrings</w>
+      <w>swiftmailer</w>
+      <w>systemroot</w>
       <w>test's</w>
       <w>tokenization</w>
       <w>tokenized</w>
       <w>trajano</w>
+      <w>uncategorized</w>
+      <w>unparsed</w>
       <w>unregister</w>
       <w>unsubscribe</w>
       <w>usertype</w>
       <w>usertypes</w>
+      <w>webtoolkit</w>
       <w>xmlcheck</w>
+      <w>xquery</w>
+      <w>xtest</w>
+      <w>xtests</w>
       <w>yyyy</w>
       <w>zabcdefghijklmnopqrstuvwxyz</w>
       <w>ziparchive</w>

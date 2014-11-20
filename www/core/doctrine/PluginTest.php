@@ -29,12 +29,6 @@ class PluginTest
     private $description;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="pluginId", type="integer", nullable=false)
-     */
-    private $pluginid;
-    /**
      * @var \Plugin
      * @ORM\ManyToOne(targetEntity="Plugin", inversedBy="pluginTests")
      * @ORM\JoinColumn(referencedColumnName="id", name="pluginId")
@@ -99,7 +93,7 @@ class PluginTest
      * Set description
      *
      * @param string $description
-     * @return Tests
+     * @return PluginTest
      */
     public function setDescription($description)
     {
@@ -119,33 +113,10 @@ class PluginTest
     }
 
     /**
-     * Set pluginid
-     *
-     * @param integer $pluginid
-     * @return Tests
-     */
-    public function setPluginid($pluginid)
-    {
-        $this->pluginid = $pluginid;
-
-        return $this;
-    }
-
-    /**
-     * Get pluginid
-     *
-     * @return integer 
-     */
-    public function getPluginid()
-    {
-        return $this->pluginid;
-    }
-
-    /**
      * Set config
      *
      * @param string $config
-     * @return Tests
+     * @return PluginTest
      */
     public function setConfig($config)
     {
@@ -168,7 +139,7 @@ class PluginTest
      * Set input
      *
      * @param string $input
-     * @return Tests
+     * @return PluginTest
      */
     public function setInput($input)
     {
@@ -191,7 +162,7 @@ class PluginTest
      * Set status
      *
      * @param string $status
-     * @return Tests
+     * @return PluginTest
      */
     public function setStatus($status)
     {
@@ -214,7 +185,7 @@ class PluginTest
      * Set success
      *
      * @param int $success
-     * @return Tests
+     * @return PluginTest
      */
     public function setSuccess($success)
     {
@@ -237,7 +208,7 @@ class PluginTest
      * Set info
      *
      * @param string $info
-     * @return Tests
+     * @return PluginTest
      */
     public function setInfo($info)
     {
@@ -260,7 +231,7 @@ class PluginTest
      * Set output
      *
      * @param string $output
-     * @return Tests
+     * @return PluginTest
      */
     public function setOutput($output)
     {

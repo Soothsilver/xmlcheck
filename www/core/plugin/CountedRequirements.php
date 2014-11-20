@@ -3,14 +3,14 @@
 namespace asm\plugin;
 
 /**
- * Used by @ref Test "tests" to count occurences of certain elements in input.
+ * Used by @ref Test "tests" to count occurrences of certain elements in input.
  */
 class CountedRequirements
 {
 	protected $descriptions = array();	///< descriptions of required elements
-	protected $requirements = array();	///< quantities of element occurences required
-	protected $counts = array();			///< element occurences counted so far
-	protected $extras = array();			///< additional data used for occurence checking
+	protected $requirements = array();	///< quantities of element occurrences required
+	protected $counts = array();			///< element occurrences counted so far
+	protected $extras = array();			///< additional data used for occurrence checking
 
 	/**
 	 * Initializes instance with descriptions and required quantities of elements.
@@ -37,7 +37,7 @@ class CountedRequirements
 	 * all IDs with missing values.
 	 * Sample use:
 	 * @code
-	 * $reqs = new CountedRequirements(array(
+	 * $requirements = new CountedRequirements(array(
 	 *		'data' => array(
 	 *			13 => array('uppercase letters used', '/[A-Z]/', 'this string will not be accessible'),
 	 *			'foo' => array('PHP-like variable names used', '/$[a-zA-Z0-9]+/'),
@@ -48,10 +48,10 @@ class CountedRequirements
 	 *		'extras' => array('regexp'),
 	 * ));
 	 * $text = "This is some input text $to $be $checked.";
-	 * foreach ($reqs->getNames() as $name)
+	 * foreach ($requirements->getNames() as $name)
 	 * {
-	 *		preg_match($reqs->getExtra('regexp', $name), $text, $matches);
-	 *		$reqs->addOccurences($name, count($matches[0]));
+	 *		preg_match($requirements->getExtra('regexp', $name), $text, $matches);
+	 *		$requirements->addOccurrences($name, count($matches[0]));
 	 * }
 	 * @endcode
 	 * Above code could be used to count numbers of uppercase letters and PHP-like
@@ -84,35 +84,35 @@ class CountedRequirements
 	}
 
 	/**
-	 * Raises number of occurences for selected requirement by 1.
+	 * Raises number of occurrences for selected requirement by 1.
 	 * @param mixed $id requirement ID
-	 * @see addOccurences()
+	 * @see addOccurrences()
 	 */
-	public function addOccurence ($id)
+	public function addOccurrence ($id)
 	{
-		$this->addOccurences($id, 1);
+		$this->addOccurrences($id, 1);
 	}
 
 	/**
-	 * Raises number of occurences for selected requirement by supplied number.
+	 * Raises number of occurrences for selected requirement by supplied number.
 	 * @param mixed $id requirement ID
-	 * @param int $count number of new occurences found
-	 * @see addOccurence()
+	 * @param int $count number of new occurrences found
+	 * @see addOccurrence()
 	 * @see tryRaiseCount()
 	 */
-	public function addOccurences ($id, $count)
+	public function addOccurrences ($id, $count)
 	{
 		$this->counts[$id] += $count;
 	}
 
 	/**
-	 * Raises number of occurences for selected requirement if supplied number
-	 * of occurences is bigger than the one currently set.
+	 * Raises number of occurrences for selected requirement if supplied number
+	 * of occurrences is bigger than the one currently set.
 	 * Can be used for example in case there are more input files and at least
-	 * one of them should contain at least required number of element occurences.
+	 * one of them should contain at least required number of element occurrences.
 	 * @param mixed $id requirement ID
-	 * @param int $count number of occurences counted this time
-	 * @see addOccurences()
+	 * @param int $count number of occurrences counted this time
+	 * @see addOccurrences()
 	 */
 	public function tryRaiseCount ($id, $count)
 	{
@@ -149,18 +149,18 @@ class CountedRequirements
 	 * Output arguments are set only if some requirements haven't been met and
 	 * contain info about first of them.
 	 * @param[out] string $description description of elements that haven't been found enough times
-	 * @param[out] int $occured number of element occurences found
+	 * @param[out] int $occurred number of element occurrences found
 	 * @param[out] int $required minimum number required
 	 * @return bool true if all requirements have been met, false otherwise
 	 */
-	public function resolve (&$description, &$occured, &$required)
+	public function resolve (&$description, &$occurred, &$required)
 	{
 		foreach ($this->descriptions as $id => $text)
 		{
 			if ($this->counts[$id] < $this->requirements[$id])
 			{
 				$description = $text;
-				$occured = $this->counts[$id];
+				$occurred = $this->counts[$id];
 				$required = $this->requirements[$id];
 				return false;
 			}

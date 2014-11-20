@@ -106,49 +106,49 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 		$operatorCounts = array(',' => 0, '|' => 0, '?' => 0, '+' => 0, '*' => 0);
 		$operators = array_keys($operatorCounts);
 
-        $reqs->addOccurences(self::dtdEntities, count($dtdDoc->generalEntities));
-        $reqs->addOccurences(self::dtdEntities, count($dtdDoc->parameterEntities));
+        $reqs->addOccurrences(self::dtdEntities, count($dtdDoc->generalEntities));
+        $reqs->addOccurrences(self::dtdEntities, count($dtdDoc->parameterEntities));
 
         foreach ($dtdDoc->elements as $element) {
             if ($element->contentSpecification === Soothsilver\DtdParser\Element::CONTENT_SPECIFICATION_EMPTY)
-            { $reqs->addOccurence(self::dtdEmptyElements);}
+            { $reqs->addOccurrence(self::dtdEmptyElements);}
             else if ($element->contentSpecification === Soothsilver\DtdParser\Element::CONTENT_SPECIFICATION_ANY)
             { // We don't want to count ANY content model.
             }
             else if ($element->isPureText())
-            { $reqs->addOccurence(self::dtdTextElements);}
+            { $reqs->addOccurrence(self::dtdTextElements);}
             else
             {
                 // It has content model.
-                $reqs->addOccurence(self::dtdModeledElements);
+                $reqs->addOccurrence(self::dtdModeledElements);
                 foreach ($operators as $operator)
                 {
                     $operatorCounts[$operator] += substr_count($element->contentSpecification, $operator);
                 }
             }
             foreach ($element->attributes as $attribute) {
-                $reqs->addOccurence(self::dtdAttributes);
+                $reqs->addOccurrence(self::dtdAttributes);
                 if ($attribute->defaultType === \Soothsilver\DtdParser\Attribute::DEFAULT_REQUIRED)
-                {$reqs->addOccurence(self::dtdLimitedOccurenceAttributes); }
+                {$reqs->addOccurrence(self::dtdLimitedOccurenceAttributes); }
                 if ($attribute->type === \Soothsilver\DtdParser\Attribute::ATTTYPE_ENUMERATION)
-                {$reqs->addOccurence(self::dtdEnumDataTypes);}
+                {$reqs->addOccurrence(self::dtdEnumDataTypes);}
                 if ($attribute->type === \Soothsilver\DtdParser\Attribute::ATTTYPE_CDATA)
-                {$reqs->addOccurence(self::dtdTextDataTypes);}
+                {$reqs->addOccurrence(self::dtdTextDataTypes);}
                 if ($attribute->type === \Soothsilver\DtdParser\Attribute::ATTTYPE_ID)
                 {
-                    $reqs->addOccurence(self::dtdIdKeys);
+                    $reqs->addOccurrence(self::dtdIdKeys);
                     $this->xmlAttrIDs[] = "{$element->type}>{$attribute->name}";
                 }
                 if ($attribute->type === \Soothsilver\DtdParser\Attribute::ATTTYPE_IDREF)
                 {
-                    $reqs->addOccurence(self::dtdIdRefs);
+                    $reqs->addOccurrence(self::dtdIdRefs);
                     $this->xmlAttrIDRefs[] = "{$element->type}>{$attribute->name}";
                 }
             }
 
         }
 		sort($operatorCounts);
-		$reqs->addOccurences(self::dtdOperators, $operatorCounts[count($operatorCounts) - 1]);
+		$reqs->addOccurrences(self::dtdOperators, $operatorCounts[count($operatorCounts) - 1]);
 	}
 
 	/**
@@ -223,7 +223,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 		if (!isset($internal['elements'][$elName]))
 		{
 			$internal['elements'][$elName] = true;
-			$reqs->addOccurence(self::xmlElements);
+			$reqs->addOccurrence(self::xmlElements);
 		}
 
         $attributes = $xmlEl->attributes;
@@ -234,7 +234,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 			if (!isset($internal['attributes'][$internalAttrName]))
 			{
 				$internal['attributes'][$internalAttrName] = true;
-				$reqs->addOccurence(self::xmlAttributes);
+				$reqs->addOccurrence(self::xmlAttributes);
 			}
 			
 			$isRef = null;
@@ -251,8 +251,8 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 			{
 				if (($refUsed = $this->manageIdReferences((string)$attributes->item($i)->nodeValue, $isRef, $internal['ids'])) !== null)
 				{
-					$reqs->addOccurence(self::xmlKeys);
-					if ($refUsed) $reqs->addOccurence(self::xmlReferences);
+					$reqs->addOccurrence(self::xmlKeys);
+					if ($refUsed) $reqs->addOccurrence(self::xmlReferences);
 				}
 			}
 		}
@@ -288,11 +288,11 @@ class TestDtd2014 extends \asm\plugin\XmlTest
         }
         if ($hasText && !$hasNodes)
         {
-            $reqs->addOccurence(self::xmlTextContent);
+            $reqs->addOccurrence(self::xmlTextContent);
         }
         if ($hasText && $hasNodes)
         {
-            $reqs->addOccurence(self::xmlMixedContent);
+            $reqs->addOccurrence(self::xmlMixedContent);
         }
         $reqs->tryRaiseCount(self::xmlFanOut, $fanout);
 	}
@@ -353,7 +353,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 		{
 			$matches = preg_match_all($reqs->getExtra('dtdRegex', $name), $dtdString, $dummy)
 				+ preg_match_all($reqs->getExtra('xmlRegex', $name), $xmlString, $dummy);
-			$reqs->addOccurences($name, $matches);
+			$reqs->addOccurrences($name, $matches);
 		}
         $totalString = $xmlString . $dtdString;
         $generalEntityFound = false;

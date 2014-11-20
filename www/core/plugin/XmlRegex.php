@@ -19,7 +19,7 @@ namespace asm\plugin;
  */
 class XmlRegex
 {
-	/// @name Flags used when wrapping reqular expressions with wrap()
+	/// @name Flags used when wrapping regular expressions with wrap()
 	//@{
 	const CASE_INSENSITIVE = 1;	///< case-insensitive
 	const DOT_MATCH_ALL = 2;		///< dot matches all characters (even newlines)
@@ -164,6 +164,8 @@ class XmlRegex
 
 	/**
 	 * Makes predefined expressions read-accessible as instance members.
+	 * @param $name string expression name
+	 * @return string wrapped regexp
 	 */
 	public function __get ($name)
 	{
@@ -176,6 +178,8 @@ class XmlRegex
 
 	/**
 	 * Allows adding of predefined expressions (only in constructor).
+	 * @param $name string name of the expression
+	 * @param $value string unwrapped regular expression
 	 */
 	public function __set ($name, $value)
 	{
@@ -222,7 +226,7 @@ class XmlRegex
 	 */
 	public function setWrapMode ($mode)
 	{
-		return $this->_wrap = $mode;
+		$this->_wrap = $mode;
 		return $this;
 	}
 

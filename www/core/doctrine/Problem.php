@@ -52,12 +52,6 @@ class Problem
     private $config;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="lectureId", type="integer", nullable=false)
-     */
-    private $lectureid;
-    /**
      * @var boolean
      * @ORM\Column(name="deleted", type="boolean")
      */
@@ -84,7 +78,7 @@ class Problem
      * Set name
      *
      * @param string $name
-     * @return Problems
+     * @return Problem
      */
     public function setName($name)
     {
@@ -107,7 +101,7 @@ class Problem
      * Set description
      *
      * @param string $description
-     * @return Problems
+     * @return Problem
      */
     public function setDescription($description)
     {
@@ -130,7 +124,7 @@ class Problem
      * Set config
      *
      * @param string $config
-     * @return Problems
+     * @return Problem
      */
     public function setConfig($config)
     {
@@ -149,28 +143,7 @@ class Problem
         return $this->config;
     }
 
-    /**
-     * Set lectureid
-     *
-     * @param integer $lectureid
-     * @return Problems
-     */
-    public function setLectureid($lectureid)
-    {
-        $this->lectureid = $lectureid;
 
-        return $this;
-    }
-
-    /**
-     * Get lectureid
-     *
-     * @return integer 
-     */
-    public function getLectureid()
-    {
-        return $this->lectureid;
-    }
 
     /**
      * Set plugin

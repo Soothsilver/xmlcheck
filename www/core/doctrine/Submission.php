@@ -46,26 +46,13 @@ class Submission
      */
     private $id;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="assignmentId", type="integer", nullable=false)
-     */
-    private $assignmentid;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="userId", type="integer", nullable=false)
-     */
-    private $userid;
 
     /**
      * @var string
      *
      * @ORM\Column(name="submissionFile", type="string", length=100, nullable=false)
      */
-    private $submissionfile = '';
+    private $submissionFile = '';
 
     /**
      * @var \DateTime
@@ -128,80 +115,37 @@ class Submission
         return $this->id;
     }
 
+
+
+
     /**
-     * Set assignmentid
+     * Set submissionFile
      *
-     * @param integer $assignmentid
-     * @return Submissions
+     * @param string $submissionFile
+     * @return Submission
      */
-    public function setAssignmentid($assignmentid)
+    public function setSubmissionFile($submissionFile)
     {
-        $this->assignmentid = $assignmentid;
+        $this->submissionFile = $submissionFile;
 
         return $this;
     }
 
     /**
-     * Get assignmentid
-     *
-     * @return integer 
-     */
-    public function getAssignmentid()
-    {
-        return $this->assignmentid;
-    }
-
-    /**
-     * Set userid
-     *
-     * @param integer $userid
-     * @return Submissions
-     */
-    public function setUserid($userid)
-    {
-        $this->userid = $userid;
-
-        return $this;
-    }
-
-    /**
-     * Get userid
-     *
-     * @return integer 
-     */
-    public function getUserid()
-    {
-        return $this->userid;
-    }
-
-    /**
-     * Set submissionfile
-     *
-     * @param string $submissionfile
-     * @return Submissions
-     */
-    public function setSubmissionfile($submissionfile)
-    {
-        $this->submissionfile = $submissionfile;
-
-        return $this;
-    }
-
-    /**
-     * Get submissionfile
+     * Get submissionFile
      *
      * @return string 
      */
-    public function getSubmissionfile()
+    public function getSubmissionFile()
     {
-        return $this->submissionfile;
+        return $this->submissionFile;
     }
 
     /**
      * Set date
      *
      * @param \DateTime $date
-     * @return Submissions
+     * @return Submission
      */
     public function setDate($date)
     {
@@ -224,7 +168,7 @@ class Submission
      * Set status
      *
      * @param string $status
-     * @return Submissions
+     * @return Submission
      */
     public function setStatus($status)
     {
@@ -247,7 +191,7 @@ class Submission
      * Set success
      *
      * @param integer $success
-     * @return Submissions
+     * @return Submission
      */
     public function setSuccess($success)
     {
@@ -270,7 +214,7 @@ class Submission
      * Set info
      *
      * @param string $info
-     * @return Submissions
+     * @return Submission
      */
     public function setInfo($info)
     {
@@ -293,7 +237,7 @@ class Submission
      * Set outputfile
      *
      * @param string $outputfile
-     * @return Submissions
+     * @return Submission
      */
     public function setOutputfile($outputfile)
     {
@@ -316,7 +260,7 @@ class Submission
      * Set rating
      *
      * @param integer $rating
-     * @return Submissions
+     * @return Submission
      */
     public function setRating($rating)
     {
@@ -339,7 +283,7 @@ class Submission
      * Set explanation
      *
      * @param string $explanation
-     * @return Submissions
+     * @return Submission
      */
     public function setExplanation($explanation)
     {
@@ -362,7 +306,7 @@ class Submission
      * Set assignment
      *
      * @param \Assignment $assignment
-     * @return Submissions
+     * @return Submission
      */
     public function setAssignment(\Assignment $assignment = null)
     {

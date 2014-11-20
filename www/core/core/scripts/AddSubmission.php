@@ -46,7 +46,7 @@ final class AddSubmission extends DataScript
         // Create submission
         $newSubmission = new \Submission();
         $newSubmission->setAssignment($assignment);
-        $newSubmission->setSubmissionfile($file);
+        $newSubmission->setSubmissionFile($file);
         $newSubmission->setUser(User::instance()->getEntity());
         $newSubmission->setDate(new \DateTime());
 
