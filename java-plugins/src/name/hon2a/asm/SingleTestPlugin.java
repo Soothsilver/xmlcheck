@@ -56,10 +56,11 @@ public abstract class SingleTestPlugin extends Plugin {
 
 	private Test test = null; ///< used test
 
+
 	/**
 	 * Run the single test.
 	 *
-	 * @throws name.hon2a.asm.PluginException in case no test is set to be executed
+	 * @throws PluginCodeException in case no test is set to be executed
 	 */
 	@Override
 	protected final void execute() throws PluginCodeException {

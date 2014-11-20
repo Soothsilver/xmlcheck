@@ -44,7 +44,7 @@ public abstract class TesterPlugin extends Plugin {
 		 * @param goalPairs associative array of \<test id, goal name\> pairs
 		 */
 		public TesterCriterion (Map<Integer, String> goalPairs) {
-			this.goalPairs = new HashMap<Integer, String>(goalPairs);
+			this.goalPairs = new HashMap<>(goalPairs);
 		}
 
 		/**
@@ -104,13 +104,13 @@ public abstract class TesterPlugin extends Plugin {
 			}
 			int goalCount = this.goalPairs.size();
 			int fulfillment = (goalCount > 0)
-				? ((goalCount - goalsFailed) * 100 / goalCount)
-				: 100;
+					? (((goalCount - goalsFailed) * 100) / goalCount)
+					: 100;
 			return new Results((goalsFailed == 0), fulfillment, details.toString());
 		}
 	}
 
-	private List<Test> tests = new ArrayList<Test>(); ///< list of used tests
+	private List<Test> tests = new ArrayList<>(); ///< list of used tests
 	private Map[] testResults; ///< array of results maps of all tests
 
 	/**
@@ -148,7 +148,6 @@ public abstract class TesterPlugin extends Plugin {
 	 * 
 	 * @param test test to be added
 	 * @return Test ID to be used to refer test to plugin criteria.
-	 * @see name.hon2a.asm.TesterPlugin::addTestAsCriterion()
 	 */
 	protected int addTest (Test test) {
 		this.tests.add(test);
@@ -165,19 +164,15 @@ public abstract class TesterPlugin extends Plugin {
 	 * @param description criterion description
 	 * @return Test ID to be used to refer test to plugin criteria.
 	 * @throws PluginCodeException
-	 * @see name.hon2a.asm.TesterPlugin::addTestAsCriterion(Test)
-	 * @see name.hon2a.asm.TesterPlugin::addTest()
 	 */
 	protected int addTestAsCriterion (Test test, String description) throws PluginCodeException {
 		int testId = this.addTest(test);
-		Map<Integer, String> goals = new HashMap<Integer, String>();
+		Map<Integer, String> goals = new HashMap<>();
 		for (String goalName : test.getResults().keySet()) {
 			goals.put(testId, goalName);
 		}
 		if (description == null) {
-			description = (new StringBuilder("Complete test ")
-					.append(test.getName())
-					.toString());
+			description = ("Complete test " + test.getName());
 		}
 		this.addCriterion(description, new TesterCriterion(goals));
 		return testId;
@@ -190,8 +185,6 @@ public abstract class TesterPlugin extends Plugin {
 	 * @param test test to be added
 	 * @return Test ID to be used to refer test to plugin criteria.
 	 * @throws PluginCodeException
-	 * @see name.hon2a.asm.TesterPlugin::addTestAsCriterion(Test, String)
-	 * @see name.hon2a.asm.TesterPlugin::addTest()
 	 */
 	protected int addTestAsCriterion (Test test) throws PluginCodeException {
 		return this.addTestAsCriterion(test, null);

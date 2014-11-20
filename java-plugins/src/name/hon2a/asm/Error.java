@@ -23,7 +23,7 @@ public class Error {
 	/**
 	 * Retrieve error message in human-readable format.
 	 *
-	 * Descentants must override this function or risk that their additional data
+	 * Descendants must override this function or risk that their additional data
 	 * will not be used.
 	 * 
 	 * @return %Error message in readable format.

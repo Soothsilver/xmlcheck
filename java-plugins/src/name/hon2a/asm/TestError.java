@@ -4,14 +4,14 @@ package name.hon2a.asm;
  * %Error wrapper used by @link Test tests @endlink to specify details of goal
  * or test failure.
  *
- * Adds posibility to save filename and line number of error point of origin.
+ * Adds possibility to save filename and line number of error point of origin.
  *
  * @author %hon2a
  */
 public class TestError extends Error {
 
-	protected String sourcePath = null; ///< path of file where error occured
-	protected int lineNumber = 0; ///< line number on which error occured
+	protected String sourcePath = null; ///< path of file where error occurred
+	protected int lineNumber = 0; ///< line number on which error occurred
 
 	/**
 	 * Default constructor.
@@ -26,7 +26,7 @@ public class TestError extends Error {
 	 * Constructor for cases when file of error origin is known.
 	 *
 	 * @param message error message
-	 * @param path path of file where error occured
+	 * @param path path of file where error occurred
 	 */
 	public TestError (String message, String path) {
 		super(message);
@@ -37,8 +37,8 @@ public class TestError extends Error {
 	 * Constructor for cases when file and line number of error origin are known.
 	 *
 	 * @param message error message
-	 * @param path path of file where error occured
-	 * @param lineNumber line number on which error occured
+	 * @param path path of file where error occurred
+	 * @param lineNumber line number on which error occurred
 	 */
 	public TestError (String message, String path, int lineNumber) {
 		super(message);

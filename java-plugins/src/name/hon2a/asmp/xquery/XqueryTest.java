@@ -115,7 +115,7 @@ public class XqueryTest extends Test {
 			ret.add(this.stripXqueryComments(this.loadTextFile(file)));
 		}
 
-		return ret.toArray(new String[] {});
+		return ret.toArray(new String[ret.size()]);
 	}
 
 	protected String stripXqueryComments (String query) {
@@ -126,7 +126,7 @@ public class XqueryTest extends Test {
 		return query;
 	}
 
-	protected String checkXqueryConstructCoverage (String[] queries) throws TestException {
+	protected String checkXqueryConstructCoverage (String[] queries) {
 		String[][] requirements = {
 			{"where.*?(min|max|avg|sum)", "min, max, avg or sum function in 'where' clause"},
 			{"every.*?satisfies|some.*?satisfies", "every ... satisfies or some ... satisfies"},
@@ -151,7 +151,7 @@ public class XqueryTest extends Test {
 	}
 
 	protected String runQueries (String[] queries, String baseUri, Document xmlDocument, String outputPathMask)
-			throws TestException, IOException {
+			throws IOException {
 		final Configuration config = new Configuration();
 
 		final Properties props = new Properties();

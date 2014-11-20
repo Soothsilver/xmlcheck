@@ -4,6 +4,7 @@
  * Author:  Gregory Pakosz.
  * Date:    02 - November - 2005
  * ____________________________________________________________________________
+ * Slightly modified by Petr Hudecek in 2014 in order to make the file pass IntelliJ IDEA static code analysis.
  */
 package name.hon2a.asm;
 
@@ -32,12 +33,14 @@ import java.io.PushbackInputStream;
  * Use the @ref skipBOM() method to remove the detected BOM from the
  * wrapped @c InputStream object.
  */
+@SuppressWarnings("MagicNumber")
 public class UnicodeBOMInputStream extends InputStream
 {
   /**
    * Type safe enumeration class that describes the different types of Unicode
    * BOMs.
    */
+  @SuppressWarnings("MagicNumber")
   public static final class BOM
   {
     /**
@@ -108,17 +111,17 @@ public class UnicodeBOMInputStream extends InputStream
       return result;
     }
 
-    private BOM(final byte bom[], final String description)
+    private BOM(final byte[] bom, final String description)
     {
       assert(bom != null)               : "invalid BOM: null is not allowed";
       assert(description != null)       : "invalid description: null is not allowed";
-      assert(description.length() != 0) : "invalid description: empty string is not allowed";
+      assert(!description.isEmpty())    : "invalid description: empty string is not allowed";
 
       this.bytes          = bom;
-      this.description  = description;
+      this.description    = description;
     }
 
-            final byte    bytes[];
+    final byte[] bytes;
     private final String  description;
 
   } // BOM
@@ -137,12 +140,13 @@ public class UnicodeBOMInputStream extends InputStream
                                                                       IOException
 
   {
-    if (inputStream == null)
+    if (inputStream == null) {
       throw new NullPointerException("invalid input stream: null is not allowed");
+    }
 
     in = new PushbackInputStream(inputStream,4);
 
-    final byte  bom[] = new byte[4];
+    final byte[] bom = new byte[4];
     final int   read  = in.read(bom);
 
     switch(read)
@@ -165,7 +169,7 @@ public class UnicodeBOMInputStream extends InputStream
           this.bom = BOM.UTF_32_BE;
           break;
         }
-        // Fall-thru:
+        // Fallthrough:
       case 3:
         if ((bom[0] == (byte)0xEF) &&
             (bom[1] == (byte)0xBB) &&
@@ -175,7 +179,7 @@ public class UnicodeBOMInputStream extends InputStream
           break;
         }
 
-          // Fall-thru:
+          // Fallthrough:
       case 2:
         if ((bom[0] == (byte)0xFF) &&
             (bom[1] == (byte)0xFE))
@@ -191,14 +195,15 @@ public class UnicodeBOMInputStream extends InputStream
           break;
         }
 
-          // Fall-thru:
+          // Fallthrough:
       default:
         this.bom = BOM.NONE;
         break;
     }
 
-    if (read > 0)
-      in.unread(bom,0,read);
+    if (read > 0) {
+      in.unread(bom, 0, read);
+    }
   }
 
   /**
@@ -208,19 +213,20 @@ public class UnicodeBOMInputStream extends InputStream
    */
   public final BOM getBOM()
   {
-    // BOM type is unmutable.
+    // BOM type is immutable.
     return bom;
   }
 
   /**
    * Skips the @c BOM that was found in the wrapped
-   * <code>InputStream</code> object.
+   * {@code InputStream} object.
    *
    * @return this @c UnicodeBOMInputStream.
    *
    * @throws java.io.IOException when trying to skip the BOM from the wrapped
    * @c InputStream object.
    */
+  @SuppressWarnings("ResultOfMethodCallIgnored")
   public final synchronized UnicodeBOMInputStream skipBOM() throws IOException
   {
     if (!skipped)
@@ -231,29 +237,20 @@ public class UnicodeBOMInputStream extends InputStream
     return this;
   }
 
-  /**
-   * {@inheritDoc}
-   */
   public int read() throws IOException
   {
     return in.read();
   }
 
-  /**
-   * {@inheritDoc}
-   */
-	@Override
-  public int read(final byte b[]) throws  IOException,
+  @Override
+  public int read(final byte[] b) throws  IOException,
                                           NullPointerException
   {
     return in.read(b,0,b.length);
   }
 
-  /**
-   * {@inheritDoc}
-   */
-	@Override
-  public int read(final byte b[],
+  @Override
+  public int read(final byte[] b,
                   final int off,
                   final int len) throws IOException,
                                         NullPointerException
@@ -261,55 +258,37 @@ public class UnicodeBOMInputStream extends InputStream
     return in.read(b,off,len);
   }
 
-  /**
-   * {@inheritDoc}
-   */
-	@Override
+  @Override
   public long skip(final long n) throws IOException
   {
     return in.skip(n);
   }
 
-  /**
-   * {@inheritDoc}
-   */
-	@Override
+  @Override
   public int available() throws IOException
   {
     return in.available();
   }
 
-  /**
-   * {@inheritDoc}
-   */
-	@Override
+  @Override
   public void close() throws IOException
   {
     in.close();
   }
 
-  /**
-   * {@inheritDoc}
-   */
-	@Override
-  public synchronized void mark(final int readlimit)
+  @Override
+  public synchronized void mark(final int readLimit)
   {
-    in.mark(readlimit);
+    in.mark(readLimit);
   }
 
-  /**
-   * {@inheritDoc}
-   */
-	@Override
+  @Override
   public synchronized void reset() throws IOException
   {
     in.reset();
   }
 
-  /**
-   * {@inheritDoc}
-   */
-	@Override
+  @Override
   public boolean markSupported()
   {
     return in.markSupported();

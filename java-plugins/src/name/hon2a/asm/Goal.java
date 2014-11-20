@@ -87,6 +87,6 @@ public class Goal {
 	 * @param error error message. Goal is reached if error message is null.
 	 */
 	public void reachOnNoError (String error) {
-		this.reachOnCondition(((error == null) || (error.length() == 0)), error);
+		this.reachOnCondition(((error == null) || (error.isEmpty())), error);
 	}
 }

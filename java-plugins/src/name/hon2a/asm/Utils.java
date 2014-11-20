@@ -29,6 +29,7 @@ public class Utils {
     /**
      * Copies the contents of the source directory into the second directory.
      * Code by Archimedes Trajano at http://stackoverflow.com/a/10068306/1580088
+	 * Slightly modified by Petr Hudecek in order to make it pass IntelliJ IDEA static code analysis
      * @param sourceDirectory directory to copy contents from
      * @param copyInto files and directories from the first directory will be copied into this one
      */
@@ -38,7 +39,7 @@ public class Utils {
         Files.walkFileTree(sourcePath, new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult preVisitDirectory(final Path dir,
-                                                     final BasicFileAttributes attrs) throws IOException {
+                                                     final BasicFileAttributes attributes) throws IOException {
                 Files.createDirectories(targetPath.resolve(sourcePath
                         .relativize(dir)));
                 return FileVisitResult.CONTINUE;
@@ -46,7 +47,7 @@ public class Utils {
 
             @Override
             public FileVisitResult visitFile(final Path file,
-                                             final BasicFileAttributes attrs) throws IOException {
+                                             final BasicFileAttributes attributes) throws IOException {
                 Files.copy(file,
                         targetPath.resolve(sourcePath.relativize(file)));
                 return FileVisitResult.CONTINUE;
@@ -60,12 +61,11 @@ public class Utils {
 	 * @param extension file extension
 	 * @return File descriptor of created file.
 	 * @throws java.io.IOException if file cannot be created
-	 * @see name.hon2a.asm.Utils::createTempFile()
 	 */
 	public static File createTempFile (String extension) throws IOException {
 		final File tempFile;
 		tempFile = File.createTempFile("asmTempFile_" + Long.toString(System.nanoTime()),
-				  ((extension == null) ? "" : "." + extension));
+				((extension == null) ? "" : ("." + extension)));
 
 		if(!(tempFile.delete()))
 		{
@@ -84,7 +84,6 @@ public class Utils {
 	 *
 	 * @return File descriptor of created file.
 	 * @throws java.io.IOException if file cannot be created
-	 * @see name.hon2a.asm.Utils::createTempFile(String)
 	 */
 	public static File createTempFile () throws IOException {
 		return createTempFile(null);
@@ -119,33 +118,28 @@ public class Utils {
 	 * @return Text contents of source file in a string.
 	 * @throws java.io.FileNotFoundException
 	 * @throws java.io.IOException
-	 * @see name.hon2a.asm.Utils::saveTextFile()
 	 */
-	public static String loadTextFile (File source) throws FileNotFoundException, IOException {
+	public static String loadTextFile (File source) throws IOException {
 		StringBuilder textContent = new StringBuilder(BUFFER_SIZE);
 		FileInputStream fi = new FileInputStream(source);
 
-		UnicodeBOMInputStream ubis = new UnicodeBOMInputStream(fi).skipBOM();
+		UnicodeBOMInputStream inputStream = new UnicodeBOMInputStream(fi).skipBOM();
 
 		InputStreamReader ir;
 		try {
-			ir = new InputStreamReader(ubis, "UTF-8");
+			ir = new InputStreamReader(inputStream, "UTF-8");
 		} catch (Exception e) {
-			ir = new InputStreamReader(ubis);
+			ir = new InputStreamReader(inputStream);
 		}
 
 
-
-        Reader reader = new BufferedReader(ir, BUFFER_SIZE);
 		char[] buf = new char[BUFFER_SIZE];
-		int numRead = 0;
+		int numRead;
 
-		try {
+		try (Reader reader = new BufferedReader(ir, BUFFER_SIZE)) {
 			while ((numRead = reader.read(buf)) != -1) {
 				textContent.append(String.valueOf(buf, 0, numRead));
 			}
-		} finally {
-			reader.close();
 		}
 
 		return textContent.toString();
@@ -159,35 +153,32 @@ public class Utils {
 	 * @throws java.io.IOException
 	 */
 	public static void recodeFileToDefaultEncoding (File source)
-			throws FileNotFoundException, IOException {
+			throws IOException {
 		String contents = Utils.loadTextFile(source);
-		Writer output = new BufferedWriter(new FileWriter(source));
-		try {
+		try (Writer output = new BufferedWriter(new FileWriter(source))) {
 			output.write(contents);
-		} finally {
-			output.close();
 		}
 	}
 
 	/**
 	 * Save data from input stream to text file.
 	 *
-	 * @param dest destination file
+	 * @param destination destination file
 	 * @param is input stream
 	 * @param charsetName name of charset which should be used (default if null)
 	 * @throws java.io.IOException
-	 * @see name.hon2a.asm.Utils::saveBinaryFile()
 	 */
-	public static void saveTextFile (File dest, InputStream is, String charsetName) throws IOException {
+	@SuppressWarnings("ResultOfMethodCallIgnored")
+	public static void saveTextFile (File destination, InputStream is, String charsetName) throws IOException {
 		BufferedWriter writer = null;
 		BufferedReader reader = null;
-		dest.createNewFile();
+		destination.createNewFile();
 		try {
-			writer = new BufferedWriter(new FileWriter(dest), BUFFER_SIZE);
+			writer = new BufferedWriter(new FileWriter(destination), BUFFER_SIZE);
 			reader = (charsetName == null)
 				? new BufferedReader(new InputStreamReader(is), BUFFER_SIZE)
 				: new BufferedReader(new InputStreamReader(is, charsetName), BUFFER_SIZE);
-			int count = 0;
+			int count;
 			char[] charBuffer = new char[BUFFER_SIZE];
 			while ((count = reader.read(charBuffer, 0, BUFFER_SIZE)) != -1) {
 				writer.write(charBuffer, 0, count);
@@ -205,19 +196,19 @@ public class Utils {
 	/**
 	 * Save data from input stream to binary file.
 	 *
-	 * @param dest destination file
+	 * @param destination destination file
 	 * @param contents input stream
 	 * @throws java.io.IOException
-	 * @see name.hon2a.asm.Utils::saveTextFile()
 	 */
-	public static void saveBinaryFile (File dest, InputStream contents) throws IOException {
+	@SuppressWarnings("ResultOfMethodCallIgnored")
+	public static void saveBinaryFile (File destination, InputStream contents) throws IOException {
 		BufferedOutputStream os = null;
 		BufferedInputStream is = null;
-		dest.createNewFile();
+		destination.createNewFile();
 		try {
 			is = new BufferedInputStream(contents, BUFFER_SIZE);
-			os = new BufferedOutputStream(new FileOutputStream(dest), BUFFER_SIZE);
-			int count = 0;
+			os = new BufferedOutputStream(new FileOutputStream(destination), BUFFER_SIZE);
+			int count;
 			byte[] byteBuffer = new byte[BUFFER_SIZE];
 			while ((count = is.read(byteBuffer, 0, BUFFER_SIZE)) != -1) {
 				os.write(byteBuffer, 0, count);
@@ -239,8 +230,6 @@ public class Utils {
 	 * @param count indentation depth
 	 * @param filler indentation string
 	 * @return Indented text.
-	 * @see name.hon2a.asm.Utils::indent(String, int)
-	 * @see name.hon2a.asm.Utils::indent(String)
 	 */
 	public static String indent (String text, int count, String filler) {
 		if ((text == null) || (count < 0) || (filler == null)) {
@@ -259,12 +248,12 @@ public class Utils {
 		String line;
 		try {
 			while ((line = reader.readLine()) != null) {
-				writer.write(new StringBuilder(filler).append(line).toString());
+				writer.write(filler + line);
 				writer.newLine();
 			}
 			reader.close();
 			writer.close();
-		} catch (IOException e) {
+		} catch (IOException ignored) {
 		}
 
 		return buffer.toString();
@@ -276,8 +265,6 @@ public class Utils {
 	 * @param text text to be indented
 	 * @param count indentation depth
 	 * @return Indented text.
-	 * @see name.hon2a.asm.Utils::indent(String, int, String)
-	 * @see name.hon2a.asm.Utils::indent(String)
 	 */
 	public static String indent (String text, int count) {
 		return indent(text, count, INDENT_STRING);
@@ -288,8 +275,6 @@ public class Utils {
 	 *
 	 * @param text text to be indented
 	 * @return Indented text.
-	 * @see name.hon2a.asm.Utils::indent(String, int, String)
-	 * @see name.hon2a.asm.Utils::indent(String, int)
 	 */
 	public static String indent (String text) {
 		return indent(text, 1);
@@ -302,13 +287,9 @@ public class Utils {
 	 * @param message error message
 	 * @param details error details
 	 * @return Formatted error message.
-	 * @see name.hon2a.asm.Utils::indent()
 	 */
 	public static String indentError (String message, String details) {
-		return (new StringBuilder(message)
-				.append(EOL_STRING)
-				.append(indent(details))
-				.toString());
+		return (message + EOL_STRING + indent(details));
 	}
 
 	/**
@@ -323,8 +304,8 @@ public class Utils {
 		String[] folderContents = sourceFolder.list();
 		byte[] byteBuffer = new byte[BUFFER_SIZE];
 		int count;
-		for (int i = 0; i < folderContents.length; ++i) {
-			File file = new File(sourceFolder, folderContents[i]);
+		for (String fileName : folderContents) {
+			File file = new File(sourceFolder, fileName);
 			StringBuilder entryBuilder = new StringBuilder(pathBase);
 			if (!pathBase.equals("")) {
 				entryBuilder.append(File.separator);
@@ -356,10 +337,9 @@ public class Utils {
 	 * @param archive destination file
 	 * @throws java.io.FileNotFoundException
 	 * @throws java.io.IOException
-	 * @see name.hon2a.asm.Utils::unzip()
 	 */
 	public static void zip (File sourceFolder, File archive)
-			  throws FileNotFoundException, IOException {
+			  throws IOException {
 		ZipOutputStream zos = null;
 		try {
 			zos = new ZipOutputStream(new FileOutputStream(archive));
@@ -375,39 +355,39 @@ public class Utils {
 	 * Unpack contents of ZIP archive to given folder.
 	 *
 	 * @param archive ZIP archive
-	 * @param destFolder destination folder
+	 * @param destinationFolder destination folder
 	 * @throws java.io.FileNotFoundException
 	 * @throws java.io.IOException
-	 * @see name.hon2a.asm.Utils::zip()
 	 */
-	public static void unzip (File archive, File destFolder)
-			  throws FileNotFoundException, IOException  {
+	@SuppressWarnings("ResultOfMethodCallIgnored")
+	public static void unzip (File archive, File destinationFolder)
+			  throws IOException  {
 		ZipInputStream zis = new ZipInputStream(new BufferedInputStream(new FileInputStream(archive)));
 		ZipEntry entry;
 		while ((entry = zis.getNextEntry()) != null) {
-			File destFile = new File(destFolder, entry.getName());
+			File destinationFile = new File(destinationFolder, entry.getName());
 			if (entry.isDirectory()) {
-				if (destFile.exists() && !destFile.isDirectory()) {
-					destFile.delete();
+				if (destinationFile.exists() && !destinationFile.isDirectory()) {
+					destinationFile.delete();
 				}
-				destFile.mkdirs();
+				destinationFile.mkdirs();
 			} else {
-				if (!destFile.getParentFile().isDirectory()) {
-					destFile.getParentFile().mkdirs();
+				if (!destinationFile.getParentFile().isDirectory()) {
+					destinationFile.getParentFile().mkdirs();
 				}
 
 				int count;
-				byte data[] = new byte[BUFFER_SIZE];
-				BufferedOutputStream dest = null;
+				byte[] data = new byte[BUFFER_SIZE];
+				BufferedOutputStream destinationStream = null;
 				try {
-					dest = new BufferedOutputStream(new FileOutputStream(destFile), BUFFER_SIZE);
+					destinationStream = new BufferedOutputStream(new FileOutputStream(destinationFile), BUFFER_SIZE);
 					while ((count = zis.read(data, 0, BUFFER_SIZE)) != -1) {
-						dest.write(data, 0, count);
+						destinationStream.write(data, 0, count);
 					}
-					dest.flush();
+					destinationStream.flush();
 				} finally {
-					if (dest != null) {
-						dest.close();
+					if (destinationStream != null) {
+						destinationStream.close();
 					}
 				}
 			}
@@ -420,7 +400,6 @@ public class Utils {
 	 *
 	 * @param directory folder to be removed
 	 * @return True if removal was successful, false otherwise.
-	 * @see name.hon2a.asm.Utils::removeAnyFile()
 	 */
 	public static boolean removeDirectoryAndContents (File directory) {
 		if (directory == null) {
@@ -433,8 +412,8 @@ public class Utils {
 		String[] contents = directory.list();
 		boolean done = true;
 		if (contents != null) {
-			for (int i = 0; i < contents.length; ++i) {
-				File entry = new File(directory, contents[i]);
+			for (String fileName : contents) {
+				File entry = new File(directory, fileName);
 				if (entry.isDirectory()) {
 					done = removeDirectoryAndContents(entry);
 				} else {
@@ -453,7 +432,6 @@ public class Utils {
 	 *
 	 * @param file file descriptor
 	 * @return True if removal was successful, false otherwise.
-	 * @see name.hon2a.asm.Utils::removeDirectoryAndContents()
 	 */
 	public static boolean removeAnyFile (File file) {
 		if (file.isDirectory()) {
@@ -467,10 +445,10 @@ public class Utils {
 	}
 
 	/**
-	 * Turns object to string (empty string if object is null).
+	 * Functions like toString(), except it returns an empty string rather than the string "null" when the given object is null.
 	 *
-	 * @param object
-	 * @return Empty string for null reference, Object::toString() otherwise.
+	 * @param object the object on which to call toString()
+	 * @return object.toString() or "" if the object was null
 	 */
 	private static String toString (Object object) {
 		if (object == null) {
@@ -482,10 +460,9 @@ public class Utils {
 	/**
 	 * Turn collection to single string with elements delimited by custom string.
 	 *
-	 * @param collection collection to be stringified
-	 * @param delimiter custom delimiter
+	 * @param collection collection to be joined into a string by the delimiter
+	 * @param delimiter custom delimiter, or null to join by an empty string
 	 * @return String consisting of collection elements delimited by custom string.
-	 * @see name.hon2a.asm.Utils::join(Object[], String)
 	 */
 	public static String join (AbstractCollection collection, String delimiter) {
 		if (collection == null) {
@@ -497,10 +474,9 @@ public class Utils {
 	/**
 	 * Turn array to single string with elements delimited by custom string.
 	 *
-	 * @param array array to be stringified
-	 * @param delimiter custom delimiter
+	 * @param array array to be to be joined into a string by the delimiter
+	 * @param delimiter custom delimiter, or null to join by an empty string
 	 * @return String consisting of array elements delimited by custom string.
-	 * @see name.hon2a.asm.Utils::join(AbstractCollection, String)
 	 */
 	public static String join (Object[] array, String delimiter) {
 		if (array.length == 0) {
@@ -520,10 +496,8 @@ public class Utils {
 	/**
 	 * Turn array to single string.
 	 *
-	 * @param array array to be stringified
+	 * @param array array to be joined into a string, one item after another
 	 * @return String consisting of array elements joined together.
-	 * @see name.hon2a.asm.Utils::join(Object[], String)
-	 * @see name.hon2a.asm.Utils::join(AbstractCollection, String)
 	 */
 	public static String join (Object [] array) {
 		return join(array, null);
@@ -542,7 +516,7 @@ public class Utils {
 		StringBuilder stringWorker = new StringBuilder(string);
 		Matcher matcher = Pattern.compile("(^|[^\\\\])\"([^\"\\\\]+(\\\\\"[^\\\\])?)*\"")
 				.matcher(stringWorker.toString());
-		List<String> strings = new ArrayList<String>();
+		List<String> strings = new ArrayList<>();
 		int pos = 0;
 		while (matcher.find()) {
 			int start = matcher.start();
@@ -561,7 +535,7 @@ public class Utils {
 		if (stringWorker.length() > pos) {
 			addSplitPartsToArray(stringWorker.substring(pos, stringWorker.length()), strings);
 		}
-		return strings.toArray(new String[] {});
+		return strings.toArray(new String[strings.size()]);
 	}
 
 	/**
@@ -572,9 +546,9 @@ public class Utils {
 	 */
 	private static void addSplitPartsToArray (String string, List<String> list) {
 		String[] parts = string.split(" ");
-		for (int i = 0; i < parts.length; ++i) {
-			if (!parts[i].equals("")) {
-				list.add(parts[i]);
+		for (String part : parts) {
+			if (!part.equals("")) {
+				list.add(part);
 			}
 		}
 	}
@@ -586,7 +560,7 @@ public class Utils {
 	 * @return Associative array with string keys and values.
 	 */
 	public static Map<String, String> createStringMap (String ... entries) {
-		Map<String, String> map = new HashMap<String, String>(entries.length / 2);
+		Map<String, String> map = new HashMap<>(entries.length / 2);
 		for (int i = 1; i < entries.length; i += 2) {
 			map.put(entries[i - 1], entries[i]);
 		}
@@ -601,7 +575,7 @@ public class Utils {
 	 * @return Associative array with string keys and file descriptor values.
 	 */
 	public static Map<String, File> createFileMap (String ... entries) {
-		Map<String, File> map = new HashMap<String, File>(entries.length / 2);
+		Map<String, File> map = new HashMap<>(entries.length / 2);
 		for (int i = 1; i < entries.length; i += 2) {
 			map.put(entries[i - 1], new File(entries[i]));
 		}
@@ -613,7 +587,6 @@ public class Utils {
 	 *
 	 * @param e exception
 	 * @return Stack trace.
-	 * @see name.hon2a.asm.Utils::getMessageTrace()
 	 */
 	public static String getStackTrace (Throwable e) {
 		StringWriter bufferWriter = new StringWriter();
@@ -627,7 +600,6 @@ public class Utils {
 	 *
 	 * @param e exception
 	 * @return Exception message if present, class name otherwise.
-	 * @see name.hon2a.asm.Utils::getMessageTrace()
 	 */
 	private static String createSimpleMessage (Throwable e) {
 		String message = e.getMessage();
@@ -639,11 +611,10 @@ public class Utils {
 
 	/**
 	 * Create detailed message from exception using top of its stack trace to add
-	 * aditional info.
+	 * additional info.
 	 *
 	 * @param e exception
 	 * @return Detailed message with exception class and possibly file and line number.
-	 * @see name.hon2a.asm.Utils::getMessageTrace()
 	 */
 	private static String createDetailedMessage (Throwable e) {
 		StringBuilder messageBuilder = new StringBuilder();

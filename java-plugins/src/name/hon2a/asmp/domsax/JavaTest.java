@@ -1,21 +1,15 @@
-package name.hon2a.asme;
+package name.hon2a.asmp.domsax;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileFilter;
-import java.io.FilenameFilter;
-import java.io.OutputStream;
-import java.io.PrintWriter;
+import name.hon2a.asm.Test;
+import name.hon2a.asm.TestException;
+import name.hon2a.asm.Utils;
+
+import java.io.*;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.HashMap;
 import java.util.Map;
-import name.hon2a.asm.Test;
-import name.hon2a.asm.TestException;
-import name.hon2a.asm.Utils;
-
-import javax.tools.JavaCompiler;
 
 /**
  * Abstract test providing support for compiling and running external java sources.
@@ -109,8 +103,8 @@ public abstract class JavaTest extends Test {
 	 * @param methodName name of method to be invoked
 	 * @param args arguments passed to run script
 	 * @throws name.hon2a.asm.TestException in case script cannot be loaded or throws an exception
-	 * @see name.hon2a.asme.JavaTest::runJavaUserScript(File, String, String)
-	 * @see name.hon2a.asme.JavaTest::compileJavaSources()
+	 * @see JavaTest ::runJavaUserScript(File, String, String)
+	 * @see JavaTest ::compileJavaSources()
 	 */
 	protected final Object runJavaSource (File classPath, String className,
 			  String methodName, Map<Class, Object> args)
@@ -134,7 +128,7 @@ public abstract class JavaTest extends Test {
 	 * @param className name of class to be loaded
 	 * @param methodName name of method to be invoked
 	 * @throws name.hon2a.asm.TestException in case script cannot be loaded or throws an exception
-	 * @see name.hon2a.asme.JavaTest::runJavaUserScript(File, String, String, Map<Class, Object>)
+	 * @see JavaTest ::runJavaUserScript(File, String, String, Map<Class, Object>)
 	 */
 	protected final Object runJavaSource (File classPath, String className, String methodName)
 			  throws TestException {

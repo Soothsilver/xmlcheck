@@ -84,12 +84,12 @@ public abstract class Plugin {
 	 * Every plugin must receive path to submission file as its first argument.
 	 * That arguments is saved and removed before arguments are passed to Plugin::setUp.
 	 */
-	private static int MIN_ARGUMENTS = 1;
+	private static final int MIN_ARGUMENTS = 1;
 
 	
 	private File dataFolder; ///< temporary folder with unpacked submission files
 	private File outputFolder; ///< temporary folder for plugin output
-	private Map<String, Criterion> criteria = new HashMap<String, Criterion>(); ///< plugin criteria
+	private Map<String, Criterion> criteria = new HashMap<>(); ///< plugin criteria
 
 	protected Map<String, String> config; ///< plugin config
 
@@ -153,7 +153,7 @@ public abstract class Plugin {
             // Sometimes students zip not just the contents of the homework, but the enclosing folder as well.
             // This will accept that.
             File[] files = this.dataFolder.listFiles();
-            if (files.length == 1 && files[0].isDirectory())
+			if ((files.length == 1) && files[0].isDirectory())
             {
                 Utils.copyDirectory(files[0], this.dataFolder);
             }
@@ -170,12 +170,12 @@ public abstract class Plugin {
 		} catch (PluginException e) {
 			return this.makeErrorXml(e.getMessage());
 		} catch (Exception e) {
-			return this.makeErrorXml(new StringBuilder("Java Exception: ")
-					  .append(e.getMessage())
-                      .append(e.getClass().toString())
-                      .append(e.toString())
-                      .append(Utils.EOL_STRING)
-					  .toString());
+			return this.makeErrorXml(
+					"Java Exception: " +
+							e.getMessage() + " " +
+							e.getClass().toString() + " " +
+							e.toString() +
+							Utils.EOL_STRING);
 		} finally {
 			if (this.dataFolder != null) {
 				Utils.removeDirectoryAndContents(this.dataFolder);
@@ -233,7 +233,7 @@ public abstract class Plugin {
 	 * @throws PluginException
 	 */
 	private Map<String, Results> assessResults () throws PluginException {
-		Map<String, Results> results = new HashMap<String, Results>(this.criteria.size());
+		Map<String, Results> results = new HashMap<>(this.criteria.size());
 		for (Map.Entry<String, Criterion> criterionPair : this.criteria.entrySet()) {
 			results.put(criterionPair.getKey(), criterionPair.getValue().check());
 		}
@@ -244,10 +244,9 @@ public abstract class Plugin {
 	 * Compress all contents of output folder into one zip archive.
 	 *
 	 * @return File descriptor of output archive.
-	 * @throws PluginException
 	 * @throws java.io.IOException
 	 */
-	private File packOutput () throws PluginException, IOException {
+	private File packOutput () throws IOException {
 		File outputFile = null;
 		if ((this.outputFolder != null) && (this.outputFolder.isDirectory())
 				&& (this.outputFolder.list().length > 0)) {
@@ -265,7 +264,8 @@ public abstract class Plugin {
 		if (this.dataFolder != null) {
 			try {
 				str = str.replaceAll("(?i)" + Pattern.quote(this.dataFolder.getCanonicalPath()), ".");
-			} catch (IOException e) {
+			} catch (IOException ignored) {
+				// Cannot happen.
 			}
 		}
 		return str;
@@ -348,10 +348,7 @@ public abstract class Plugin {
 	 */
 	protected final void addCriterion (String name, Criterion criterion) throws PluginCodeException {
 		if (this.criteria.get(name) != null) {
-			throw new PluginCodeException(new StringBuilder("Cannot add criterion with same name twice (")
-					.append(name)
-					.append(")")
-					.toString());
+			throw new PluginCodeException("Cannot add criterion with same name twice (" + name + ")");
 		}
 		this.criteria.put(name, criterion);
 	}
@@ -369,11 +366,7 @@ public abstract class Plugin {
 			return;
 		}
 		if ((params == null) || (params.length < descriptions.length)) {
-			StringBuilder message = new StringBuilder("Plugin takes ");
-			message.append(Integer.toString(descriptions.length))
-				.append(" mandatory arguments: ")
-				.append(Utils.join(descriptions, ", "));
-			throw new PluginUseException(message.toString());
+			throw new PluginUseException("Plugin takes " + Integer.toString(descriptions.length) + " mandatory arguments: " + Utils.join(descriptions, ", "));
 		}
 	}
 }

@@ -3,7 +3,6 @@ package name.hon2a.asmp.domsax;
 import name.hon2a.asm.TestCodeException;
 import name.hon2a.asm.TestDataException;
 import name.hon2a.asm.TestException;
-import name.hon2a.asme.JavaTest;
 import org.w3c.dom.Document;
 
 import javax.xml.transform.Transformer;

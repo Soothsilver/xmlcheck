@@ -11,7 +11,7 @@ final class DownloadTest extends DirectOutputScript
 	protected final function body ()
 	{
 		if (!$this->isInputValid(array('id' => 'isIndex')))
-			return;
+			return false;
 
 		$id = $this->getParams('id');
 
@@ -91,6 +91,8 @@ final class DownloadTest extends DirectOutputScript
 
 		$this->setContentType('text/html');
 		$this->generateTestHtml($description, $selectedQuestions, $attachments);
+
+		return true;
 	}
 
 	protected function generateTestHtml ($title, $questions, $attachments)
@@ -150,8 +152,7 @@ ul, ol {
 
 .options>li {
 	font-weight: bold;
-	list-style-position: outside;
-	list-style-type: upper-alpha;
+	list-style: upper-alpha outside;
 }
 
 .options>li>span {
@@ -299,7 +300,7 @@ span.attachment {
 	{
 		$contents = file_get_contents($filename);
 		return mb_convert_encoding($contents, 'UTF-8',
-				mb_detect_encoding($content, 'UTF-8, ISO-8859-2', true));
+				mb_detect_encoding($contents, 'UTF-8, ISO-8859-2', true));
 	}
 }
 

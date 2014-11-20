@@ -1,19 +1,16 @@
 package name.hon2a.asm;
 
+import org.w3c.dom.Document;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.Document;
 
 /**
  * Abstract test used by descendants of TesterPlugin.
@@ -123,17 +120,15 @@ public abstract class Test implements Runnable {
 	 */
 	private void init (Map<String, String> sources, Map<String, String> params, File outputFolder) {
 		this.name = this.getClass().getSimpleName();
-		if (this.name == null) {
-		}
-		this.sources = (sources != null) ? sources : new HashMap<String, String>();
-		this.params = (params != null) ? params : new HashMap<String, String>();
+		this.sources = (sources != null) ? sources : new HashMap<>();
+		this.params = (params != null) ? params : new HashMap<>();
 		this.outputFolder = outputFolder;
 
 		this.goals = new HashMap<String, Goal>();
 		this.stage = STAGE_SET_GOALS;
 		try {
 			this.setGoals();
-		} catch (TestException e) {
+		} catch (TestException ignored) {
 		}
 	}
 
@@ -556,7 +551,7 @@ public abstract class Test implements Runnable {
 	 * @see name.hon2a.asm.Test::saveTextFile()
 	 * @see name.hon2a.asm.Test::saveBinaryFile()
 	 */
-	private final void saveFile (String path, InputStream contents, boolean binary,
+	private void saveFile (String path, InputStream contents, boolean binary,
 			  String charsetName) throws TestException{
 		if ((path == null) || (path.equals(""))) {
 			this.triggerError("Cannot save file (empty path)", ErrorType.ILLEGAL_ARGUMENT);
