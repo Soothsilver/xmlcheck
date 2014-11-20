@@ -15,7 +15,7 @@ class AddSubscription extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::groupsJoinPrivate, User::groupsJoinPublic,
+		if (!$this->userHasPrivileges(User::groupsJoinPrivate, User::groupsJoinPublic,
 				User::groupsRequest))
 			return;
 

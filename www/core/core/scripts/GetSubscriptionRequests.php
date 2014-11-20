@@ -13,7 +13,7 @@ final class GetSubscriptionRequests extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::groupsAdd))
+		if (!$this->userHasPrivileges(User::groupsAdd))
 			return;
 
 		$requests = Core::sendDbRequest('getSubscriptionRequestsByUserId', User::instance()->getId());

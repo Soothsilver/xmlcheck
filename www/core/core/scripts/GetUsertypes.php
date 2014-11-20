@@ -14,7 +14,7 @@ class GetUsertypes extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::usersAdd, User::usersManage, User::usersPrivPresets))
+		if (!$this->userHasPrivileges(User::usersAdd, User::usersManage, User::usersPrivPresets))
 			return;
 
 		if (!($userTypes = Core::sendDbRequest('getUsertypes')))

@@ -38,7 +38,7 @@ final class EditLecture extends DataScript
 
 		if (!$lectures)
 		{
-			if (!$this->userHasPrivs(User::lecturesAdd))
+			if (!$this->userHasPrivileges(User::lecturesAdd))
 				return;
 			
 			if (!Core::sendDbRequest('addLecture', $userId, $name, $description))

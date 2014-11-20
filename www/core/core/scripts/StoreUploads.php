@@ -13,7 +13,7 @@ class StoreUploads extends UploadScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs())
+		if (!$this->userHasPrivileges())
 			return;
 
 		$uploadManager = UploadManager::instance();

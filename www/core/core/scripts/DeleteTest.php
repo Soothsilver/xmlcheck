@@ -23,7 +23,7 @@ final class DeleteTest extends GenTestScript
 		if (!($tests = Core::sendDbRequest('getGenTestById', $id)))
 			return $this->stopDb($tests, ErrorEffect::dbGet('test'));
 
-		if (!$this->checkGenTestPrivs($tests[0][DbLayout::fieldLectureId]))
+		if (!$this->checkTestGenerationPrivileges($tests[0][DbLayout::fieldLectureId]))
 			return;
 
 		if (!Core::sendDbRequest('deleteGenTestById', $id))

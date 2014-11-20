@@ -13,7 +13,7 @@ final class GetTeacherRatingSums extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::submissionsCorrect))
+		if (!$this->userHasPrivileges(User::submissionsCorrect))
 			return;
 
 		$user = User::instance();

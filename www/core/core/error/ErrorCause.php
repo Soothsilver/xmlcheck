@@ -18,7 +18,7 @@ class ErrorCause
 		ErrorCode::zip => 'could not extract supplied zip archive',
 		ErrorCode::inputInvalid => 'input not valid',
 		ErrorCode::inputIncomplete => 'required input data missing',
-		ErrorCode::upload => 'file upload wasn\'t successful',
+		ErrorCode::upload => 'file upload was not successful',
 		ErrorCode::pluginLaunch => 'plugin could not be launched',
 		ErrorCode::removeFile => 'could not delete file',
 		ErrorCode::removeFolder => 'could not remove folder',

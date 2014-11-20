@@ -1,7 +1,7 @@
 <?php
 
 namespace asm\core;
-use SebastianBergmann\Exporter\Exception;
+
 
 /**
  * @ref ILauncher "Launcher" of php scripts.
@@ -18,6 +18,7 @@ class PhpLauncher implements ILauncher
 			return 'File doesn\'t exist or cannot be read';
 		}
 
+		/** @noinspection PhpIncludeInspection */
 		require_once $file;
 		$mainClass = basename($file, '.php');
 		if (!class_exists($mainClass, false))
@@ -25,6 +26,10 @@ class PhpLauncher implements ILauncher
 			return 'Main class ' . $mainClass . ' doesn\'t exist or is improperly named';
 		}
 
+
+		/**
+		 * @var $script \asm\plugin\Plugin
+		 */
 		$script = new $mainClass();
 		if (!is_callable(array($script, 'run')))
 		{

@@ -16,7 +16,7 @@ final class AddPluginTest extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::pluginsTest))
+		if (!$this->userHasPrivileges(User::pluginsTest))
 			return;
 
 		$inputs = array(

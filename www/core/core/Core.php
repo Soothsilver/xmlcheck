@@ -64,6 +64,9 @@ class Core
            $transport->setUsername($config["user"])->setPassword($config["password"]);
         }
         $mailer = \Swift_Mailer::newInstance($transport);
+        /**
+         * @var $message \Swift_Mime_Message
+         */
         $message = \Swift_Message::newInstance($subject)
             ->setFrom($from_addr, $from_name)
             ->setTo(array($to))
@@ -72,16 +75,16 @@ class Core
         return ($mailer->send($message) === 1);
 	}
 
-	/**
-	 * Launches plugin and updates database with results.
-	 * @param string $pluginType one of 'php', 'java', or 'exe'
-	 * @param string $pluginFile plugin file path
-	 * @param string $inputFile input file path
-	 * @param string $dbRequest database update request
-	 * @param int $rowId ID of row to be updated
-	 * @param array $arguments plugin arguments
-	 * @return bool true if no error occured
-	 */
+    /**
+     * Launches plugin and updates database with results.
+     * @param string $pluginType one of 'php', 'java', or 'exe'
+     * @param string $pluginFile plugin file path
+     * @param string $inputFile input file path
+     * @param boolean $isTest is this a plugin test or a submission? true if plugin test
+     * @param int $rowId ID of row to be updated
+     * @param array $arguments plugin arguments
+     * @return bool true if no error occurred
+     */
 	public static function launchPlugin ($pluginType, $pluginFile, $inputFile,
 			$isTest, $rowId, $arguments = array())
 	{
@@ -119,6 +122,7 @@ class Core
                 chdir($cwd);
             }
 
+            $response = null;
             if (!$error)
             {
                 if (isset($responseString))
@@ -128,7 +132,7 @@ class Core
                     }
                     catch (Exception $ex)
                     {
-                        $response =PluginResponse::createError('Internal error. Plugin did not supply valid response XML and this error occured: ' . $ex->getMessage() . '. Plugin instead supplied this response string: ' . $responseString);
+                        $response =PluginResponse::createError('Internal error. Plugin did not supply valid response XML and this error occurred: ' . $ex->getMessage() . '. Plugin instead supplied this response string: ' . $responseString);
                     }
                 }
             }
@@ -206,18 +210,20 @@ class Core
                 $submission->setInfo($errorInformation);
                 Repositories::persistAndFlush($submission);
             }
+            return false;
         }
 	}
 
-	/**
-	 * Launches plugin in detached process (asynchronous).
-	 * @param string $pluginType one of 'php', 'java', or 'exe'
-	 * @param string $pluginFile plugin file path
-	 * @param string $inputFile input file path
-	 * @param string $dbRequest database update request
-	 * @param int $rowId ID of row to be updated
-	 * @param array $arguments plugin arguments
-	 */
+    /**
+     * Launches plugin in detached process (asynchronous).
+     * @param string $pluginType one of 'php', 'java', or 'exe'
+     * @param string $pluginFile plugin file path
+     * @param string $inputFile input file path
+     * @param boolean $isTest true, if this is just a plugin test and not a submission
+     * @param int $rowId ID of row to be updated
+     * @param array $arguments plugin arguments
+     * @throws Exception
+     */
 	public static function launchPluginDetached (
         $pluginType, $pluginFile, $inputFile,
 			$isTest, $rowId, $arguments = array())
@@ -250,11 +256,12 @@ LAUNCH_CODE;
 		echo $response->toJson();
 	}
 
-	/**
-	 * Launches UI script (handler for request from UI).
-	 * @param array $data associative array with request arguments
-	 * @param array $files uploaded files
-	 */
+    /**
+     * Launches UI script (handler for request from UI).
+     * @param array $data associative array with request arguments
+     * @param array $files uploaded files
+     * @throws CoreException when the first array is empty
+     */
 	public static function handleUiRequest (array $data, array $files = array())
 	{
 
@@ -348,7 +355,6 @@ LAUNCH_CODE;
 		foreach ($e->getTrace() as $props)
 		{
 			$props = array_merge($defaults, $props);
-			$file = basename($props['file']);
 			$location = $props['file']
 					? (($props['file'] != 'Command line code')
 						? basename($props['file']) . ':' . $props['line']

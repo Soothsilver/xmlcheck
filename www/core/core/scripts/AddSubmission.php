@@ -18,7 +18,7 @@ final class AddSubmission extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::assignmentsSubmit))
+		if (!$this->userHasPrivileges(User::assignmentsSubmit))
 			return;
 
 		if (!$this->isInputValid(array('assignmentId' => 'isIndex')))

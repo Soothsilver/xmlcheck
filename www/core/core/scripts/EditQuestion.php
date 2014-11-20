@@ -35,13 +35,13 @@ final class EditQuestion extends LectureScript
 		$options = $this->getParams('options') . '';
 		$attachments = $this->getParams('attachments') . '';
 
-		if (!$this->checkGenTestPrivs($lecture))
+		if (!$this->checkTestGenerationPrivileges($lecture))
 			return;
 
 
 		$user = User::instance();
         $userId = $user->getId();
-        $visibleAttachments = Core::sendDbRequest('getAttachmentsVisibleByUserId', $userId, $this->userHasPrivs(User::lecturesManageAll) );
+        $visibleAttachments = Core::sendDbRequest('getAttachmentsVisibleByUserId', $userId, $this->userHasPrivileges(User::lecturesManageAll) );
 
 		if ($visibleAttachments === false)
 			return $this->stopDb(false, ErrorEffect::dbGetAll('attachments'));

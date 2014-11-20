@@ -15,7 +15,7 @@ class DeleteUser extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::usersRemove))
+		if (!$this->userHasPrivileges(User::usersRemove))
 			return;
 
 		if (!$this->isInputSet('id'))

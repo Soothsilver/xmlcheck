@@ -14,7 +14,7 @@ class GetUsers extends DataScript
 	protected function body ()
 	{
 
-		if (!$this->userHasPrivs(User::usersExplore))
+		if (!$this->userHasPrivileges(User::usersExplore))
 			return;
 
         /**

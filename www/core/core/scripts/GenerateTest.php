@@ -25,7 +25,7 @@ final class GenerateTest extends GenTestScript
 
 		$test = $genTests[0];
 
-		if (!$this->checkGenTestPrivs($test[DbLayout::fieldLectureId]))
+		if (!$this->checkTestGenerationPrivileges($test[DbLayout::fieldLectureId]))
 			return;
 
 		$randomized = $this->generateTest($test[DbLayout::fieldGenTestTemplate],

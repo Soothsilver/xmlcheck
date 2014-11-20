@@ -15,7 +15,7 @@ class DeleteUsertype extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::usersPrivPresets))
+		if (!$this->userHasPrivileges(User::usersPrivPresets))
 			return;
 
 		if (!$this->isInputSet('id'))

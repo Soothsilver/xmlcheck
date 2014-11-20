@@ -13,7 +13,7 @@ final class GetRatingSums extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::assignmentsSubmit))
+		if (!$this->userHasPrivileges(User::assignmentsSubmit))
 			return;
 
 		$user = User::instance();

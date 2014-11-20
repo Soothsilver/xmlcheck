@@ -7,7 +7,7 @@ final class EditEmailNotificationOptions extends DataScript
 {
 	protected function body ()
 	{
-        if (!$this->userHasPrivs())
+        if (!$this->userHasPrivileges())
              return;
 
         $onSubmissionRated = $this->paramExists(User::sendEmailOnSubmissionRatedStudent);

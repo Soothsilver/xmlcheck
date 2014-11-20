@@ -2,6 +2,8 @@
   <dictionary name="Petr">
     <words>
       <w>&amp;amp</w>
+      <w>addr</w>
+      <w>addslashes</w>
       <w>asmp</w>
       <w>autocorrect</w>
       <w>autoload</w>
@@ -16,6 +18,7 @@
       <w>classmap</w>
       <w>contentspec</w>
       <w>cuni</w>
+      <w>dbname</w>
       <w>debian</w>
       <w>decl</w>
       <w>didn</w>
@@ -44,6 +47,7 @@
       <w>hashtype</w>
       <w>hudecek</w>
       <w>hudeček</w>
+      <w>ident</w>
       <w>idref</w>
       <w>idrefs</w>
       <w>inno</w>
@@ -69,6 +73,7 @@
       <w>passwd</w>
       <w>phpass</w>
       <w>phptests</w>
+      <w>priv</w>
       <w>projectname</w>
       <w>projekty</w>
       <w>prolog</w>
@@ -94,6 +99,7 @@
       <w>uncategorized</w>
       <w>unparsed</w>
       <w>unregister</w>
+      <w>unsets</w>
       <w>unsubscribe</w>
       <w>usertype</w>
       <w>usertypes</w>

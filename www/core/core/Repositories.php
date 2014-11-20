@@ -2,6 +2,9 @@
 
 namespace asm\core;
 
+use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\AnnotationRegistry;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
@@ -41,8 +44,8 @@ class Repositories
         );
         $paths = array(__DIR__ . "/../doctrine");
         $config = Setup::createConfiguration($isDevMode);
-        $driver = new \Doctrine\ORM\Mapping\Driver\AnnotationDriver(new \Doctrine\Common\Annotations\AnnotationReader(), $paths);
-        \Doctrine\Common\Annotations\AnnotationRegistry::registerLoader('class_exists');
+        $driver = new AnnotationDriver(new AnnotationReader(), $paths);
+        AnnotationRegistry::registerLoader('class_exists');
         $config->setMetadataDriverImpl($driver);
         $entityManager = EntityManager::create($connection, $config);
         $platform = $entityManager->getConnection()->getDatabasePlatform();
@@ -66,7 +69,7 @@ class Repositories
 
     /**
      * Removes the entity from the database and flushes this removal.
-     * @param $entity the entity to remove from the database
+     * @param object $entity the entity to remove from the database
      */
     public static function remove($entity)
     {
@@ -75,7 +78,10 @@ class Repositories
     }
 
     /**
-     * @return \Doctrine\ORM\EntityRepository
+     * Gets the Doctrine repository for the specified entity name.
+     *
+     * @param $entityName string name of the entity
+     * @return \Doctrine\ORM\EntityRepository the repository
      */
     public static function getRepository($entityName)
     {

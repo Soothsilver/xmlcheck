@@ -267,18 +267,18 @@ abstract class UiScript
 	/**
 	 * Save pre-uploaded file to permanent storage [stopping].
 	 * @param string $id file ID
-	 * @param string $dest destination to which the file is to be moved
+	 * @param string $destination destination to which the file is to be moved
 	 * @return bool success
 	 * @see getUploadedFile()
 	 * @see UploadManager
 	 */
-	protected final function saveUploadedFile ($id, $dest)
+	protected final function saveUploadedFile ($id, $destination)
 	{
 		$src = $this->getUploadedFile($id);
 		if (!$src)
 			return false;
 
-		if (!rename($src, Filesystem::realPath($dest)))
+		if (!rename($src, Filesystem::realPath($destination)))
 			return $this->stop(Language::get(StringID::UploadUnsuccessful));
 
 		return true;
@@ -462,16 +462,18 @@ abstract class UiScript
 
 	/**
 	 * Checks whether user has supplied privileges [stopping].
+	 * @param int[] $privileges TODO complete this documentation
 	 * @return bool true if he has
 	 * @see User::hasPrivileges()
 	 */
-	protected final function userHasPrivs ()
+	protected final function userHasPrivileges (...$privileges)
 	{
         if (!User::instance()->isSessionValid($reason))
         {
             return $this->stop(Language::get(StringID::SessionInvalidated));
         }
-		if (!call_user_func_array(array(User::instance(), 'hasPrivileges'), func_get_args()))
+		if (!User::instance()->hasPrivileges(...$privileges))
+		// TODO remove this: if (!call_user_func_array(array(User::instance(), 'hasPrivileges'), func_get_args()))
 		{
             return $this->stop(Language::get(StringID::InsufficientPrivileges));
 		}
@@ -481,7 +483,7 @@ abstract class UiScript
 	/**
 	 * Initializes handler with supplied arguments.
 	 *
-	 * Should be overriden and finalized in abstract descendants, not in final handlers.
+	 * Should be overridden and finalized in abstract descendants, not in final handlers.
 	 * Script body() is executed only if this method doesn't stop().
 	 * @param array $params associative array of script arguments supplied to run() on handler execution
 	 * @param array $files associative array with info about files uploaded with request supplied to run() on handler execution
@@ -491,14 +493,14 @@ abstract class UiScript
 	/**
 	 * Contains main handling logic specific to each handler.
 	 *
-	 * Should be overriden in final handler classes.
+	 * Should be overridden in final handler classes.
 	 */
 	protected abstract function body ();
 
 	/**
 	 * Outputs appropriately formatted response to UI.
 	 *
-	 * Should be overriden and finalized in abstract descendants, not in final handlers.
+	 * Should be overridden and finalized in abstract descendants, not in final handlers.
 	 */
 	protected abstract function output ();
 }

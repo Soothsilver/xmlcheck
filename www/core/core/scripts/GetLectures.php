@@ -15,7 +15,7 @@ final class GetLectures extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::lecturesAdd, User::lecturesManageAll,
+		if (!$this->userHasPrivileges(User::lecturesAdd, User::lecturesManageAll,
 				User::lecturesManageOwn, User::groupsAdd))
 			return;
 

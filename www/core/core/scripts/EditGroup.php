@@ -59,7 +59,7 @@ final class EditGroup extends DataScript
         }
         else
         {
-            if (!$this->userHasPrivs(User::groupsAdd)) { return $this->death(StringID::InsufficientPrivileges); }
+            if (!$this->userHasPrivileges(User::groupsAdd)) { return $this->death(StringID::InsufficientPrivileges); }
             $sameNameGroup = Repositories::getRepository(Repositories::Group)->findBy(['name' => $groupName]);
             if (count($sameNameGroup) > 0)
             {

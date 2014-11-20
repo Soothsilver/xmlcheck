@@ -14,7 +14,7 @@ final class GetGroups extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::groupsAdd, User::groupsManageAll, User::groupsManageOwn))
+		if (!$this->userHasPrivileges(User::groupsAdd, User::groupsManageAll, User::groupsManageOwn))
 			return;
 
 		$user = User::instance();

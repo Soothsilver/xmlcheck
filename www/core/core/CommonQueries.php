@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Petrik
- * Date: 4.11.2014
- * Time: 8:27
- */
-
 namespace asm\core;
 
 

@@ -25,7 +25,7 @@ final class DeleteAttachment extends LectureScript
 
 		$attachment = $attachments[0];
 
-		if (!$this->checkGenTestPrivs($attachment[DbLayout::fieldLectureId]))
+		if (!$this->checkTestGenerationPrivileges($attachment[DbLayout::fieldLectureId]))
 			return;
 
 		$folder = Config::get('paths', 'attachments');

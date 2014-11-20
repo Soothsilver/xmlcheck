@@ -15,7 +15,7 @@ final class GetProblems extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::lecturesManageAll, User::lecturesManageOwn,
+		if (!$this->userHasPrivileges(User::lecturesManageAll, User::lecturesManageOwn,
 				User::groupsManageAll, User::groupsManageOwn))
 			return;
 

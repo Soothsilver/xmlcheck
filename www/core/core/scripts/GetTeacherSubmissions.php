@@ -15,7 +15,7 @@ final class GetTeacherSubmissions extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::submissionsCorrect))
+		if (!$this->userHasPrivileges(User::submissionsCorrect))
 			return;
 
         $canViewAuthors = User::instance()->hasPrivileges(User::submissionsViewAuthors);

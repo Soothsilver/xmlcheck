@@ -13,7 +13,7 @@ final class GetAssignments extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::groupsManageAll, User::groupsManageOwn))
+		if (!$this->userHasPrivileges(User::groupsManageAll, User::groupsManageOwn))
 			return;
 
 		$user = User::instance();

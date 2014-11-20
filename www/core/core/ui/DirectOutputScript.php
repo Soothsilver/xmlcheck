@@ -62,7 +62,7 @@ abstract class DirectOutputScript extends UiScript
 
 	/**
 	 * Checks whether the output file path is set [stopping].
-	 * @return bool true if no error occured
+	 * @return bool true if no error occurred
 	 */
 	private function isOutputSet ()
 	{

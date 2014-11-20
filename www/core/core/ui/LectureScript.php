@@ -5,7 +5,7 @@ use asm\db\DbLayout;
 
 abstract class LectureScript extends DataScript
 {
-	protected function checkGenTestPrivs ($lectureId)
+	protected function checkTestGenerationPrivileges ($lectureId)
 	{
 		if (!($lectures = Core::sendDbRequest('getLectureById', $lectureId)))
 			return $this->stopDb($lectures, ErrorEffect::dbGet('lecture'));

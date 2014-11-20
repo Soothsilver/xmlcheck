@@ -41,7 +41,7 @@ final class EditAttachment extends LectureScript
 		$extension = ($extensionStart === false) ? '' :
 				substr($originalName, strrpos($originalName, '.'));
 
-		if (!$this->checkGenTestPrivs($lecture))
+		if (!$this->checkTestGenerationPrivileges($lecture))
 			return;
 
 		$attachments = Core::sendDbRequest('getAttachmentByNameAndLectureId', $name, $lecture);

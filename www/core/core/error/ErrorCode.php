@@ -3,8 +3,7 @@
 namespace asm\core;
 
 /**
- * Contains predefined error code constants for unique identification of known
- * error causes @phpenum.
+ * Contains predefined error code constants for unique identification of known error causes.
  */
 class ErrorCode
 {
@@ -18,7 +17,7 @@ class ErrorCode
 	const dbEmptyResult		=	6;		///< database request yielded no data when some were needed
 	//const fileDuplicate		=	7;		///< user tried to upload file with name that is already used
 	const zip					=	8;		///< cannot extract data from ZIP archive
-	const inputInvalid		=	9;		///< UI request arguments don't fit requred constraints (length, characters used, ...)
+	const inputInvalid		=	9;		///< UI request arguments don't fit required constraints (length, characters used, ...)
 	const inputIncomplete	=	10;	///< some required UI request arguments are missing
 	const upload				=	11;	///< file upload failed
 	const pluginLaunch		=	12;	///< plugin launch failed

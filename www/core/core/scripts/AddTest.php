@@ -73,7 +73,7 @@ final class AddTest extends GenTestScript
 			return $this->death(StringID::ChooseAtLeastOneQuestion);
 		}
 
-		if (!$this->checkGenTestPrivs($lecture->getId()))
+		if (!$this->checkTestGenerationPrivileges($lecture->getId()))
 			return $this->death(StringID::InsufficientPrivileges);
 
 		$randomized = $this->generateTest($questions, $count);

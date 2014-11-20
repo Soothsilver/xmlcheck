@@ -13,7 +13,7 @@ final class RefreshSession extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs())
+		if (!$this->userHasPrivileges())
 			return;
 
 		$user = User::instance();

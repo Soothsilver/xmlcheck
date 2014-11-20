@@ -1,7 +1,7 @@
 <?php
 
 namespace asm\core;
-use asm\utils\Filesystem, asm\db\DbLayout;
+use asm\utils\Filesystem;
 
 /**
  * Methods for removal of various item types from database with dependencies @module.
@@ -109,6 +109,9 @@ class RemovalManager
 	 */
 	public static function deleteAttachmentById ($id)
 	{
+        /**
+         * @var $attachment \Attachment
+         */
         $attachment = Repositories::findEntity(Repositories::Attachment, $id);
         $questions = CommonQueries::getQuestionsVisibleToActiveUser();
         foreach($questions as $question)
@@ -143,7 +146,7 @@ class RemovalManager
 	{
         /**
          * @var $plugin \Plugin
-         * @var $tests \Test[]
+         * @var $tests \PluginTest[]
          * @var $problems \Problem[]
          */
         $plugin = Repositories::findEntity(Repositories::Plugin, $id);

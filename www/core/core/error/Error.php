@@ -1,8 +1,7 @@
 <?php
 
 namespace asm\core;
-use asm\core\lang\Language;
-use asm\core\lang\StringID;
+
 
 /**
  * Contains information about a single error.
@@ -12,7 +11,7 @@ class Error
 	/// @name Severity constants
 	//@{
 	const levelNotice		=	10;	///< notice (doesn't have to be error-related at all)
-	const levelWarning	    =	25;	///< warning (nothing failed but something's wrong)
+	const levelWarning	    =	25;	///< warning (nothing failed but something is wrong)
 	const levelError		=	50;	///< regular error
 	const levelFatal		=	100;	///< fatal error (unexpected & fatal)
 	//@}

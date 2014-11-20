@@ -2,6 +2,7 @@
 
 namespace asm\core;
 use asm\utils\Flags, asm\db\DbLayout;
+use asm\utils\Security;
 
 /**
  * User session management class @singleton.
@@ -21,7 +22,7 @@ class User
     const sendEmailOnSubmissionConfirmedTutor = "sendEmailOnSubmissionConfirmedTutor";
 
 	/**
-	 * @name User privilege flags
+	 * Privilege flags
 	 * Each flag stands for privilege to perform certain action. Every user's
 	 * privileges are a single number - sum of privilege flags.
 	 */
@@ -50,7 +51,7 @@ class User
 	const pluginsRemove				=	0x100000;	///< delete plugins
 	const otherAdministration    	=	0x200000;	///< view system log
 	const submissionsViewAuthors	=	0x400000;	///< view real names of submission authors
-	const submissionsModifyRated	=	0x800000;	///< modify ratings of alredy rated submissions
+	const submissionsModifyRated	=	0x800000;	///< modify ratings of already rated submissions
 	//@}
 	const sessionTimeout = 10800;	///< how long the user stays logged in [3 hours]
 	const sessionSpace = 'user';	///< data is stored in $_SESSION under this key
@@ -172,7 +173,7 @@ class User
                 // Non-empty activation code means the account is not yet activated.
                 return false;
             }
-            $authenticationSuccess = \asm\utils\Security::check($pass, $user[DbLayout::fieldUserPassword], $user[DbLayout::fieldUserEncryptionType]);
+            $authenticationSuccess = Security::check($pass, $user[DbLayout::fieldUserPassword], $user[DbLayout::fieldUserEncryptionType]);
             if ($authenticationSuccess)
 			{
 				$this->data = array(

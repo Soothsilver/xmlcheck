@@ -14,7 +14,7 @@ final class GetPlugins extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::pluginsExplore, User::lecturesManageOwn, User::lecturesManageAll))
+		if (!$this->userHasPrivileges(User::pluginsExplore, User::lecturesManageOwn, User::lecturesManageAll))
 			return;
 
 		$plugins = Core::sendDbRequest('getPlugins');

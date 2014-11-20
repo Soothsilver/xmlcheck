@@ -17,7 +17,7 @@ abstract class HandleSubscriptionRequest extends DataScript
 	protected function body ()
 	{
 		if (!$this->isInputSet('id'))
-			return;
+			return false;
 
 		$id = $this->getParams('id');
 
@@ -29,6 +29,8 @@ abstract class HandleSubscriptionRequest extends DataScript
 			return $this->stop(ErrorCause::notOwned('subscription request'));
 
 		$this->handleRequest($id);
+
+		return true;
 	}
 }
 

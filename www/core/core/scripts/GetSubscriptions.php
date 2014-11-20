@@ -14,7 +14,7 @@ final class GetSubscriptions extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::groupsJoinPublic, User::groupsJoinPrivate, User::groupsRequest))
+		if (!$this->userHasPrivileges(User::groupsJoinPublic, User::groupsJoinPrivate, User::groupsRequest))
 			return;
 
 		$subscriptions = Core::sendDbRequest('getSubscriptionsByUserId', User::instance()->getId());

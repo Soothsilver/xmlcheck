@@ -14,7 +14,7 @@ final class DeletePlugin extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::pluginsRemove))
+		if (!$this->userHasPrivileges(User::pluginsRemove))
 			return;
 
 		if (!$this->isInputValid(array('id' => 'isIndex')))

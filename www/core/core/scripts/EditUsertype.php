@@ -24,7 +24,7 @@ final class EditUsertype extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs(User::usersPrivPresets))
+		if (!$this->userHasPrivileges(User::usersPrivPresets))
 			return;
 
 		$privilegeGroups = array('users', 'subscriptions', 'plugins', 'assignments', 'submissions', 'lectures', 'groups', 'other');

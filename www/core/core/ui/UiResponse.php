@@ -55,6 +55,9 @@ class UiResponse
 			$output['errors'] = array();
 			foreach ($this->errors as $error)
 			{
+				/**
+				 * @var $error \asm\core\Error
+				 */
 				$output['errors'][] = $error->toArray();
 			}
 		}

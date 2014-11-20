@@ -15,7 +15,7 @@ final class GetStudentAssignments extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivs())
+		if (!$this->userHasPrivileges())
 			return;
 
         $query = "SELECT a, p, l, z, g FROM Assignment a JOIN a.problem p LEFT JOIN p.plugin z JOIN p.lecture l JOIN a.group g WITH g.id IN (SELECT IDENTITY(k.group) FROM \Subscription k WHERE k.user = :id AND a.deleted = false)";
