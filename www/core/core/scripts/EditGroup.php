@@ -75,44 +75,6 @@ final class EditGroup extends DataScript
             Repositories::persistAndFlush($group);
         }
 
-
-        /*
-		extract($this->getParams(array_keys($inputs)));
-		$id = $this->getParams('id');
-		$isIdSet = (($id !== null) && ($id !== ''));
-		$type = $this->paramExists('public') ? 'public' : 'private';
-		if (!($lectures = Core::sendDbRequest('getLectureById', $lecture)))
-			return $this->stopDb($lectures, ErrorEffect::dbGet('lecture'));
-		$groups = Core::sendDbRequest('getGroupByName', $name);
-		$user = User::instance();
-		$userId = $user->getId();
-		if (!$groups)
-		{
-			if (!$this->userHasPrivs(User::groupsAdd))
-				return;
-
-			if (!Core::sendDbRequest('addGroup', $lecture, $userId, $name, $description, $type))
-				return $this->stop(false, ErrorEffect::dbAdd('group'));
-		}
-		else if ($isIdSet)
-		{
-			$group = $groups[0];
-			if ($id != $group[DbLayout::fieldGroupId])
-				return $this->stop(ErrorCause::dataMismatch('group'));
-
-			if (!$user->hasPrivileges(User::groupsManageAll)
-					&& (!$user->hasPrivileges(User::groupsManageOwn)
-						|| ($group[DbLayout::fieldUserId] != $userId)))
-				return $this->stop(ErrorCode::lowPrivileges);
-
-			if (!Core::sendDbRequest('editGroupById', $id, $name, $description, $type))
-				return $this->stopDb(false, ErrorEffect::dbEdit('group'));
-		}
-		else
-		{
-			return $this->stop(ErrorCause::nameTaken('group', $name));
-		}
-        */
 	}
 }
 

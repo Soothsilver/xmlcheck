@@ -2,6 +2,7 @@
 <root>
     <a>
         <b>Hello.</b>
+        <c>Middle element.</c>
         <c>Goodbye</c>
     </a>
 </root>

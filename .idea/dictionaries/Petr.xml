@@ -58,6 +58,7 @@
       <w>joinprivate</w>
       <w>joinpublic</w>
       <w>konopasek</w>
+      <w>levenshtein</w>
       <w>linefeeds</w>
       <w>localweb</w>
       <w>logfiles</w>
@@ -104,6 +105,7 @@
       <w>usertype</w>
       <w>usertypes</w>
       <w>webtoolkit</w>
+      <w>wikipedia</w>
       <w>xmlcheck</w>
       <w>xquery</w>
       <w>xtest</w>

@@ -34,6 +34,11 @@ abstract class StringID
     const TestCannotContainQuestionsOfDifferentLectures = 23;
     const ChooseAtLeastOneQuestion = 24;
     const AttachmentBelongsToAnotherLecture = 25;
+
+    const PluginNameAlreadyExists = 26;
+    const PluginFolderAlreadyExists = 27;
+    const UnzipUnsuccessful = 28;
+    const BadlyFormedPlugin = 29;
 }
 
 class Language {
@@ -85,6 +90,11 @@ class Language {
             case StringID::TestCannotContainQuestionsOfDifferentLectures: return "Test nemůže obsahovat otázky z několika různých přednášek.";
             case StringID::ChooseAtLeastOneQuestion: return "Je třeba vybrat alespoň jednu otázku.";
             case StringID::AttachmentBelongsToAnotherLecture: return "Pro otázku můžete vybírat pouze přílohy, které patří ke stejné přednášce.";
+
+            case StringID::PluginNameAlreadyExists: return "Plugin s tímto jménem již existuje.";
+            case StringID::PluginFolderAlreadyExists: return "Složka s tímto jménem pluginu již existuje.";
+            case StringID::UnzipUnsuccessful: return "Rozbalování nahraného souboru selhalo.";
+            case StringID::BadlyFormedPlugin: return "Soubor s pluginem je poškozený, možná mu chybí soubor manifestu, hlavní soubor nebo je manifest špatně zformovaný.";
         }
         return "TRANSLATION MISSING(" . self::getEnglish($textId) . ")";
     }
@@ -124,6 +134,11 @@ class Language {
             case StringID::TestCannotContainQuestionsOfDifferentLectures: return "A test cannot contain questions from two different lectures.";
             case StringID::ChooseAtLeastOneQuestion: return "At least one question must be chosen.";
             case StringID::AttachmentBelongsToAnotherLecture: return "One of the attachments to this question are associated with another lecture.";
+
+            case StringID::PluginNameAlreadyExists: return "A plugin with this name already exists.";
+            case StringID::PluginFolderAlreadyExists: return "There is already a folder with this plugin name.";
+            case StringID::UnzipUnsuccessful: return "Unzipping the uploaded file failed.";
+            case StringID::BadlyFormedPlugin: return "This plugin file is malformed, perhaps it's missing the manifest file, the main file or the manifest file is malformed.";
         }
         throw new \Exception("This string (" . $textId . ") does not exist.");
     }

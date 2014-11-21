@@ -1,21 +1,21 @@
 package sooth.similarity;
 
 public class ComparisonResult {
-    private float similarityScore;
+    private float similarityPercentage;
     private String details;
 
-    public ComparisonResult(float similarityScore, String details)
+    public ComparisonResult(float similarityPercentage, String details)
     {
-        this.similarityScore = similarityScore;
+        this.similarityPercentage = similarityPercentage;
         this.details = details;
     }
 
-    public float getSimilarityScore() {
-        return similarityScore;
+    public float getSimilarityPercentage() {
+        return similarityPercentage;
     }
 
-    public void setSimilarityScore(float similarityScore) {
-        this.similarityScore = similarityScore;
+    public void setSimilarityPercentage(float similarityPercentage) {
+        this.similarityPercentage = similarityPercentage;
     }
 
     public String getDetails() {

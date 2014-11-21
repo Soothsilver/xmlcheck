@@ -133,7 +133,6 @@ function echoScripts($directory)
     <script type="text/javascript" src="web/js/base/CoreCommunicator.js"></script>
     <script type="text/javascript" src="web/js/base/JsonCoreCommunicator.js"></script>
     <script type="text/javascript" src="web/js/base/Navigator.js"></script>
-    <script type="text/javascript" src="web/js/base/FileUploader.js"></script>
     <script type="text/javascript" src="web/js/base/FileDownloader.js"></script>
     <script type="text/javascript" src="web/js/base/FileSaver.js"></script>
     <script type="text/javascript" src="web/js/base/FileViewer.js"></script>

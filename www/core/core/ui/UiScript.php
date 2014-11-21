@@ -462,7 +462,7 @@ abstract class UiScript
 
 	/**
 	 * Checks whether user has supplied privileges [stopping].
-	 * @param int[] $privileges TODO complete this documentation
+	 * @param int $privileges TODO complete this documentation
 	 * @return bool true if he has
 	 * @see User::hasPrivileges()
 	 */

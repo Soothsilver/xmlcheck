@@ -15,15 +15,24 @@ final class Activate extends DataScript
 	protected function body ()
 	{
 		if (!$this->isInputSet(array('code')))
-			return;
+			return false;
 
 		$code = $this->getParams('code');
 
-		if (!Core::sendDbRequest('getUsersByActivationCode', $code))
+		/**
+		 * @var $users \User[]
+		 */
+		$users = Repositories::getRepository(Repositories::User)->findBy(['code' => $code]);
+		if (count($users) === 1)
+		{
+			$users[0]->setActivationCode('');
+			Repositories::persistAndFlush($users[0]);
+			return true;
+		}
+		else
+		{
 			return $this->death(StringID::InvalidActivationCode);
-
-		if (!Core::sendDbRequest('activateUsersByCode', $this->getParams('code')))
-			return $this->stopDb();
+		}
 	}
 }
 

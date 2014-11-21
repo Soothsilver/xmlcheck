@@ -1,7 +1,7 @@
 <?php
 
 namespace asm\core;
-use asm\utils\Flags, asm\db\DbLayout;
+use asm\utils\Flags;
 use asm\utils\Security;
 
 /**
@@ -157,42 +157,53 @@ class User
 	 */
 	public function login ($name, $pass)
 	{
-		if ($this->data != null) $this->logout();
+		if ($this->data != null)
+		{
+			$this->logout();
+		}
 
 		/// Username is case-insensitive.
 		$name = strtolower($name);
 
 
-		$users = Core::sendDbRequest('getUserByName', $name);
+		$users = Repositories::getRepository(Repositories::User)->findBy(['name' => $name]);
 		if (!empty($users))
 		{
+			/**
+			 * @var $user \User
+			 */
 			$user = $users[0];
 
-            if ($user[DbLayout::fieldUserActivationCode] !== '')
+            if ($user->getActivationCode() !== '')
             {
                 // Non-empty activation code means the account is not yet activated.
                 return false;
             }
-            $authenticationSuccess = Security::check($pass, $user[DbLayout::fieldUserPassword], $user[DbLayout::fieldUserEncryptionType]);
+            $authenticationSuccess = Security::check($pass, $user->getPass(), $user->getEncryptionType());
             if ($authenticationSuccess)
 			{
 				$this->data = array(
-					'id' => $user[DbLayout::fieldUserId],
-					'name' => $user[DbLayout::fieldUserName],
-					'privileges' => $user[DbLayout::fieldUsertypePrivileges],
-					'realName' => $user[DbLayout::fieldUserRealName],
-					'email' => $user[DbLayout::fieldUserEmail],
-					'lastAccess' => $user[DbLayout::fieldUserLastAccess],
+					'id' => $user->getId(),
+					'name' => $user->getName(),
+					'privileges' => $user->getType()->getPrivileges(),
+					'realName' => $user->getRealName(),
+					'email' => $user->getEmail(),
+					'lastAccess' => $user->getLastAccess()->format("Y-m-d H:i:s"),
                     'applicationVersion' => implode('.', Config::get('version')),
-                    // Here, null is 1 because it's the default value for left join
-                    User::sendEmailOnAssignmentAvailableStudent => is_null($user[DbLayout::fieldUserOptionSendEmailOnNewAssignment]) ? 1 : $user[DbLayout::fieldUserOptionSendEmailOnNewAssignment],
-                    User::sendEmailOnSubmissionConfirmedTutor => is_null($user[DbLayout::fieldUserOptionSendEmailOnNewSubmission]) ? 1 : $user[DbLayout::fieldUserOptionSendEmailOnNewSubmission],
-                    User::sendEmailOnSubmissionRatedStudent => is_null($user[DbLayout::fieldUserOptionSendEmailOnSubmissionRated]) ? 1 : $user[DbLayout::fieldUserOptionSendEmailOnSubmissionRated],
+                    // Here, 1 and 0 are used instead of booleans because of legacy code
+                    User::sendEmailOnAssignmentAvailableStudent => $user->getSendEmailOnNewAssignment() ? 1 : 0,
+                    User::sendEmailOnSubmissionConfirmedTutor => $user->getSendEmailOnNewSubmission() ? 1 : 0,
+                    User::sendEmailOnSubmissionRatedStudent => $user->getSendEmailOnSubmissionRated() ? 1 : 0
 				);
 				$this->refresh();
-				Core::sendDbRequest('editLastUserLoginById', $this->data['id'], date('Y-m-d H:i:s', time()));
-                $this->entity = Repositories::getEntityManager()->find('User', $this->data['id']);
+				$user->setLastAccess(new \DateTime());
+				Repositories::persistAndFlush($user);
+                $this->entity = $user;
 				return true;
+			}
+			else
+			{
+				return false;
 			}
 		}
 		return false;

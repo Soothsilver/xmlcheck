@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\StringID;
 use asm\utils\Filesystem, asm\utils\Compression;
 
 /**
@@ -16,7 +17,7 @@ final class AddPlugin extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::pluginsAdd))
-			return;
+			return false;
 
 		$inputs = array(
 			'name' => array(
@@ -25,27 +26,29 @@ final class AddPlugin extends DataScript
 			),
 		);
 		if (!$this->isInputValid($inputs))
-			return;
+			return false;
 
 		$name = $this->getParams('name');
 
-		if (Core::sendDbRequest('getPluginByName', $name))
-			return $this->stop(ErrorCode::dbNameDuplicate);
+		$existingPluginsWithSameName = Repositories::getRepository(Repositories::Plugin)->findBy(['name' => $name]);
+		if (count($existingPluginsWithSameName) > 0)
+			return $this->death(StringID::PluginNameAlreadyExists);
 
 		$pluginFile = $this->getUploadedFile('plugin');
 		if (!$pluginFile)
-			return;
+			return false;
 
 		$pluginFolder = Config::get('paths', 'plugins') . $name;
+
 		if (file_exists($pluginFolder))
-			return $this->stop('plugin folder with requested name already exists', 'cannot create plugin folder');
+			return $this->death(StringID::PluginFolderAlreadyExists);
 
 		if (!Filesystem::createDir($pluginFolder))
-			return $this->stop(ErrorCode::createFolder, 'cannot create plugin folder');
+			return $this->death(StringID::FileSystemError);
 
 		if (!Compression::unzip($pluginFile, $pluginFolder))
 		{
-			$this->stop(ErrorCode::zip, 'cannot extract plugin files from archive');
+			$this->death(StringID::UnzipUnsuccessful);
 			goto cleanup_error;
 		}
 
@@ -53,33 +56,31 @@ final class AddPlugin extends DataScript
 		$manifest = null;
 		if (!($manifest = $this->parsePluginManifest($manifestFile)))
 		{
-			$this->stop('plugin manifest missing or corrupted', 'cannot retrieve plugin properties');
+			$this->death(StringID::BadlyFormedPlugin);
 			goto cleanup_error;
 		}
 
 		if (!file_exists($pluginFolder . DIRECTORY_SEPARATOR . $manifest['mainFile']))
 		{
-			$this->stop('plugin main file missing', 'plugin cannot be configured properly');
+			$this->death(StringID::BadlyFormedPlugin);
 			goto cleanup_error;
 		}
 
-		if (!Core::sendDbRequest('addPlugin', $name, $manifest['type'],
-				$manifest['description'], $name . '/' . $manifest['mainFile'],
-				$manifest['arguments']))
-		{
-			$this->stopDb(false, ErrorEffect::dbAdd('plugin'));
-			goto cleanup_error;
-		}
+		$plugin = new \Plugin();
+		$plugin->setDescription($manifest['description']);
+		$plugin->setConfig($manifest['arguments']);
+		$plugin->setMainfile($name . '/' . $manifest['mainFile']);
+		$plugin->setName($name);
+		$plugin->setType($manifest['type']);
+		Repositories::persistAndFlush($plugin);
 
-		goto cleanup_success;
+		Filesystem::removeFile($pluginFile);
+		return true;
 
 cleanup_error:
-
 		Filesystem::removeDir($pluginFolder);
-	
-cleanup_success:
-	
 		Filesystem::removeFile($pluginFile);
+		return false;
 	}
 
 	protected function parsePluginManifest ($manifestFile)
@@ -91,12 +92,14 @@ cleanup_success:
 			return false;
 		}
 
+		/** @noinspection PhpUndefinedFieldInspection */
 		$manifest = array(
 			'type' => trim($manifestXml->type),
 			'description' => trim($manifestXml->description),
 			'mainFile' => trim($manifestXml->mainFile),
 		);
 		$arguments = array();
+		/** @noinspection PhpUndefinedFieldInspection */
 		foreach ($manifestXml->arguments->children() as $argument)
 		{
 			$arguments[] = trim($argument);
