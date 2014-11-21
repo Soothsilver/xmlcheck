@@ -1,7 +1,8 @@
 <?php
 
 namespace asm\core;
-use asm\db\DbLayout;
+use asm\core\lang\StringID;
+
 
 /**
  * Implements common logic for handling of PermitSubscription and ProhibitSubscription requests.
@@ -10,9 +11,9 @@ abstract class HandleSubscriptionRequest extends DataScript
 {
 	/**
 	 * Sends appropriate database request updating the subscription.
-	 * @param int $subscriptionId subscription ID
+	 * @param \Subscription $subscriptionRequest the subscription request to be confirmed or denied
 	 */
-	abstract protected function handleRequest ($subscriptionId);
+	abstract protected function handleRequest (\Subscription $subscriptionRequest);
 
 	protected function body ()
 	{
@@ -21,15 +22,16 @@ abstract class HandleSubscriptionRequest extends DataScript
 
 		$id = $this->getParams('id');
 
-		$subscriptions = Core::sendDbRequest('getSubscriptionOwnerById', $id);
-		if (!$subscriptions)
-			return $this->stopDb($subscriptions, ErrorEffect::dbGet('subscription'));
+		/**
+		 * @var $subscription \Subscription
+		 */
+		$subscription = Repositories::findEntity(Repositories::Subscription, $id);
+		if (User::instance()->getId() !== $subscription->getGroup()->getOwner()->getId())
+		{
+			return $this->death(StringID::InsufficientPrivileges);
+		}
 
-		if ($subscriptions[0][DbLayout::fieldUserId] != User::instance()->getId())
-			return $this->stop(ErrorCause::notOwned('subscription request'));
-
-		$this->handleRequest($id);
-
+		$this->handleRequest($subscription);
 		return true;
 	}
 }

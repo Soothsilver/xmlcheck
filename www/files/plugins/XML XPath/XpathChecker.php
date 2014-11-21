@@ -1,6 +1,6 @@
 <?php
 
-use asm\plugin\SingleTestPlugin;
+
 
 require_once 'TestXpath.php';
 

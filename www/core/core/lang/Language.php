@@ -39,6 +39,9 @@ abstract class StringID
     const PluginFolderAlreadyExists = 27;
     const UnzipUnsuccessful = 28;
     const BadlyFormedPlugin = 29;
+
+    const ResetLinkDoesNotExist = 30;
+    const ResetLinkExpired = 31;
 }
 
 class Language {
@@ -95,6 +98,9 @@ class Language {
             case StringID::PluginFolderAlreadyExists: return "Složka s tímto jménem pluginu již existuje.";
             case StringID::UnzipUnsuccessful: return "Rozbalování nahraného souboru selhalo.";
             case StringID::BadlyFormedPlugin: return "Soubor s pluginem je poškozený, možná mu chybí soubor manifestu, hlavní soubor nebo je manifest špatně zformovaný.";
+
+            case StringID::ResetLinkDoesNotExist: return "Kód na obnovení hesla není v databázi. Možná byl přepsán nově vygenerovaným kódem.";
+            case StringID::ResetLinkExpired: return "Již uběhlo 24 hodin od odeslání tohoto kódu na obnovení hesla, proto byl kód zneplatněn. Prosím vygenerujte nový.";
         }
         return "TRANSLATION MISSING(" . self::getEnglish($textId) . ")";
     }
@@ -139,6 +145,9 @@ class Language {
             case StringID::PluginFolderAlreadyExists: return "There is already a folder with this plugin name.";
             case StringID::UnzipUnsuccessful: return "Unzipping the uploaded file failed.";
             case StringID::BadlyFormedPlugin: return "This plugin file is malformed, perhaps it's missing the manifest file, the main file or the manifest file is malformed.";
+
+            case StringID::ResetLinkDoesNotExist: return "This password reset code is not present in the database. Perhaps it was overwritten by a newly generated one.";
+            case StringID::ResetLinkExpired: return "More than 24 hours elapsed since this code was generated and it was therefore disabled. Please generate a new one.";
         }
         throw new \Exception("This string (" . $textId . ") does not exist.");
     }

@@ -1,22 +1,25 @@
 <?php
 
 namespace asm\core;
-use asm\db\DbLayout;
+
 
 abstract class LectureScript extends DataScript
 {
+	protected function authorizedToManageLecture(\Lecture $lecture)
+	{
+		$user = User::instance();
+		if ($user->hasPrivileges(User::lecturesManageAll)) { return true; }
+		if ($user->hasPrivileges(User::lecturesManageOwn && $lecture->getOwner()->getId() === User::instance()->getId())) { return true; }
+		return false;
+	}
+
 	protected function checkTestGenerationPrivileges ($lectureId)
 	{
-		if (!($lectures = Core::sendDbRequest('getLectureById', $lectureId)))
-			return $this->stopDb($lectures, ErrorEffect::dbGet('lecture'));
-
-		$user = User::instance();
-		if (!$user->hasPrivileges(User::lecturesManageAll)
-				&& (!$user->hasPrivileges(User::lecturesManageOwn)
-					|| ($lectures[0][DbLayout::fieldUserId] != $user->getId())))
-			return $this->stop(ErrorCode::lowPrivileges);
-		else
-			return true;
+		/**
+		 * @var $lecture \Lecture
+		 */
+		$lecture = Repositories::findEntity(Repositories::Lecture, $lectureId);
+		return $this->authorizedToManageLecture($lecture);
 	}
 }
 

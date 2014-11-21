@@ -2,7 +2,7 @@
 
 namespace asm\core;
 use asm\core\lang\StringID;
-use asm\utils\Filesystem, asm\db\DbLayout;
+
 
 /**
  * @ingroup requests
@@ -16,7 +16,7 @@ class DeleteSubmission extends DataScript
 	protected function body ()
 	{
         if (!$this->isInputSet(array('id')))
-			return;
+			return false;
         $id = $this->getParams('id');
         /**
          * @var $submission \Submission
@@ -57,7 +57,7 @@ class DeleteSubmission extends DataScript
             }
         }
         Repositories::flushAll();
-
+        return true;
 	}
 }
 

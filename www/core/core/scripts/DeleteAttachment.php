@@ -1,7 +1,7 @@
 <?php
 
 namespace asm\core;
-use asm\db\DbLayout, asm\utils\Filesystem;
+use asm\utils\Filesystem;
 
 /**
  * @ingroup requests
@@ -16,25 +16,23 @@ final class DeleteAttachment extends LectureScript
 	protected function body ()
 	{
 		if (!$this->isInputValid(array('id' => 'isIndex')))
-			return;
+			return false;
 
 		$id = $this->getParams('id');
+		/**
+		 * @var $attachment \Attachment
+		 */
+		$attachment = Repositories::findEntity(Repositories::Attachment, $id);
 
-		if (!($attachments = Core::sendDbRequest('getAttachmentById', $id)))
-			return $this->stopDb($attachments, ErrorEffect::dbGet('attachment'));
-
-		$attachment = $attachments[0];
-
-		if (!$this->checkTestGenerationPrivileges($attachment[DbLayout::fieldLectureId]))
-			return;
+		if (!$this->authorizedToManageLecture($attachment->getLecture()))
+			return false;
 
 		$folder = Config::get('paths', 'attachments');
-		$file = $attachment[DbLayout::fieldAttachmentFile];
+		$file = $attachment->getFile();
 
-		if (($error = RemovalManager::deleteAttachmentById($id)))
-			return $this->stopRm($error);
-
+		RemovalManager::deleteAttachmentById($id);
 		Filesystem::removeFile($folder . $file);
+		return true;
 	}
 }
 

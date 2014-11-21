@@ -1,7 +1,8 @@
 <?php
 
 namespace asm\core;
-use asm\db\DbLayout;
+use asm\core\lang\StringID;
+
 
 /**
  * @ingroup requests
@@ -15,30 +16,38 @@ class AddSubscription extends DataScript
 {
 	protected function body ()
 	{
-		if (!$this->userHasPrivileges(User::groupsJoinPrivate, User::groupsJoinPublic,
-				User::groupsRequest))
-			return;
+		if (!$this->userHasPrivileges(User::groupsJoinPrivate, User::groupsJoinPublic, User::groupsRequest))
+			return false;
 
 		if (!$this->isInputValid(array('id' => 'isIndex')))
-			return;
+			return false;
 
 		$groupId = $this->getParams('id');
-		$groups = Core::sendDbRequest('getGroupById', $groupId);
-		if (!$groups)
-			return $this->stopDb($groups, ErrorEffect::dbGet('group'));
+		/**
+		 * @var $group \Group
+		 */
+		$group = Repositories::findEntity(Repositories::Group, $groupId);
 
-		$group = $groups[0];
+		// Calculate privileges of the user
 		$user = User::instance();
-		$isPrivate = ($group[DbLayout::fieldGroupType] == 'private');
-		$canJoinPrivate = $user->hasPrivileges(User::groupsJoinPrivate);
-		$hasPrivs = (($isPrivate && ($canJoinPrivate || $user->hasPrivileges(User::groupsRequest)))
-				|| (!$isPrivate && $user->hasPrivileges(User::groupsJoinPublic)));
-		if (!$hasPrivs)
-			$this->stop(ErrorCode::lowPrivileges);
+		$canJoinPrivate = User::instance()->hasPrivileges(User::groupsJoinPrivate);
+		$groupIsPrivate = $group->getType() == \Group::TYPE_PRIVATE;
+		$hasSufficientPrivileges =
+			($groupIsPrivate && ($canJoinPrivate || $user->hasPrivileges(User::groupsRequest))) // Joining or requesting to be inside a private group
+		 || (!$groupIsPrivate && $user->hasPrivileges(User::groupsJoinPublic));
+		if ($hasSufficientPrivileges)
+		{
+			return $this->death(StringID::InsufficientPrivileges);
+		}
+		$status = ($canJoinPrivate || !$groupIsPrivate) ? \Subscription::STATUS_SUBSCRIBED : \Subscription::STATUS_REQUESTED;
 
-		$status = (!$isPrivate || $canJoinPrivate) ? 'subscribed' : 'requested';
-		if (!Core::sendDbRequest('addSubscription', $groupId, $user->getId(), $status))
-			return $this->stopDb(false, ErrorEffect::dbAdd('subscription'));
+		// Put into database
+		$subscription = new \Subscription();
+		$subscription->setGroup($group);
+		$subscription->setUser(User::instance()->getEntity());
+		$subscription->setStatus($status);
+		Repositories::persistAndFlush($subscription);
+		return true;
 	}
 }
 

@@ -2,7 +2,7 @@
 
 namespace asm\core;
 use asm\core\lang\StringID;
-use asm\db\DbLayout;
+
 
 /**
  * @ingroup requests
@@ -17,10 +17,13 @@ final class DeleteProblem extends DataScript
 	protected function body ()
 	{
 		if (!$this->isInputValid(array('id' => 'isIndex')))
-			return;
+			return false;
 
 		$id = $this->getParams('id');
 
+		/**
+		 * @var $problem \Problem
+		 */
         $problem = Repositories::findEntity(Repositories::Problem, $id);
         $lecture = $problem->getLecture();
 		$user = User::instance();
@@ -30,6 +33,7 @@ final class DeleteProblem extends DataScript
             return $this->death(StringID::InsufficientPrivileges);
         }
         RemovalManager::hideProblemAndItsAssignments($problem);
+		return true;
 	}
 }
 

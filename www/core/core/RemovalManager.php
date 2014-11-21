@@ -102,7 +102,8 @@ class RemovalManager
 
 
 	/**
-	 * Deletes attachment with supplied ID (with questions+).
+	 * Deletes attachment with supplied ID. Removes the attachment from questions that referenced it. This will not delete the attachment file from disk.
+     *
 	 * @param int $id attachment ID
 	 * @return array error properties provided by removalError() or retrievalError(),
 	 * or false in case of success
@@ -137,7 +138,8 @@ class RemovalManager
 	}
 
 	/**
-	 * Deletes plugin with supplied ID (with tests, problems+).
+	 * Deletes plugin with supplied ID. This is a very destructive operation because all problems associated with this plugin will lose any reference to it and thus the submissions will lose reference and therefore we won't be able to use them for similarity comparison, for example.
+     *
 	 * @param int $id plugin ID
 	 * @return array error properties provided by removalError() or retrievalError(),
 	 * or false in case of success

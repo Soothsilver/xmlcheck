@@ -1,6 +1,6 @@
 <?php
 
-use asm\plugin\CountedRequirements;
+
 /**
  * @ingroup plugins
  * Test for checking XMLSchema homework of XML Technologies lecture.

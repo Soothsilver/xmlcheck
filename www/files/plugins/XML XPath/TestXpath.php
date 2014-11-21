@@ -3,7 +3,6 @@
 use asm\plugin\CountedRequirements,
 	asm\plugin\XmlRegex,
 	asm\utils\Filesystem,
-	asm\utils\Utils,
 	asm\utils\StringUtils;
 
 /**

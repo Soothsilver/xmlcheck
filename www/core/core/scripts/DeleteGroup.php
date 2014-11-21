@@ -1,7 +1,7 @@
 <?php
 
 namespace asm\core;
-use asm\db\DbLayout;
+use asm\core\lang\StringID;
 
 /**
  * @ingroup requests
@@ -17,7 +17,7 @@ final class DeleteGroup extends DataScript
 	{
         if (!$this->isInputValid(array('id' => 'isIndex')))
         {
-            return;
+            return false;
         }
         /**
          * @var $group \Group
@@ -30,6 +30,7 @@ final class DeleteGroup extends DataScript
             return $this->death(StringID::InsufficientPrivileges);
         }
         RemovalManager::hideGroupAndItsAssignments($group);
+        return true;
 	}
 }
 

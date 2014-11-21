@@ -2,7 +2,7 @@
 
 namespace asm\core;
 use asm\core\lang\StringID;
-use asm\db\DbLayout;
+
 
 /**
  * @ingroup requests
@@ -18,7 +18,7 @@ final class DeleteLecture extends DataScript
 	{
 		if (!$this->isInputValid(array('id' => 'isIndex')))
         {
-            return;
+            return false;
         }
         /**
          * @var $lecture \Lecture
@@ -31,6 +31,7 @@ final class DeleteLecture extends DataScript
 			return $this->death(StringID::InsufficientPrivileges);
         }
         RemovalManager::hideLectureItsProblemsGroupsQuestionsAttachmentsAndXtests($lecture);
+        return true;
 	}
 }
 

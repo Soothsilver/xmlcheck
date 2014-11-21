@@ -11,10 +11,10 @@ namespace asm\core;
  */
 final class PermitSubscription extends HandleSubscriptionRequest
 {
-	protected function handleRequest ($subscriptionId)
+	protected function handleRequest (\Subscription $subscriptionRequest)
 	{
-		if (!Core::sendDbRequest('confirmSubscriptionById', $subscriptionId))
-			$this->stopDb(false, 'cannot confirm subscription with supplied id');
+		$subscriptionRequest->setStatus(\Subscription::STATUS_SUBSCRIBED);
+		Repositories::persistAndFlush($subscriptionRequest);
 	}
 }
 

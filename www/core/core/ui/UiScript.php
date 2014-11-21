@@ -461,8 +461,8 @@ abstract class UiScript
 	}
 
 	/**
-	 * Checks whether user has supplied privileges [stopping].
-	 * @param int $privileges TODO complete this documentation
+	 * Checks whether user has at least one the given sets of privileges [stopping].
+	 * @param int $privileges sets of privileges to check against
 	 * @return bool true if he has
 	 * @see User::hasPrivileges()
 	 */

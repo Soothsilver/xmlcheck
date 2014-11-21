@@ -1,7 +1,7 @@
 <?php
 
 namespace asm\core;
-use asm\db\DbLayout;
+use asm\core\lang\StringID;
 
 /**
  * @ingroup requests
@@ -17,7 +17,7 @@ final class DeleteAssignment extends DataScript
 	{
         if (!$this->isInputValid(array('id' => 'isIndex')))
         {
-            return;
+            return false;
         }
         /**
          * @var $assignment \Assignment
@@ -31,6 +31,7 @@ final class DeleteAssignment extends DataScript
         }
         $assignment->setDeleted(true);
         Repositories::persistAndFlush($assignment);
+        return true;
 	}
 }
 

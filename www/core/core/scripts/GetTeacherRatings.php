@@ -1,7 +1,7 @@
 <?php
 
 namespace asm\core;
-use \asm\db\DbLayout, \asm\utils\ArrayUtils;
+use \asm\db\DbLayout;
 
 /**
  * @ingroup requests

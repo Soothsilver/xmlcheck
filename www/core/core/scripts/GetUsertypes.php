@@ -1,7 +1,7 @@
 <?php
 
 namespace asm\core;
-use asm\utils\ArrayUtils;
+
 
 /**
  * @ingroup requests
@@ -15,17 +15,20 @@ class GetUsertypes extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::usersAdd, User::usersManage, User::usersPrivPresets))
-			return;
+			return false;
 
-		if (!($userTypes = Core::sendDbRequest('getUsertypes')))
-			$this->stopDb($userTypes);
-
-		$userTypes = ArrayUtils::stripKeys($userTypes);
-		foreach ($userTypes as $index => $type)
-		{
-			$userTypes[$index][2] = User::instance()->unpackPrivileges($type[2]);
+		$userTypes = Repositories::getRepository(Repositories::UserType)->findAll();
+		/**
+		 * @var $userTypes \UserType[]
+		 */
+		foreach ($userTypes as $userType) {
+			$this->addRowToOutput([
+				$userType->getId(),
+				$userType->getName(),
+				User::instance()->unpackPrivileges($userType->getPrivileges())
+			]);
 		}
-		$this->setOutput($userTypes);
+		return true;
 	}
 }
 

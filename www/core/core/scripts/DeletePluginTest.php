@@ -14,15 +14,15 @@ final class DeletePluginTest extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::pluginsTest))
-			return;
+			return false;
 
 		if (!$this->isInputValid(array('id' => 'isIndex')))
-			return;
+			return false;
 
 		$id = $this->getParams('id');
 
-		if (($error = RemovalManager::deleteTestById($id)))
-			return $this->stopRm($error);
+		RemovalManager::deleteTestById($id);
+		return true;
 	}
 }
 

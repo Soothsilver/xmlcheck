@@ -11,10 +11,9 @@ namespace asm\core;
  */
 final class ProhibitSubscription extends HandleSubscriptionRequest
 {
-	protected function handleRequest ($subscriptionId)
+	protected function handleRequest (\Subscription $subscriptionRequest)
 	{
-		if (!Core::sendDbRequest('deleteSubscriptionById', $subscriptionId))
-			$this->stopDb(false, ErrorEffect::dbRemove('subscription'));
+		Repositories::remove($subscriptionRequest);
 	}
 }
 

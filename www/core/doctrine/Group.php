@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Group
 {
+    const TYPE_PUBLIC = "public";
+    const TYPE_PRIVATE = "private";
     /**
      * @var Lecture
      * @ORM\ManyToOne(targetEntity="Lecture",inversedBy="groups")

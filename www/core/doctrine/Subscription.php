@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Subscription
 {
+    const STATUS_SUBSCRIBED = "subscribed";
+    const STATUS_REQUESTED = "requested";
     /**
      * @var Group
      * @ORM\ManyToOne(targetEntity="Group")

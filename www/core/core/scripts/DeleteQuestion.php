@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\StringID;
 use asm\db\DbLayout;
 
 /**
@@ -11,28 +12,27 @@ use asm\db\DbLayout;
  * @n @b Arguments:
  * @li @c id question ID
  */
-final class DeleteQuestion extends DataScript
+final class DeleteQuestion extends LectureScript
 {
 	protected function body ()
 	{
 		if (!$this->isInputValid(array('id' => 'isIndex')))
-			return;
+			return false;
 
 		$id = $this->getParams('id');
+		/**
+		 * @var $question \Question
+		 */
+		$question = Repositories::findEntity(Repositories::Question, $id);
 
-		if (!($questions = Core::sendDbRequest('getQuestionById', $id)))
-			return $this->stopDb($questions, ErrorEffect::dbGet('question'));
-
-		if (!($lectures = Core::sendDbRequest('getLectureById', $questions[0][DbLayout::fieldLectureId])))
-			return $this->stopDb($lectures, ErrorEffect::dbGet('lecture'));
-
-		$user = User::instance();
-		if (!$user->hasPrivileges(User::lecturesManageAll) && (!$user->hasPrivileges(User::lecturesManageOwn)
-				|| ($user->getId() != $lectures[0][DbLayout::fieldUserId])))
-			return $this->stop(ErrorCode::lowPrivileges);
-
-		if (!Core::sendDbRequest('deleteQuestionById', $id))
-			return $this->stopDb(false, ErrorEffect::dbRemove('question'));
+		if (!$this->authorizedToManageLecture($question->getLecture()))
+		{
+			return $this->death(StringID::InsufficientPrivileges);
+		}
+		// TODO What if some tests refer to this question?
+		// Then those tests should have this question removed from their list, or, better yet, the question deletion should be denied.
+		Repositories::remove($question);
+		return true;
 	}
 }
 
