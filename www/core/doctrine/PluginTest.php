@@ -12,6 +12,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class PluginTest
 {
+    const STATUS_COMPLETED = "completed";
+    const STATUS_RUNNING = "running";
     /**
      * @var integer
      *
@@ -54,7 +56,7 @@ class PluginTest
      *
      * @ORM\Column(name="status", type="string", nullable=false)
      */
-    private $status = 'running';
+    private $status = self::STATUS_RUNNING;
 
     /**
      * @var integer

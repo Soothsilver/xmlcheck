@@ -1,7 +1,7 @@
 <?php
 
 namespace asm\core;
-use asm\utils\StringUtils, asm\utils\Filesystem, asm\db\DbLayout;
+use asm\utils\StringUtils;
 
 /**
  * @ingroup requests
@@ -17,7 +17,7 @@ final class AddPluginTest extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::pluginsTest))
-			return;
+			return false;
 
 		$inputs = array(
 			'description' => 'isNotEmpty',
@@ -26,44 +26,35 @@ final class AddPluginTest extends DataScript
 		);
 
 		if (!$this->isInputValid($inputs))
-			return;
+			return false;
 
-		extract($this->getParams(array_keys($inputs)));
+		$description = $this->getParams('description');
+		$pluginId = $this->getParams('plugin');
+		/**
+		 * @var $plugin \Plugin
+		 */
+		$plugin = Repositories::findEntity(Repositories::Plugin, $pluginId);
+		$config = $this->getParams('config');
 
 		$testFolder = Config::get('paths', 'tests');
 		$inputFile = date('Y-m-d_H-i-s_') . StringUtils::randomString(10) . '.zip';
+
 		if (!$this->saveUploadedFile('input', $testFolder . $inputFile))
-			return;
+			return false;
 
-		if (!Core::sendDbRequest('addTest', $plugin, $description, $config, $inputFile))
-		{
-			$this->stopDb(false, 'cannot store new test data');
-			goto removeInputFile;
-		}
-
-		$tests = Core::sendDbRequest('getTestByFilename', $inputFile);
-		if (!$tests)
-		{
-			$this->stopDb($tests, 'cannot retrieve test id');
-			goto removeInputFile;
-		}
-
-		$test = $tests[0];
-		$id = $test[DbLayout::fieldTestId];
-
-		$pluginArguments = empty($test[DbLayout::fieldTestConfig])
-				? array() : explode(';', $test[DbLayout::fieldTestConfig]);
-		Core::launchPlugin($test[DbLayout::fieldPluginType],
-				Config::get('paths', 'plugins') . $test[DbLayout::fieldPluginMainFile],
-				$testFolder . $test[DbLayout::fieldTestInput],
-				true,
-				$id,
-				$pluginArguments);
-
-		return;
-
-removeInputFile:
-		Filesystem::removeFile($testFolder . $inputFile);
+		$test = new \PluginTest();
+		$test->setConfig($config);
+		$test->setDescription($description);
+		$test->setInput($inputFile);
+		$test->setPlugin($plugin);
+		Repositories::persistAndFlush($test);
+		$pluginArguments = empty($test->getConfig()) ? [] : explode(';', $test->getConfig());
+		return Core::launchPlugin($test->getPlugin()->getType(),
+			Config::get('paths', 'plugins') . $test->getPlugin()->getMainfile(),
+			$testFolder . $test->getInput(),
+			true,
+			$test->getId(),
+			$pluginArguments);
 	}
 }
 

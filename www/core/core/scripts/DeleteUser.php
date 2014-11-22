@@ -16,10 +16,10 @@ class DeleteUser extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::usersRemove))
-			return;
+			return false;
 
 		if (!$this->isInputSet('id'))
-			return;
+			return false;
 
 		$id = $this->getParams('id');
         if ($id == User::instance()->getId())
@@ -29,6 +29,7 @@ class DeleteUser extends DataScript
 
         $user = Repositories::findEntity(Repositories::User, $id);
         RemovalManager::hideUserAndAllHeOwns($user);
+		return true;
 	}
 }
 

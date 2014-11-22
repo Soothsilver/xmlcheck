@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\StringID;
 use asm\db\DbLayout;
 
 /**
@@ -15,28 +16,18 @@ final class DownloadAttachment extends DownloadScript
 	protected function body ()
 	{
 		if (!$this->isInputValid(array('id' => 'isIndex')))
-			return;
+			return false;
 
 		$id = $this->getParams('id');
-
-		if (!($attachments = Core::sendDbRequest('getAttachmentById', $id)))
-			return $this->stopDb($attachments, ErrorEffect::dbGet('attachment'));
-
-		$attachment = $attachments[0];
-		list($file, $lectureId) = array(
-			$attachment[DbLayout::fieldAttachmentFile],
-			$attachment[DbLayout::fieldLectureId],
-		);
-
-		if (!($lectures = Core::sendDbRequest('getLectureById', $lectureId)))
-			return $this->stopDb($lectures, ErrorEffect::dbGet('lecture'));
-
+		/**
+		 * @var $attachment \Attachment
+		 */
+		$attachment = Repositories::findEntity(Repositories::Attachment, $id);
+		$file = $attachment->getFile();
+		$lecture = $attachment->getLecture();
 		$user = User::instance();
-		if (!$user->hasPrivileges(User::lecturesManageAll)
-				&& (!$user->hasPrivileges(User::lecturesManageOwn)
-					|| ($lectures[0][DbLayout::fieldUserId] != $user->getId())))
-			return $this->stop(ErrorCode::lowPrivileges);
-
+		if (!$this->authorizedToManageLecture($lecture))
+			return $this->death(StringID::InsufficientPrivileges);
 		$this->doNotAttach();
 		$this->setOutput(Config::get('paths', 'attachments') . $file);
 	}

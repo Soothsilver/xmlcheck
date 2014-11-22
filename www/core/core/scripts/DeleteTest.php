@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\StringID;
 use asm\db\DbLayout;
 
 /**
@@ -16,18 +17,17 @@ final class DeleteTest extends GenTestScript
 	protected function body ()
 	{
 		if (!$this->isInputValid(array('id' => 'isIndex')))
-			return;
-
+			return false;
 		$id = $this->getParams('id');
+		/**
+		 * @var $xtest \Xtest
+		 */
+		$xtest = Repositories::findEntity(Repositories::Xtest, $id);
 
-		if (!($tests = Core::sendDbRequest('getGenTestById', $id)))
-			return $this->stopDb($tests, ErrorEffect::dbGet('test'));
+		if (!$this->checkTestGenerationPrivileges($xtest->getLecture()->getId()))
+			return $this->death(StringID::InsufficientPrivileges);
 
-		if (!$this->checkTestGenerationPrivileges($tests[0][DbLayout::fieldLectureId]))
-			return;
-
-		if (!Core::sendDbRequest('deleteGenTestById', $id))
-			return $this->stopDb(false, ErrorEffect::dbRemove('test'));
+		Repositories::remove($xtest);
 	}
 }
 

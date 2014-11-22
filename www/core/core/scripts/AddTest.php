@@ -33,16 +33,18 @@ final class AddTest extends GenTestScript
 			'questions' => 'isNotEmpty',
 		);
 		if (!$this->isInputValid($inputs))
-			return;
+			return false;
 		$description = $this->getParams('description');
 		$count = $this->getParams('count');
 		$questions = $this->getParams('questions');
 		$questionsArray = explode(',', $questions);
 
 
-		$user = User::instance();
 		$visibleQuestions = CommonQueries::GetQuestionsVisibleToActiveUser();
 
+		/**
+		 * @var $lecture \Lecture
+		 */
 		$lecture = null;
 
 
@@ -85,6 +87,7 @@ final class AddTest extends GenTestScript
 		$xtest->setTemplate($questions);
 		$xtest->setGenerated(implode(',', $randomized));
 		Repositories::persistAndFlush($xtest);
+		return true;
 	}
 }
 

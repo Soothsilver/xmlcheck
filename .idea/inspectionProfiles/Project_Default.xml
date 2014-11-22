@@ -96,6 +96,18 @@
     <inspection_tool class="RedundantThrowsDeclaration" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="SSBasedInspection" enabled="true" level="ERROR" enabled_by_default="true">
       <searchConfiguration name="Do not use func_get_args(), use variadics instead." text="func_get_args()" recursive="true" caseInsensitive="false" type="PHP" />
+      <searchConfiguration name="Do not use call_user_func_array, use variadics instead." text="call_user_func_array($1$, $2$)" recursive="true" caseInsensitive="true" type="PHP">
+        <constraint name="1" within="" contains="" />
+        <constraint name="2" within="" contains="" />
+      </searchConfiguration>
+      <searchConfiguration name="Do not use sendDbRequest, use Doctrine2 instead." text="Core::sendDbRequest($a$)" recursive="true" caseInsensitive="true" type="PHP">
+        <constraint name="a" script="&quot;&quot;" regexp="[^\),]*(,[^\),]*)*" maxCount="2147483647" within="" contains="" />
+        <constraint name="__context__" script="&quot;&quot;" within="" contains="" />
+      </searchConfiguration>
+      <searchConfiguration name="Don't use sendDbRequest, use Doctrine2 instead." text="$Expression$" recursive="false" caseInsensitive="false" type="PHP">
+        <constraint name="Expression" script="&quot;&quot;" regexp="Core::sendDbRequest([^)]*)" nameOfExprType="SomeType" maxCount="2147483647" within="" contains="" />
+        <constraint name="__context__" script="&quot;&quot;" within="" contains="" />
+      </searchConfiguration>
     </inspection_tool>
     <inspection_tool class="SimplifiableIfStatement" enabled="false" level="WARNING" enabled_by_default="false" />
     <inspection_tool class="SizeReplaceableByIsEmpty" enabled="true" level="WARNING" enabled_by_default="true" />

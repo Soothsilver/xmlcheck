@@ -1,7 +1,8 @@
 <?php
 
 namespace asm\core;
-use asm\db\DbLayout;
+use asm\core\lang\StringID;
+
 
 /**
  * @ingroup requests
@@ -15,18 +16,19 @@ final class DeleteSubscription extends DataScript
 	protected function body ()
 	{
 		if (!$this->isInputValid(array('id' => 'isIndex')))
-			return;
+			return false;
 
 		$id = $this->getParams('id');
-
-		if (!($subscriptions = Core::sendDbRequest('getSubscriptionById', $id)))
-			return $this->stopDb($subscriptions, ErrorEffect::dbGet('subscription'));
-
-		if ($subscriptions[0][DbLayout::fieldUserId] != User::instance()->getId())
-			return $this->stop(ErrorCause::notOwned('subscription'));
-
-		if (!Core::sendDbRequest('deleteSubscriptionById', $id))
-			return $this->stopDb(false, ErrorEffect::dbRemove('subscription'));
+		/**
+		 * @var $subscription \Subscription
+		 */
+		$subscription = Repositories::findEntity(Repositories::Subscription, $id);
+		if ($subscription->getUser()->getId() !== User::instance()->getId())
+		{
+			return $this->death(StringID::InsufficientPrivileges);
+		}
+		Repositories::remove($subscription);
+		return true;
 	}
 }
 

@@ -166,6 +166,7 @@ class Core
             {
                 $pluginTest = Repositories::findEntity(Repositories::PluginTest, $rowId);
 
+                $submission->setStatus(\PluginTest::STATUS_COMPLETED);
                 $pluginTest->setSuccess($response->getFulfillment());
                 $pluginTest->setInfo($response->getDetails());
                 $pluginTest->setOutput($outputFile);

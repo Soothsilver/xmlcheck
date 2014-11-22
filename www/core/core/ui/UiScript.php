@@ -24,6 +24,14 @@ abstract class UiScript
     private $failed = false;    ///< (bool) true if script failed to finish successfully
     private $params = array();    ///< (array) script arguments (associative)
 
+	protected function authorizedToManageLecture(\Lecture $lecture)
+	{
+		$user = User::instance();
+		if ($user->hasPrivileges(User::lecturesManageAll)) { return true; }
+		if ($user->hasPrivileges(User::lecturesManageOwn && $lecture->getOwner()->getId() === User::instance()->getId())) { return true; }
+		return false;
+	}
+
     /**
      * Runs the request handler with supplied arguments.
      *

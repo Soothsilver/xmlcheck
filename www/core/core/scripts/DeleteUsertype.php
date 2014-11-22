@@ -16,10 +16,10 @@ class DeleteUsertype extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::usersPrivPresets))
-			return;
+			return false;
 
 		if (!$this->isInputSet('id'))
-			return;
+			return false;
 
 		$id = $this->getParams('id');
         if ($id == Repositories::StudentUserType)
@@ -40,6 +40,7 @@ class DeleteUsertype extends DataScript
         }
         Repositories::remove($deletedType);
         Repositories::flushAll();
+        return true;
 	}
 }
 
