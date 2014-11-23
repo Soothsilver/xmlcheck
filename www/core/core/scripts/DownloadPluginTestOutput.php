@@ -1,7 +1,6 @@
 <?php
 
 namespace asm\core;
-use asm\db\DbLayout;
 
 /**
  * @ingroup requests
@@ -10,9 +9,21 @@ use asm\db\DbLayout;
  * @n @b Arguments:
  * @li @c id plugin test ID
  */
-final class DownloadPluginTestOutput extends DownloadPluginTestFile
+final class DownloadPluginTestOutput extends DownloadScript
 {
-	protected $filenameFieldId = DbLayout::fieldTestOutput;
-	protected $defaultFilenameId = 'pluginOutputFileName';
+	protected function body()
+	{
+		if (!$this->userHasPrivileges(User::pluginsTest))
+			return false;
+		if (!$this->isInputValid(array('id' => 'isIndex')))
+			return false;
+		/**
+		 * @var $test \PluginTest
+		 */
+		$test = Repositories::findEntity(Repositories::PluginTest, $this->getParams('id'));
+		$this->setOutput(Config::get('paths', 'output') . $test->getOutput(),
+			Config::get('defaults', 'pluginOutputFileName') . '.zip');
+		return true;
+	}
 }
 

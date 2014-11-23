@@ -19,10 +19,11 @@ abstract class DownloadPluginTestFile extends DownloadScript
 		if (!$this->isInputValid(array('id' => 'isIndex')))
 			return false;
 
-		if (!($tests = Core::sendDbRequest('getTestById', $this->getParams('id'))))
-			return $this->stopDb($tests, ErrorEffect::dbGet('plugin test'));
-
-		$this->setOutput(Config::get('paths', $this->parentPathId) . $tests[0][$this->filenameFieldId],
+		/**
+		 * @var $test \PluginTest
+		 */
+		$test = Repositories::findEntity(Repositories::PluginTest, $this->getParams('id'));
+		$this->setOutput(Config::get('paths', $this->parentPathId) . $test->geti,
 				Config::get('defaults', $this->defaultFilenameId) . '.zip');
 		return true;
 	}

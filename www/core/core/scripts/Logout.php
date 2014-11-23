@@ -16,6 +16,7 @@ final class Logout extends DataScript
 	{
 		if (!User::instance()->logout())
 			return $this->stop('logout unsuccessful');
+		return true;
 	}
 }
 

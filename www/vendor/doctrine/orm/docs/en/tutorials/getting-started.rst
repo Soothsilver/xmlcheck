@@ -1143,7 +1143,7 @@ The console output of this script is then:
     it allows for very short distinctive and powerful queries.
 
     An important reason why DQL is favourable to the Query API of most
-    ORMs is its similarity to SQL. The DQL language allows query
+    ORMs is its sooth.similarity to SQL. The DQL language allows query
     constructs that most ORMs don't, GROUP BY even with HAVING,
     Sub-selects, Fetch-Joins of nested classes, mixed results with
     entities and scalar data such as COUNT() results and much more.

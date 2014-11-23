@@ -30,6 +30,7 @@ abstract class StringID
     const ReloadManifests_DescriptionMismatch = 20;
     const ReloadManifests_ArgumentsMismatch = 21;
     const ReloadManifests_DatabaseCorrespondsToManifests = 22;
+    const ReloadManifests_IdentifierMismatch = 33;
 
     const TestCannotContainQuestionsOfDifferentLectures = 23;
     const ChooseAtLeastOneQuestion = 24;
@@ -42,6 +43,7 @@ abstract class StringID
 
     const ResetLinkDoesNotExist = 30;
     const ResetLinkExpired = 31;
+    const AttachmentExists = 32;
 }
 
 class Language {
@@ -87,6 +89,7 @@ class Language {
             case StringID::ReloadManifests_InvalidFolder: return "V databázi nemá plugin správně vyplněnou položku mainfile a pravděpodobně nebude fungovat. Teď nic nebylo změněno.";
             case StringID::ReloadManifests_MalformedXmlOrFileMissing: return "XML manifest není správně zformovaný nebo neexistuje. Teď nic nebylo změněno.";
             case StringID::ReloadManifests_DescriptionMismatch: return "Popisy se neshodovaly. Popis v databázi byl aktualizován.";
+            case StringID::ReloadManifests_IdentifierMismatch: return "Identifikátory se neshodovaly. Identifikátor v databázi byl aktualizován.";
             case StringID::ReloadManifests_ArgumentsMismatch: return "Popisy argumentů pluginu se neshodovaly. Popisy v databázi byly aktualizovány.";
             case StringID::ReloadManifests_DatabaseCorrespondsToManifests: return "Popisy všech pluginů v databázi se již shodovaly s popisy v manifestech.";
 
@@ -99,6 +102,7 @@ class Language {
             case StringID::UnzipUnsuccessful: return "Rozbalování nahraného souboru selhalo.";
             case StringID::BadlyFormedPlugin: return "Soubor s pluginem je poškozený, možná mu chybí soubor manifestu, hlavní soubor nebo je manifest špatně zformovaný.";
 
+            case StringID::AttachmentExists: return "Příloha s tímto jménem již pro tuto přednášku existuje.";
             case StringID::ResetLinkDoesNotExist: return "Kód na obnovení hesla není v databázi. Možná byl přepsán nově vygenerovaným kódem.";
             case StringID::ResetLinkExpired: return "Již uběhlo 24 hodin od odeslání tohoto kódu na obnovení hesla, proto byl kód zneplatněn. Prosím vygenerujte nový.";
         }
@@ -134,6 +138,7 @@ class Language {
             case StringID::ReloadManifests_InvalidFolder: return "In the database, this plugin does not have a correctly filled mainfile entry and will probably not work. Nothing was changed now.";
             case StringID::ReloadManifests_MalformedXmlOrFileMissing: return "The manifest XML file is missing or malformed. Nothing was changed now.";
             case StringID::ReloadManifests_DescriptionMismatch: return "Descriptions did not match. Database description amended.";
+            case StringID::ReloadManifests_IdentifierMismatch: return "Plugin identifiers did not match. Database record amended.";
             case StringID::ReloadManifests_ArgumentsMismatch: return "Argument descriptions did not match. Database argument descriptions amended.";
             case StringID::ReloadManifests_DatabaseCorrespondsToManifests: return "All plugin descriptions in the database already matched the plugin descriptions in the manifests.";
 
@@ -146,6 +151,7 @@ class Language {
             case StringID::UnzipUnsuccessful: return "Unzipping the uploaded file failed.";
             case StringID::BadlyFormedPlugin: return "This plugin file is malformed, perhaps it's missing the manifest file, the main file or the manifest file is malformed.";
 
+            case StringID::AttachmentExists: return "An attachment with this name already exists for this lecture.";
             case StringID::ResetLinkDoesNotExist: return "This password reset code is not present in the database. Perhaps it was overwritten by a newly generated one.";
             case StringID::ResetLinkExpired: return "More than 24 hours elapsed since this code was generated and it was therefore disabled. Please generate a new one.";
         }

@@ -1,6 +1,7 @@
 <?xml version="1.0" standalone="yes"?>
 <plugin-manifest>
 	<mainFile>XsltChecker.php</mainFile>
+    <identifier>XSLT</identifier>
 	<type>php</type>
 	<description>
 		Řešení musí obsahovat jeden .xml soubor a jeden .xsl soubor, volitelně také .dtd soubor.

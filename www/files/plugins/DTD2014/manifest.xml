@@ -1,5 +1,6 @@
 <?xml version="1.0" standalone="yes"?>
 <plugin-manifest>
+    <identifier>DTD</identifier>
 	<mainFile>Dtd2014Checker.php</mainFile>
 	<type>php</type>
 	<description>
@@ -23,7 +24,7 @@
         10. Deklaraci atributu ID
         11. Deklaraci atributu IDREF
 
-        XML musí použít kažou funkcionalitu, která je vyžadována 10 body v předešlém odstavci, např. tedy musí obsahovat čistě textový element, různé druhy atributů, ID atribut a IDREF atribut.
+        XML musí použít kažou funkcionalitu, která je vyžadována 11 body v předešlém odstavci, např. tedy musí obsahovat čistě textový element, různé druhy atributů, ID atribut a IDREF atribut.
         XML dokument musí mít hloubku alespoň 5.
         Alespoň jeden element musí obsahovat alespoň 10 synů.
 

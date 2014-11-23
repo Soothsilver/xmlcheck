@@ -16,14 +16,15 @@ final class DownloadSubmissionInput extends DownloadSubmissionFile
 	protected function body ()
 	{
 		if (!$this->isInputSet(array('id')))
-			return;
+			return false;
 
 		if (!($submission = $this->findAccessibleSubmissionById($this->getParams('id'))))
-			return;
+			return false;
 
 		$this->setOutput(Config::get('paths', 'submissions')
-				. $submission[DbLayout::fieldSubmissionFile],
+				. $submission->getSubmissionFile(),
 				Config::get('defaults', 'submissionFileName') . '.zip');
+		return true;
 	}
 }
 

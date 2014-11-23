@@ -14,11 +14,12 @@ final class RefreshSession extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges())
-			return;
+			return false; // This means the user is not logged in.
 
 		$user = User::instance();
 		$user->refresh();
 		$this->setOutput('timeout', $user->getTimeout());
+		return true;
 	}
 }
 

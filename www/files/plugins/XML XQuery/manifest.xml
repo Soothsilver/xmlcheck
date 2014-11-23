@@ -1,6 +1,7 @@
 <?xml version="1.0" standalone="yes"?>
 <plugin-manifest>
 	<mainFile>XQueryPlugin.jar</mainFile>
+    <identifier>XQUERY</identifier>
 	<type>java</type>
 	<description>
         Vaše řešení bude obsahovat jeden XML soubor a pět XQuery souborů.

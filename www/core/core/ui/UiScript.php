@@ -264,6 +264,10 @@ abstract class UiScript
 		return $fileInfo['path'];
 	}
 
+	/**
+	 * @param $id
+	 * @return bool|string
+	 */
 	protected final function getUploadedFileName ($id)
 	{
 		if (!($fileInfo = $this->getUploadedFileInfo($id)))

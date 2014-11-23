@@ -8,14 +8,12 @@ final class EditEmailNotificationOptions extends DataScript
 	protected function body ()
 	{
         if (!$this->userHasPrivileges())
-             return;
+             return false;
 
         $onSubmissionRated = $this->paramExists(User::sendEmailOnSubmissionRatedStudent);
         $onSubmissionConfirmed =  $this->paramExists(User::sendEmailOnSubmissionConfirmedTutor);
         $onAssignmentAvailable = $this->paramExists(User::sendEmailOnAssignmentAvailableStudent);
         $userEntity = User::instance()->getEntity();
-
-        $params = $this->getParams(null);
 
         User::instance()->setData(User::sendEmailOnSubmissionRatedStudent, $this->paramExists(User::sendEmailOnSubmissionRatedStudent)  ? 1 : 0);
         User::instance()->setData(User::sendEmailOnSubmissionConfirmedTutor, $this->paramExists(User::sendEmailOnSubmissionConfirmedTutor) ? 1 : 0);
@@ -27,6 +25,8 @@ final class EditEmailNotificationOptions extends DataScript
         $userEntity->setSendEmailOnSubmissionRated(!!$onSubmissionRated);
         Repositories::getEntityManager()->persist($userEntity);
         Repositories::getEntityManager()->flush($userEntity);
+
+        return true;
 	}
 }
 

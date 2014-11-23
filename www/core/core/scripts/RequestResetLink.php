@@ -3,6 +3,7 @@
 namespace asm\core;
 
 
+use asm\core\lang\StringID;
 use asm\db\DbLayout;
 use asm\utils\StringUtils;
 
@@ -11,33 +12,33 @@ final class RequestResetLink extends DataScript
 	protected function body ()
 	{
 		if (!$this->isInputSet(array('email')))
-			return;
+			return false;
 
 		$email = $this->getParams('email');
 
-		$users = Core::sendDbRequest('getUsersByEmail', $email);
-        if (!$users)
-			return $this->stop('There is no user with this e-mail address in the database.');
-
+        $users = Repositories::getRepository(Repositories::User)->findBy(['email' => $email]);
         foreach($users as $user)
         {
+            /**
+             * @var $user \User
+             */
+
             // Generate reset link.
             $resetLink = StringUtils::randomString(60);
             $now = new \DateTime();
-            $expiryDate = $now->add(new \DateInterval('P1D'))->format("Y-m-d H:i:s");
+            $expiryDate = $now->add(new \DateInterval('P1D'));
 
             // Add in in the database (replacing any older reset links in the process)
-            if (!Core::sendDbRequest('setResetLinkById', $user[DbLayout::fieldUserId], $resetLink, $expiryDate))
-            {
-                return $this->stopDb();
-            }
+            $user->setResetLink($resetLink);
+            $user->setResetLinkExpiry($expiryDate);
+            Repositories::persistAndFlush($user);
 
             // Send the e-mail
-            $body = "A Password Reset Link was requested for your e-mail address on XMLCheck.\n\nYour name: " . $user[DbLayout::fieldUserRealName] . "\nYour login: " . $user[DbLayout::fieldUserName]
-                . "\n\nClick this link to reset your password: \n\n" . Config::get('roots', 'http') . "#resetPassword#" . $resetLink . "\n\nThe link will be valid for the next 24 hours, until " . $expiryDate . ".";
-            if (!Core::sendEmail($user[DbLayout::fieldUserEmail], "[XMLCheck] Password Reset Link for '" . $user[DbLayout::fieldUserRealName] . "'", $body))
+            $body = "A Password Reset Link was requested for your e-mail address on XMLCheck.\n\nYour name: " . $user->getRealName() . "\nYour login: " . $user->getName() . "\n\nClick this link to reset your password: \n\n" . Config::get('roots', 'http') . "#resetPassword#" . $resetLink . "\n\nThe link will be valid for the next 24 hours, until " . $expiryDate->format("Y-m-d H:i:s") . ".";
+
+            if (!Core::sendEmail($user->getEmail(), "[XMLCheck] Password Reset Link for '" . $user->getRealName() . "'", $body))
             {
-                return $this->stop("Password reset link could not be sent to your e-mail.");
+                return $this->death(StringID::MailError);
             }
 
         }

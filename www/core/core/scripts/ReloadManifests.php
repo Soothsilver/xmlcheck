@@ -5,6 +5,7 @@ namespace asm\core;
 use asm\core\lang\Language;
 use asm\core\lang\StringID;
 use asm\utils\Filesystem;
+use SebastianBergmann\Exporter\Exception;
 
 final class ReloadManifests extends DataScript
 {
@@ -13,38 +14,51 @@ final class ReloadManifests extends DataScript
 		$plugins = Repositories::getRepository(Repositories::Plugin)->findAll();
 		$errors = [];
 		foreach ($plugins as $plugin) {
-			/** @var $plugin \Plugin */
-			$dbArguments =
-			$dbPhpFile = $plugin->getMainfile();
-			$dbDescription = $plugin->getDescription();
-			$dbArguments = explode(';', $plugin->getConfig());
-			$pluginDirectory = $this->getMainDirectory($dbPhpFile);
-			if ($pluginDirectory === false) { $errors[] = $plugin->getName(). ": " . Language::get(StringID::ReloadManifests_InvalidFolder); continue; }
-			$manifestFile = Filesystem::combinePaths(
-				Config::get('paths', 'plugins'),
-				$pluginDirectory,
-				"manifest.xml");
-			$xml = new \DOMDocument();
-			$success = $xml->load(realpath($manifestFile));
-			if ($success === false) { $errors[] = $plugin->getName() . ": " . Language::get(StringID::ReloadManifests_MalformedXmlOrFileMissing); continue; }
+				/** @var $plugin \Plugin */
+				$dbArguments =
+				$dbPhpFile = $plugin->getMainfile();
+				$dbDescription = $plugin->getDescription();
+				$dbArguments = explode(';', $plugin->getConfig());
+				$dbIdentifier = $plugin->getIdentifier();
+				$pluginDirectory = $this->getMainDirectory($dbPhpFile);
+				if ($pluginDirectory === false) {
+					$errors[] = $plugin->getName() . ": " . Language::get(StringID::ReloadManifests_InvalidFolder);
+					continue;
+				}
+				$manifestFile = Filesystem::combinePaths(
+					Config::get('paths', 'plugins'),
+					$pluginDirectory,
+					"manifest.xml");
+				$xml = new \DOMDocument();
+				$success = $xml->load(realpath($manifestFile));
+				if ($success === false) {
+					$errors[] = $plugin->getName() . ": " . Language::get(StringID::ReloadManifests_MalformedXmlOrFileMissing);
+					continue;
+				}
 
-			$fileDescription = $xml->getElementsByTagName('description')->item(0);
-			$fileArguments = $xml->getElementsByTagName('argument');
-			$fileArgumentsArray = [];
-			for($i = 0; $i < $fileArguments->length; $i++) {
-				$fileArgumentsArray[] = trim($fileArguments->item($i)->nodeValue);
-			}
-			$fileArgumentsString = implode(';', $fileArgumentsArray);
-			if ($dbDescription !== trim($fileDescription->nodeValue)) {
-				$errors[] = $plugin->getName() . ": " . Language::get(StringID::ReloadManifests_DescriptionMismatch);
-				$plugin->setDescription(trim($fileDescription->nodeValue));
-				Repositories::persist($plugin);
-			}
-			if ($plugin->getConfig() !== $fileArgumentsString) {
-				$errors[] = $plugin->getName() . ": " . Language::get(StringID::ReloadManifests_ArgumentsMismatch);
-				$plugin->setConfig($fileArgumentsString);
-				Repositories::persist($plugin);
-			}
+				$fileDescription = $xml->getElementsByTagName('description')->item(0);
+				$fileArguments = $xml->getElementsByTagName('argument');
+				$fileIdentifier = $xml->getElementsByTagName('identifier')->item(0);
+				$fileArgumentsArray = [];
+				for ($i = 0; $i < $fileArguments->length; $i++) {
+					$fileArgumentsArray[] = trim($fileArguments->item($i)->nodeValue);
+				}
+				$fileArgumentsString = implode(';', $fileArgumentsArray);
+				if ($dbDescription !== trim($fileDescription->nodeValue)) {
+					$errors[] = $plugin->getName() . ": " . Language::get(StringID::ReloadManifests_DescriptionMismatch);
+					$plugin->setDescription(trim($fileDescription->nodeValue));
+					Repositories::persist($plugin);
+				}
+				if ($dbIdentifier !== trim($fileIdentifier->nodeValue)) {
+					$errors[] = $plugin->getName() . ": " . Language::get(StringID::ReloadManifests_IdentifierMismatch);
+					$plugin->setIdentifier(trim($fileIdentifier->nodeValue));
+					Repositories::persist($plugin);
+				};
+				if ($plugin->getConfig() !== $fileArgumentsString) {
+					$errors[] = $plugin->getName() . ": " . Language::get(StringID::ReloadManifests_ArgumentsMismatch);
+					$plugin->setConfig($fileArgumentsString);
+					Repositories::persist($plugin);
+				}
 		}
 		Repositories::flushAll();
 
@@ -54,6 +68,7 @@ final class ReloadManifests extends DataScript
 		else {
 			$this->addOutput("text", implode('<br>', $errors));
 		}
+		return true;
 	}
 	private function getMainDirectory($path)
 	{

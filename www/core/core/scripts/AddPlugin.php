@@ -67,6 +67,7 @@ final class AddPlugin extends DataScript
 		}
 
 		$plugin = new \Plugin();
+		$plugin->setIdentifier($manifest['identifier']);
 		$plugin->setDescription($manifest['description']);
 		$plugin->setConfig($manifest['arguments']);
 		$plugin->setMainfile($name . '/' . $manifest['mainFile']);
@@ -97,6 +98,7 @@ cleanup_error:
 			'type' => trim($manifestXml->type),
 			'description' => trim($manifestXml->description),
 			'mainFile' => trim($manifestXml->mainFile),
+			'identifier' => trim($manifestXml->identifier)
 		);
 		$arguments = array();
 		/** @noinspection PhpUndefinedFieldInspection */

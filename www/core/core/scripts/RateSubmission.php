@@ -17,7 +17,7 @@ final class RateSubmission extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::submissionsCorrect))
-			return;
+			return false;
 
 		$inputs = array(
 			'id' => 'isIndex',
@@ -25,60 +25,79 @@ final class RateSubmission extends DataScript
             'explanation' => null
 		);
 		if (!$this->isInputValid($inputs))
-			return;
+			return false;
 
-		extract($this->getParams(array_keys($inputs)));
-
-		$submissions = Core::sendDbRequest('getSubmissionOwnerById', $id);
-		if (!$submissions)
-			return $this->stopDb($submissions, ErrorEffect::dbGet('submission'));
-
-		$submission = $submissions[0];
+		$id = $this->getParams('id');
+		$rating = $this->getParams('rating');
+		$explanation = $this->getParams('explanation');
+		/**
+		 * @var $submission \Submission
+		 */
+		$submission = Repositories::findEntity(Repositories::Submission, $id);
 		$user = User::instance();
+		if ($submission->getUser()->getId() !== $user->getId()) {
+			return $this->death(StringID::InsufficientPrivileges);
+		}
+		$status = $submission->getStatus();
+		if ($status === \Submission::STATUS_BEING_EVALUATED)
+		{
+			// Submissions that are still being evaluated are not ever shown to the tutor in the user interface
+			return $this->death(StringID::HackerError);
+		}
+		else if ($status === \Submission::STATUS_NORMAL)
+		{
+			// This may happen if the tutor downloads a student's latest submission, and while his or her browser is still open,
+			// the student uploads another submission, therefore the original submission is now NORMAL rather than LATEST.
+			// Still, the tutor should have retain the right to grade it. If he or she grades it after deadline, then it's the
+			// student's fault for submitting the second solution late. If the deadline has not yet passed, then it's the tutor's
+			// fault for attempting to grade it. Either way, we should proceed as normal.
+		}
+		else if ($status === \Submission::STATUS_DELETED)
+		{
+			// This may happen similarly to the previous case: The student may upload a new submission and delete the old one.
+			// However, if the tutor had the right to grade it before its deletion, then the student may not prevent the grading
+			// by deleting it. Therefore, we should proceed as normal.
+		}
+		else if ($status === \Submission::STATUS_GRADED)
+		{
+			if (!$user->hasPrivileges(User::submissionsModifyRated)) {
+				return $this->death(StringID::InsufficientPrivileges);
+			}
+		}
+		else
+		{
+			// This submission is either LATEST or REQUESTING_GRADING, therefore it is ok to grade it.
+			// This is the happy path.
+		}
+		$maxReward = $submission->getAssignment()->getReward();
+		if ($rating > $maxReward) {
+			return $this->stop('rating exceeds assignment\'s maximum reward');
+		}
+		$submission->setRating($rating);
+		$submission->setExplanation($explanation);
+		Repositories::persistAndFlush($submission);
 
-		if ($submission[DbLayout::fieldUserId] != $user->getId())
-			return $this->stop(ErrorCause::notOwned('submission'));
-
-		$status = $submission[DbLayout::fieldSubmissionStatus];
-		if (($status == 'new') && ($status == 'corrected'))
-			return $this->stop('submission is not confirmed yet', 'cannot rate submission');
-		if (($status == 'rated') && !$user->hasPrivileges(User::submissionsModifyRated))
-			return $this->stop("you don't have permission to change rating of already rated submission",
-					'cannot rate submission');
-
-		$maxReward = $submission[DbLayout::fieldAssignmentReward];
-		if ($rating > $maxReward)
-			return $this->stop('rating exceeds assignment\'s maximum reward', 'cannot rate submission');
-
-
-		if (!Core::sendDbRequest('rateSubmissionById', $id, $rating, $explanation))
-			return $this->stopDb(false, ErrorEffect::dbEdit('submission'));
-
-        // Now send email.
-        // Load email.
-        $userDetailsTable = Core::sendDbRequest('getUserById', $submission[DbLayout::fieldSpecialSecondaryId]); // special secondary id is userId column of submissions table in this case
-        if (!$userDetailsTable)
-            return $this->stopDb($userDetailsTable, "Submission was rated, but it was not possible to send an e-mail to the user.");
-        $userDetails = $userDetailsTable[0];
-
-        if ($userDetails[DbLayout::fieldUserOptionSendEmailOnSubmissionRated])
+		// Now send email.
+		$student = $submission->getUser();
+        if ($student->getSendEmailOnSubmissionRated())
         {
+
+			// Load email.
             $email = file_get_contents(Config::get("paths", $rating == $maxReward ? "successEmail" : "failureEmail"));
             $email = str_replace( "%{Points}", $rating, $email);
             $email = str_replace( "%{Maximum}", $maxReward, $email);
             $email = str_replace( "%{Explanation}", $explanation, $email);
-            $email = str_replace( "%{Assignment}", $submission[DbLayout::fieldProblemName], $email);
+            $email = str_replace( "%{Assignment}", $submission->getAssignment()->getProblem()->getName(), $email);
             $email = str_replace( "%{Link}", Config::getHttpRoot() . "#submissions", $email);
             $email = str_replace( "%{Date}", date("Y-m-d H:i:s"), $email);
             $lines = explode("\n", $email);
             $subject = $lines[0];
             $text = preg_replace('/^.*\n/', '', $email);
-            if (!Core::sendEmail($userDetails[DbLayout::fieldUserEmail], trim($subject), $text))
+            if (!Core::sendEmail($student->getEmail(), trim($subject), $text))
             {
                 $this->death(StringID::MailError);
             }
         }
-
 	}
 }
 

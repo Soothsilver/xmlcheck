@@ -2,7 +2,7 @@
 if (!isset($argc)) { die("This is a command-line utility."); }
 if ($argc >= 2 && $argv[1] === 'doctrine')
 {
-    chdir("core/doctrine");
+    chdir("www/core/doctrine");
     $arguments = $argv;
     array_shift($arguments);
     array_shift($arguments);

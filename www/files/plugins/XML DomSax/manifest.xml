@@ -1,6 +1,7 @@
 <?xml version="1.0" standalone="yes"?>
 <plugin-manifest>
 	<mainFile>DomSaxPlugin.jar</mainFile>
+    <identifier>DOMSAX</identifier>
 	<type>java</type>
 	<description>
         Vaše řešení musí mít přesně tuto adresářovou strukturu:

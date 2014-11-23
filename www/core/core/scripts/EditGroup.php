@@ -45,6 +45,7 @@ final class EditGroup extends DataScript
         {
             /**
              * @var $group \Group
+             * @var $sameNameGroup \Group[]
              */
             $group = Repositories::findEntity(Repositories::Group, $groupId);
             $sameNameGroup = Repositories::getRepository(Repositories::Group)->findBy(['name' => $groupName]);

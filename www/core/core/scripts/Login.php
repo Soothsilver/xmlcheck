@@ -19,10 +19,9 @@ final class Login extends DataScript
 	protected function body ()
 	{
 		if (!$this->isInputSet(array('name', 'pass')))
-			return;
+			return false;
 
         $user = User::instance();
-
 
 		if (!$user->login($this->getParams('name'), $this->getParams('pass')))
 			return $this->stop(Language::get(StringID::InvalidLogin));
@@ -39,6 +38,7 @@ final class Login extends DataScript
             User::sendEmailOnSubmissionConfirmedTutor => $user->getData(User::sendEmailOnSubmissionConfirmedTutor),
             User::sendEmailOnAssignmentAvailableStudent => $user->getData(User::sendEmailOnAssignmentAvailableStudent),
 		));
+		return true;
 	}
 }
 

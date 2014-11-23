@@ -1,6 +1,7 @@
 <?xml version="1.0" standalone="yes"?>
 <plugin-manifest>
 	<mainFile>XpathChecker.php</mainFile>
+    <identifier>XPATH</identifier>
 	<type>php</type>
 	<description>
         Vaše řešení musí obsahovat jeden validní XML soubor a pět legálních XPath dotazů, volitelně také DTD soubor.

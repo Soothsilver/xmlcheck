@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\StringID;
 use asm\db\DbLayout, asm\utils\Filesystem;
 
 /**
@@ -28,57 +29,58 @@ final class EditAttachment extends LectureScript
 			'type' => array('isEnum' => array('text', 'code', 'image'))
 		);
 		if (!$this->isInputValid($inputs))
-			return;
+			return false;
 
-		extract($this->getParams(array_keys($inputs)));
+		$lectureId = $this->getParams('lecture');
+		$lecture = Repositories::findEntity(Repositories::Lecture, $lectureId);
+		$name = $this->getParams('name');
+		$type = $this->getParams('type');
 		$id = $this->getParams('id');
 		$isIdSet = (($id !== null) && ($id !== ''));
-
-		if (!($originalName = $this->getUploadedFileName('file')))
-			return;
-
+		$originalName = $this->getUploadedFileName('file');
+		if (!$originalName) { return false; }
 		$extensionStart = strrpos($originalName, '.');
-		$extension = ($extensionStart === false) ? '' :
-				substr($originalName, strrpos($originalName, '.'));
-
-		if (!$this->checkTestGenerationPrivileges($lecture))
-			return;
-
-		$attachments = Core::sendDbRequest('getAttachmentByNameAndLectureId', $name, $lecture);
-		if ($attachments === false)
-			return $this->stopDb($attachments, ErrorEffect::dbGet('attachment', 'name'));
-
+		$extension = ($extensionStart === false) ? '' :	substr($originalName, strrpos($originalName, '.'));
 		$attachmentFolder = Config::get('paths', 'attachments');
 		$filename = $lecture . '_' . $name . $extension;
+
+
+		if (!$this->checkTestGenerationPrivileges($lecture))
+			return $this->death(StringID::InsufficientPrivileges);
+		/**
+		 * @var $attachment \Attachment
+		 */
+		$attachment = null;
+
 		if (!$this->saveUploadedFile('file', $attachmentFolder . $filename))
-			return;
+			return $this->death(StringID::InsufficientPrivileges);
 
-		if (!$attachments)
+		$attachmentsWithThisName = Repositories::getRepository(Repositories::Attachment)->findBy(['lecture' => $lectureId, 'name' => $name]);
+		if ($isIdSet)
 		{
-			if ($isIdSet) {
-				return $this->stop("attachment with ID '$id' not found");
-			} else {
-				if (!Core::sendDbRequest('addAttachment', $lecture, $name, $type, $filename))
-					return $this->stopDb(false, ErrorEffect::dbAdd('attachment'));
+			$attachment = Repositories::findEntity(Repositories::Attachment, $id);
+			if (count($attachmentsWithThisName) > 0)
+			{
+				if ($attachmentsWithThisName[0]->getId() !== $attachment->getId())
+				{
+					return $this->death(StringID::AttachmentExists);
+				}
 			}
-		}
-		elseif ($isIdSet)
-		{
-			$attachment = $attachments[0];
-			if (($id != $attachment[DbLayout::fieldAttachmentId]))
-				return $this->stop(ErrorCause::dataMismatch('attachment'));
-
-			if (!Core::sendDbRequest('editAttachmentById', $id, $type, $filename))
-				return $this->stopDb(false, ErrorEffect::dbEdit('problem'));
-
-			$oldFilename = $attachment[DbLayout::fieldAttachmentFile];
-			if ($filename != $oldFilename)
-				Filesystem::removeFile($attachmentFolder . $oldFilename);
 		}
 		else
 		{
-			return $this->stop(ErrorCause::nameTaken('attachment', $name));
+			if (count($attachmentsWithThisName) > 0)
+			{
+				return $this->death(StringID::AttachmentExists);
+			}
+			$attachment = new \Attachment();
 		}
+		$attachment->setType($type);
+		$attachment->setLecture($lecture);
+		$attachment->setName($name);
+		$attachment->setFile($filename);
+		Repositories::persistAndFlush($attachment);
+		return true;
 	}
 }
 

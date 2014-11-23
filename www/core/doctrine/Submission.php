@@ -20,6 +20,10 @@ class Submission
     const STATUS_DELETED = "deleted";
 
     /**
+     * @ORM\OneToMany(targetEntity="Document", mappedBy="submission")
+     */
+    private $documents;
+    /**
      * @return Assignment
      */
     public function getAssignment()
@@ -336,5 +340,45 @@ class Submission
     public function getUser()
     {
         return $this->user;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->documents = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add documents
+     *
+     * @param \Document $documents
+     * @return Submission
+     */
+    public function addDocument(\Document $documents)
+    {
+        $this->documents[] = $documents;
+
+        return $this;
+    }
+
+    /**
+     * Remove documents
+     *
+     * @param \Document $documents
+     */
+    public function removeDocument(\Document $documents)
+    {
+        $this->documents->removeElement($documents);
+    }
+
+    /**
+     * Get documents
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDocuments()
+    {
+        return $this->documents;
     }
 }

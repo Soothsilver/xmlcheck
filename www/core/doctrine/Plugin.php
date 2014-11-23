@@ -50,6 +50,11 @@ class Plugin
     private $mainfile;
 
     /**
+     * @ORM\Column(name="identifier", type="string")
+     */
+    private $identifier;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="config", type="text", nullable=false)
@@ -226,5 +231,28 @@ class Plugin
     public function getPluginTests()
     {
         return $this->pluginTests;
+    }
+
+    /**
+     * Set identifier
+     *
+     * @param string $identifier
+     * @return Plugin
+     */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    /**
+     * Get identifier
+     *
+     * @return string 
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
     }
 }

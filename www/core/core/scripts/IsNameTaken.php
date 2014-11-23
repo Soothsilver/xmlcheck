@@ -15,45 +15,39 @@ final class IsNameTaken extends DataScript
 	protected function body ()
 	{
 		if (!$this->isInputSet(array('name', 'table')))
-			return;
+			return false;
 
 		$table = $this->getParams('table');
 		$name = strtolower($this->getParams('name'));
+		$repositoryName = false;
+		$columnName = "name";
 		switch ($table)
 		{
 			case 'groups':
-				$subject = 'group';
-				$requestId = 'getGroupByName';
+				$repositoryName = Repositories::Group;
 				break;
 			case 'lectures':
-				$subject = 'lecture';
-				$requestId = 'getLectureByName';
+				$repositoryName = Repositories::Lecture;
 				break;
 			case 'plugins':
-				$subject = 'plugin';
-				$requestId = 'getPluginByName';
+				$repositoryName = Repositories::Plugin;
 				break;
 			case 'problems':
-				$subject = 'problem';
-				$requestId = 'getProblemByName';
+				$repositoryName = Repositories::Problem;
 				break;
 			case 'users':
-				$subject = 'user';
-				$requestId = 'getUserByName';
+				$repositoryName = Repositories::User;
 				break;
 			case 'usertypes':
-				$subject = 'user type';
-				$requestId = 'getUsertypeByName';
+				$repositoryName = Repositories::UserType;
 				break;
 			default:
 				return $this->stop('name duplicity check cannot be performed on table' . $table);
 		}
 
-		$data = Core::sendDbRequest($requestId, $name);
-		if ($data === false)
-			return $this->stopDb($data, ErrorEffect::dbGet($subject, 'name'));
-
-		$this->addOutput('nameTaken', (boolean)$data);
+		$results = Repositories::getRepository($repositoryName)->findBy([$columnName -> $name]);
+		$nameConflict = (count($results) > 0);
+		$this->addOutput('nameTaken', $nameConflict);
 	}
 }
 

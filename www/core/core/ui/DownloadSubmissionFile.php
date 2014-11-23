@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\core;
+use asm\core\lang\StringID;
 use asm\db\DbLayout;
 
 /**
@@ -13,26 +14,23 @@ abstract class DownloadSubmissionFile extends DownloadScript
 	/**
 	 * Gets submission with supplied ID if it's accessible to user [stopping].
 	 * @param int $id submission ID
-	 * @return mixed submission data (array) or false in case of failure
+	 * @return \Submission submission or false in case of failure
 	 */
 	protected final function findAccessibleSubmissionById ($id)
 	{
-		$submissionsWithAuthor = Core::sendDbRequest('getSubmissionById', $id);
-		$submissionsWithOwner = Core::sendDbRequest('getSubmissionOwnerById', $id);
-		if (!$submissionsWithAuthor || !$submissionsWithOwner)
-		{
-			$badResult = ($submissionsWithAuthor ? $submissionsWithOwner : $submissionsWithAuthor);
-			return $this->stopDb($badResult, ErrorEffect::dbGetAll('submissions'));
-		}
-
+		/**
+		 * @var $submission \Submission
+		 */
+		$submission = Repositories::findEntity(Repositories::Submission, $id);
 		$userId = User::instance()->getId();
-		$authorId = $submissionsWithAuthor[0][DbLayout::fieldUserId];
-		$ownerId = $submissionsWithOwner[0][DbLayout::fieldUserId];
+		$authorId = $submission->getUser()->getId();
+		$ownerId = $submission->getAssignment()->getGroup()->getOwner()->getId();
 
-		if (($authorId != $userId) && ($ownerId != $userId))
-			return $this->stop(ErrorCause::notOwned('submissions'));
-
-		return $submissionsWithAuthor[0];
+		if ($authorId !== $userId && $ownerId !== $userId)
+		{
+			return $this->death(StringID::InsufficientPrivileges);
+		}
+		return $submission;
 	}
 }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" standalone="yes"?>
 <plugin-manifest>
 	<mainFile>XmlSchemaChecker.php</mainFile>
+    <identifier>SCHEMA</identifier>
 	<type>php</type>
 	<description>
         Řešení musí obsahovat jeden soubor s příponou .xml a jeden soubor s příponou .xsd, volitelně také nějaký DTD soubor.
