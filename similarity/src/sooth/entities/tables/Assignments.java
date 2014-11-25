@@ -16,7 +16,7 @@ package sooth.entities.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Assignments extends org.jooq.impl.TableImpl<sooth.entities.tables.records.AssignmentsRecord> {
 
-	private static final long serialVersionUID = 1623765967;
+	private static final long serialVersionUID = 136298601;
 
 	/**
 	 * The reference instance of <code>asmregen.assignments</code>
@@ -47,9 +47,9 @@ public class Assignments extends org.jooq.impl.TableImpl<sooth.entities.tables.r
 	public final org.jooq.TableField<sooth.entities.tables.records.AssignmentsRecord, java.lang.Integer> REWARD = createField("reward", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
-	 * The column <code>asmregen.assignments.groupId</code>.
+	 * The column <code>asmregen.assignments.deleted</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.AssignmentsRecord, java.lang.Integer> GROUPID = createField("groupId", org.jooq.impl.SQLDataType.INTEGER, this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.AssignmentsRecord, java.lang.Byte> DELETED = createField("deleted", org.jooq.impl.SQLDataType.TINYINT.nullable(false), this, "");
 
 	/**
 	 * The column <code>asmregen.assignments.problemId</code>.
@@ -57,9 +57,9 @@ public class Assignments extends org.jooq.impl.TableImpl<sooth.entities.tables.r
 	public final org.jooq.TableField<sooth.entities.tables.records.AssignmentsRecord, java.lang.Integer> PROBLEMID = createField("problemId", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
 	/**
-	 * The column <code>asmregen.assignments.deleted</code>.
+	 * The column <code>asmregen.assignments.groupId</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.AssignmentsRecord, java.lang.Byte> DELETED = createField("deleted", org.jooq.impl.SQLDataType.TINYINT.nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.AssignmentsRecord, java.lang.Integer> GROUPID = createField("groupId", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
 	/**
 	 * Create a <code>asmregen.assignments</code> table reference
@@ -112,7 +112,7 @@ public class Assignments extends org.jooq.impl.TableImpl<sooth.entities.tables.r
 	 */
 	@Override
 	public java.util.List<org.jooq.ForeignKey<sooth.entities.tables.records.AssignmentsRecord, ?>> getReferences() {
-		return java.util.Arrays.<org.jooq.ForeignKey<sooth.entities.tables.records.AssignmentsRecord, ?>>asList(sooth.entities.Keys.FK_308A50DDED8188B0, sooth.entities.Keys.FK_308A50DDBB4C47C8);
+		return java.util.Arrays.<org.jooq.ForeignKey<sooth.entities.tables.records.AssignmentsRecord, ?>>asList(sooth.entities.Keys.FK_308A50DDBB4C47C8, sooth.entities.Keys.FK_308A50DDED8188B0);
 	}
 
 	/**

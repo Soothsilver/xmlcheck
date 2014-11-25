@@ -1,4 +1,4 @@
-package name.hon2a.asm;
+package sooth;
 
 import java.io.*;
 import java.nio.file.FileVisitResult;
@@ -18,7 +18,7 @@ import java.util.zip.ZipOutputStream;
  * This file is duplicated by the FilesystemUtils.java file in the similarity module.
  *
  */
-public class Utils {
+public class FilesystemUtils {
 
 	/// OS-specific line separator
 	public static final String EOL_STRING = System.getProperty("line.separator");
@@ -154,7 +154,7 @@ public class Utils {
 	 */
 	public static void recodeFileToDefaultEncoding (File source)
 			throws IOException {
-		String contents = Utils.loadTextFile(source);
+		String contents = FilesystemUtils.loadTextFile(source);
 		try (Writer output = new BufferedWriter(new FileWriter(source))) {
 			output.write(contents);
 		}

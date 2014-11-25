@@ -38,7 +38,7 @@
             <packageName>sooth.entities</packageName>
 
             <!-- The destination directory of your generated classes -->
-            <directory>C:/Apps/EasyPHP/data/localweb/xmlcheck/similarity/src</directory>
+            <directory>../../</directory>
         </target>
     </generator>
 </configuration>

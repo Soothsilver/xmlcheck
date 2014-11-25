@@ -10,14 +10,17 @@ import sooth.entities.tables.records.ProblemsRecord;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Database {
     private static Logger logger = Logging.getLogger(Database.class.getName());
+    private static Logger orgLogger = Logger.getLogger("org");
     private static DSLContext context = null;
     private static Connection connection = null;
     public static DSLContext getContext()
     {
+        orgLogger.setLevel(Level.WARNING);
         if (context == null) {
             connection = null;
             String userName = "asmfull";
