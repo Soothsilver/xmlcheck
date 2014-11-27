@@ -47,7 +47,7 @@ final class EditUser extends DataScript
 			'repass' => array(),
 		);
 		if (!$this->isInputValid($inputs))
-			return;
+			return false;
 
         // Extract input data
         $username = strtolower( $this->getParams('name') );
@@ -92,7 +92,7 @@ final class EditUser extends DataScript
 
         $code = '';
         $unhashedPass = $pass;
-        $pass = \asm\utils\Security::hash($pass, \asm\utils\Security::HASHTYPE_PHPASS);
+        $pass = Security::hash($pass, Security::HASHTYPE_PHPASS);
         $canAddUsers = User::instance()->hasPrivileges(User::usersAdd);
         $canEditUsers = User::instance()->hasPrivileges(User::usersManage);
         $isEditingSelf = ($id === User::instance()->getId());
@@ -126,6 +126,7 @@ final class EditUser extends DataScript
                 return $this->death(StringID::InsufficientPrivileges);
             }
             $user = new \User();
+            /** @var \UserType $typeEntity */
             $typeEntity = Repositories::findEntity(Repositories::UserType, $type);
             $user->setType($typeEntity);
             $user->setPass($pass);
@@ -142,6 +143,7 @@ final class EditUser extends DataScript
                 return $this->stop(ErrorCode::lowPrivileges, 'cannot edit data of users other than yourself');
 
             $type = $isTypeSet ? $type : $user->getType()->getId();
+            /** @var \UserType $typeEntity */
             $typeEntity = Repositories::findEntity(Repositories::UserType, $type);
 
             if ($unhashedPass)
@@ -159,6 +161,7 @@ final class EditUser extends DataScript
         {
             return $this->death(StringID::UserNameExists);
         }
+        return true;
 	}
 }
 

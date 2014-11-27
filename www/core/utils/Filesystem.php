@@ -52,7 +52,7 @@ class Filesystem
      * Example: [ '', 'foo.jpg' ] turns into 'foo.jpg'
      * Example: [ 'dir', '0', 'a.jpg' ] turns into 'dir/0/a.jpg'
      * Example: [ 'C:\long\path\', '/shortfile' ] turns into 'C:/long/path/shortfile'
-     * @param string[] $fragments path fragments to join
+     * @param string ...$fragments path fragments to join
      * @return string the combined paths
      */
     public static function combinePaths(...$fragments)

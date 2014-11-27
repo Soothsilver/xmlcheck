@@ -4,6 +4,7 @@ use asm\utils\StringUtils,
 	asm\plugin\CountedRequirements,
 	asm\plugin\XmlRegex;
 use asm\utils\Utils;
+use Soothsilver\DtdParser;
 
 
 /**
@@ -86,7 +87,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
             return false;
         }
 	}
-	protected function checkXMLValidity ($xmlDom)
+	protected function checkXMLValidity (\DOMDocument $xmlDom)
 	{
 		$this->useLibxmlErrors();
 		$xmlDom->validate();
@@ -97,12 +98,11 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 	/**
 	 * Searches for occurences of required DTD constructs and marks them in supplied
 	 * index.
-	 * @param Soothsilver\DtdParser\DTD $dtdDoc source DTD
+	 * @param \Soothsilver\DtdParser\DTD $dtdDoc source DTD
 	 * @param CountedRequirements $reqs occurence index
 	 */
-	protected function markDTDConstructOccurences ($dtdDoc, $reqs)
+	protected function markDTDConstructOccurences (\Soothsilver\DtdParser\DTD $dtdDoc, $reqs)
 	{
-		$limitedElems = array();
 		$operatorCounts = array(',' => 0, '|' => 0, '?' => 0, '+' => 0, '*' => 0);
 		$operators = array_keys($operatorCounts);
 
@@ -153,10 +153,10 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 
 	/**
 	 * Checks coverage of required DTD constructs.
-	 * @param XML_DTD_Tree $dtdDoc source DTD
+	 * @param \Soothsilver\DtdParser\DTD $dtdDoc source DTD
 	 * @return bool true on success
 	 */
-	protected function checkDTDConstructCoverage ($dtdDoc)
+	protected function checkDTDConstructCoverage (\Soothsilver\DtdParser\DTD $dtdDoc)
 	{
 		$reqs = new CountedRequirements(array(
 			'data' => array(
@@ -209,7 +209,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 	/**
 	 * Searches for required construct occurences in XML and marks found occurences
 	 * in occurence index.
-	 * @param DOMDocument $xmlEl source XML
+	 * @param DOMElement $xmlEl source XML
 	 * @param CountedRequirements $reqs occurence index
 	 * @param array $internal internal index of this method (<b>DO NOT use this
 	 *		argument from other methods.</b>)
@@ -274,6 +274,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
             $child = $children->item($i);
             if ($child->nodeType == XML_ELEMENT_NODE)
             {
+                /** @var \DOMElement $child */
                 $hasNodes = true;
                 $fanout++;
                 $this->markXMLConstructOccurences($child, $reqs, $internal);
@@ -299,7 +300,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 
 	/**
 	 * Checks XML for occurence of required constructs.
-	 * @param SimpleXMLElement $xml source XML
+	 * @param DOMDocument $xml source XML
 	 * @return bool true on success
 	 */
 	protected function checkXMLConstructCoverage (DOMDocument $xml)
@@ -324,7 +325,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
             return $this->resolveCountedRequirements($reqs, self::goalCoveredXml);
         }
         else {
-            $this->addError("XML does not contain a root element.");
+            return $this->failGoal(self::goalCoveredXml,"XML does not contain a root element." );
         }
 	}
 
@@ -359,10 +360,10 @@ class TestDtd2014 extends \asm\plugin\XmlTest
         $generalEntityFound = false;
         $parameterEntityFound = preg_match($xmlRegex->PEReference, $totalString) > 0;
         // General entities.
-        $success = preg_match_all("#&([^;]*);#u", $totalString, $matches, PREG_SET_ORDER);
+        $success = preg_match_all("#&([^;]*);#u", $totalString, $generalEntityMatches, PREG_SET_ORDER);
         if ($success)
         {
-            foreach($matches as $match)
+            foreach($generalEntityMatches as $match)
             {
                 if (!in_array($match[1], array("quot", "apos", "lt", "gt", "amp"), true))
                 {
@@ -388,8 +389,8 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 	protected function main ()
 	{
         // Load the two files
-        $xmlFile = false;
-        $dtdFile = false;
+        $xmlFile = '';
+        $dtdFile = '';
         $this->loadFiles($this->absolutePathToFolder, $xmlFile, $dtdFile); // may add errors to the error list
         if ($this->hasErrors())
         {
@@ -487,8 +488,9 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 
     /**
      * Attempts to find an XML and a DTD filename in the given folder and adds an error if it cannot find them.
-     * @param $xmlFile The found XML filename.
-     * @param $dtdFile The found DTD filename.
+     * @param $fromWhere string the directory to load the files from
+     * @param $xmlFile string The found XML filename.
+     * @param $dtdFile string The found DTD filename.
      */
     private function loadFiles($fromWhere, &$xmlFile, &$dtdFile)
     {

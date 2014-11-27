@@ -68,10 +68,9 @@ asm.ui.Builder = Base.extend({
 	 * @treturn jQueryEl created link element
 	 */
 	_buildOutLink: function (href, text) {
-		var link = this._buildLink(href, text, 'extlink')
+		return this._buildLink(href, text, 'extlink')
 			.attr('target', '_blank')
 			.addClass('outLink');
-		return link;
 	},
 	/**
 	 * Creates button element with supplied onClick handler & visual properties.

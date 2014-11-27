@@ -44,6 +44,7 @@ abstract class StringID
     const ResetLinkDoesNotExist = 30;
     const ResetLinkExpired = 31;
     const AttachmentExists = 32;
+    const UserNameExists = 33;
 }
 
 class Language {
@@ -74,7 +75,7 @@ class Language {
             case StringID::DatabaseError: return "Dotaz do databáze se nepodařilo provést.";
             case StringID::InvalidInput: return "Zadaný vstup je neúplný nebo nekorektní. Opravte ho prosím podle zobrazených instrukcí.";
             case StringID::FileSystemError: return "Nepodařilo se provést operaci na souborovém systému. Administrátor by měl zkontrolovat přístupová práva k souborům.";
-            case StringID::SessionInvalidated: return "Vaše relace již není platná. Možná jste byli příliš dlouho neaktivní nebo byl program aktualizován na vyšší verzi. Odhlašte se, obnovte stránku (Ctrl+F5) a znovu se přihlašte.";
+            case StringID::SessionInvalidated: return "Vaše relace již není platná. Možná jste byli příliš dlouho neaktivní nebo byl program aktualizován na vyšší verzi. Odhlaste se, obnovte stránku (Ctrl+F5) a znovu se přihlaste.";
 
             case StringID::ProblemNameExists: return "Problém s tímto jménem již existuje.";
             case StringID::GroupNameExists: return "Skupina s tímto jménem již existuje.";
@@ -105,6 +106,7 @@ class Language {
             case StringID::AttachmentExists: return "Příloha s tímto jménem již pro tuto přednášku existuje.";
             case StringID::ResetLinkDoesNotExist: return "Kód na obnovení hesla není v databázi. Možná byl přepsán nově vygenerovaným kódem.";
             case StringID::ResetLinkExpired: return "Již uběhlo 24 hodin od odeslání tohoto kódu na obnovení hesla, proto byl kód zneplatněn. Prosím vygenerujte nový.";
+            case StringID::UserNameExists: return "Toto uživatelské jméno již někdo používá.";
         }
         return "TRANSLATION MISSING(" . self::getEnglish($textId) . ")";
     }
@@ -154,6 +156,7 @@ class Language {
             case StringID::AttachmentExists: return "An attachment with this name already exists for this lecture.";
             case StringID::ResetLinkDoesNotExist: return "This password reset code is not present in the database. Perhaps it was overwritten by a newly generated one.";
             case StringID::ResetLinkExpired: return "More than 24 hours elapsed since this code was generated and it was therefore disabled. Please generate a new one.";
+            case StringID::UserNameExists: return "This user name is already taken.";
         }
         throw new \Exception("This string (" . $textId . ") does not exist.");
     }

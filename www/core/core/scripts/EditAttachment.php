@@ -2,7 +2,7 @@
 
 namespace asm\core;
 use asm\core\lang\StringID;
-use asm\db\DbLayout, asm\utils\Filesystem;
+
 
 /**
  * @ingroup requests
@@ -32,6 +32,7 @@ final class EditAttachment extends LectureScript
 			return false;
 
 		$lectureId = $this->getParams('lecture');
+		/** @var \Lecture $lecture */
 		$lecture = Repositories::findEntity(Repositories::Lecture, $lectureId);
 		$name = $this->getParams('name');
 		$type = $this->getParams('type');
@@ -42,7 +43,7 @@ final class EditAttachment extends LectureScript
 		$extensionStart = strrpos($originalName, '.');
 		$extension = ($extensionStart === false) ? '' :	substr($originalName, strrpos($originalName, '.'));
 		$attachmentFolder = Config::get('paths', 'attachments');
-		$filename = $lecture . '_' . $name . $extension;
+		$filename = $id . '_' . $name . $extension;
 
 
 		if (!$this->checkTestGenerationPrivileges($lecture))
@@ -55,6 +56,7 @@ final class EditAttachment extends LectureScript
 		if (!$this->saveUploadedFile('file', $attachmentFolder . $filename))
 			return $this->death(StringID::InsufficientPrivileges);
 
+		/** @var \Attachment[] $attachmentsWithThisName */
 		$attachmentsWithThisName = Repositories::getRepository(Repositories::Attachment)->findBy(['lecture' => $lectureId, 'name' => $name]);
 		if ($isIdSet)
 		{

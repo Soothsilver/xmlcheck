@@ -5,7 +5,7 @@ namespace asm\core;
 
 /**
  * @ingroup requests
- * Gets groups managable by user.
+ * Gets groups manageable by user.
  * @n @b Requirements: one of following privileges: User::groupsAdd, User::groupsManageAll,
  *		User::groupsManageOwn
  * @n @b Arguments: none

@@ -32,7 +32,7 @@ final class EditProblem extends DataScript
 			'pluginId' => 'isIndex',
 		);
 		if (!$this->isInputValid($inputs))
-			return;
+			return false;
 
         // Load data from user and database
         $lectureIndex = $this->getParams('lecture');
@@ -85,6 +85,7 @@ final class EditProblem extends DataScript
             $problem->setConfig($pluginArguments);
             Repositories::persistAndFlush($problem);
         }
+        return true;
 	}
 }
 

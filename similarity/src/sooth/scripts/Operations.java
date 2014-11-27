@@ -8,13 +8,34 @@ import sooth.entities.Tables;
 import sooth.entities.tables.records.PluginsRecord;
 import sooth.entities.tables.records.SubmissionsRecord;
 import sooth.objects.Document;
+import sooth.objects.Similarity;
+import sooth.objects.Submission;
 
+import javax.xml.crypto.Data;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 public class Operations {
     private static Logger logger = Logging.getLogger(Operations.class.getName());
+    private static int SimilarityThreshold = 0;
+
+    public static List<Similarity> compareToAll(Submission newSubmission, List<Submission> submissions, int checkFrom, int checkUpToExclusive) {
+        ArrayList<Similarity> similarities = new ArrayList<>();
+        for (int i = checkFrom; i < checkUpToExclusive; i++) {
+            Similarity similarity = Operations.compare(submissions.get(i), newSubmission);
+            if (similarity.getScore() > SimilarityThreshold) {
+                similarities.add(similarity);
+            }
+        }
+        return similarities;
+    }
+
+    private static Similarity compare(Submission oldSubmission, Submission newSubmission) {
+        switch (oldSubmission.)
+    }
+
     public static PluginsRecord getPluginsRecordFromSubmissionsRecord(SubmissionsRecord submission)
     {
         DSLContext context = Database.getContext();
@@ -44,5 +65,12 @@ public class Operations {
                     .execute();
             logger.info("Document named '" + document.getName() + "' for submission '" + submission.getId() + "' was inserted into the database.");
         }
+    }
+
+    public static void addToDatabase(Similarity similarity) {
+        DSLContext context = Database.getContext();
+        context.insertInto(Tables.SIMILARITIES, Tables.SIMILARITIES.OLDSUBMISSIONID, Tables.SIMILARITIES.NEWSUBMISSIONID, Tables.SIMILARITIES.SCORE, Tables.SIMILARITIES.DETAILS)
+                .values(similarity.getOldSubmissionId(), similarity.getNewSubmissionId(), similarity.getScore(), similarity.getDetails())
+                .execute();
     }
 }

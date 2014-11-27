@@ -2,7 +2,7 @@
 
 namespace asm\core;
 use asm\core\lang\StringID;
-use asm\db\DbLayout;
+
 
 /**
  * @ingroup requests
@@ -26,35 +26,31 @@ final class EditQuestion extends LectureScript
 			'type' => array('isEnum' => array('text', 'choice', 'multi')),
 		);
 		if (!$this->isInputValid($inputs))
-			return;
+			return false;
 
-		extract($this->getParams(array_keys($inputs)));
+		$lectureId = $this->getParams('lecture');
+		$text = $this->getParams('text');
+		$type = $this->getParams('type');
 		$id = $this->getParams('id');
 		$isIdSet = (($id !== null) && ($id !== ''));
 
 		$options = $this->getParams('options') . '';
 		$attachments = $this->getParams('attachments') . '';
 
-		if (!$this->checkTestGenerationPrivileges($lecture))
-			return;
+		if (!$this->checkTestGenerationPrivileges($lectureId))
+			return $this->death(StringID::InsufficientPrivileges);
 
-
-		$user = User::instance();
-        $userId = $user->getId();
-        $visibleAttachments = Core::sendDbRequest('getAttachmentsVisibleByUserId', $userId, $this->userHasPrivileges(User::lecturesManageAll) );
-
-		if ($visibleAttachments === false)
-			return $this->stopDb(false, ErrorEffect::dbGetAll('attachments'));
+		$visibleAttachments = CommonQueries::GetAttachmentsVisibleToActiveUser();
 
 		$attTmp = $attachments ? explode(';', $attachments) : array();
 		foreach ($visibleAttachments as $va)
 		{
-			$aId = $va[DbLayout::fieldAttachmentId];
+			$aId = $va->getId();
 			$index = array_search($aId, $attTmp);
 			if ($index !== false)
 			{
 				array_splice($attTmp, $index, 1);
-				if ($va[DbLayout::fieldLectureId] != $lecture)
+				if ($va->getLecture()->getId() != $lectureId)
 					return $this->death(StringID::AttachmentBelongsToAnotherLecture);
 			}
 		}
@@ -64,24 +60,27 @@ final class EditQuestion extends LectureScript
 					implode(', ', $attTmp) . '.', 'attachments'));
 		}
 
-
+		/** @var \Question $question */
+		$question = null;
 		if (!$isIdSet)
 		{
-			if (!Core::sendDbRequest('addQuestion', $lecture, $text, $type, $options, $attachments))
-				return $this->stopDb(false, ErrorEffect::dbAdd('question'));
+			$question = new \Question();
 		}
-		else
-		{
-			$questions = Core::sendDbRequest('getQuestionById', $id);
-			if ($questions === false)
-				return $this->stopDb($questions, ErrorEffect::dbGet('question'));
-
-			if ($lecture != $questions[0][DbLayout::fieldLectureId])
-				return $this->stop(ErrorCause::dataMismatch ('question', 'id', 'lecture'));
-
-			if (!Core::sendDbRequest('editQuestionById', $id, $text, $type, $options, $attachments))
-				return $this->stopDb(false, ErrorEffect::dbEdit('question'));
+		else {
+			$question = Repositories::findEntity(Repositories::Question, $id);
+			if ($question->getLecture()->getId() !== $lectureId) {
+				return $this->death(StringID::HackerError);
+			}
 		}
+		$question->setAttachments($attachments);
+		/** @var \Lecture $lecture */
+		$lecture = Repositories::findEntity(Repositories::Lecture, $lectureId);
+		$question->setLecture($lecture);
+		$question->setOptions($options);
+		$question->setText($text);
+		$question->setType($type);
+		Repositories::persistAndFlush($question);
+		return true;
 	}
 }
 

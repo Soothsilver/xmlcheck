@@ -1,7 +1,7 @@
 <?php
 
 namespace asm\core;
-use asm\utils\ArrayUtils, asm\db\DbLayout;
+
 
 /**
  * @ingroup requests
@@ -15,24 +15,22 @@ final class GetSubscriptions extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::groupsJoinPublic, User::groupsJoinPrivate, User::groupsRequest))
-			return;
-
-		$subscriptions = Core::sendDbRequest('getSubscriptionsByUserId', User::instance()->getId());
-		if ($subscriptions === false)
-			return $this->stopDb($subscriptions, ErrorEffect::dbGetAll('subscriptions'));
-
-		$fields = array(
-			DbLayout::fieldSubscriptionId,
-			DbLayout::fieldGroupName,
-			DbLayout::fieldGroupDescription,
-			DbLayout::fieldLectureName,
-			DbLayout::fieldLectureDescription,
-			DbLayout::fieldSubscriptionStatus,
-		);
-		$subscriptions = ArrayUtils::map(array('asm\utils\ArrayUtils', 'filterByKeys'), $subscriptions, $fields);
-		$subscriptions = ArrayUtils::map(array('asm\utils\ArrayUtils', 'sortByKeys'), $subscriptions, $fields);
-
-		$this->setOutputTable($subscriptions);
+			return false;
+		$subscriptions = Repositories::getRepository(Repositories::Subscription)->findBy(['user' => User::instance()->getId()]);
+		foreach($subscriptions as $subscription) {
+			/**
+			 * @var $subscription \Subscription
+			 */
+			$this->addRowToOutput([
+				$subscription->getId(),
+				$subscription->getGroup()->getName(),
+				$subscription->getGroup()->getDescription(),
+				$subscription->getGroup()->getLecture()->getName(),
+				$subscription->getGroup()->getLecture()->getDescription(),
+				$subscription->getStatus()
+			]);
+		}
+		return true;
 	}
 }
 

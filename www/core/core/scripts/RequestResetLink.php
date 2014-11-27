@@ -4,7 +4,7 @@ namespace asm\core;
 
 
 use asm\core\lang\StringID;
-use asm\db\DbLayout;
+
 use asm\utils\StringUtils;
 
 final class RequestResetLink extends DataScript
@@ -43,6 +43,7 @@ final class RequestResetLink extends DataScript
 
         }
         $this->addOutput('count', count($users));
+        return true;
 	}
 }
 

@@ -70,7 +70,6 @@ class UploadManager
 	 */
 	protected function generateUniqueId ()
 	{
-		$id = '';
 		do
 		{
 			$id = StringUtils::randomString(10);

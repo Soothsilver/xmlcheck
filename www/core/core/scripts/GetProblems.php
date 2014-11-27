@@ -35,7 +35,7 @@ final class GetProblems extends DataScript
         foreach ($problems as $problem) {
             $row = array($problem->getId(), $problem->getName());
             if (!$lite) { $row[] = $problem->getDescription(); if ($problem->getPlugin()) { $row[] = $problem->getPlugin()->getId(); } else { $row[] = ""; } $row[] = $problem->getConfig();};
-            $row[] = $problem->getLectureid();
+            $row[] = $problem->getLecture()->getId();
             if (!$lite) { $row[] = $problem->getLecture()->getName(); $row[] = $problem->getLecture()->getDescription(); }
             $this->addRowToOutput($row);
         }

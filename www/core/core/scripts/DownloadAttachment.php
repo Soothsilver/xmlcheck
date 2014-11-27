@@ -2,7 +2,7 @@
 
 namespace asm\core;
 use asm\core\lang\StringID;
-use asm\db\DbLayout;
+
 
 /**
  * @ingroup requests
@@ -25,11 +25,11 @@ final class DownloadAttachment extends DownloadScript
 		$attachment = Repositories::findEntity(Repositories::Attachment, $id);
 		$file = $attachment->getFile();
 		$lecture = $attachment->getLecture();
-		$user = User::instance();
 		if (!$this->authorizedToManageLecture($lecture))
 			return $this->death(StringID::InsufficientPrivileges);
 		$this->doNotAttach();
 		$this->setOutput(Config::get('paths', 'attachments') . $file);
+		return true;
 	}
 }
 

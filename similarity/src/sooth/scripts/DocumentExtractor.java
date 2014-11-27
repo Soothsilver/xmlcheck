@@ -4,6 +4,7 @@ import sooth.FilesystemUtils;
 import sooth.Logging;
 import sooth.Problems;
 import sooth.objects.Document;
+import sooth.problems.Dtd;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,14 +36,36 @@ public class DocumentExtractor {
     }
     public static ArrayList<Document> getDocumentsFromDirectoryContents(File submissionDirectory, String pluginIdentifier) {
         ArrayList<Document> documents = new ArrayList<>();
+        List<File> files = getAbsoluteFilesRecursively(submissionDirectory);
         // All submissions should have the DIRECTORY_STRUCTURE document extracted.
-        // TODO directory_structure
+        StringBuilder textDirectoryStructure = new StringBuilder();
+        files.forEach(file -> textDirectoryStructure.append(file.toPath().getFileName()));
+        Document documentDirectoryStructure = new Document(Document.DocumentType.DIRECTORY_STRUCTURE, textDirectoryStructure.toString(), "Directory Structure");
+        documents.add(documentDirectoryStructure);
+
         // Other extractions depends on the plugin identifier.
         switch (pluginIdentifier)
         {
             case Problems.HW1_DTD:
-
-
+                documents.addAll(Dtd.extractDocuments(files));
+                break;
+            default:
+                logger.warning("This plugin has an unknown identifier. We could not therefore extract useful documents from it.");
+                break;
         }
+        return documents;
+    }
+
+    // TODO catch exceptions from all this
+
+    private static List<File> getAbsoluteFilesRecursively(File directory) {
+        ArrayList<File> files = new ArrayList<>();
+        for ( File file : directory.listFiles()) {
+            files.add(file.getAbsoluteFile());
+            if (file.isDirectory()) {
+                files.addAll(getAbsoluteFilesRecursively(file));
+            }
+        }
+        return files;
     }
 }

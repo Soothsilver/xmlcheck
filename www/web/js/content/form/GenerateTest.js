@@ -45,9 +45,7 @@ asm.ui.form.GenerateTest = asm.ui.DynamicForm.extend({
 		var	countEl = this.form('getFieldByName', 'count'),
 			countOptions = [];
 
-		var fullCount = questionCount;
-
-		for (var j = 1; j <= fullCount; ++j) {
+		for (var j = 1; j <= questionCount; ++j) {
 			countOptions.push(j);
 		}
 		countEl.field('option', 'options', countOptions);

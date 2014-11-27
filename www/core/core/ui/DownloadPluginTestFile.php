@@ -23,7 +23,7 @@ abstract class DownloadPluginTestFile extends DownloadScript
 		 * @var $test \PluginTest
 		 */
 		$test = Repositories::findEntity(Repositories::PluginTest, $this->getParams('id'));
-		$this->setOutput(Config::get('paths', $this->parentPathId) . $test->geti,
+		$this->setOutput(Config::get('paths', $this->parentPathId) . $test->getInput(),
 				Config::get('defaults', $this->defaultFilenameId) . '.zip');
 		return true;
 	}

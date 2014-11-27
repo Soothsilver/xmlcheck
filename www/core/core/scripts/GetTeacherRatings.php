@@ -12,7 +12,7 @@ final class GetTeacherRatings extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::groupsManageAll, User::groupsManageOwn))
-			return;
+			return false;
 
 		$user = User::instance();
 		$submissions = Core::sendDbRequest('getUserSubmissionRatingsByOwnerId',
@@ -67,6 +67,7 @@ final class GetTeacherRatings extends DataScript
 		}
 
 		$this->setOutput($result);
+		return true;
 	}
 }
 

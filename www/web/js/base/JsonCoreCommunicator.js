@@ -50,22 +50,19 @@ asm.ui.JsonCoreCommunicator = asm.ui.CoreCommunicator.extend({
         catch (error)
         {
             // Something that is not valid JSON got returned
-            var response =
-            {
-                data: [ ] ,
-                errors :
-                [
-                    {
-                        "level" : 100, // Fatal error
-                        "code" : "= no code =",
-                        "cause": "Invalid response",
-                        "effect" : "PHP",
-                        "details" : response
+			return {
+				data: [],
+				errors: [
+					{
+						"level": 100, // Fatal error
+						"code": "= no code =",
+						"cause": "Invalid response",
+						"effect": "PHP",
+						"details": response
 
-                    }
-                ]
-            };
-            return response;
+					}
+				]
+			};
         }
 	}
 });

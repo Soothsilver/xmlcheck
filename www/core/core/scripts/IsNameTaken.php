@@ -19,7 +19,7 @@ final class IsNameTaken extends DataScript
 
 		$table = $this->getParams('table');
 		$name = strtolower($this->getParams('name'));
-		$repositoryName = false;
+		// TODO remove this: $repositoryName = false;
 		$columnName = "name";
 		switch ($table)
 		{
@@ -48,6 +48,7 @@ final class IsNameTaken extends DataScript
 		$results = Repositories::getRepository($repositoryName)->findBy([$columnName -> $name]);
 		$nameConflict = (count($results) > 0);
 		$this->addOutput('nameTaken', $nameConflict);
+		return true;
 	}
 }
 

@@ -14,13 +14,26 @@ final class GetPluginTests extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::pluginsTest))
-			return;
+			return false;
 
-		$tests = Core::sendDbRequest('getTests');
-		if ($tests === false)
-			$this->stopDb($tests, ErrorEffect::dbGetAll('tests'));
-
-		$this->setOutputTable($tests);
+		/**
+		 * @var $tests \PluginTest[]
+		 */
+		$tests = Repositories::getRepository(Repositories::PluginTest)->findAll();
+		foreach($tests as $test) {
+			$this->addRowToOutput([
+				$test->getId(),
+				$test->getDescription(),
+				$test->getPlugin()->getName(),
+				$test->getPlugin()->getDescription(),
+				$test->getPlugin()->getConfig(),
+				$test->getConfig(),
+				$test->getStatus(),
+				$test->getSuccess(),
+				$test->getInfo()
+			]);
+		}
+		return true;
 	}
 }
 

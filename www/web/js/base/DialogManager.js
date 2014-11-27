@@ -235,7 +235,7 @@ asm.ui.DialogManager = Base.extend({
             if ($.isFunction(callback)) {
                 callback();
             }
-        }
+        };
         buttons[asm.lang.general.no] = function () {
             $(this).dialog('close');
         };

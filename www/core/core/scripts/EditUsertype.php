@@ -1,7 +1,7 @@
 <?php
 
 namespace asm\core;
-use asm\db\DbLayout;
+
 
 /**
  * @ingroup requests
@@ -25,7 +25,7 @@ final class EditUsertype extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::usersPrivPresets))
-			return;
+			return false;
 
 		$privilegeGroups = array('users', 'subscriptions', 'plugins', 'assignments', 'submissions', 'lectures', 'groups', 'other');
 		$inputs = array_merge(array(
@@ -35,7 +35,7 @@ final class EditUsertype extends DataScript
 			),
 		), array_combine($privilegeGroups, array_pad(array(), count($privilegeGroups), array())));
 		if (!$this->isInputValid($inputs))
-			return;
+			return false;
 
 		$id = $this->getParams('id');
 		$name = $this->getParams('name');
@@ -54,17 +54,20 @@ final class EditUsertype extends DataScript
 
 		if (($id === null) || ($id === ''))
 		{
-			if (!Core::sendDbRequest('addUsertype', $name, $privileges))
-				return $this->stopDb(false, ErrorEffect::dbAdd('user type'));
+			$usertype = new \UserType();
+			$usertype->setName($name);
+			$usertype->setPrivileges($privileges);
+			Repositories::persistAndFlush($usertype);
 		}
 		else
 		{
-			if ($id == DbLayout::rootUsertypeId)
-				return $this->stop('cannot modify root user type');
-
-			if (!Core::sendDbRequest('editUsertypeById', $id, $name, $privileges))
-				return $this->stopDb(false, ErrorEffect::dbEdit('user type'));
+			/** @var \UserType $usertype */
+			$usertype = Repositories::findEntity(Repositories::UserType, $id);
+			$usertype->setName($name);
+			$usertype->setPrivileges($privileges);
+			Repositories::persistAndFlush($usertype);
 		}
+		return true;
 	}
 }
 

@@ -2,7 +2,7 @@
 
 namespace asm\core;
 use asm\core\lang\StringID;
-use asm\db\DbLayout;
+
 
 /**
  * @ingroup requests
@@ -98,6 +98,7 @@ final class RateSubmission extends DataScript
                 $this->death(StringID::MailError);
             }
         }
+		return true;
 	}
 }
 

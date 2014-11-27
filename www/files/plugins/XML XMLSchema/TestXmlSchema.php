@@ -49,7 +49,7 @@ class TestXmlSchema extends \asm\plugin\XmlTest
 		$this->useLibxmlErrors();
 		$schemaDom->validate();
 
-		$this->reachGoalOnNoLibxmlErrors(self::goalValidSchema, self::sourceSchema);
+		$this->reachGoalOnNoLibxmlErrors(self::goalValidSchema, null);
 	}
 
 	/**
@@ -62,7 +62,7 @@ class TestXmlSchema extends \asm\plugin\XmlTest
 		$this->useLibxmlErrors();
        // var_dump($schemaString);
         try {
-		    $isValid = $xmlDom->schemaValidateSource($schemaString);
+		    $xmlDom->schemaValidateSource($schemaString);
         }
         catch (Exception $ex)
         {
@@ -82,8 +82,8 @@ class TestXmlSchema extends \asm\plugin\XmlTest
 	 */
 	protected function checkXmlSchemaConstructCoverage (SimpleXMLElement $schemaXml)
 	{
-		$xsdPrefixes = array_keys($schemaXml->getDocNamespaces(), 'http://www.w3.org/2001/XMLSchema');
-		$xsdPrefix = count($xsdPrefixes) ? $xsdPrefixes[0] : 'xsd';
+		// $xsdPrefixes = array_keys($schemaXml->getDocNamespaces(), 'http://www.w3.org/2001/XMLSchema');
+		// TODO: this may not be working: $xsdPrefix = count($xsdPrefixes) ? $xsdPrefixes[0] : 'xsd';
 		$schemaXml->registerXPathNamespace('xs', 'http://www.w3.org/2001/XMLSchema');
 		return $this->checkUsingXpath($schemaXml, self::goalCoveredSchema, array(
 			'data' => array(
@@ -126,17 +126,20 @@ class TestXmlSchema extends \asm\plugin\XmlTest
 //			self::goalUsedSchema => 'XML contains instances of all required XMLSchema definitions',
 		));
 
-        $xmlFile = false; $xsdFile = false;
+        $xmlFile = '';
+        $xsdFile = '';
 		$this->loadFiles($this->absolutePathToFolder, $xmlFile, $xsdFile);
         if ($this->hasErrors())
         {
             return;
         }
 
+        /** @var \DOMDocument $schemaDom */
 		if ($this->loadXml($xsdFile, false, $schemaDom, $error))
 		{
+
 			$this->reachGoal(self::goalValidSchema);
-			$isSchemaCovered = $this->checkXmlSchemaConstructCoverage(simplexml_import_dom($schemaDom));
+			$this->checkXmlSchemaConstructCoverage(simplexml_import_dom($schemaDom));
 
 			if ($this->loadXml($xmlFile, false, $xmlDom, $error))
 			{
@@ -187,17 +190,22 @@ class TestXmlSchema extends \asm\plugin\XmlTest
             {
                 return $this->failGoal(self::goalRefersToSchema, "The root element must have either the 'http://www.w3.org/2001/XMLSchema-instance:schemaLocation' or 'http://www.w3.org/2001/XMLSchema-instance:noNamespaceSchemaLocation' attribute that point to the XSD file provided.");
             }
-            $this->reachGoal(self::goalRefersToSchema);
+            return $this->reachGoal(self::goalRefersToSchema);
+        }
+        else {
+            return $this->failGoal(self::goalRefersToSchema, "There is no root element in the XML file.");
         }
     }
     private function endsWith($haystack, $needle)
     {
         return $needle === "" || strtolower(substr($haystack, -strlen($needle))) === strtolower($needle);
     }
+
     /**
      * Attempts to find an XML and a XSD filename in the given folder and adds an error if it cannot find them.
-     * @param $xmlFile The found XML filename.
-     * @param $xsdFile The found XSD filename.
+     * @param $fromWhere from where to load the files
+     * @param $xmlFile string The found XML filename.
+     * @param $xsdFile string The found XSD filename.
      */
     private function loadFiles($fromWhere, &$xmlFile, &$xsdFile)
     {

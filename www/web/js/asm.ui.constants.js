@@ -5,4 +5,4 @@ asm.ui.constants = {
     passwordMaxLength: 200,
     usernameMinLength: 5,
     usernameMaxLength: 200
-}
+};

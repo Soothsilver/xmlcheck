@@ -14,7 +14,7 @@ final class GetRatingSums extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::assignmentsSubmit))
-			return;
+			return false;
 
 		$user = User::instance();
 		$ratings = Core::sendDbRequest('getUserRatingSumsByUserId', $user->getId());
@@ -22,6 +22,7 @@ final class GetRatingSums extends DataScript
 			return $this->stopDb($ratings, ErrorEffect::dbGetAll('submission rating sums'));
 
 		$this->setOutputTable($ratings);
+		return true;
 	}
 }
 

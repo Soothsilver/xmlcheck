@@ -27,6 +27,7 @@ class DeleteUser extends DataScript
             return $this->death(StringID::YouCannotRemoveYourself);
         }
 
+		/** @var \User $user */
         $user = Repositories::findEntity(Repositories::User, $id);
         RemovalManager::hideUserAndAllHeOwns($user);
 		return true;

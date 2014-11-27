@@ -1,5 +1,7 @@
 package sooth.objects;
 
+import sooth.entities.tables.records.DocumentsRecord;
+
 public class Document {
     public static enum DocumentType {
         PRIMARY_XML_FILE(1),
@@ -20,6 +22,14 @@ public class Document {
         }
         public int getMysqlIdentifier() {
             return mysqlIdentifier;
+        }
+        public static DocumentType getDocumentTypeByMysqlIdentifier(int mysqlIdentifier) {
+            for ( DocumentType type : DocumentType.values()) {
+                if (type.getMysqlIdentifier() == mysqlIdentifier) {
+                    return type;
+                }
+            }
+            throw new EnumConstantNotPresentException(DocumentType.class, new Integer(mysqlIdentifier).toString());
         }
 
     }
@@ -55,6 +65,10 @@ public class Document {
         this.type = type;
         this.text = text;
         this.name = name;
+    }
+
+    public static Document createFromDocumentsRecord(DocumentsRecord record) {
+        return new Document(DocumentType.getDocumentTypeByMysqlIdentifier(record.getType()),record.getText(), record.getName());
     }
 }
 

@@ -15,13 +15,20 @@ final class GetPlugins extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::pluginsExplore, User::lecturesManageOwn, User::lecturesManageAll))
-			return;
+			return false;
 
-		$plugins = Core::sendDbRequest('getPlugins');
-		if ($plugins === false)
-			$this->stopDb($plugins, ErrorEffect::dbGetAll('plugins'));
-
-		$this->setOutputTable($plugins);
+		/** @var \Plugin[] $plugins */
+		$plugins = Repositories::getRepository(Repositories::Plugin)->findAll();
+		foreach ($plugins as $plugin) {
+			$this->addRowToOutput([
+				$plugin->getId(),
+				$plugin->getName(),
+				$plugin->getType(),
+				$plugin->getDescription(),
+				$plugin->getConfig()
+			]);
+		}
+		return true;
 	}
 }
 

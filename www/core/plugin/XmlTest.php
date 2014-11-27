@@ -13,11 +13,9 @@ abstract class XmlTest extends Test
     /**
      * Loads and parses XML file to get XML DOM.
      * @param string $xmlFile XML file path
-     * @param $performDtdValidation
-     * @param $xmlDom
+     * @param boolean $performDtdValidation
+     * @param \DOMDocument $xmlDom
      * @param $error
-     * @internal param $ [out] DOMDocument $xmlDom XML DOM (in case of success)
-     * @internal param $ [out] string $error error message (in case of failure)
      * @return bool true if loading and parsing was successful
      */
 	protected function loadXml ($xmlFile, $performDtdValidation, &$xmlDom, &$error)

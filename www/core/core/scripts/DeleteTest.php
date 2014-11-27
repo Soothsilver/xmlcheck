@@ -2,7 +2,7 @@
 
 namespace asm\core;
 use asm\core\lang\StringID;
-use asm\db\DbLayout;
+
 
 /**
  * @ingroup requests
@@ -28,6 +28,7 @@ final class DeleteTest extends GenTestScript
 			return $this->death(StringID::InsufficientPrivileges);
 
 		Repositories::remove($xtest);
+		return true;
 	}
 }
 

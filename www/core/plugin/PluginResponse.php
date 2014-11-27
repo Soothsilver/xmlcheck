@@ -51,16 +51,22 @@ class PluginResponse
 	 * @see toXml()
 	 */
 	public static function fromXml (SimpleXMLElement $xml)
-	{		if ($xml->error)
+	{
+		/** @noinspection PhpUndefinedFieldInspection */
+		if ($xml->error)
 		{
+			/** @noinspection PhpUndefinedFieldInspection */
 			return self::createError((string)$xml->error);
 		}
 
+		/** @noinspection PhpUndefinedFieldInspection */
 		$output = ($xml->output) ? (string)$xml->output->file : null;
 
 		$criteria = array();
+		/** @noinspection PhpUndefinedFieldInspection */
 		foreach ($xml->criterion as $criterion)
 		{
+			/** @noinspection PhpUndefinedFieldInspection */
 			$criteria[(string)$criterion['name']] = array(
 				'passed' => Utils::parseBool((string)$criterion->passed),
 				'fulfillment' => (int)(string)$criterion->fulfillment,
@@ -93,15 +99,15 @@ class PluginResponse
 			$passedCriteria = 0;
 
 			$this->details = '';
-			foreach ($data as $name => $crit)
+			foreach ($data as $name => $criterion)
 			{
-				$fulfillmentSum += $crit['fulfillment'];
-				$passedCriteria += (int)$crit['passed'];
+				$fulfillmentSum += $criterion['fulfillment'];
+				$passedCriteria += (int)$criterion['passed'];
 
-				$this->details .= $name . ' ... ' . ($crit['passed'] ? 'PASSED' : 'FAILED') . "\n";
-				if ($crit['details'])
+				$this->details .= $name . ' ... ' . ($criterion['passed'] ? 'PASSED' : 'FAILED') . "\n";
+				if ($criterion['details'])
 				{
-					$this->details .= $crit['details'] . "\n";
+					$this->details .= $criterion['details'] . "\n";
 				}
 			}
 

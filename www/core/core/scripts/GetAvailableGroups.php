@@ -13,9 +13,9 @@ final class GetAvailableGroups extends DataScript
 {
 	protected function body ()
     {
-        if (!$this->userHasPrivileges())
+        if (!$this->userHasPrivileges(User::groupsJoinPublic, User::groupsJoinPrivate, User::groupsRequest))
         {
-            return;
+            return false;
         }
 
         $user = User::instance();
@@ -27,11 +27,15 @@ final class GetAvailableGroups extends DataScript
          * @var $subscriptions \Subscription[]
          */
         $subscriptions = Repositories::getRepository(Repositories::Subscription)->findBy(array('user' => $user->getId()));
-        $subscriptionIds = array_map(function ($subscription) { return $subscription->getId(); }, $subscriptions);
+        $subscriptionIds = array_map(function ($subscription) { /** @var $subscription \Subscription */ return $subscription->getId(); }, $subscriptions);
         $conditions = array('deleted' => false);
         if (!$displayPrivate)
         {
             $conditions['type'] = 'public';
+        }
+        if (!$displayPublic)
+        {
+            $conditions['type'] = 'private';
         }
         $groups = Repositories::getRepository(Repositories::Group)->findBy($conditions);
         foreach ($groups as $group)
@@ -51,6 +55,7 @@ final class GetAvailableGroups extends DataScript
             );
             $this->addRowToOutput($row);
         }
+        return true;
     }
 }
 

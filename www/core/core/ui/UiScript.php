@@ -135,28 +135,6 @@ abstract class UiScript
     }
 
     /**
-     * Extension of stop() for errors caused by failure of one of RemovalManager removal methods.
-     * @param mixed  $removalManagerError either simple error cause (code or message)
-     *        or array with database request result and error message {result, message}
-     * @param string $effect error effect
-     * @param string $details additional error info
-     * @return bool false
-     * @see stop()
-     */
-    protected final function stopRm($removalManagerError, $effect = null, $details = null)
-    {
-        if (!is_array($removalManagerError))
-        {
-            return $this->stop($removalManagerError, $effect, $details);
-        }
-
-        list($result, $rmDetails) = $removalManagerError;
-        $details = $this->joinDetails($rmDetails, $details);
-
-        return $this->stopDb($result, $effect, $details);
-    }
-
-    /**
      * Joins two error details strings together with a newline in between.
      * @param string $details1 error details
      * @param string $details2 error details

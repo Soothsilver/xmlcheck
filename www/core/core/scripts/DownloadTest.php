@@ -1,7 +1,8 @@
 <?php
 
 namespace asm\core;
-use asm\db\DbLayout;
+use asm\core\lang\StringID;
+
 
 /**
  * Downloads test for printing.
@@ -15,24 +16,19 @@ final class DownloadTest extends DirectOutputScript
 
 		$id = $this->getParams('id');
 
-		if (!($genTests = Core::sendDbRequest('getGenTestById', $id)))
-			return $this->stopDb($genTests, ErrorEffect::dbGet('test'));
+		/** @var \XTest $test */
+		$test = Repositories::findEntity(Repositories::Xtest, $id);
 
-		$test = $genTests[0];
-		list($description, $questions, $lectureId) = array(
-			$test[DbLayout::fieldGenTestDescription],
-			$test[DbLayout::fieldGenTestGenerated],
-			$test[DbLayout::fieldLectureId],
-		);
+		$description = $test->getDescription();
+		$questions = $test->getGenerated();
 
-		if (!($lectures = Core::sendDbRequest('getLectureById', $lectureId)))
-			return $this->stopDb($lectures, ErrorEffect::dbGet('lecture'));
+		$lecture = $test->getLecture();
 
 		$user = User::instance();
 		if (!$user->hasPrivileges(User::lecturesManageAll)
 				&& (!$user->hasPrivileges(User::lecturesManageOwn)
-					|| ($lectures[0][DbLayout::fieldUserId] != $user->getId())))
-			return $this->stop(ErrorCode::lowPrivileges);
+					|| ($lecture->getOwner()->getId() != $user->getId())))
+			return $this->death(StringID::InsufficientPrivileges);
 
 		if (!$questions)
 			return $this->stop('the test has not been generated yet', 'cannot create test');
@@ -42,19 +38,17 @@ final class DownloadTest extends DirectOutputScript
 		$attachmentIds = array();
 		foreach ($questions as $questionId)
 		{
-			if (!($qData = Core::sendDbRequest('getQuestionById', $questionId)))
-				return $this->stopDb($qData, ErrorEffect::dbGet ('question'));
-
-			$qData = $qData[0];
-			$options = $qData[DbLayout::fieldQuestionOptions];
+			/** @var \Question $qData */
+			$qData = Repositories::findEntity(Repositories::Question, $questionId);
+			$options = $qData->getOptions();
 			$options = $options ? explode($options[0], substr($options, 1)) : array();
 
-			$qAtt = $qData[DbLayout::fieldQuestionAttachments];
+			$qAtt = $qData->getAttachments();
 			$qAtt = $qAtt ? explode(';', $qAtt) : array();
 			
 			array_push($selectedQuestions, array(
-				'text' => $qData[DbLayout::fieldQuestionText],
-				'type' => $qData[DbLayout::fieldQuestionType],
+				'text' => $qData->getText(),
+				'type' => $qData->getType(),
 				'options' => $options,
 				'attachments' => $qAtt,
 			));
@@ -78,14 +72,12 @@ final class DownloadTest extends DirectOutputScript
 		$folder = Config::get('paths', 'attachments');
 		foreach ($attachmentIds as $attachmentId)
 		{
-			if (!($aData = Core::sendDbRequest('getAttachmentById', $attachmentId)))
-				return $this->stopDb($aData, ErrorEffect::dbGet ('attachment'));
-
-			$aData = $aData[0];
+			/** @var \Attachment $aData */
+			$aData = Repositories::findEntity(Repositories::Attachment, $attachmentId);
 			array_push($attachments, array(
-				'id' => $aData[DbLayout::fieldAttachmentId],
-				'type' => $aData[DbLayout::fieldAttachmentType],
-				'file' => $folder . $aData[DbLayout::fieldAttachmentFile],
+				'id' => $aData->getId(),
+				'type' => $aData->getType(),
+				'file' => $folder . $aData->getFile()
 			));
 		}
 

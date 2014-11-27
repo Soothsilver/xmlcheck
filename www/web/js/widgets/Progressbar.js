@@ -100,7 +100,7 @@ $.widget('ui.progressbar', {
 						}
 					};
 				}
-				// continue to resize
+				// fallthrough to resize
 			case 'min': case 'max':
 				this._resize(delayedTrigger);
 				break;

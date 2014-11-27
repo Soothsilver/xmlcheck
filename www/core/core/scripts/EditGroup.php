@@ -29,7 +29,7 @@ final class EditGroup extends DataScript
         );
         if (!$this->isInputValid($inputs))
         {
-            return;
+            return false;
         }
         $lectureIndex = $this->getParams('lecture');
         $groupName = $this->getParams('name');
@@ -38,7 +38,7 @@ final class EditGroup extends DataScript
         $groupId = $this->getParams('id');
         $editing = $groupId !== null && $groupId !== '';
         $user = User::instance();
-        $userId = $user->getId();
+        /** @var \Lecture $lecture */
         $lecture = Repositories::findEntity(Repositories::Lecture, $lectureIndex);
 
         if ($editing)
@@ -75,6 +75,7 @@ final class EditGroup extends DataScript
             $group->setType($public);
             Repositories::persistAndFlush($group);
         }
+        return true;
 
 	}
 }

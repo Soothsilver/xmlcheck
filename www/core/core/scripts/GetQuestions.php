@@ -15,15 +15,22 @@ final class GetQuestions extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::lecturesManageAll, User::lecturesManageOwn))
-			return;
+			return false;
 
-		$user = User::instance();
-		$displayAll = $user->hasPrivileges(User::lecturesManageAll);
-		$questions = Core::sendDbRequest('getQuestionsVisibleByUserId', $user->getId(), $displayAll);
-		if ($questions === false)
-			return $this->stopDb($questions, ErrorEffect::dbGetAll('questions'));
-
-		$this->setOutputTable($questions);
+		$questions = CommonQueries::GetQuestionsVisibleToActiveUser();
+		foreach($questions as $question){
+			$this->addRowToOutput([
+				$question->getId(),
+				$question->getText(),
+				$question->getType(),
+				$question->getOptions(),
+				$question->getAttachments(),
+				$question->getLecture()->getId(),
+				$question->getLecture()->getName(),
+				$question->getLecture()->getDescription()
+			]);
+		}
+		return true;
 	}
 }
 

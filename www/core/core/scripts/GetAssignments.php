@@ -5,7 +5,7 @@ namespace asm\core;
 
 /**
  * @ingroup requests
- * Gets assignments managable by user.
+ * Gets assignments manageable by user.
  * @n @b Requirements: one of following privileges: User::groupsManageAll, User::groupsManageOwn
  * @n @b Arguments: none
  */
@@ -14,7 +14,7 @@ final class GetAssignments extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::groupsManageAll, User::groupsManageOwn))
-			return;
+			return false;
 
 		$user = User::instance();
         $conditions = array('deleted' => false);
@@ -37,6 +37,7 @@ final class GetAssignments extends DataScript
             );
             $this->addRowToOutput($row);
         }
+        return true;
 	}
 }
 

@@ -215,7 +215,7 @@ $.widget('ui.field', {
 				break;
 			case 'type':
 				this._setType();
-				// continue to options
+				// fallthrough to options
 			case 'options':
 				this._setOptions();
 				this._setId();
@@ -224,7 +224,7 @@ $.widget('ui.field', {
 				this._setSpecial();
 				this._bindChange();
 				this._setEditable();
-				// continue to fancy
+				// fallthrough to fancy
 			case 'fancy':
 				this._setFancy();
 				break;
@@ -256,7 +256,7 @@ $.widget('ui.field', {
 		for (var i in types) {
 			this.element.removeClass('ui-field-type-' + types[i]);
 		}
-		this.element.addClass('ui-field-type-' + this.options.type)
+		this.element.addClass('ui-field-type-' + this.options.type);
 
 		switch (this.options.type) {
 			case 'empty': case 'info':
@@ -740,7 +740,7 @@ $.widget('ui.field', {
 					if (!this.options.value && fileNameText) {
 						fileNameText.text(asm.lang.general.clickHere);
 					}
-					// continue to show hint
+					// fallthrough to show hint
 				case 'untouched':
 					helpText = this.options.hint;
 					if (helpText) {
@@ -875,6 +875,7 @@ $.widget('ui.field', {
 		switch (this.options.type) {
 			case 'checkbox':
 				this.input.attr('checked', false);
+				// fallthrough to clearing value
 			default:
 				this.option('value', '');
 		}

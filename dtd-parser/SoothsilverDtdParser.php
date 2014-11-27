@@ -754,7 +754,7 @@ class DTD
                     }
                     else
                     {
-                        $this->addWarning("An external parameter entity is declared but reading from the file given by system identifier failed.", $this->file);
+                        $this->addWarning("An external parameter entity is declared but reading from the file given by system identifier failed.", $this->line);
                     }
                 }
                 else
@@ -950,7 +950,6 @@ class DTD
                     $tagBeginsAt = $this->currentOffset;
                     $inQuotes = false; $inApostrophes = false;
                     $this->currentOffset += 2;
-                    $index = $this->currentOffset+2;
                     $tagEndsAt = false;
                     while ($this->currentOffset < $length)
                     {
@@ -1099,7 +1098,7 @@ class Attribute
      * @param      $type
      * @param      $defaultType
      * @param      $defaultValue
-     * @param array $enumeration
+     * @param mixed $enumeration
      */
     public function __construct($name, $type, $defaultType, $defaultValue, $enumeration = false)
     {

@@ -61,46 +61,6 @@ final class GetTeacherSubmissions extends DataScript
             ];
             $this->addRowToOutput($row);
         }
-
-        /*
-		$requestId = $this->getParams('rated') ? 'getSubmissionsCorrectedByUserId' :
-				'getSubmissionsCorrectibleByUserId';
-		$submissions = Core::sendDbRequest($requestId, User::instance()->getId());
-		if ($submissions === false)
-			return $this->stopDb($submissions, ErrorEffect::dbGetAll('submissions for correction'));
-        die ($submissions);
-
-		$fields = array(
-			DbLayout::fieldSubmissionId,
-			DbLayout::fieldProblemName,
-			DbLayout::fieldGroupName,
-			DbLayout::fieldSubmissionDate,
-			DbLayout::fieldSubmissionFulfillment,
-			DbLayout::fieldSubmissionDetails,
-			DbLayout::fieldSubmissionRating,
-            DbLayout::fieldSubmissionExplanation,
-			DbLayout::fieldAssignmentReward,
-            DbLayout::fieldAssignmentDeadline
-		);
-		if (User::instance()->hasPrivileges(User::submissionsViewAuthors))
-		{
-			array_push($fields, DbLayout::fieldSpecialSecondaryId);
-			array_push($fields, DbLayout::fieldUserRealName);
-		}
-
-
-        $submissions = ArrayUtils::map(function ($submission, $fields) {
-            $hasOutput = ($submission[DbLayout::fieldSubmissionOutputFile] != '');
-            $submission = ArrayUtils::filterByKeys($submission, $fields);
-            $submission['hasOutput'] = $hasOutput;
-            return $submission;
-        }, $submissions, $fields);
-
-		$submissions = ArrayUtils::map(array('asm\utils\ArrayUtils', 'sortByKeys'), $submissions, $fields);
-
-
-		$this->setOutputTable($submissions);
-        */
 	}
 }
 

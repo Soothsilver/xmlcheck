@@ -30,7 +30,7 @@ final class EditAssignment extends DataScript
 		);
 		if (!$this->isInputValid($inputs))
         {
-			return;
+			return false;
         }
 
         // Load input
@@ -59,7 +59,7 @@ final class EditAssignment extends DataScript
         // Authenticate
         $user = User::instance();
         if (!$user->hasPrivileges(User::groupsManageAll)
-            && (!$user->hasPrivileges(User::groupsManageOwn) || ($groupEntity->getOwnerid() !== $user->getId()))
+            && (!$user->hasPrivileges(User::groupsManageOwn) || ($groupEntity->getOwner()->getId() !== $user->getId()))
            )
             return $this->stop(Language::get(StringID::InsufficientPrivileges));
 
@@ -117,6 +117,7 @@ final class EditAssignment extends DataScript
                 }
             }
         }
+        return true;
 
 	}
 }

@@ -153,11 +153,13 @@ class TestXslt extends \asm\plugin\XmlTest
 			$this->failGoal(self::goalCoveredXslt, $error);
 		}
 	}
-    /**
-     * Attempts to find an XML and an XSL filename in the given folder and adds an error if it cannot find them.
-     * @param $xmlFile The found XML filename.
-     * @param $dtdFile The found XSL filename.
-     */
+
+	/**
+	 * Attempts to find an XML and an XSL filename in the given folder and adds an error if it cannot find them.
+	 * @param $fromWhere string directory from where to load the files
+	 * @param $xmlFile string The found XML filename.
+	 * @param $xslFile string The found XSL filename.
+	 */
     private function loadFiles($fromWhere, &$xmlFile, &$xslFile)
     {
         $xmlFile = false;

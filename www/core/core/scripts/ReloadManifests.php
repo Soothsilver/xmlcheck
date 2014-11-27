@@ -5,7 +5,7 @@ namespace asm\core;
 use asm\core\lang\Language;
 use asm\core\lang\StringID;
 use asm\utils\Filesystem;
-use SebastianBergmann\Exporter\Exception;
+
 
 final class ReloadManifests extends DataScript
 {
@@ -15,10 +15,8 @@ final class ReloadManifests extends DataScript
 		$errors = [];
 		foreach ($plugins as $plugin) {
 				/** @var $plugin \Plugin */
-				$dbArguments =
 				$dbPhpFile = $plugin->getMainfile();
 				$dbDescription = $plugin->getDescription();
-				$dbArguments = explode(';', $plugin->getConfig());
 				$dbIdentifier = $plugin->getIdentifier();
 				$pluginDirectory = $this->getMainDirectory($dbPhpFile);
 				if ($pluginDirectory === false) {

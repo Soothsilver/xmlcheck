@@ -31,6 +31,7 @@ class DeleteUsertype extends DataScript
          */
         $deletedType = Repositories::findEntity(Repositories::UserType, $id);
         $users = Repositories::getRepository(Repositories::User)->findBy(['type' => $id]);
+        /** @var \UserType $studentType */
         $studentType = Repositories::findEntity(Repositories::UserType, Repositories::StudentUserType);
         foreach($users as $user)
         {

@@ -14,13 +14,28 @@ final class GetSubscriptionRequests extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::groupsAdd))
-			return;
+			return false;
 
-		$requests = Core::sendDbRequest('getSubscriptionRequestsByUserId', User::instance()->getId());
-		if ($requests === false)
-			return $this->stopDb($requests, ErrorEffect::dbGetAll('subscription requests'));
-
-		$this->setOutputTable($requests);
+		$requests = Repositories::getEntityManager()->createQuery("SELECT s FROM \Subscription s WHERE s.group.owner = :ownerId")
+			->setParameter("ownerId", User::instance()->getId())
+			->getResult();
+		foreach ($requests as $request) {
+			/**
+			 * @var $request \Subscription
+			 */
+			if ($request->getStatus() !== \Subscription::STATUS_REQUESTED) { continue; }
+			$this->addRowToOutput([
+				$request->getId(),
+				$request->getUser()->getName(),
+				$request->getUser()->getRealName(),
+				$request->getUser()->getEmail(),
+				$request->getGroup()->getName(),
+				$request->getGroup()->getDescription(),
+				$request->getGroup()->getLecture()->getName(),
+				$request->getGroup()->getLecture()->getDescription()
+			]);
+		}
+		return true;
 	}
 }
 

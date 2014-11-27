@@ -1,7 +1,7 @@
 <?php
 
 namespace asm\core;
-use asm\db\DbLayout;
+
 
 /**
  * @ingroup requests
@@ -16,23 +16,21 @@ final class GenerateTest extends GenTestScript
 	protected function body ()
 	{
 		if (!$this->isInputValid(array('id' => 'isIndex')))
-			return;
+			return false;
 
 		$id = $this->getParams('id');
 
-		if (!($genTests = Core::sendDbRequest('getGenTestById', $id)))
-			return $this->stopDb($genTests, ErrorEffect::dbGet('test'));
+		/** @var \XTest $test */
+		$test = Repositories::findEntity(Repositories::Xtest, $id);
 
-		$test = $genTests[0];
+		if (!$this->checkTestGenerationPrivileges($test->getLecture()->getId()))
+			return false;
 
-		if (!$this->checkTestGenerationPrivileges($test[DbLayout::fieldLectureId]))
-			return;
+		$randomized = $this->generateTest($test->getTemplate(), $test->getCount());
 
-		$randomized = $this->generateTest($test[DbLayout::fieldGenTestTemplate],
-				$test[DbLayout::fieldGenTestCount]);
-
-		if (!Core::sendDbRequest('editGenTestById', $id, implode(',', $randomized)))
-			return $this->stopDb(false, ErrorEffect::dbEdit('test'));
+		$test->setGenerated(implode(',', $randomized));
+		Repositories::persistAndFlush($test);
+		return true;
 	}
 }
 

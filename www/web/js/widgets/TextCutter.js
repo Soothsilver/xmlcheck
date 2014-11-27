@@ -31,7 +31,7 @@ $.widget('ui.textCutter', {
 		switch (key) {
 			case 'limit':
 				this._setLimit();
-				// continue to 'hidden'
+				// fallthrough to 'hidden'
 			case 'hidden':
 				this._setHidden();
 				this._setShowEllipsis();

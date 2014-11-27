@@ -19,7 +19,7 @@ class HandOffSubmission extends DataScript
 	protected function body ()
 	{
 		if (!$this->isInputValid(array('id' => 'isIndex')))
-			return;
+			return false;
 		$id = $this->getParams('id');
         /**
          * @var $submission \Submission
@@ -33,6 +33,7 @@ class HandOffSubmission extends DataScript
         $yourSubmissions = Repositories::getRepository(Repositories::Submission)->findBy(['user'=>$userId,'assignment'=>$submission->getAssignment()->getId(),'status'=>\Submission::STATUS_REQUESTING_GRADING]);
         foreach($yourSubmissions as $previouslyHandedOffSubmission)
         {
+            /** @var \Submission $previouslyHandedOffSubmission */
             $previouslyHandedOffSubmission->setStatus(\Submission::STATUS_NORMAL);
             Repositories::persistAndFlush($previouslyHandedOffSubmission);
         }
@@ -53,7 +54,7 @@ class HandOffSubmission extends DataScript
         {
             return $this->death(StringID::MailError);
         }
-
+        return true;
     }
 }
 

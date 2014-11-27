@@ -5,7 +5,7 @@ namespace asm\core;
 
 /**
  * @ingroup requests
- * Gets lectures managable by user.
+ * Gets lectures manageable by user.
  * @n @b Requirements: one of following privileges: User::lecturesAdd, User::lecturesManageAll,
  *		User::lecturesManageOwn, User::groupsAdd
  * @n @b Arguments:
@@ -30,9 +30,9 @@ final class GetLectures extends DataScript
         $lectures = ($displayAll ? Repositories::getRepository('Lecture')->findBy(array('deleted'=>false)) : Repositories::getRepository('Lecture')->findBy(array('owner' => $user->getId(), 'deleted' => false)));
         foreach($lectures as $lecture)
         {
-            $radek = array( $lecture->getId(), $lecture->getName() );
-            if (!$lite) { $radek[] = $lecture->getDescription(); }
-            $this->addRowToOutput($radek);
+            $row = array( $lecture->getId(), $lecture->getName() );
+            if (!$lite) { $row[] = $lecture->getDescription(); }
+            $this->addRowToOutput($row);
         }
 	}
 }

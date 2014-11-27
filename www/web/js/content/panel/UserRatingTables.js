@@ -43,7 +43,7 @@ asm.ui.panel.UserRatingTables = asm.ui.DynamicContentPanel.extend({
 			var rows = [];
 			for (var userId in group['students']) {
 				var student = group['students'][userId];
-                var row = ['<span style="font-weight:bold">' + student['name'] + '</span>'];
+                var row = ['<span style="font-weight:bold;">' + student['name'] + '</span>'];
 				var ratings = student['ratings'];
 				for (var assignmentId in group['assignments']) {
 					var rating = (ratings[assignmentId] != undefined) ?
@@ -52,7 +52,7 @@ asm.ui.panel.UserRatingTables = asm.ui.DynamicContentPanel.extend({
 					row.push(rating);
 				}
 
-				row.push('<span style="font-weight:bold">' + student['sum'] + '</span>');
+				row.push('<span style="font-weight:bold;">' + student['sum'] + '</span>');
 				rows.push(row);
 			}
 

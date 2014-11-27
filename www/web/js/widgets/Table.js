@@ -404,7 +404,7 @@ $.widget('ui.table', {
 						callback();
 					}
 				};
-			}
+			};
 
 		if (label) {
 			if (this.options.collapsible) {

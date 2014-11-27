@@ -32,7 +32,7 @@
         5. Použít konstrukci "order by" (TODO: kontrolovat automaticky)
         6. Použít počítaný konstruktor (TODO: kontrolovat automaticky)
 
-        Kromě toho musí každý dotaz obsahovat komentář ve stylu (: komentar :), který popisuje, co dotaz dělá.
+        Kromě toho musí každý dotaz obsahovat komentář ve stylu (: komentář :), který popisuje, co dotaz dělá.
 
         Příklad dotazu:
 

@@ -13,7 +13,7 @@ class SqlPredicate extends Predicate
 
 	public function concretize ($tokens)
 	{
-		return $this->wrap($sql, $tokens);
+		return $this->wrap($this->sql, $tokens);
 	}
 }
 

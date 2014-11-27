@@ -45,7 +45,7 @@ asm.ui.form.Usertype = asm.ui.DynamicForm.extend({
                 }(subject),
 				options: options
 			};
-		})
+		});
 
 		var defaults = {
 			formStructure: formStructure,

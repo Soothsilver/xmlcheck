@@ -1,7 +1,8 @@
 <?php
 
 namespace asm\core;
-use asm\db\DbLayout;
+use asm\core\lang\StringID;
+
 
 /**
  * @ingroup requests
@@ -25,43 +26,48 @@ final class EditLecture extends DataScript
 			'description' => 'isNotEmpty',
 		);
 		if (!$this->isInputValid($inputs))
-			return;
+			return false;
 
-		extract($this->getParams(array_keys($inputs)));
+		$name = $this->getParams('name');
+		$description = $this->getParams('description');
 		$id = $this->getParams('id');
 		$isIdSet = (($id !== null) && ($id !== ''));
 
-		$lectures = Core::sendDbRequest('getLectureByName', $name);
+		/** @var \Lecture $lectureWithThisName */
+		$lectureWithThisName = Repositories::getRepository(Repositories::Lecture)->findOneBy(['name' => $name]);
 
 		$user = User::instance();
 		$userId = $user->getId();
 
-		if (!$lectures)
+		if ($lectureWithThisName === null)
 		{
 			if (!$this->userHasPrivileges(User::lecturesAdd))
-				return;
-			
-			if (!Core::sendDbRequest('addLecture', $userId, $name, $description))
-				return $this->stopDb(false, ErrorEffect::dbAdd('lecture'));
+				return false;
+
+			$lecture = new \Lecture();
+			$lecture->setName($name);
+			$lecture->setDescription($description);
+			$lecture->setOwner(User::instance()->getEntity());
+			Repositories::persistAndFlush($lecture);
 		}
 		else if ($isIdSet)
 		{
-			$lecture = $lectures[0];
-			if ($id != $lecture[DbLayout::fieldLectureId])
+			if ($id !== $lectureWithThisName->getId())
 				return $this->stop(ErrorCause::dataMismatch('lecture'));
 
 			if (!$user->hasPrivileges(User::lecturesManageAll)
 					&& (!$user->hasPrivileges(User::lecturesManageOwn)
-						|| ($lecture[DbLayout::fieldUserId] != $userId)))
-				return $this->stop(ErrorCode::lowPrivileges);
+						|| ($lectureWithThisName->getOwner()->getId() != $userId)))
+				return $this->death(StringID::InsufficientPrivileges);
 
-			if (!Core::sendDbRequest('editLectureById', $id, $name, $description))
-				return $this->stopDb(false, ErrorEffect::dbEdit('lecture'));
+			$lectureWithThisName->setDescription($description);
+			Repositories::persistAndFlush($lectureWithThisName);
 		}
 		else
 		{
 			return $this->stop(ErrorCause::nameTaken('lecture', $name));
 		}
+		return true;
 	}
 }
 

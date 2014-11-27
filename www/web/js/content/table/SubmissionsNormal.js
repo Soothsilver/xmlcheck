@@ -63,7 +63,7 @@ asm.ui.table.SubmissionsNormal = asm.ui.table.SubmissionsBase.extend({
                 {
                     switch (dbstatus)
                     {
-                        case 'handsoff': return asm.lang.submissions.statusRequestingGrading
+                        case 'handsoff': return asm.lang.submissions.statusRequestingGrading;
                         case 'normal': return asm.lang.submissions.statusNormal;
                         case 'latest': return asm.lang.submissions.statusLatest;
                         case 'graded': return asm.lang.submissions.statusGraded;
