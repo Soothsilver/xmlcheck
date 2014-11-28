@@ -4,6 +4,7 @@
       <w>&amp;amp</w>
       <w>addr</w>
       <w>addslashes</w>
+      <w>apos</w>
       <w>asmp</w>
       <w>assignmentid</w>
       <w>autocorrect</w>
@@ -11,14 +12,20 @@
       <w>autoloader</w>
       <w>autoloading</w>
       <w>bazbazbaz</w>
+      <w>bcrypt</w>
+      <w>bezparametrický</w>
       <w>blowfish</w>
       <w>bugfix</w>
       <w>bugzilla</w>
       <w>buildfile</w>
       <w>changelog</w>
+      <w>checku</w>
       <w>classmap</w>
       <w>contentspec</w>
+      <w>copybrief</w>
+      <w>crypto</w>
       <w>cuni</w>
+      <w>cvičícímu</w>
       <w>dbname</w>
       <w>debian</w>
       <w>decl</w>
@@ -43,6 +50,9 @@
       <w>foofoofoo</w>
       <w>formedness</w>
       <w>fullname</w>
+      <w>funkcionalitu</w>
+      <w>gensalt</w>
+      <w>getmypid</w>
       <w>groupid</w>
       <w>handsoff</w>
       <w>hashtag</w>
@@ -56,10 +66,13 @@
       <w>intelli</w>
       <w>inversed</w>
       <w>isam</w>
+      <w>itoa</w>
       <w>jarfile</w>
       <w>joinprivate</w>
       <w>joinpublic</w>
+      <w>keyref</w>
       <w>konopasek</w>
+      <w>konstruktor</w>
       <w>levenshtein</w>
       <w>linefeeds</w>
       <w>localweb</w>
@@ -67,25 +80,45 @@
       <w>mainfile</w>
       <w>minima</w>
       <w>motd</w>
+      <w>nadefinované</w>
+      <w>nadefinovaný</w>
+      <w>nahraného</w>
       <w>ndata</w>
+      <w>nemodeluje</w>
+      <w>netriviální</w>
       <w>nmtokens</w>
       <w>noninfringement</w>
       <w>nullable</w>
+      <w>obaleno</w>
+      <w>openwall</w>
       <w>outputfile</w>
+      <w>oznámkované</w>
       <w>pakosz</w>
+      <w>parseru</w>
       <w>passwd</w>
       <w>phpass</w>
       <w>phptests</w>
+      <w>pluginem</w>
+      <w>pluginu</w>
+      <w>pluginů</w>
+      <w>podadresář</w>
       <w>priv</w>
+      <w>proc</w>
       <w>projectname</w>
       <w>projekty</w>
       <w>prolog</w>
       <w>pseudofolders</w>
       <w>pseudorandom</w>
+      <w>realname</w>
       <w>realpath</w>
       <w>regexes</w>
+      <w>rekurzivní</w>
+      <w>repass</w>
+      <w>reqs</w>
       <w>requestprivate</w>
+      <w>rozbalování</w>
       <w>scandir</w>
+      <w>secondfile</w>
       <w>shortfile</w>
       <w>smtp</w>
       <w>soothsilver</w>
@@ -101,12 +134,18 @@
       <w>tokenized</w>
       <w>trajano</w>
       <w>uncategorized</w>
+      <w>unhashed</w>
       <w>unparsed</w>
       <w>unregister</w>
       <w>unsets</w>
       <w>unsubscribe</w>
+      <w>urandom</w>
+      <w>userid</w>
       <w>usertype</w>
       <w>usertypes</w>
+      <w>validitu</w>
+      <w>validní</w>
+      <w>vygenerujte</w>
       <w>webtoolkit</w>
       <w>wikipedia</w>
       <w>xmlcheck</w>
@@ -115,7 +154,11 @@
       <w>xtests</w>
       <w>yyyy</w>
       <w>zabcdefghijklmnopqrstuvwxyz</w>
+      <w>zazipovaná</w>
+      <w>zformované</w>
+      <w>zformovaný</w>
       <w>ziparchive</w>
+      <w>zneplatněn</w>
       <w>zžščřďťňáéíóúůýě</w>
     </words>
   </dictionary>

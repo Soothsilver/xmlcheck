@@ -5,7 +5,7 @@ namespace asm\core;
 
 /**
  * @ingroup requests
- * Gets all questions managable by user.
+ * Gets all questions manageable by user.
  * @n @b Requirements: one of following privileges: User::lecturesManageAll,
  *		User::lecturesManageOwn
  * @n @b Arguments: none

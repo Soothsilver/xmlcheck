@@ -132,10 +132,10 @@ class UploadManager
 	/**
 	 * Retrieve stored file with supplied ID [and moves it to supplied destination].
 	 * @param string $id file ID
-	 * @param string $dest rename/move file to this name
+	 * @param string $destination rename/move file to this name
 	 * @return mixed array with file properties {'name', 'type', 'path'} or error code in case of error
 	 */
-	public function retrieve ($id, $dest = null)
+	public function retrieve ($id, $destination = null)
 	{
 		if (!isset($_SESSION[UploadManager::sessionSpace][$id]))
 		{
@@ -147,15 +147,15 @@ class UploadManager
 		}
 		$entry = $_SESSION[UploadManager::sessionSpace][$id];
 		unset($_SESSION[UploadManager::sessionSpace][$id]);
-		if (($dest != null) && (file_exists(dirname($dest))))
+		if (($destination != null) && (file_exists(dirname($destination))))
 		{
-			$moved = @rename($entry['path'], $dest);
+			$moved = @rename($entry['path'], $destination);
 			if (!$moved)
 			{
 				@unlink($entry['path']);
 				return self::fileMoveError;
 			}
-			$entry['path'] = $dest;
+			$entry['path'] = $destination;
 		}
 		return $entry;
 	}

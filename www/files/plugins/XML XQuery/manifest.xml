@@ -29,8 +29,8 @@
         2. Jeden dotaz provádějící integraci heterogenních dat ze 2 různých XML dokumentů (podobně jako např. employees.xml a employees2.xml) - vytvořte si vlastní modifikovaný dokument
         3. Jeden dotaz používající rekurzivní vámi definovanou funkci nebo jinak netriviální použití funkce
         4. Jeden dotaz musí mít jako výstup XHTML
-        5. Použít konstrukci "order by" (TODO: kontrolovat automaticky)
-        6. Použít počítaný konstruktor (TODO: kontrolovat automaticky)
+        5. Použít konstrukci "order by"
+        6. Použít počítaný konstruktor
 
         Kromě toho musí každý dotaz obsahovat komentář ve stylu (: komentář :), který popisuje, co dotaz dělá.
 

@@ -68,7 +68,7 @@ class TestXmlSchema extends \asm\plugin\XmlTest
         {
             if ($this->reachGoalOnNoLibxmlErrors(self::goalValidToSchema, null))
             {
-                $this->addError("An error occured while validating the document. This should not have happened. " . $ex->getMessage());
+                $this->addError("An error occurred while validating the document. This should not have happened. " . $ex->getMessage());
             }
             return;
         }
@@ -203,7 +203,7 @@ class TestXmlSchema extends \asm\plugin\XmlTest
 
     /**
      * Attempts to find an XML and a XSD filename in the given folder and adds an error if it cannot find them.
-     * @param $fromWhere from where to load the files
+     * @param $fromWhere string from where to load the files
      * @param $xmlFile string The found XML filename.
      * @param $xsdFile string The found XSD filename.
      */

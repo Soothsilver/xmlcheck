@@ -37,7 +37,7 @@ final class GetTeacherRatings extends DataScript
 		 * ]
 		 */
 		/** @var \Submission[] $submissions */
-		$submissions = Repositories::getEntityManager()->createQuery('SELECT s, a, g, p, l FROM \Submission s JOIN s.assignment a JOIN a.group g JOIN g.lecture l JOIN a.problem p')->getResult();
+		$submissions = Repositories::getEntityManager()->createQuery('SELECT s, a, g, p, l FROM \Submission s JOIN s.assignment a JOIN a.group g JOIN g.lecture l JOIN a.problem p WHERE s.status <> \'deleted\' AND a.deleted = false AND g.deleted = false AND l.deleted = false AND p.deleted = false')->getResult();
 		$result = array();
 		foreach ($submissions as $s)
 		{

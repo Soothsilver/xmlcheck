@@ -22,10 +22,10 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 	const dtdEmptyElements = 1;	///< minimum number of empty element definitions in DTD
 	const dtdTextElements = 2;	///< minimum number of text element definitions in DTD
 	const dtdModeledElements = 3;	///< minimum number of modeled element definitions in DTD
-	/// minimum number of element occurence limitations used in DTD
+	/// minimum number of element occurrence limitations used in DTD
 	const dtdAttributes = 5;	///< minimum number of attributes defined in DTD
-	/// minimum number of attribute occurence limitations used in DTD
-	const dtdLimitedOccurenceAttributes = 6;
+	/// minimum number of attribute occurrence limitations used in DTD
+	const dtdLimitedOccurrenceAttributes = 6;
 	const dtdTextDataTypes = 7;	///< minimum number of text data types used in DTD
 	const dtdEnumDataTypes = 8;	///< minimum number of enum data types used in DTD
 	const dtdIdKeys = 9;	///< minimum number of ID keys used in DTD
@@ -96,12 +96,12 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 
     /*************************************************************************************** THIS ***/
 	/**
-	 * Searches for occurences of required DTD constructs and marks them in supplied
+	 * Searches for occurrences of required DTD constructs and marks them in supplied
 	 * index.
 	 * @param \Soothsilver\DtdParser\DTD $dtdDoc source DTD
-	 * @param CountedRequirements $reqs occurence index
+	 * @param CountedRequirements $reqs occurrence index
 	 */
-	protected function markDTDConstructOccurences (\Soothsilver\DtdParser\DTD $dtdDoc, $reqs)
+	protected function markDTDConstructOccurrences (\Soothsilver\DtdParser\DTD $dtdDoc, $reqs)
 	{
 		$operatorCounts = array(',' => 0, '|' => 0, '?' => 0, '+' => 0, '*' => 0);
 		$operators = array_keys($operatorCounts);
@@ -129,7 +129,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
             foreach ($element->attributes as $attribute) {
                 $reqs->addOccurrence(self::dtdAttributes);
                 if ($attribute->defaultType === \Soothsilver\DtdParser\Attribute::DEFAULT_REQUIRED)
-                {$reqs->addOccurrence(self::dtdLimitedOccurenceAttributes); }
+                {$reqs->addOccurrence(self::dtdLimitedOccurrenceAttributes); }
                 if ($attribute->type === \Soothsilver\DtdParser\Attribute::ATTTYPE_ENUMERATION)
                 {$reqs->addOccurrence(self::dtdEnumDataTypes);}
                 if ($attribute->type === \Soothsilver\DtdParser\Attribute::ATTTYPE_CDATA)
@@ -165,7 +165,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 				self::dtdModeledElements => 'elements with modeled content',
                 self::dtdEntities => 'entities (general or parametric)',
 				self::dtdAttributes => 'attributes',
-				self::dtdLimitedOccurenceAttributes => '#REQUIRED attributes',
+				self::dtdLimitedOccurrenceAttributes => '#REQUIRED attributes',
 				self::dtdTextDataTypes => 'text data types',
 				self::dtdEnumDataTypes => 'enumerated data types',
 				self::dtdIdKeys => 'id keys',
@@ -174,7 +174,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 			),
 			'counts' => array(),
 		));
-		$this->markDTDConstructOccurences($dtdDoc, $reqs);
+		$this->markDTDConstructOccurrences($dtdDoc, $reqs);
 		return $this->resolveCountedRequirements($reqs, self::goalCoveredDtd);
 	}
 
@@ -207,14 +207,14 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 	}
 
 	/**
-	 * Searches for required construct occurences in XML and marks found occurences
-	 * in occurence index.
+	 * Searches for required construct occurrences in XML and marks found occurrences
+	 * in occurrence index.
 	 * @param DOMElement $xmlEl source XML
-	 * @param CountedRequirements $reqs occurence index
+	 * @param CountedRequirements $reqs occurrence index
 	 * @param array $internal internal index of this method (<b>DO NOT use this
 	 *		argument from other methods.</b>)
 	 */
-	protected function markXMLConstructOccurences (
+	protected function markXMLConstructOccurrences (
         DOMElement $xmlEl,
         $reqs,
 		&$internal = array('elements' => array(), 'attributes' => array(), 'ids' => array(), 'level' => 0))
@@ -264,7 +264,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 		$level = $internal['level'];
 		$reqs->tryRaiseCount(self::xmlDepth, $level);
 		//$reqs->tryRaiseCount(self::xmlFanOut, $numChildren);
-		$fanout = 0;
+		$fanOut = 0;
         ++$level;
         $internal['level'] = $level;
         $hasText = false;
@@ -276,8 +276,8 @@ class TestDtd2014 extends \asm\plugin\XmlTest
             {
                 /** @var \DOMElement $child */
                 $hasNodes = true;
-                $fanout++;
-                $this->markXMLConstructOccurences($child, $reqs, $internal);
+                $fanOut++;
+                $this->markXMLConstructOccurrences($child, $reqs, $internal);
             }
             else if ($child->nodeType == XML_TEXT_NODE)
             {
@@ -295,11 +295,11 @@ class TestDtd2014 extends \asm\plugin\XmlTest
         {
             $reqs->addOccurrence(self::xmlMixedContent);
         }
-        $reqs->tryRaiseCount(self::xmlFanOut, $fanout);
+        $reqs->tryRaiseCount(self::xmlFanOut, $fanOut);
 	}
 
 	/**
-	 * Checks XML for occurence of required constructs.
+	 * Checks XML for occurrence of required constructs.
 	 * @param DOMDocument $xml source XML
 	 * @return bool true on success
 	 */
@@ -321,7 +321,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 
         if ($xml->documentElement)
         {
-            $this->markXMLConstructOccurences($xml->documentElement, $reqs);
+            $this->markXMLConstructOccurrences($xml->documentElement, $reqs);
             return $this->resolveCountedRequirements($reqs, self::goalCoveredXml);
         }
         else {
@@ -330,7 +330,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
 	}
 
 	/**
-	 * Checks XML and DTD documents for occurences of required special constructs.
+	 * Checks XML and DTD documents for occurrences of required special constructs.
 	 * @param string $xmlString source XML
 	 * @param string $dtdString source DTD
 	 * @return bool true on success
@@ -380,7 +380,7 @@ class TestDtd2014 extends \asm\plugin\XmlTest
         }
         if (!$generalEntityFound && !$parameterEntityFound)
         {
-            return $this->failGoal(self::goalCoveredSpecials, "You did not use a general or parameter entity. The predefined entities 'quot', 'apos', 'amp', 'lt' and 'gt' do not count for this purpose. Chracter reference entities also do not count.");
+            return $this->failGoal(self::goalCoveredSpecials, "You did not use a general or parameter entity. The predefined entities 'quot', 'apos', 'amp', 'lt' and 'gt' do not count for this purpose. Character reference entities also do not count.");
         }
         // Rest.
         return $this->resolveCountedRequirements($reqs, self::goalCoveredSpecials);

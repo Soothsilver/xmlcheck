@@ -9,7 +9,7 @@ use asm\utils\Utils, asm\utils\StringUtils, SimpleXMLElement;
  *
  * When launched, plugins return a set of criteria with information about which
  * of them were met, which not and why, etc. They return it either directly as
- * PluginReponse instance (in case of PHP plugins) or as XML, which must be
+ * PluginResponse instance (in case of PHP plugins) or as XML, which must be
  * transformed using fromXml() function.
  */
 class PluginResponse
@@ -168,7 +168,7 @@ class PluginResponse
 	}
 
 	/**
-	 * Checks whether path of plugin ouput is set.
+	 * Checks whether path of plugin output is set.
 	 * @return bool true if path to plugin output is set
 	 */
 	public function hasOutput ()

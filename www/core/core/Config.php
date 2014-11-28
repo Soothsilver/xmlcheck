@@ -122,8 +122,8 @@ class Config
 	 * @param string $parent base for @c $child
 	 * @param string $child partial path to be resolved
 	 * @return string absolute path of @c $child appended to @c $parent with
-	 *		OS-dependent directory separators replaced by UNIX-style slashes (or
-	 *		@c $child if <tt>$parent . $child</tt> path doesn't exist)
+	 *        OS-dependent directory separators replaced by UNIX-style slashes (or
+	 * @throws Exception when the combined paths don't point to an actual file on the filesystem
 	 */
     private function resolvePath ($parent, $child)
 	{
@@ -138,7 +138,6 @@ class Config
 		{
 			throw new Exception("The parent path '{$parent}' and the child path '{$child}' combined do not point to any file on the filesystem. Perhaps your internal.ini file is wrong?'");
 		}
-		return $child;
 	}
 
     /**

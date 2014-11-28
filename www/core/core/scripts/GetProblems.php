@@ -5,7 +5,7 @@ namespace asm\core;
 
 /**
  * @ingroup requests
- * Gets all problems managable by user.
+ * Gets all problems manageable by user.
  * @n @b Requirements: one of following privileges: User::lecturesManageAll,
  *		User::lecturesManageOwn, User::groupsManageAll, User::groupsManageOwn
  * @n @b Arguments:

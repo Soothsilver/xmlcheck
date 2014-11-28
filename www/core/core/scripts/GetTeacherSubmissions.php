@@ -7,7 +7,7 @@ use asm\core\lang\StringID;
 
 /**
  * @ingroup requests
- * Gets all submissions for assignments belonging to user (-> correctible by user).
+ * Gets all submissions for assignments that are owned by the active user.
  * @n @b Requirements: User::submissionsCorrect privilege
  * @n @b Arguments: none
  */

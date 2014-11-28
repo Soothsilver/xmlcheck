@@ -36,6 +36,7 @@ class Filesystem
         $scanned_directory = array_values($scanned_directory);
         return $scanned_directory;
     }
+
     /**
      * Combines all paths given as arguments into a single one.
      * (Transforms all backslashes into forward slashes. There will be no slash at the end of the resultant path,
@@ -58,6 +59,7 @@ class Filesystem
     public static function combinePaths(...$fragments)
     {
         $paths = [];
+        /** @var string[] $fragments */
         foreach ($fragments as $arg) {
             if ($arg !== '') { $paths[] = str_replace('\\', '/', $arg); }
         }

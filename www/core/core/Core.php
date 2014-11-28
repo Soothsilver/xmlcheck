@@ -1,7 +1,7 @@
 <?php
 
 namespace asm\core;
-use asm\db\Database,
+use
 	asm\plugin\PluginResponse,
 	asm\utils\ShellUtils,
 	asm\utils\StringUtils,
@@ -19,28 +19,6 @@ class Core
      */
 	protected static $logger;	///< logger instance
 	protected static $request = null;	///< name of UI request being handled
-
-	/**
-	 * Sends request to database or returns last error.
-	 * @param string $requestId request
-	 * @param mixed [...] request arguments
-	 * @return mixed associative array with data or false in case of get request, boolean
-	 * in case of other requests, string with last error in case supplied \$requestId
-	 * is null
-	 */
-	public static function sendDbRequest ($requestId)
-	{
-		if ($requestId === null)
-		{
-			return Database::getLastError();
-		}
-
-		$arguments = func_get_args();
-		array_shift($arguments);
-		$requestResult =  Database::request($requestId, $arguments);
-
-        return $requestResult;
-	}
 
 	/**
 	 * [Initializes mailer and] sends e-mail.

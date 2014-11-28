@@ -86,55 +86,6 @@ abstract class UiScript
     }
 
     /**
-     * Extension of stop() for errors caused by failed request to database.
-     *
-     * Typical use in script body:
-     * @code
-     * if (empty($result = Core::sendDbRequest('foo')))
-     *        return $this->stopDb($result);
-     * @endcode
-     * @param mixed  $result database request result (array or bool)
-     * @param string $effect error effect
-     * @param string $details additional error info
-     * @return bool false
-     * @see stop()
-     */
-    protected final function stopDb($result = false, $effect = null, $details = null)
-    {
-        if (!is_array($result) && !is_bool($result))
-        {
-            return $this->stop($result, $effect, $details);
-        }
-
-        list($cause, $dbDetails) = $this->getDbStopInfo($result);
-        $details = $this->joinDetails($dbDetails, $details);
-
-        return $this->stop($cause, $effect, $details);
-    }
-
-    /**
-     * Turns database request result into array containing error cause and details.
-     * @param mixed $result database request result (array or bool)
-     * @return array error info {cause, details}
-     * @see stopDb()
-     */
-    protected final function getDbStopInfo($result = false)
-    {
-        $cause = null;
-        $details = null;
-        if ($result === false)
-        {
-            $cause = ErrorCode::dbRequest;
-            $details = Core::sendDbRequest(null);
-        }
-        elseif (is_array($result) && empty($result))
-        {
-            $cause = ErrorCode::dbEmptyResult;
-        }
-        return array($cause, $details);
-    }
-
-    /**
      * Joins two error details strings together with a newline in between.
      * @param string $details1 error details
      * @param string $details2 error details

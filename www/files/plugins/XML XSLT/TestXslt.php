@@ -85,7 +85,7 @@ class TestXslt extends \asm\plugin\XmlTest
 
 	/**
 	 * Checks coverage of required constructs in XSLT.
-	 * Minima for individual construct occurences may be supplied as test parameters
+	 * Minima for individual construct occurrences may be supplied as test parameters
 	 * on test run.
 	 * @param SimpleXMLElement $xsltXml source XSLT
 	 * @return bool true on success
