@@ -15,7 +15,7 @@ final class GetGroups extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::groupsAdd, User::groupsManageAll, User::groupsManageOwn))
-			return;
+			return false;
 
 		$user = User::instance();
 		$displayAll = $user->hasPrivileges(User::groupsManageAll);
@@ -39,5 +39,6 @@ final class GetGroups extends DataScript
             );
             $this->addRowToOutput($row);
         }
+        return true;
 	}
 }

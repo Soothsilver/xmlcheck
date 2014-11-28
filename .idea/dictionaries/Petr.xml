@@ -5,6 +5,7 @@
       <w>addr</w>
       <w>addslashes</w>
       <w>asmp</w>
+      <w>assignmentid</w>
       <w>autocorrect</w>
       <w>autoload</w>
       <w>autoloader</w>
@@ -42,6 +43,7 @@
       <w>foofoofoo</w>
       <w>formedness</w>
       <w>fullname</w>
+      <w>groupid</w>
       <w>handsoff</w>
       <w>hashtag</w>
       <w>hashtype</w>
@@ -88,6 +90,7 @@
       <w>smtp</w>
       <w>soothsilver</w>
       <w>struct</w>
+      <w>studentid</w>
       <w>subfolder</w>
       <w>subfolders</w>
       <w>substrings</w>

@@ -1,16 +1,26 @@
 <?php
-$a = "AAA";
-$b = "BBB";
-$time = microtime(true);
-for ($i = 0; $i < 100000000; $i++)
-{
-    if ($a . $b !== "AAABBB")
-    {
-        echo "ERROR<br>";
-    }
+use asm\core\Repositories;
+use asm\core\User;
+
+require_once 'www/vendor/autoload.php';
+\asm\core\Config::init('www/core/config.ini', 'www/core/internal.ini');
+
+die (print_r(\asm\core\Config::get('paths'), true));
+
+die (realpath(\asm\utils\Filesystem::combinePaths(__DIR__, "..")));
+
+User::instance()->login('Soothsilver', 'Militia7*');
+
+try {
+    $ratings = Repositories::getEntityManager()->createQuery(
+"SELECT s, SUM(s.rating) AS rating, a, g.id, g.name, g.description FROM \Submission s JOIN s.assignment a JOIN a.group g WHERE s.user = :userId GROUP BY g, g.name"
+    )->setParameter('userId', User::instance()->getId())->getResult();
+} catch (\Doctrine\ORM\Query\QueryException $queryException) {
+    echo "<u>" . $queryException->getMessage() . "</u>";
 }
-echo "OK<br>";
-echo "Time taken: " + (microtime(true) - $time) * 1000 + " milliseconds<BR>";
+   \Doctrine\Common\Util\Debug::dump($ratings);
+
+
 /*import java.util.Objects;
 
 public class Frost {

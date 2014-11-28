@@ -1,7 +1,7 @@
 <?php
 
 namespace asm\core;
-use \asm\db\DbLayout;
+
 
 /**
  * @ingroup requests
@@ -13,56 +13,77 @@ final class GetTeacherRatings extends DataScript
 	{
 		if (!$this->userHasPrivileges(User::groupsManageAll, User::groupsManageOwn))
 			return false;
-
-		$user = User::instance();
-		$submissions = Core::sendDbRequest('getUserSubmissionRatingsByOwnerId',
-				$user->getId(), $user->hasPrivileges(User::groupsManageAll));
-		if ($submissions === null)
-			return $this->stopDb ($submissions, ErrorEffect::dbGetAll('student submission ratings'));
-
+		/*
+		 * Output format documentation:
+		 * GROUPID => [
+		 * 	name
+		 *  lecture (name)
+		 *  owned (true/false, whether owned by the active user)
+		 *  assignments
+		 *   ASSIGNMENTID => [
+		 *    problem (name)
+		 *    reward (maximum reward int)
+		 *   ]
+		 *  students
+		 *   STUDENTID => [
+		 *    name (RealName)
+		 *    ratings
+		 *     ASSIGNMENTID => [
+		 *      id (SubmissionId)
+		 *      rating (submission rating)
+		 *     ]
+		 *    sum (sum of all ratings for all submissions of this student for this group)
+		 *   ]
+		 * ]
+		 */
+		/** @var \Submission[] $submissions */
+		$submissions = Repositories::getEntityManager()->createQuery('SELECT s, a, g, p, l FROM \Submission s JOIN s.assignment a JOIN a.group g JOIN g.lecture l JOIN a.problem p')->getResult();
 		$result = array();
 		foreach ($submissions as $s)
 		{
-			if (!isset($result[$s[DbLayout::fieldGroupId]]))
+			$assignment = $s->getAssignment();
+			$group = $assignment->getGroup();
+			$lecture = $group->getLecture();
+			$problem = $assignment->getProblem();
+			if (!isset($result[$group->getId()]))
 			{
-				$result[$s[DbLayout::fieldGroupId]] = array(
-					'name' => $s[DbLayout::fieldGroupName],
-					'lecture' => $s[DbLayout::fieldLectureName],
-					'owned' => ($s[DbLayout::fieldSpecialSecondaryId] == $user->getId()),
+				$result[$group->getId()] = array(
+					'name' => $group->getName(),
+					'lecture' => $lecture->getName(),
+					'owned' => ($group->getOwner()->getId() === User::instance()->getId()),
 					'assignments' => array(),
-					'students' => array(),
+					'students' => array()
 				);
 			}
 
-			$assignments =& $result[$s[DbLayout::fieldGroupId]]['assignments'];
-			if (!isset($assignments[$s[DbLayout::fieldAssignmentId]]))
+			$assignments = & $result[$group->getId()]['assignments'];
+			if (!isset($assignments[$assignment->getId()]))
 			{
-				$assignments[$s[DbLayout::fieldAssignmentId]] = array(
-					'problem' => $s[DbLayout::fieldProblemName],
-					'reward' => $s[DbLayout::fieldAssignmentReward],
+				$assignments[$assignment->getId()] = array(
+					'problem' => $problem->getName(),
+					'reward' => $assignment->getReward()
 				);
 			}
 
-			$students =& $result[$s[DbLayout::fieldGroupId]]['students'];
-			if (!isset($students[$s[DbLayout::fieldUserId]]))
+			$students = & $result[$group->getId()]['students'];
+			if (!isset($students[$s->getUser()->getId()]))
 			{
-				$students[$s[DbLayout::fieldUserId]] = array(
-					'name' => $s[DbLayout::fieldUserRealName],
+				$students[$s->getUser()->getId()] = array(
+					'name' => $s->getUser()->getRealName(),
 					'ratings' => array(),
 					'sum' => 0,
 				);
 			}
 
-			$student =& $students[$s[DbLayout::fieldUserId]];
+			$student =& $students[$s->getUser()->getId()];
 			$ratings =& $student['ratings'];
-			$ratings[$s[DbLayout::fieldAssignmentId]] = array(
-				'id' => $s[DbLayout::fieldSubmissionId],
-				'rating' => $s[DbLayout::fieldSubmissionRating],
+			$ratings[$assignment->getId()] = array(
+				'id' => $s->getId(),
+				'rating' => $s->getRating(),
 			);
 
-			if (is_numeric($s[DbLayout::fieldSubmissionRating]))
-			{
-				$student['sum'] += $s[DbLayout::fieldSubmissionRating];
+			if ($s->getStatus() === \Submission::STATUS_GRADED && is_numeric($s->getRating())) {
+				$student['sum'] += $s->getRating();
 			}
 		}
 

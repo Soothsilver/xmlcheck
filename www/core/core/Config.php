@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\core;
+use asm\utils\Filesystem;
 use Exception;
 
 /**
@@ -88,6 +89,11 @@ class Config
             $configFile = parse_ini_file($iniFile, true);
             $config = array_merge($config, $configFile);
         }
+		// Hack: We are adding roots.web automatically.
+		// Previously, the user had to specify in the config.ini file so that local files could be found.
+		// However, that was too much of a hassle when moving installations and source code between two development
+		// machines and the production environment. Therefore, we now detect this path automatically.
+		$config["roots"]["web"] = realpath(Filesystem::combinePaths(__DIR__, "..", ".."));
 
         if (isset($config[self::folderStructureId]))
         {
@@ -121,11 +127,16 @@ class Config
 	 */
     private function resolvePath ($parent, $child)
 	{
-		$realPath = realpath($parent . $child);
+
+		$realPath = realpath(Filesystem::combinePaths($parent , $child));
 		if ($realPath !== false)
 		{
 			$realPath = str_replace('\\', '/', $realPath);
 			return (is_dir($realPath) ? $realPath . '/' : $realPath);
+		}
+		else
+		{
+			throw new Exception("The parent path '{$parent}' and the child path '{$child}' combined do not point to any file on the filesystem. Perhaps your internal.ini file is wrong?'");
 		}
 		return $child;
 	}

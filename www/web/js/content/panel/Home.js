@@ -124,7 +124,13 @@ asm.ui.panel.Home = asm.ui.ContentPanel.extend({
 			if (o.show) {
 				o.store.get((function closure (props) {
 					return function (data) {
-						props.count = props.filter ? $.grep(data, props.filter).length : data.length;
+						if (data === null) {
+							props.count = 0;
+							// TODO bez tohoto se stávala chyba u řešení požadavku "žádostí o členství k vyřešení"
+						}
+						else {
+							props.count = props.filter ? $.grep(data, props.filter).length : data.length;
+						}
 						oneLoaded();
 					};
 				})(o));

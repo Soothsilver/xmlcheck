@@ -16,12 +16,25 @@ final class GetRatingSums extends DataScript
 		if (!$this->userHasPrivileges(User::assignmentsSubmit))
 			return false;
 
-		$user = User::instance();
-		$ratings = Core::sendDbRequest('getUserRatingSumsByUserId', $user->getId());
-		if ($ratings === false)
-			return $this->stopDb($ratings, ErrorEffect::dbGetAll('submission rating sums'));
+		$ratings = Repositories::getEntityManager()->createQuery(
+			"SELECT s, SUM(s.rating) AS rating, a, g.id FROM \Submission s JOIN s.assignment a JOIN a.group g WHERE s.user = :userId GROUP BY g, g.name"
+		)->setParameter('userId', User::instance()->getId())->getResult();
 
-		$this->setOutputTable($ratings);
+		foreach ($ratings as $rating) {
+			/** @var \Group $group */
+			$group = Repositories::findEntity(Repositories::Group, (integer)$rating["id"]);
+			$this->addRowToOutput([
+				User::instance()->getName(),
+				User::instance()->getEmail(),
+				$rating["id"],
+				$rating["rating"],
+				$group->getName(),
+				$group->getDescription(),
+				$group->getLecture()->getName(),
+				$group->getLecture()->getDescription()
+			]);
+		}
+
 		return true;
 	}
 }
