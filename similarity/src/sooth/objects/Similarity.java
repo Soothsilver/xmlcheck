@@ -5,7 +5,7 @@ public class Similarity {
      * Similarities with score lesser than this value are definitely not plagiates and therefore don't need to be
      * inserted into the database.
      */
-    public static final int MINIMUM_INTERESTING_SCORE = 20;
+    public static final int MINIMUM_INTERESTING_SCORE = 0;
     private int score;
     private String details;
     private int oldSubmissionId;

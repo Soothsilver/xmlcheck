@@ -125,7 +125,7 @@ asm.ui.table.CorrectionBase = asm.ui.DynamicTable.extend({
 			icon: 'ui-icon-' + asm.ui.globals.icons.submissionDetails,
 			label: asm.lang.grading.getPlagiarismInfo,
 			action: $.proxy(function (id) {
-				this.trigger('goToSubmissionDetails', id);
+				this.trigger('goToSubmissionDetails', { newId : id } );
 			}, this)
 		};
 	}

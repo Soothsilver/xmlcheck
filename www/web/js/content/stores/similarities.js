@@ -10,6 +10,7 @@ asm.ui.globals.stores.similarities = new asm.ui.TableStore({
 		'similarityReport',
 		'author',
 		'date',
+		'status'
 	],
 	request: 'GetSimilarities'
 });

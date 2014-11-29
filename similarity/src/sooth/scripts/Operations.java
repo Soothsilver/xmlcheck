@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 
 public class Operations {
     private static Logger logger = Logging.getLogger(Operations.class.getName());
-    private static int SimilarityThreshold = -41;
 
     public static List<Similarity> compareToAll(Submission newSubmission, List<Submission> submissions, int checkFrom, int checkUpToExclusive) {
         ArrayList<Similarity> similarities = new ArrayList<>();
@@ -34,7 +33,7 @@ public class Operations {
                 }
             }
             Similarity similarity = Operations.compare(submissions.get(i), newSubmission);
-            if (similarity.getScore() > SimilarityThreshold) {
+            if (similarity.getScore() > 0) {
                 similarities.add(similarity);
             }
         }

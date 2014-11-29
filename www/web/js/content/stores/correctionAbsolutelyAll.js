@@ -18,7 +18,8 @@ asm.ui.globals.stores.correctionAbsolutelyAll = new asm.ui.TableStore({
 		'author',
         'hasOutput',
         'assignmentId',
-		'authorEmail'
+		'authorEmail',
+		'status'
 	],
 	request: 'GetTeacherSubmissions'
 });

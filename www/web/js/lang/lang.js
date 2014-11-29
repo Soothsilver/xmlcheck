@@ -526,12 +526,14 @@ asm.lang = {
         formCaption: "About This Submission",
         realName: "Student's Name",
         email: "Student's E-mail",
+        submissionStatus: "Submission Status",
         pointsAwarded: "Points Awarded",
         autoCorrectDetails: "Automatic Evaluation Details",
         submissionDate: "Uploaded",
         infoLabel: "Help",
-        info: "The table on this page lists submissions by other students that this submission is similar to. The fact that the table is not empty does not necessarily mean the student was plagiarizing. The submissions where the software thinks plagiarism is likely to have occured are marked 'suspicious' and have a high similarity score.",
-        downloadSubmission: "Download This Submission",
+        downloadLinkLabel : "Download Link",
+        downloadLink : "Download This Submission",
+        info: "The table on this page lists submissions by other students that this submission is similar to. The fact that the table is not empty does not necessarily mean the student was plagiarizing. The submissions where the software thinks plagiarism is likely to have occurred are marked 'suspicious' and have a high similarity score.",
 
         tableCaption: "Submissions this submission is similar to",
 
@@ -541,6 +543,7 @@ asm.lang = {
         similarityScore : "Similarity",
         similarityReport : "Details",
         suspicious : "Suspicious",
+        oldSubmissionStatus : "Status",
         oldRealName : "Author",
         oldDate : "Uploaded"
 

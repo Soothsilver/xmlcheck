@@ -27,7 +27,8 @@ final class GetSimilarities extends DataScript
                 $similarity->getScore(),
                 $similarity->getDetails(),
                 ($canViewAuthors ? $similarity->getOldSubmission()->getUser()->getRealName(): Language::get(StringID::NotAuthorizedForName)),
-                $similarity->getOldSubmission()->getDate()->format("Y-m-d H:i:s")
+                $similarity->getOldSubmission()->getDate()->format("Y-m-d H:i:s"),
+                $similarity->getOldSubmission()->getStatus()
             ];
             $this->addRowToOutput($row);
         }

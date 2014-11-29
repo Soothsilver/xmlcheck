@@ -28,6 +28,10 @@ abstract class DownloadSubmissionFile extends DownloadScript
 
 		if ($authorId !== $userId && $ownerId !== $userId)
 		{
+			if (User::instance()->hasPrivileges(User::groupsManageAll, User::lecturesManageAll, User::otherAdministration))
+			{
+				return $submission;
+			}
 			return $this->death(StringID::InsufficientPrivileges);
 		}
 		return $submission;

@@ -74,6 +74,7 @@ final class GetTeacherSubmissions extends DataScript
             ];
             if ($absolutelyAll) {
                 $row[] = ($canViewAuthors ? $submission->getUser()->getEmail(): Language::get(StringID::NotAuthorizedForName));
+                $row[] = $submission->getStatus();
             }
             $this->addRowToOutput($row);
         }

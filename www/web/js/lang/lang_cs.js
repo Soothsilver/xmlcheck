@@ -285,10 +285,13 @@ asm.otherlangs.cs = {
         caption : "Přednášky",
         name : "Jméno",
         description : "Popis",
-        showProblems : "Zobrazit problémy z této přednášky",
+        showProblems : "zobrazit problémy z této přednášky",
         editCaption : "Přidat nebo upravit přednášku",
         lectureName : "Jméno přednášky",
-        lectureNameHint : "jedinečné jméno přednášky"
+        lectureNameHint : "jedinečné jméno přednášky",
+        showQuestions : "zobrazit otázky z této přednášky",
+        showAttachments : "zobrazit přílohy z této přednášky",
+        showTests : "zobrazit testy s otázkami z této přednášky"
     },
     subscriptions : {
         group : 'Skupina',
@@ -452,6 +455,7 @@ asm.otherlangs.cs = {
         downloadOutput : "stáhnout vygenerovaný výstup",
         gradeSubmission : "oznámkovat řešení",
         regradeSubmission : "změnit počet bodů oznámkovaného řešení",
+        getPlagiarismInfo : "zobrazit informace o podobnosti s jinými domácími úkoly",
         problem: "Problém",
         group: "Skupina",
         fulfillment: "%",
@@ -487,7 +491,8 @@ asm.otherlangs.cs = {
         multipleChoice : "více správných odpovědí",
         attachments : "Přílohy",
         firstCharacterWillBeUsedAsOptionSeparator : "první znak bude použit jako oddělovač možných odpovědí",
-        questionBound : "otázka bude navždy spojená s touto přednáškou"
+        questionBound : "otázka bude navždy spojená s touto přednáškou",
+        check : "ano"
     },
     attachments : {
         caption : "Přílohy",
@@ -508,12 +513,39 @@ asm.otherlangs.cs = {
         lecture : "Přednáška",
         createNewTest : "vytvořit nový test",
         printTest : "vytisknout test",
-        regenerateTest : "vygenerovat test znovu"
+        regenerateTest : "vygenerovat test znovu",
+        testGeneratedSuccessfully : "Test byl úspěšně vygenerován."
     },
     otherAdministration: {
         reloadManifestsCaption : "Akce: Obnovení z manifestů",
         reloadManifestsButton : "Znovu načíst popisy pluginů z manifestů",
         reloadManifestsLabel: "O akci",
         reloadManifestsDescription: "Informace o pluginech se načítá ze souboru manifestu, když je plugin poprvé nahrán do systému. Pak, i když se soubor manifestu změní, v databázi (a tedy i v uživatelském rozhraní) zůstává popis starý. Použijte tuto akci pro znovunačtení popisů pluginů z manifestů do databáze."
+    },
+    submissionDetails: {
+        formCaption: "O tomto řešení",
+        realName: "Jméno studenta",
+        email: "E-mail studenta",
+        submissionStatus: "Stav řešení",
+        pointsAwarded: "Přidělené body",
+        autoCorrectDetails: "Výsledky automatického hodnocení",
+        submissionDate: "Nahráno",
+        infoLabel: "Nápověda",
+        downloadLinkLabel : "Odkaz ke stažení",
+        downloadLink : "Stáhnout toto řešení",
+        info: "Tabulka na této stránce ukazuje řešení jiných studentů, kterým se toto řešení podobá. Fakt, že tabulka není prázdná, neznamená nutně, že student opisuje. Řešení, o nichž si systém myslí, že z nich bylo toto řešení pravděpodobně opsáno, jsou označená jako \"podezřelá\" and mají vysoké skóre podobnosti.",
+
+        tableCaption: "Řešení, kterým se toto řešení podobá",
+
+        downloadOlderSubmission: "stáhnout toto řešení",
+        goToSubmission: "prozkoumat toto řešení",
+
+        similarityScore : "Podobnost",
+        similarityReport : "Podrobnosti",
+        suspicious : "Podezřelá shoda",
+        oldSubmissionStatus : "Stav",
+        oldRealName : "Autor",
+        oldDate : "Nahráno"
+
     }
 };

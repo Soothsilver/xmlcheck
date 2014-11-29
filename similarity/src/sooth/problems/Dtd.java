@@ -17,6 +17,7 @@ public class Dtd {
         Document dtdDocument = null;
         try {
             for (File file : files){
+                // ignore __MACOSX folder
                 if (file.getPath().toLowerCase(Locale.ROOT).endsWith(".xml")) {
                     String fileContents = null;
                     fileContents = FilesystemUtils.loadTextFile(file); // TODO handle second one, the same for DTD

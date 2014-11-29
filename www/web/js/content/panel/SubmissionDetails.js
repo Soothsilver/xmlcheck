@@ -33,6 +33,16 @@ asm.ui.form.SubmissionInfoForm = asm.ui.DynamicForm.extend({
                         type: 'info',
                         value: asm.lang.general.loadingData
                     },
+                    status: {
+                        label: asm.lang.submissionDetails.submissionStatus,
+                        type: 'info',
+                        value: asm.lang.general.loadingData
+                    },
+                    downloadLink: {
+                        label: asm.lang.submissionDetails.downloadLinkLabel,
+                        type: 'info',
+                        value: asm.lang.general.loadingData
+                    },
                     help: {
                         label: asm.lang.submissionDetails.infoLabel,
                         type: 'info',
@@ -48,26 +58,32 @@ asm.ui.form.SubmissionInfoForm = asm.ui.DynamicForm.extend({
 });
 asm.ui.table.SimilaritiesTable = asm.ui.DynamicTable.extend({
     constructor: function (config) {
+
         var defaults = {
             icon: asm.ui.globals.icons.submissionDetails,
             actions : {
                 raw: [
                     {
-                        icon: 'ui-icon-' + asm.ui.globals.icons.downloadInput,
+                        icon: 'ui-icon-' + asm.ui.globals.icons.downloadOutput,
                         label: asm.lang.submissionDetails.downloadOlderSubmission,
-                        action: $.proxy(function (id) {
+                        action: $.proxy(function (id, data) {
+                            var triggerError = $.proxy(this._triggerError, this);
+                            asm.ui.globals.fileSaver.request('DownloadSubmissionInput',
+                                {id: data.submissionId}, null, triggerError);
                         }, this)
                     },
                     {
-                        icon: 'ui-icon-' + asm.ui.globals.icons.assignment,
+                        icon: 'ui-icon-' + asm.ui.globals.icons.submissionDetails,
                         label: asm.lang.submissionDetails.goToSubmission,
-                        action: $.proxy(function (id) {
+                        action: $.proxy(function (id, data) {
+                            this.trigger('goToSubmissionDetails', { newId : data.submissionId } );
                         }, this)
                     }
                 ]
             },
             structure: {
                 id: { key: true, hidden: true, comparable: true },
+                submissionId: { hidden: true, comparable: true},
                 suspicious : { label:asm.lang.submissionDetails.suspicious, comparable: true, renderer: function(data)
                 {
                     if (data == 'yes') {
@@ -81,6 +97,7 @@ asm.ui.table.SimilaritiesTable = asm.ui.DynamicTable.extend({
                 similarityReport: { label: asm.lang.submissionDetails.similarityReport, comparable: true, string: true},
                 author : { label: asm.lang.submissionDetails.oldRealName, comparable: true, string: true},
                 date : { label: asm.lang.submissionDetails.oldDate, comparable: true, string: true},
+                status : {label: asm.lang.submissionDetails.oldSubmissionStatus, comparable: true, string: true }
             },
             title: asm.lang.submissionDetails.tableCaption,
             stores: [asm.ui.globals.stores.similarities]
@@ -129,6 +146,27 @@ asm.ui.panel.SubmissionDetails = asm.ui.Container.extend({
              infoForm.setFieldValue('points', newSubmission.rating);
              infoForm.setFieldValue('details', newSubmission.details);
              infoForm.setFieldValue('uploaded', newSubmission.date);
+             infoForm.setFieldValue('status', newSubmission.status);
+             infoForm.setFieldValue('downloadLink', '');
+             infoForm.setFieldValue('downloadLink', "<a id='downloadLinkId' href='' onclick='return false;'>" + asm.lang.submissionDetails.downloadLink + "</a>");
+             var triggerError = $.proxy(this._triggerError, this);
+             $("#downloadLinkId").click(
+                 $.proxy(
+                     function () {
+                         asm.ui.globals.fileSaver.request('DownloadSubmissionInput', {id: newSubmission.id }, null, triggerError);
+                     }
+                     ,this
+                 )
+             )
+             /*var triggerError = $.proxy(this._triggerError, this);
+             return {
+                 icon: 'ui-icon-' + asm.ui.globals.icons.downloadInput,
+                 label: asm.lang.grading.downloadSubmission,
+                 action: function (id) {
+                     asm.ui.globals.fileSaver.request('DownloadSubmissionInput',
+                         {id: id}, null, triggerError);
+                 }
+             };*/
          }, this));
 
         // this.config.arguments

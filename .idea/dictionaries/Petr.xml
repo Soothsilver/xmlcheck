@@ -77,6 +77,7 @@
       <w>linefeeds</w>
       <w>localweb</w>
       <w>logfiles</w>
+      <w>mailem</w>
       <w>mainfile</w>
       <w>minima</w>
       <w>motd</w>
@@ -94,6 +95,8 @@
       <w>openwall</w>
       <w>outputfile</w>
       <w>oznámkované</w>
+      <w>oznámkováno</w>
+      <w>oznámkování</w>
       <w>pakosz</w>
       <w>parseru</w>
       <w>passwd</w>
