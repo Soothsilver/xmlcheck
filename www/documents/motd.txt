@@ -1,1 +1,3 @@
-Příšerně žluťoučký kůň úpěl ďábelské ódy.
+Děkujeme čtenáři, že čte tuto uživatelskou dokumentaci. V dnešní době si málokdo najde čas, aby četl manuály, a místo toho očekává, že všemu porozumí i bez návodů a instrukcí. Systém XML Check je samozřejmě velmi intuitivní, ovšem možná vám tato dokumentace ukáže nějaké triky, které vám usnadní její použití.
+
+Nebo se alespoň můžete podívat, co vidí v aplikaci váš cvičící.

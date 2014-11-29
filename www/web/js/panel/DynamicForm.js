@@ -128,6 +128,10 @@ asm.ui.DynamicForm = asm.ui.DynamicContentPanel.extend({
 	 */
 	setFieldOptions: function (fieldName, options) {
 		this.field(fieldName, 'option', 'options', options);
+	},
+
+	setFieldValue: function(fieldName, fieldValue) {
+		this.field(fieldName, 'option', 'value', fieldValue);
 	}
 });
 asm.ui.DynamicForm.implement(asm.ui.FormBuilder);

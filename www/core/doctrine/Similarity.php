@@ -28,9 +28,13 @@ class Similarity {
      */
     private $score;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     private $details;
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $suspicious;
 
     /**
      * Get id
@@ -132,5 +136,28 @@ class Similarity {
     public function getNewSubmission()
     {
         return $this->newSubmission;
+    }
+
+    /**
+     * Set suspicious
+     *
+     * @param boolean $suspicious
+     * @return Similarity
+     */
+    public function setSuspicious($suspicious)
+    {
+        $this->suspicious = $suspicious;
+
+        return $this;
+    }
+
+    /**
+     * Get suspicious
+     *
+     * @return boolean 
+     */
+    public function getSuspicious()
+    {
+        return $this->suspicious;
     }
 }

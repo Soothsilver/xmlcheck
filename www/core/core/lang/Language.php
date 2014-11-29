@@ -44,7 +44,7 @@ abstract class StringID
     const ResetLinkDoesNotExist = 30;
     const ResetLinkExpired = 31;
     const AttachmentExists = 32;
-    const UserNameExists = 33;
+    const UserNameExists = 34;
 }
 
 class Language {

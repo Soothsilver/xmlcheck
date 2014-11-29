@@ -71,7 +71,8 @@ asm.ui.globals = {
 		usertype: 'key',
 		xtest: 'document-b',
 		xtestGenerate: 'refresh',
-        lostPassword: 'key'
+        lostPassword: 'key',
+		submissionDetails: 'copy'
 	},
 	sessionTimeout: 2 * 60 * 60 * 1000, // 2 hours
 	themes: ['black-tie', 'blitzer', 'cupertino', 'dark-hive', 'dot-luv', 'eggplant',

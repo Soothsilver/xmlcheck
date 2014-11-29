@@ -81,17 +81,20 @@ class RemovalManager
         {
             self::hideGroupAndItsAssignments($group);
         }
-        foreach($lecture->getXtests() as $xtest)
+
+
+        // Order is important because of foreign key constraints on the database.
+        foreach ($lecture->getAttachments() as $attachment)
         {
-            Repositories::remove($xtest);
+            Repositories::remove($attachment);
         }
         foreach ($lecture->getQuestions() as $question)
         {
             Repositories::remove($question);
         }
-        foreach ($lecture->getAttachments() as $attachment)
+        foreach($lecture->getXtests() as $xtest)
         {
-            Repositories::remove($attachment);
+            Repositories::remove($xtest);
         }
 
 

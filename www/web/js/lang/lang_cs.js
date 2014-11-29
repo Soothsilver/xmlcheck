@@ -46,7 +46,7 @@ asm.otherlangs.cs = {
     registrationScreen : {
         caption : "Zaregistrovat nového uživatele",
         fullName : "Celé jméno",
-        email : "Email",
+        email : "E-mail",
         username : "Přihlašovací jméno",
         password : "Heslo",
         retypePassword : "Heslo (znovu)",
@@ -68,7 +68,7 @@ asm.otherlangs.cs = {
     },
     lostPasswordScreen : {
         caption : "Požádat o odeslání odkazu na obnovu hesla",
-        email : "Email",
+        email : "E-mail",
         resetButton : "Poslat odkaz na obnovu hesla",
         resetLinkSent : "Odkaz pro obnovu hesla byl odeslán na zadanou adresu. Bude platný pro následujících 24 hodin. Zkontrolujte svojí složku pro spam.",
         resetLinksSent : "Tuto emailovou adresu používá více účtů. Odkaz na obnovu hesla byl poslán za každý z nich. Každý email má v předmětu napsáno, jaký účet obnovuje. Odkazy jsou platné pro následujících 24 hodin. Zkontrolujte svoji složku pro spam."
@@ -118,7 +118,7 @@ asm.otherlangs.cs = {
         otherAdministration : "Jiná administrace",
 
         accountSettings : "Hlavní nastavení",
-        emailNotification : "Emailové notifikace",
+        emailNotification : "E-mailové notifikace",
         userInterface : "Uživatelské rozhraní",
         languageSettings : "Změnit jazyk",
 
@@ -147,16 +147,16 @@ asm.otherlangs.cs = {
         whenRated : 'Když je moje řešení oznámkováno',
         whenGiven : 'Když je zadán nový úkol',
         whenStudentConfirms : 'Když se požádá o známkování',
-        whenRatedHint : 'Poslat email, když cvičící oznámkuje moje řešení',
-        whenGivenHint : 'Poslat email, když do jedné z mých skupin přibyde úkol',
-        whenStudentConfirmsHint : '[Jen cvičící] Poslat email, kdykoliv student požádá o předčasné oznámkování',
+        whenRatedHint : 'Poslat e-mail, když cvičící oznámkuje moje řešení',
+        whenGivenHint : 'Poslat e-mail, když do jedné z mých skupin přibyde úkol',
+        whenStudentConfirmsHint : '[Jen cvičící] Poslat e-mail, kdykoliv student požádá o předčasné oznámkování',
         savedMessage : "Vaše nastavení emailových notifikací byla uložena."
     },
 
     accountSettings : {
         caption : 'Hlavní nastavení',
         fullname : '(*) Celé jméno',
-        email : '(*) Email',
+        email : '(*) E-mail',
         newPassword : 'Nové heslo',
         retypeNewPassword : 'Nové heslo (znovu)',
         nameHint : 'křestní jméno a příjmení oddělené mezerou',
@@ -301,7 +301,7 @@ asm.otherlangs.cs = {
         cancelSubscription : "zrušit členství",
         addRequestSubscription : "přidat se nebo zažádat o členství",
         confirmSubscriptionCancellation : "Potvrdit zrušení členství",
-        confirmSubscriptionCancellationText : "Pokud zrušíte členství, všechna vaše řešení pro tuto skupinu budou smazána a ztratíte všechny body v této skupině. Skutečně chcete zrušit své členství v této skupině?",
+        confirmSubscriptionCancellationText : "Skutečně chcete zrušit své členství v této skupině?",
         subscriptionRequests : "Žádosti o členství",
         realName : "Uživatel",
         email : "E-mail",
@@ -396,7 +396,7 @@ asm.otherlangs.cs = {
         typeHint : "určuje práva uživatele",
         realName : "Celé jméno",
         realNameHint : 'křestní jméno a příjmení oddělená mezerou',
-        email : "Email",
+        email : "E-mail",
         password : "Heslo",
         passwordHint : 'nechat prázdné pro zachování stávajícího hesla; alespoň ' + asm.ui.constants.passwordMinLength +" znaků",
         retypePassword : "Heslo (znovu)",

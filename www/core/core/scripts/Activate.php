@@ -22,7 +22,7 @@ final class Activate extends DataScript
 		/**
 		 * @var $users \User[]
 		 */
-		$users = Repositories::getRepository(Repositories::User)->findBy(['code' => $code]);
+		$users = Repositories::getRepository(Repositories::User)->findBy(['activationCode' => $code]);
 		if (count($users) === 1)
 		{
 			$users[0]->setActivationCode('');

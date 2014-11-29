@@ -16,23 +16,36 @@ final class GetTeacherSubmissions extends DataScript
 	protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::submissionsCorrect))
-			return;
+			return false;
 
         $canViewAuthors = User::instance()->hasPrivileges(User::submissionsViewAuthors);
         $rated = $this->getParams('rated') ? true : false;
         $all = $this->getParams('all') ? true : false;
+        $absolutelyAll = $this->getParams('absolutelyAll') ? true : false;
         $userId = User::instance()->getId();
 
+        if ($absolutelyAll) {
+            if (!$this->userHasPrivileges(User::lecturesManageAll, User::groupsManageAll, User::otherAdministration)) {
+                return false;
+            }
+        }
 
         /**
          * @var $submissions \Submission[]
          */
         // group is a DQL reserved word, so we must use _group
-        $submissions = Repositories::makeDqlQuery("SELECT submission, user, assignment, problem, _group FROM \Submission submission JOIN submission.assignment assignment JOIN assignment.problem problem JOIN submission.user user JOIN assignment.group _group WHERE _group.owner = :submissionCorrector AND (submission.status = 'graded' OR submission.status = 'latest' OR submission.status = 'handsoff')")->setParameter('submissionCorrector', $userId)->getResult();
+
+        if ($absolutelyAll)
+        {
+            $submissions = Repositories::makeDqlQuery("SELECT submission, user, assignment, problem, _group FROM \Submission submission JOIN submission.assignment assignment JOIN assignment.problem problem JOIN submission.user user JOIN assignment.group _group WHERE submission.status <> 'deleted'")->getResult();
+        }
+        else {
+            $submissions = Repositories::makeDqlQuery("SELECT submission, user, assignment, problem, _group FROM \Submission submission JOIN submission.assignment assignment JOIN assignment.problem problem JOIN submission.user user JOIN assignment.group _group WHERE _group.owner = :submissionCorrector AND (submission.status = 'graded' OR submission.status = 'latest' OR submission.status = 'handsoff')")->setParameter('submissionCorrector', $userId)->getResult();
+        }
 
         foreach($submissions as $submission)
         {
-            if (!$all)
+            if (!$all && !$absolutelyAll)
             {
                 if ($rated && $submission->getStatus() !== \Submission::STATUS_GRADED)
                 {
@@ -59,8 +72,12 @@ final class GetTeacherSubmissions extends DataScript
                 ($submission->getOutputfile() != ''),
                 $submission->getAssignment()->getId()
             ];
+            if ($absolutelyAll) {
+                $row[] = ($canViewAuthors ? $submission->getUser()->getEmail(): Language::get(StringID::NotAuthorizedForName));
+            }
             $this->addRowToOutput($row);
         }
+        return true;
 	}
 }
 

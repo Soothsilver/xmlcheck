@@ -1,7 +1,5 @@
 package sooth.objects;
 
-import sooth.entities.tables.records.DocumentsRecord;
-
 public class Document {
     public static enum DocumentType {
         PRIMARY_XML_FILE(1),
@@ -33,6 +31,7 @@ public class Document {
         }
 
     }
+
     private String name;
     private String text;
     private DocumentType type;
@@ -65,10 +64,6 @@ public class Document {
         this.type = type;
         this.text = text;
         this.name = name;
-    }
-
-    public static Document createFromDocumentsRecord(DocumentsRecord record) {
-        return new Document(DocumentType.getDocumentTypeByMysqlIdentifier(record.getType()),record.getText(), record.getName());
     }
 }
 

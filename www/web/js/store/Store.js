@@ -75,9 +75,15 @@ asm.ui.Store = Base.extend({
 	 *	@see getRevision()
 	 */
 	refresh: function (callback) {
-		callback = callback || $.noop;
 
-		var lockAcquired = this._requestLock.acquire(function () {
+		callback = callback || $.noop;
+		// Hack because of SubmissionDetails
+		if (this.config.arguments.newId == 0) {
+			callback([]);
+			return;
+		}
+
+			var lockAcquired = this._requestLock.acquire(function () {
 			callback(this._isCacheExpired() ? null : this._getCache());
 		}, this);
 

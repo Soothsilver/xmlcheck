@@ -25,6 +25,7 @@ class Repositories
     const PluginTest = "PluginTest";
     const Question = "Question";
     const Xtest = "Xtest";
+    const Similarity = "Similarity";
     const Attachment = "Attachment";
     /**
      * @var EntityManager

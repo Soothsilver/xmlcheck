@@ -22,7 +22,8 @@ asm.ui.table.CorrectionRated = asm.ui.table.CorrectionBase.extend({
 			this.config.actions.raw = this.config.actions.raw.concat([
 				this._createRateActionConfig(true),
 				this._createDownloadSubmissionActionConfig(),
-				this._createDownloadOutputActionConfig()
+				this._createDownloadOutputActionConfig(),
+				this._createSubmissionDetailsActionConfig()
 			]);
 		}
 		this.base.apply(this, arguments);

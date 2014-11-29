@@ -68,6 +68,7 @@ class Core
 	{
         try
         {
+            $response = null;
             if (!is_file($pluginFile) || !is_file($inputFile))
             {
                 $error = "plugin file and/or input file don't exist";
@@ -100,7 +101,6 @@ class Core
                 chdir($cwd);
             }
 
-            $response = null;
             if (!$error)
             {
                 if (isset($responseString))

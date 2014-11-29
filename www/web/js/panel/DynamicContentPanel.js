@@ -123,7 +123,7 @@ asm.ui.DynamicContentPanel = asm.ui.ContentPanel.extend({
 
 			}
 		}, this), $.proxy(function () {
-			this._triggerError(new asm.ui.Error('Error while loading data from server. Application may not function properly.', asm.ui.Error.FATAL));
+			this._triggerError(new asm.ui.Error('Error while loading data from server. Application may not function properly.', asm.ui.Error.ERROR));
 		}, this), callback);
 	},
 	/**

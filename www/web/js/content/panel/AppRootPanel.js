@@ -140,9 +140,13 @@ asm.ui.panel.AppRootPanel = asm.ui.ContentSwitcher.extend({
 			this.show(params.stack);
 		}, this);
 		this._navigator.init();
+
 		this._mainPanel.bind('custom.logout', function () {
             this._params = [];
 			this._logout();
+		}, this);
+		this._mainPanel.bind('goToSubmissionDetails', function(submissionId) {
+			this._navigator.redirect('submissionDetails', submissionId);
 		}, this);
 		this._mainPanel.bind('panel.adjustRequest', function (params) {
 			this.redirect.apply(this, params.params);

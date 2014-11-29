@@ -1,4 +1,6 @@
 <?php
+$array = [$columnName -> $name];
+/*
 use asm\core\Repositories;
 use asm\core\User;
 
@@ -19,7 +21,7 @@ try {
     echo "<u>" . $queryException->getMessage() . "</u>";
 }
    \Doctrine\Common\Util\Debug::dump($ratings);
-
+*/
 
 /*import java.util.Objects;
 

@@ -176,6 +176,7 @@ function echoScripts($directory)
     <script type="text/javascript" src="web/js/content/panel/AppRootPanel.js"></script>
     <script type="text/javascript" src="web/js/content/panel/Assignments.js"></script>
     <script type="text/javascript" src="web/js/content/panel/Correction.js"></script>
+    <script type="text/javascript" src="web/js/content/panel/SubmissionDetails.js"></script>
     <script type="text/javascript" src="web/js/content/panel/DocLinkWrapper.js"></script>
     <script type="text/javascript" src="web/js/content/panel/Home.js"></script>
     <script type="text/javascript" src="web/js/content/panel/PluginTests.js"></script>

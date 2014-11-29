@@ -302,7 +302,7 @@ asm.lang = {
         cancelSubscription : "cancel subscription",
         addRequestSubscription : "add/request subscription",
         confirmSubscriptionCancellation : "Confirm Subscription Cancellation",
-        confirmSubscriptionCancellationText : "If you unsubscribe, all your submissions for this group's assignments will be deleted and all points rewarded for them will be lost. Do you really want to unsubscribe from this group?",
+        confirmSubscriptionCancellationText : "Do you really want to unsubscribe from this group?",
         subscriptionRequests : "Subscription requests",
         realName : "User",
         email : "E-mail",
@@ -414,6 +414,7 @@ asm.lang = {
         legacyGradedCaption : "Graded Submissions",
         downloadSubmission : "download submission",
         downloadOutput : "download output",
+        getPlagiarismInfo : "read about similarity comparisons of this submission to others",
         gradeSubmission : "grade submission",
         regradeSubmission : "regrade submission",
         problem: "Problem",
@@ -520,5 +521,28 @@ asm.lang = {
         reloadManifestsButton : "Reload Plugin Descriptions From Manifests",
         reloadManifestsLabel: "About Task",
         reloadManifestsDescription: "Information about plugins is loaded from the manifest file at the time the plugin is first uploaded to the system. Then, even if the manifest file is modified, the database (and therefore, the user interface) does not reflect this. Use this action to reload plugin descriptions from the manifest files into the database."
+    },
+    submissionDetails: {
+        formCaption: "About This Submission",
+        realName: "Student's Name",
+        email: "Student's E-mail",
+        pointsAwarded: "Points Awarded",
+        autoCorrectDetails: "Automatic Evaluation Details",
+        submissionDate: "Uploaded",
+        infoLabel: "Help",
+        info: "The table on this page lists submissions by other students that this submission is similar to. The fact that the table is not empty does not necessarily mean the student was plagiarizing. The submissions where the software thinks plagiarism is likely to have occured are marked 'suspicious' and have a high similarity score.",
+        downloadSubmission: "Download This Submission",
+
+        tableCaption: "Submissions this submission is similar to",
+
+        downloadOlderSubmission: "download this submission",
+        goToSubmission: "examine this submission",
+
+        similarityScore : "Similarity",
+        similarityReport : "Details",
+        suspicious : "Suspicious",
+        oldRealName : "Author",
+        oldDate : "Uploaded"
+
     }
 };

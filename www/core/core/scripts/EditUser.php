@@ -64,7 +64,7 @@ final class EditUser extends DataScript
         // Extract database data
         if ($id)
         {
-            $user = Repositories::findEntity($user, $id);
+            $user = Repositories::findEntity(Repositories::User, $id);
         }
         $userExists = ($user != null);
         $sameNameUserExists = count(Repositories::getRepository(Repositories::User)->findBy(['name' => $username])) > 0;
@@ -100,7 +100,7 @@ final class EditUser extends DataScript
          * @var $user \User
          */
 
-        if (!$userExists) // create/register new user
+        if (!$userExists && !$sameNameUserExists) // create/register new user
         {
             if ($this->getParams('fromRegistrationForm'))
             {
@@ -137,7 +137,7 @@ final class EditUser extends DataScript
             $user->setRealName($realname);
             Repositories::persistAndFlush($user);
         }
-        elseif ($isIdSet && !$sameNameUserExists) // edit existing user
+        elseif ($isIdSet) // edit existing user
         {
             if (!$canEditUsers && ($isTypeSet || (!$isEditingSelf)))
                 return $this->stop(ErrorCode::lowPrivileges, 'cannot edit data of users other than yourself');

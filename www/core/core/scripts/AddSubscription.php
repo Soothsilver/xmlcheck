@@ -33,9 +33,15 @@ class AddSubscription extends DataScript
 		$canJoinPrivate = User::instance()->hasPrivileges(User::groupsJoinPrivate);
 		$groupIsPrivate = $group->getType() == \Group::TYPE_PRIVATE;
 		$hasSufficientPrivileges =
-			($groupIsPrivate && ($canJoinPrivate || $user->hasPrivileges(User::groupsRequest))) // Joining or requesting to be inside a private group
-		 || (!$groupIsPrivate && $user->hasPrivileges(User::groupsJoinPublic));
-		if ($hasSufficientPrivileges)
+			($groupIsPrivate
+				&&
+				($canJoinPrivate || $user->hasPrivileges(User::groupsRequest)))
+				 // Joining or requesting to be inside a private group
+		 ||
+			(!$groupIsPrivate && $user->hasPrivileges(User::groupsJoinPublic))
+			// Joining a public group
+		;
+		if (!$hasSufficientPrivileges)
 		{
 			return $this->death(StringID::InsufficientPrivileges);
 		}

@@ -118,5 +118,15 @@ asm.ui.table.CorrectionBase = asm.ui.DynamicTable.extend({
 						{id: id}, null, triggerError);
 			}
 		};
+	},
+	_createSubmissionDetailsActionConfig: function () {
+		var triggerError = $.proxy(this._triggerError, this);
+		return {
+			icon: 'ui-icon-' + asm.ui.globals.icons.submissionDetails,
+			label: asm.lang.grading.getPlagiarismInfo,
+			action: $.proxy(function (id) {
+				this.trigger('goToSubmissionDetails', id);
+			}, this)
+		};
 	}
 });

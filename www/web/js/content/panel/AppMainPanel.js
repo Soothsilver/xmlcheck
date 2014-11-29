@@ -38,6 +38,7 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 
                         correctionSeparated: new asm.ui.panel.CorrectionWithSeparatedAssignments(),
 						correctionAll: new asm.ui.panel.Correction(),
+						submissionDetails: new asm.ui.panel.SubmissionDetails(),
 
 						requests: new asm.ui.table.SubscriptionRequests({
 							actions: {

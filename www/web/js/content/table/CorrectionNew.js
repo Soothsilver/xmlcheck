@@ -8,7 +8,8 @@ asm.ui.table.CorrectionNew = asm.ui.table.CorrectionBase.extend({
 				raw: [
 					this._createRateActionConfig(),
 					this._createDownloadSubmissionActionConfig(),
-					this._createDownloadOutputActionConfig()
+					this._createDownloadOutputActionConfig(),
+					this._createSubmissionDetailsActionConfig()
 				]
 			},
             structure: {
