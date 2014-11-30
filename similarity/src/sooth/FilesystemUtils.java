@@ -26,6 +26,19 @@ public class FilesystemUtils {
 
 	private static final int BUFFER_SIZE = 2048; ///< default buffer size
 
+	public static String getFileExtension(File file) {
+		String name = file.getName();
+		int lastIndexOf = name.lastIndexOf(".");
+		if (lastIndexOf == -1) {
+			return "";
+		}
+		if (lastIndexOf == name.length()-1)
+		{
+			return "";
+		}
+		return name.substring(lastIndexOf+1);
+	}
+
     /**
      * Copies the contents of the source directory into the second directory.
      * Code by Archimedes Trajano at http://stackoverflow.com/a/10068306/1580088

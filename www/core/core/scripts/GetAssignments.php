@@ -16,13 +16,15 @@ final class GetAssignments extends DataScript
 		if (!$this->userHasPrivileges(User::groupsManageAll, User::groupsManageOwn))
 			return false;
 
-		$user = User::instance();
-        $conditions = array('deleted' => false);
-        if (!$user->hasPrivileges(User::groupsManageAll)) { $conditions['owner'] = $user->getId(); }
         /**
          * @var $assignments \Assignment[]
          */
-        $assignments = Repositories::getRepository(Repositories::Assignment)->findBy($conditions);
+        if (User::instance()->hasPrivileges(User::groupsManageAll)) {
+            $assignments = Repositories::getRepository(Repositories::Assignment)->findBy(['deleted' => false]);
+        }
+        else {
+            $assignments = Repositories::getEntityManager()->createQuery('SELECT a, g FROM \Assignment a JOIN a.group g WHERE a.deleted = false AND g.owner = :ownerId')->setParameter('ownerId', User::instance()->getId())->getResult();
+        }
         foreach($assignments as $assignment)
         {
             $row = array(

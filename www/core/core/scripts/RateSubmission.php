@@ -35,7 +35,7 @@ final class RateSubmission extends DataScript
 		 */
 		$submission = Repositories::findEntity(Repositories::Submission, $id);
 		$user = User::instance();
-		if ($submission->getUser()->getId() !== $user->getId()) {
+		if ($submission->getAssignment()->getGroup()->getOwner()->getId() !== $user->getId()) {
 			return $this->death(StringID::InsufficientPrivileges);
 		}
 		$status = $submission->getStatus();
@@ -73,6 +73,8 @@ final class RateSubmission extends DataScript
 		if ($rating > $maxReward) {
 			return $this->stop('rating exceeds assignment\'s maximum reward');
 		}
+		// TODO it does not auto-refresh the page
+		$submission->setStatus(\Submission::STATUS_GRADED);
 		$submission->setRating($rating);
 		$submission->setExplanation($explanation);
 		Repositories::persistAndFlush($submission);

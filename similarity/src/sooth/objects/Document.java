@@ -13,6 +13,19 @@ public class Document {
         XSLT_SCRIPT(9),
         DIRECTORY_STRUCTURE(10);
 
+        public boolean canBePresentOnlyOnce()
+        {
+            return
+                (this.mysqlIdentifier == 1) ||
+                (this.mysqlIdentifier == 2) ||
+                (this.mysqlIdentifier == 3) ||
+                (this.mysqlIdentifier == 4) ||
+                (this.mysqlIdentifier == 6) ||
+                (this.mysqlIdentifier == 9) ||
+                (this.mysqlIdentifier == 10);
+
+        }
+
 
         private int mysqlIdentifier;
         private DocumentType(int mysqlIdentifier) {

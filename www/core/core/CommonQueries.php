@@ -3,6 +3,8 @@ namespace asm\core;
 
 
 class CommonQueries {
+    // TODO None of this works, I think.
+
     /**
      * Returns an array of all attachments that can be viewed and deleted by the logged-in user.
      *

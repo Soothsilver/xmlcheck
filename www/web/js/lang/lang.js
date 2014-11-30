@@ -539,6 +539,7 @@ asm.lang = {
 
         downloadOlderSubmission: "download this submission",
         goToSubmission: "examine this submission",
+        // TODO elsewhere: in correctionAll, show whether the solution is "latest" or "handsoff"
 
         similarityScore : "Similarity",
         similarityReport : "Details",

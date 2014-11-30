@@ -13,6 +13,7 @@ final class GetTeacherRatings extends DataScript
 	{
 		if (!$this->userHasPrivileges(User::groupsManageAll, User::groupsManageOwn))
 			return false;
+		$canManageAll = User::instance()->hasPrivileges(User::groupsManageAll);
 		/*
 		 * Output format documentation:
 		 * GROUPID => [
@@ -41,10 +42,14 @@ final class GetTeacherRatings extends DataScript
 		$result = array();
 		foreach ($submissions as $s)
 		{
+
 			$assignment = $s->getAssignment();
 			$group = $assignment->getGroup();
 			$lecture = $group->getLecture();
 			$problem = $assignment->getProblem();
+			if (!$canManageAll && $group->getOwner()->getId() !== User::instance()->getId()) {
+				continue;
+			}
 			if (!isset($result[$group->getId()]))
 			{
 				$result[$group->getId()] = array(

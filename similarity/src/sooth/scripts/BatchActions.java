@@ -21,7 +21,7 @@ public class BatchActions {
      * Deletes all documents and similarities detected, recreates all documents, and then runs similarity checking on everything.
      * This method will take a great amount of time to run.
      */
-    public static void recheckEntireDatabase() {
+    public static void makeEntireDatabase() {
         BatchActions.createDocumentsFromAllSubmissions();
         BatchActions.runPlagiarismCheckingOnEntireDatabase();
     }
@@ -72,14 +72,14 @@ public class BatchActions {
         logger.info("Document records created.");
     }
 
-    public static void destroyAllSimilarities() {
+    private static void destroyAllSimilarities() {
         logger.info("I will destroy all similarities.");
         DSLContext context = Database.getContext();
         context.delete(Tables.SIMILARITIES).execute();
         logger.info("All similarities destroyed and removed from the database.");
     }
 
-    public static void destroyAllDocuments() {
+    private static void destroyAllDocuments() {
         logger.info("I will destroy all documents.");
         DSLContext context = Database.getContext();
          context.delete(Tables.DOCUMENTS).execute();

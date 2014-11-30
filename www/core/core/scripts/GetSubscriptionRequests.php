@@ -16,7 +16,7 @@ final class GetSubscriptionRequests extends DataScript
 		if (!$this->userHasPrivileges(User::groupsAdd))
 			return false;
 
-		$requests = Repositories::getEntityManager()->createQuery("SELECT s FROM \Subscription s WHERE s.group.owner = :ownerId")
+		$requests = Repositories::getEntityManager()->createQuery("SELECT s, g FROM \Subscription s JOIN s.group g WHERE g.owner = :ownerId")
 			->setParameter("ownerId", User::instance()->getId())
 			->getResult();
 		foreach ($requests as $request) {
