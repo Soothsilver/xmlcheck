@@ -17,14 +17,44 @@ package sooth.entities;
 public class Tables {
 
 	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Alltogether ALLTOGETHER = sooth.entities.tables.Alltogether.ALLTOGETHER;
+
+	/**
 	 * The table asmregen.assignments
 	 */
 	public static final sooth.entities.tables.Assignments ASSIGNMENTS = sooth.entities.tables.Assignments.ASSIGNMENTS;
 
 	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Assignmentsproblemslectures ASSIGNMENTSPROBLEMSLECTURES = sooth.entities.tables.Assignmentsproblemslectures.ASSIGNMENTSPROBLEMSLECTURES;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Assignmentsproblemslecturesgroups ASSIGNMENTSPROBLEMSLECTURESGROUPS = sooth.entities.tables.Assignmentsproblemslecturesgroups.ASSIGNMENTSPROBLEMSLECTURESGROUPS;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Assignmentsproblemslecturesgroupsplugins ASSIGNMENTSPROBLEMSLECTURESGROUPSPLUGINS = sooth.entities.tables.Assignmentsproblemslecturesgroupsplugins.ASSIGNMENTSPROBLEMSLECTURESGROUPSPLUGINS;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Assignmentsproblemsplugins ASSIGNMENTSPROBLEMSPLUGINS = sooth.entities.tables.Assignmentsproblemsplugins.ASSIGNMENTSPROBLEMSPLUGINS;
+
+	/**
 	 * The table asmregen.attachments
 	 */
 	public static final sooth.entities.tables.Attachments ATTACHMENTS = sooth.entities.tables.Attachments.ATTACHMENTS;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Attachmentslectures ATTACHMENTSLECTURES = sooth.entities.tables.Attachmentslectures.ATTACHMENTSLECTURES;
 
 	/**
 	 * The table asmregen.documents
@@ -35,6 +65,11 @@ public class Tables {
 	 * The table asmregen.groups
 	 */
 	public static final sooth.entities.tables.Groups GROUPS = sooth.entities.tables.Groups.GROUPS;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Groupslectures GROUPSLECTURES = sooth.entities.tables.Groupslectures.GROUPSLECTURES;
 
 	/**
 	 * The table asmregen.lectures
@@ -57,9 +92,24 @@ public class Tables {
 	public static final sooth.entities.tables.Problems PROBLEMS = sooth.entities.tables.Problems.PROBLEMS;
 
 	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Problemslectures PROBLEMSLECTURES = sooth.entities.tables.Problemslectures.PROBLEMSLECTURES;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Problemsplugins PROBLEMSPLUGINS = sooth.entities.tables.Problemsplugins.PROBLEMSPLUGINS;
+
+	/**
 	 * The table asmregen.questions
 	 */
 	public static final sooth.entities.tables.Questions QUESTIONS = sooth.entities.tables.Questions.QUESTIONS;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Questionslectures QUESTIONSLECTURES = sooth.entities.tables.Questionslectures.QUESTIONSLECTURES;
 
 	/**
 	 * The table asmregen.similarities
@@ -72,9 +122,49 @@ public class Tables {
 	public static final sooth.entities.tables.Submissions SUBMISSIONS = sooth.entities.tables.Submissions.SUBMISSIONS;
 
 	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Submissionsassignmentsproblemslecturesgroups SUBMISSIONSASSIGNMENTSPROBLEMSLECTURESGROUPS = sooth.entities.tables.Submissionsassignmentsproblemslecturesgroups.SUBMISSIONSASSIGNMENTSPROBLEMSLECTURESGROUPS;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Submissionsassignmentsproblemsplugins SUBMISSIONSASSIGNMENTSPROBLEMSPLUGINS = sooth.entities.tables.Submissionsassignmentsproblemsplugins.SUBMISSIONSASSIGNMENTSPROBLEMSPLUGINS;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Submissionsfullwithowners SUBMISSIONSFULLWITHOWNERS = sooth.entities.tables.Submissionsfullwithowners.SUBMISSIONSFULLWITHOWNERS;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Submissionsusers SUBMISSIONSUSERS = sooth.entities.tables.Submissionsusers.SUBMISSIONSUSERS;
+
+	/**
 	 * The table asmregen.subscriptions
 	 */
 	public static final sooth.entities.tables.Subscriptions SUBSCRIPTIONS = sooth.entities.tables.Subscriptions.SUBSCRIPTIONS;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Subscriptionsassignmentsproblemslecturesgroups SUBSCRIPTIONSASSIGNMENTSPROBLEMSLECTURESGROUPS = sooth.entities.tables.Subscriptionsassignmentsproblemslecturesgroups.SUBSCRIPTIONSASSIGNMENTSPROBLEMSLECTURESGROUPS;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Subscriptionsgroupslectures SUBSCRIPTIONSGROUPSLECTURES = sooth.entities.tables.Subscriptionsgroupslectures.SUBSCRIPTIONSGROUPSLECTURES;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Subscriptionsusers SUBSCRIPTIONSUSERS = sooth.entities.tables.Subscriptionsusers.SUBSCRIPTIONSUSERS;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Subscriptionsusersgroupslectures SUBSCRIPTIONSUSERSGROUPSLECTURES = sooth.entities.tables.Subscriptionsusersgroupslectures.SUBSCRIPTIONSUSERSGROUPSLECTURES;
 
 	/**
 	 * The table asmregen.tests
@@ -82,12 +172,52 @@ public class Tables {
 	public static final sooth.entities.tables.Tests TESTS = sooth.entities.tables.Tests.TESTS;
 
 	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Testsplugins TESTSPLUGINS = sooth.entities.tables.Testsplugins.TESTSPLUGINS;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Uascount UASCOUNT = sooth.entities.tables.Uascount.UASCOUNT;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Usergrouprating USERGROUPRATING = sooth.entities.tables.Usergrouprating.USERGROUPRATING;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Usergroupratingwithowners USERGROUPRATINGWITHOWNERS = sooth.entities.tables.Usergroupratingwithowners.USERGROUPRATINGWITHOWNERS;
+
+	/**
 	 * The table asmregen.users
 	 */
 	public static final sooth.entities.tables.Users USERS = sooth.entities.tables.Users.USERS;
 
 	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Usersprivileges USERSPRIVILEGES = sooth.entities.tables.Usersprivileges.USERSPRIVILEGES;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Userssubmissionsconfirmed USERSSUBMISSIONSCONFIRMED = sooth.entities.tables.Userssubmissionsconfirmed.USERSSUBMISSIONSCONFIRMED;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Userssubmissionsconfirmedwithowners USERSSUBMISSIONSCONFIRMEDWITHOWNERS = sooth.entities.tables.Userssubmissionsconfirmedwithowners.USERSSUBMISSIONSCONFIRMEDWITHOWNERS;
+
+	/**
 	 * The table asmregen.xtests
 	 */
 	public static final sooth.entities.tables.Xtests XTESTS = sooth.entities.tables.Xtests.XTESTS;
+
+	/**
+	 * VIEW
+	 */
+	public static final sooth.entities.tables.Xtestslectures XTESTSLECTURES = sooth.entities.tables.Xtestslectures.XTESTSLECTURES;
 }

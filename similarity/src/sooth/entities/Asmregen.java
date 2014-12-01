@@ -16,7 +16,7 @@ package sooth.entities;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Asmregen extends org.jooq.impl.SchemaImpl {
 
-	private static final long serialVersionUID = -707800190;
+	private static final long serialVersionUID = 619930714;
 
 	/**
 	 * The reference instance of <code>asmregen</code>
@@ -39,20 +39,46 @@ public class Asmregen extends org.jooq.impl.SchemaImpl {
 
 	private final java.util.List<org.jooq.Table<?>> getTables0() {
 		return java.util.Arrays.<org.jooq.Table<?>>asList(
+			sooth.entities.tables.Alltogether.ALLTOGETHER,
 			sooth.entities.tables.Assignments.ASSIGNMENTS,
+			sooth.entities.tables.Assignmentsproblemslectures.ASSIGNMENTSPROBLEMSLECTURES,
+			sooth.entities.tables.Assignmentsproblemslecturesgroups.ASSIGNMENTSPROBLEMSLECTURESGROUPS,
+			sooth.entities.tables.Assignmentsproblemslecturesgroupsplugins.ASSIGNMENTSPROBLEMSLECTURESGROUPSPLUGINS,
+			sooth.entities.tables.Assignmentsproblemsplugins.ASSIGNMENTSPROBLEMSPLUGINS,
 			sooth.entities.tables.Attachments.ATTACHMENTS,
+			sooth.entities.tables.Attachmentslectures.ATTACHMENTSLECTURES,
 			sooth.entities.tables.Documents.DOCUMENTS,
 			sooth.entities.tables.Groups.GROUPS,
+			sooth.entities.tables.Groupslectures.GROUPSLECTURES,
 			sooth.entities.tables.Lectures.LECTURES,
 			sooth.entities.tables.Plugins.PLUGINS,
 			sooth.entities.tables.Privileges.PRIVILEGES,
 			sooth.entities.tables.Problems.PROBLEMS,
+			sooth.entities.tables.Problemslectures.PROBLEMSLECTURES,
+			sooth.entities.tables.Problemsplugins.PROBLEMSPLUGINS,
 			sooth.entities.tables.Questions.QUESTIONS,
+			sooth.entities.tables.Questionslectures.QUESTIONSLECTURES,
 			sooth.entities.tables.Similarities.SIMILARITIES,
 			sooth.entities.tables.Submissions.SUBMISSIONS,
+			sooth.entities.tables.Submissionsassignmentsproblemslecturesgroups.SUBMISSIONSASSIGNMENTSPROBLEMSLECTURESGROUPS,
+			sooth.entities.tables.Submissionsassignmentsproblemsplugins.SUBMISSIONSASSIGNMENTSPROBLEMSPLUGINS,
+			sooth.entities.tables.Submissionsfullwithowners.SUBMISSIONSFULLWITHOWNERS,
+			sooth.entities.tables.Submissionsusers.SUBMISSIONSUSERS,
 			sooth.entities.tables.Subscriptions.SUBSCRIPTIONS,
+			sooth.entities.tables.Subscriptionsassignmentsproblemslecturesgroups.SUBSCRIPTIONSASSIGNMENTSPROBLEMSLECTURESGROUPS,
+			sooth.entities.tables.Subscriptionsgroupslectures.SUBSCRIPTIONSGROUPSLECTURES,
+			sooth.entities.tables.Subscriptionsusers.SUBSCRIPTIONSUSERS,
+			sooth.entities.tables.Subscriptionsusersgroupslectures.SUBSCRIPTIONSUSERSGROUPSLECTURES,
 			sooth.entities.tables.Tests.TESTS,
+			sooth.entities.tables.Testsplugins.TESTSPLUGINS,
+			sooth.entities.tables.Uascount.UASCOUNT,
+			sooth.entities.tables.Usergrouprating.USERGROUPRATING,
+			sooth.entities.tables.Usergroupratingwithowners.USERGROUPRATINGWITHOWNERS,
 			sooth.entities.tables.Users.USERS,
-			sooth.entities.tables.Xtests.XTESTS);
+			sooth.entities.tables.Usersprivileges.USERSPRIVILEGES,
+			sooth.entities.tables.Userssubmissionsconfirmed.USERSSUBMISSIONSCONFIRMED,
+			sooth.entities.tables.Userssubmissionsconfirmedwithowners.USERSSUBMISSIONSCONFIRMEDWITHOWNERS,
+			sooth.entities.tables.Xtests.XTESTS,
+			sooth.entities.tables.Xtestslectures.XTESTSLECTURES);
 	}
 }
