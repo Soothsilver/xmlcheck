@@ -16,7 +16,11 @@ use Exception, ErrorException;
  */
 class ErrorHandler
 {
-	private static $instance;	///< singleton instance
+	/**
+	 * The singleton instance of this class.
+	 * @var ErrorHandler
+     */
+	private static $instance;
 
 	/**
 	 * (Creates and) gets singleton instance.
@@ -31,8 +35,16 @@ class ErrorHandler
 		return self::$instance;
 	}
 
-	private $callbacks = [];	///< bound exception handlers
-	private $registered = false;	///< true if class has taken over error handling
+	/**
+	 * Exception handlers to call whenever an exception occurs
+	 * @var callable[]
+     */
+	private $callbacks = [];
+	/**
+	 * True, if this class has taken over error handling
+	 * @var bool
+     */
+	private $registered = false;
 
 	/**
 	 * Register this handler to take over all PHP error and exception handling.
@@ -42,34 +54,29 @@ class ErrorHandler
 	 */
     public static function register()
     {
-        self::instance()->_register();
-    }
-	private function _register ()
-	{
-      	if (!$this->registered)
+        $instance = self::instance();
+		if (!$instance->registered)
 		{
-			set_error_handler([$this, 'handleError']);
-			set_exception_handler([$this, 'handleException']);
-			$this->registered;
+			set_error_handler([$instance, 'handleError']);
+			set_exception_handler([$instance, 'handleException']);
+			$instance->registered = true;
 		}
-	}
+    }
+
 	/**
 	 * Unregister this handler (pass PHP error and exception handling back to previous handler).
 	 * @see register()
 	 */
     public static function unregister()
     {
-        self::instance()->_unregister();
-    }
-    private function _unregister ()
-	{
-		if ($this->registered)
+        $instance = self::$instance;
+		if ($instance->registered)
 		{
 			restore_exception_handler();
 			restore_error_handler();
-			$this->registered = false;
+			$instance->registered = false;
 		}
-	}
+    }
 
 	/**
 	 * Bind the callback to this handler. Whenever an error or unhandled exception occurs, this callback will be called,

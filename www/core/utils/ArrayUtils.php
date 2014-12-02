@@ -3,7 +3,7 @@
 namespace asm\utils;
 
 /**
- * Array-oriented utility functions.
+ * Array-oriented static utility functions.
  */
 class ArrayUtils
 {

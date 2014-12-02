@@ -43,17 +43,46 @@ class Logger
 		return new self($folder);
 	}
 
-    private $folder;	///< folder to store log files in
-
-	private $lines = [];		///< log entry 'lines' (error descriptions)
-	private $header = 'Log Entry';  ///< customized entry header
-	private $prefix = 'logfile';	///< logfile name prefix
-	private $suffix = '.log';		///< logfile name suffix
-	private $maxFileSize = 1048576;	///< maximum size of individual log files in bytes (default is 1MB)
-	private $maxFileCount = 5;		///< maximum number of log files
-	private $entrySeparator = "\n#ENTRY\n";	///< entry separator
-	private $lineSeparator = "\n#LINE\n";		///< 'line' separator
-	private $datetimeFormat = DateTime::ISO8601;	///< entry timestamp format
+	/**
+	 * @var string Folder to store log files in
+     */
+	private $folder;
+	/**
+	 * @var array Lines in a log entry (a line should contain an error description)
+     */
+	private $lines = [];
+	/**
+	 * @var string Header written before each log entry
+     */
+	private $header = 'Log Entry';
+	/**
+	 * @var string Prefix for the logfile filename
+     */
+	private $prefix = 'logfile';
+	/**
+	 * @var string Suffix for the logfile filename
+     */
+	private $suffix = '.log';
+	/**
+	 * @var int Maximum size of a logfile in byes
+     */
+	private $maxFileSize = 1048576;
+	/**
+	 * @var int Maximum number of log files. When this is exceeded, the old logfiles start to be overwritten.
+     */
+	private $maxFileCount = 5;
+	/**
+	 * @var string Separator present between two log entries
+     */
+	private $entrySeparator = "\n#ENTRY\n";
+	/**
+	 * @var string Separator present between two log lines
+     */
+	private $lineSeparator = "\n#LINE\n";
+	/**
+	 * @var string The format (as for the DateTime::toString() function) to print the date with
+     */
+	private $datetimeFormat = DateTime::ISO8601;
 
 	/**
 	 * (Creates and) sets folder for log files to be saved in.

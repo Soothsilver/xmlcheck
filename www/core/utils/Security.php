@@ -7,7 +7,14 @@ require_once(__DIR__ . '/PasswordHash.php');
  * Contains static functions that handle hashing passwords.
  */
 class Security {
+    /**
+     * This string in the user's encryptionType means that his password is hashed using the PHPASS library.
+     */
     const HASHTYPE_PHPASS = 'phpass';
+    /**
+     * This string in the user's encryptionType means that his password is hashed using the MD5 algorithm.
+     */
+    // TODO zeptat se pani Holubové, jestli se mam obtěžovat s programátorskou dokumentaci, a popř. jak ji vyznačit
     const HASHTYPE_MD5 = 'md5';
     /**
      * Creates a hash of the password given using the specified encryption method.

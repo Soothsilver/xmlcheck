@@ -7,7 +7,9 @@ namespace asm\utils;
  */
 class StringUtils
 {
-	/// prolog for XML files
+	/**
+	 * Prolog to write at the beginning of generated XML fragments
+     */
 	const xmlProlog = '<?xml version="1.0" standalone="yes"?>';
 
 	/**

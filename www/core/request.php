@@ -37,4 +37,5 @@ ErrorHandler::bind(function (Exception $e) {
 });
 
 // Process the AJAX request.
+// Usually, the Javascript part of XML Check sends a POST request but in some special cases, a GET request is needed.
 Core::handleUiRequest(empty($_POST) ? $_GET : $_POST, $_FILES);

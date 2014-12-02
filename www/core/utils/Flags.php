@@ -42,7 +42,19 @@ class Flags
 		return $matched;
 	}
 
-	protected $flags = [];	///< array with flags {\<flag name\> => 0b1, \<flag name\> => 0b10, \<flag name\> => 0b100...}
+	/**
+	 * Array that converts flag names to their position:
+	 * @code
+	 * [
+	 *  flagName => 0b1
+	 *  flagName2 => 0b10
+	 *  flagName3 => 0b100
+	 *  ...
+	 * ]
+	 * @endcode
+	 * @var array
+     */
+	protected $flags = [];
 
 	/**
 	 * Creates a Flags object. Each flag value (1, 2, 4, ...) receives a name from the input array.
