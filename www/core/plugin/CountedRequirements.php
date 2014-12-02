@@ -7,10 +7,22 @@ namespace asm\plugin;
  */
 class CountedRequirements
 {
-	protected $descriptions = array();	///< descriptions of required elements
-	protected $requirements = array();	///< quantities of element occurrences required
-	protected $counts = array();			///< element occurrences counted so far
-	protected $extras = array();			///< additional data used for occurrence checking
+	/**
+	 * @var string[] Descriptions of required elements
+     */
+	protected $descriptions = array();
+	/**
+	 * @var int[] Quantities of required elements. This and the array $descriptions are linked.
+	 */
+	protected $requirements = array();
+	/**
+	 * @var int[] Number of occurrences counted so far. This and the arrays $descriptions and $requirements are linked.
+	 */
+	protected $counts = array();
+	/**
+	 * @var array Additional data used for occurrence checking
+	 */
+	protected $extras = array();
 
 	/**
 	 * Initializes instance with descriptions and required quantities of elements.

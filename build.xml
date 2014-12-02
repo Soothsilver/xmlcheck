@@ -18,6 +18,7 @@
     <property name="dir.java-plugins.generated-files" location="${dir.java-plugins}/generated-files" />
     <property name="dir.java-plugins.build" location="${dir.java-plugins}/generated-files/build" />
     <property name="dir.java-plugins.jars" location="${dir.java-plugins}/generated-files/jars" />
+    <property name="dir.exported-system" location="exported-system" />
 
     <property name="dir.similarity" location="similarity" />
     <property name="dir.similarity.build" location="${dir.similarity}/build" />
@@ -34,8 +35,21 @@
             <include name="**/*.jar" />
         </fileset>
     </path>
+    <target name="export" depends="update-all" description="Exports the current version of the system to a separate directory that is ready to be uploaded to a production server. This means the contents of the 'www' subdirectory is copied, except that submissions and output are not copied (plugins are). The config.ini file isn't copied either.">
+        <delete includeemptydirs="true">
+            <fileset dir="${dir.exported-system}" includes="**/*" />
+        </delete>
+        <copy todir="${dir.exported-system}">
+            <fileset dir="${dir.www}">
+                <exclude name="**/config.ini" />
+                <exclude name="**/files/submissions/**" />
+                <exclude name="**/files/output/**" />
+            </fileset>
+        </copy>
+        <mkdir dir="${dir.exported-system}/files/submissions" />
+        <mkdir dir="${dir.exported-system}/files/output" />
+    </target>
     <target name="update-all" depends="update-plugins, update-similarity" description="Recompile all three Java modules and copy them to the main application.">
-
     </target>
     <target name="update-similarity" depends="jar-similarity" description="Recompile the similarity module and copy it to the main application.">
         <copy file="${dir.java-plugins.jars}/${jarfile.similarity}" tofile="${dir.www}/${dir.www.coreFolder}/${jarfile.similarity}" />
