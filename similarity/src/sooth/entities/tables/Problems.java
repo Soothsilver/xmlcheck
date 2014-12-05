@@ -16,7 +16,7 @@ package sooth.entities.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Problems extends org.jooq.impl.TableImpl<sooth.entities.tables.records.ProblemsRecord> {
 
-	private static final long serialVersionUID = -1814199690;
+	private static final long serialVersionUID = 1606317162;
 
 	/**
 	 * The reference instance of <code>asmregen.problems</code>
@@ -47,6 +47,11 @@ public class Problems extends org.jooq.impl.TableImpl<sooth.entities.tables.reco
 	public final org.jooq.TableField<sooth.entities.tables.records.ProblemsRecord, java.lang.String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
 
 	/**
+	 * The column <code>asmregen.problems.pluginId</code>.
+	 */
+	public final org.jooq.TableField<sooth.entities.tables.records.ProblemsRecord, java.lang.Integer> PLUGINID = createField("pluginId", org.jooq.impl.SQLDataType.INTEGER, this, "");
+
+	/**
 	 * The column <code>asmregen.problems.config</code>.
 	 */
 	public final org.jooq.TableField<sooth.entities.tables.records.ProblemsRecord, java.lang.String> CONFIG = createField("config", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
@@ -60,11 +65,6 @@ public class Problems extends org.jooq.impl.TableImpl<sooth.entities.tables.reco
 	 * The column <code>asmregen.problems.deleted</code>.
 	 */
 	public final org.jooq.TableField<sooth.entities.tables.records.ProblemsRecord, java.lang.Byte> DELETED = createField("deleted", org.jooq.impl.SQLDataType.TINYINT.nullable(false), this, "");
-
-	/**
-	 * The column <code>asmregen.problems.pluginId</code>.
-	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.ProblemsRecord, java.lang.Integer> PLUGINID = createField("pluginId", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
 	/**
 	 * Create a <code>asmregen.problems</code> table reference
@@ -117,7 +117,7 @@ public class Problems extends org.jooq.impl.TableImpl<sooth.entities.tables.reco
 	 */
 	@Override
 	public java.util.List<org.jooq.ForeignKey<sooth.entities.tables.records.ProblemsRecord, ?>> getReferences() {
-		return java.util.Arrays.<org.jooq.ForeignKey<sooth.entities.tables.records.ProblemsRecord, ?>>asList(sooth.entities.Keys.FK_8E6662453BC48E00, sooth.entities.Keys.FK_8E6662459A9A50E9);
+		return java.util.Arrays.<org.jooq.ForeignKey<sooth.entities.tables.records.ProblemsRecord, ?>>asList(sooth.entities.Keys.FK_8E6662459A9A50E9, sooth.entities.Keys.FK_8E6662453BC48E00);
 	}
 
 	/**

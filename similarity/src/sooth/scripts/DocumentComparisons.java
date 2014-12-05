@@ -5,7 +5,7 @@ import sooth.similarity.ComparisonResult;
 import sooth.similarity.*;
 
 public class DocumentComparisons {
-    private static final int LEVENSHTEIN_MAX_DOCUMENT_SIZE = 4000;
+    private static final int LEVENSHTEIN_MAX_DOCUMENT_SIZE = 2000;
     private static final int OBVIOUS_SIZE_DIFFERENCE = 2000;
     public static ComparisonResult compare(Document oldDocument, Document newDocument, String pluginIdentifier)
     {
@@ -14,9 +14,8 @@ public class DocumentComparisons {
             case PRIMARY_XML_FILE:
 
                 // Obvious size mismatch
-                if (Math.abs(oldDocument.getText().length() - newDocument.getText().length()) > OBVIOUS_SIZE_DIFFERENCE)
+                if (Math.abs(oldDocument.getTextWithFoldedWhitespace().length() - newDocument.getTextWithFoldedWhitespace().length()) > OBVIOUS_SIZE_DIFFERENCE)
                 {
-                    // TODO should compare whitespaceless documents
                     return new ComparisonResult(0, "One document has at least " + OBVIOUS_SIZE_DIFFERENCE + " more characters than the other one. It is unlikely they were copied from each other. Skipping the entire plagiarism check.", false);
                 }
 
@@ -30,13 +29,15 @@ public class DocumentComparisons {
 
 
                 // Levenshtein comparison, if the document is small enough
-                if (oldDocument.getText().length() < LEVENSHTEIN_MAX_DOCUMENT_SIZE && newDocument.getText().length() < LEVENSHTEIN_MAX_DOCUMENT_SIZE) {
-                    int distance = LevenshteinDistanceIgnoreWhitespaceTest.compare(oldDocument.getText(), newDocument.getText());
+                if (oldDocument.getTextWithFoldedWhitespace().length() < LEVENSHTEIN_MAX_DOCUMENT_SIZE && newDocument.getTextWithFoldedWhitespace().length() < LEVENSHTEIN_MAX_DOCUMENT_SIZE) {
+                    int distance = LevenshteinDistanceIgnoreWhitespaceTest.compare(oldDocument.getTextWithFoldedWhitespace(), newDocument.getTextWithFoldedWhitespace());
+
                     if (distance < 98) {
-                        return new ComparisonResult(100 - distance, "The two XML documents are separated by a Levenshtein distance of merely " + distance + ". It seems very unlikely for this to be a coincidence.", true);
+                        return new ComparisonResult(90 + (distance / 100), "The two XML documents are separated by a Levenshtein distance of merely " + distance + ". It seems very unlikely for this to be a coincidence.", true);
                     }
                     else {
-                        details += "Levenshtein test ran, but did not conclude that plagiarism occurred.\n";
+                        int score = 100 - (100 * 2 * distance) / (oldDocument.getTextWithFoldedWhitespace().length() + newDocument.getTextWithFoldedWhitespace().length());
+                        return new ComparisonResult(score, "The Levenshtein distance of the documents is " + distance + ".", false);
                     }
                 } else {
                     similarity = Math.max(similarity, 2);

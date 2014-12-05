@@ -15,13 +15,55 @@ import sooth.similarity.ComparisonResult;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.*;
 import java.util.logging.Logger;
 
 public class Operations {
     private static Logger logger = Logging.getLogger(Operations.class.getName());
+    private static final boolean useMultithreading = false;
 
-    public static List<Similarity> compareToAll(Submission newSubmission, List<Submission> submissions, int checkFrom, int checkUpToExclusive) {
-        ArrayList<Similarity> similarities = new ArrayList<>();
+    public static String foldWhitespace(String text) {
+        return text.replaceAll("\\s+", ""); // TODO this does not fold, but remove
+    }
+
+    private static class ComparisonRunner implements Runnable {
+        private Submission oldSubmission;
+        private Submission newSubmission;
+        private ArrayBlockingQueue<Similarity> queue;
+
+        public ComparisonRunner(Submission oldSubmission, Submission newSubmission, ArrayBlockingQueue<Similarity> queue) {
+
+            this.oldSubmission = oldSubmission;
+            this.newSubmission = newSubmission;
+            this.queue = queue;
+        }
+
+        @Override
+        public void run() {
+            queue.add(Operations.compare(oldSubmission, newSubmission));
+        }
+    }
+
+    private static ExecutorService executor = null;
+    private static ExecutorCompletionService executorCompletionService;
+
+    public static Iterable<Similarity> compareToAll(Submission newSubmission, List<Submission> submissions, int checkFrom, int checkUpToExclusive) {
+        // TODO assert that (checkUpToExclusive - checkFrom > 0)
+        int count = checkUpToExclusive - checkFrom;
+        if (count <= 0) {
+            throw new IllegalArgumentException("You must specify at least one submission to compare against.");
+        }
+         ArrayList<Similarity> similarities = new ArrayList<>();
+
+        ArrayBlockingQueue<Similarity> similarityQueue = null;
+        if (useMultithreading) {
+            similarityQueue = new ArrayBlockingQueue<Similarity>(checkUpToExclusive - checkFrom);
+            if (executor == null) {
+                executor = Executors.newFixedThreadPool(2);
+                executorCompletionService = new ExecutorCompletionService(executor);
+            }
+        }
+
         logger.fine("Comparing " + newSubmission.getSubmissionId() + " to older submissions.");
         for (int i = checkFrom; i < checkUpToExclusive; i++) {
             if (submissions.get(i).getUserId() == newSubmission.getUserId())
@@ -32,12 +74,33 @@ public class Operations {
                     continue;
                 }
             }
-            Similarity similarity = Operations.compare(submissions.get(i), newSubmission);
-            if (similarity.getScore() > 0) {
-                similarities.add(similarity);
+
+            if (useMultithreading) {
+                executorCompletionService.submit(new ComparisonRunner(submissions.get(i), newSubmission, similarityQueue), null);
+            }
+            else {
+                Similarity similarity = Operations.compare(submissions.get(i), newSubmission);
+                if (similarity.getScore() > 0) {
+                    similarities.add(similarity);
+                }
             }
         }
-        return similarities;
+
+        if (useMultithreading) {
+            // Wait until all tasks are completed.
+            try {
+                for (int i = 0; i < count;i ++)
+                {
+                    executorCompletionService.take();
+                }
+            } catch (InterruptedException ignored) {
+                // Won't happen unless someone meddles with this.
+            }
+            return similarityQueue;
+        }
+        else {
+            return similarities;
+        }
     }
 
     private static Similarity compare(Submission oldSubmission, Submission newSubmission) {

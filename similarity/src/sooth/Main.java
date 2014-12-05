@@ -20,7 +20,7 @@ public class Main {
         }
         System.out.println("AVERAGE: " + (len / count));
         */
-        BatchActions.runPlagiarismCheckingOnEntireDatabase();
+        BatchActions.makeEntireDatabase();
     }
 }
 

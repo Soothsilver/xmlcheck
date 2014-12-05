@@ -1,7 +1,9 @@
 package sooth;
 
-import java.util.Formatter;
-import java.util.logging.*;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
+import java.util.logging.Logger;
 
 public class Logging {
     private static class SimpleRecordFormatter extends java.util.logging.Formatter {
@@ -9,7 +11,7 @@ public class Logging {
         @Override
         public String format(LogRecord record) {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(record.getLevel()).append(": ").append(formatMessage(record)).append("[").append(record.getSourceMethodName()).append("] ");
+            stringBuilder.append(record.getLevel()).append(": ").append(formatMessage(record)).append(" [").append(record.getSourceMethodName()).append("] ");
             stringBuilder.append("\n");
             return stringBuilder.toString();
         }

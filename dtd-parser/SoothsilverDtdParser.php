@@ -4,38 +4,54 @@
  * - Add a feature to prevent XML explosion
  * - Remember comments and line feeds inside comments count
  */
+/*
+ * @namespace Soothsilver\DtdParser
+ */
 namespace Soothsilver\DtdParser;
 
 /**
  * Represents all information extracted from a Document Type Declaration file, possibly combined with an internal subset.
+ * @defgroup SoothsilverDtdParser Soothsilver DTD Parser
+ * @ingroup SoothsilverDtdParser
  */
 class DTD
 {
     /**
+     * List of element types sorted in declaration order. If an ATTLIST declaration preceded the ELEMENT declaration,
+     * the position is determined by the ATTLIST declaration.
      * @var Element[]
      */
     public $elements = [];
     /**
+     * List of declared parameter entities.
      * @var ParameterEntity[]
      */
     public $parameterEntities = [];
     /**
+     * List of declared general entities.
      * @var GeneralEntity[]
      */
     public $generalEntities = [];
     /**
+     * List of declared notations.
      * @var Notation[]
      */
     public $notations = [];
     /**
+     * List of errors in the DTD document. If this array is not empty, the document violates the XML specification.
+     * Even if an error is generated, some information about the document may be available in the DTD object.
      * @var Error[]
      */
     public $errors = [];
     /**
+     * List of warnings generated when parsing the document. A warning is generated in some cases when the XML
+     * specification allows a processor to generate a warning.
      * @var Error[]
      */
     public $warnings = [];
     /**
+     * List of processing instructions encountered while parsing the document. Processing instructions are not executed
+     * in any way.
      * @var ProcessingInstruction[]
      */
     public $processingInstructions = [];
@@ -49,28 +65,78 @@ class DTD
         return count($this->errors) === 0;
     }
 
+    /**
+     * Notice: Parsing external entities is a security problem. User should be given an option to enable or disable it.
+     * Since the DTD Parser is now used only in the XMLCheck project where it is not desirable to load external entities,
+     * this functionality is not programmed in.
+     * @var bool Should external entities be parsed as well?
+     */
     private $shouldLoadExternalEntities = false;
+    /**
+     * @var int The character position in the DTD document where the parser is at.
+     */
     private $currentOffset = 0;
+    /**
+     * @var int The line in the DTD document that is being processed. Lines are counted from 1.
+     */
     private $line = 1;
+    /**
+     * @var Internal\XmlRegexes An internal object which contains regular expressions for some common productions from
+     * the XML specification.
+     */
     private $xmlRegexes;
 
+    /**
+     * Puts a new warning into the warnings list.
+     * @param $message The warning message to show to the user.
+     * @param $line The line at which the warning triggered.
+     */
     private function addWarning($message, $line)
     {
         $this->warnings[] = new Error($message . " (line " . $line . ")");
     }
+
+    /**
+     * Puts a new error into the errors list. Calling this function means the DTD document contains a violation of
+     * the XML specification.
+     * @param $message The error message to show to the user.
+     * @param $line The line at which the error triggered.
+     */
     private function addFatalError($message, $line)
     {
         $this->errors[] = new Error($message . " (line " . $line . ")");
     }
+
+    /**
+     * Checks if the supplied string matches the XML production NAME.
+     * @param $name The string to check for being a NAME.
+     * @return bool Is the string a valid NAME production?
+     */
     private function isNameValid($name)
     {
         return preg_match("#" . $this->xmlRegexes->Name . "#u", $name) === 1;
     }
+    /**
+     * Checks if the supplied string matches the XML production NMTOKEN.
+     * @param $name The string to check for being a NMTOKEN.
+     * @return bool Is the string a valid NMTOKEN production?
+     */
     private function isNmTokenValid($nmToken)
     {
         return preg_match("#" . $this->xmlRegexes->NmToken . "#u", $nmToken) === 1;
     }
-    private function findNonspace($text, $startAt, $length)
+
+    /**
+     * Reads characters from the specified position until it encounters a non-whitespace character, then returns
+     * the position of this character. If no such character is found, then it returns false.
+     *
+     * This also increments the line counter if a newline is encountered.
+     * @param string $text The text to search through (haystack).
+     * @param int $startAt The position from where to start.
+     * @param int $length The length of the text.
+     * @return bool|int The position of the first non-whitespace character or false if end of text was reached.
+     */
+    private function findNonSpace($text, $startAt, $length)
     {
         $index = $startAt;
         while ($index < $length)
@@ -248,11 +314,26 @@ class DTD
         }
         return $tokens;
     }
+
+    /**
+     * Checks whether the specified haystack begins with the specified needle.
+     * @param $haystack The string whose beginning we search. (TODO grammar)
+     * @param $needle The beginning we search for.
+     * @return bool Does the haystack start with the needle?
+     */
     private function startsWith($haystack, $needle)
     {
         $length = strlen($needle);
         return (substr($haystack, 0, $length) === $needle);
     }
+
+    /**
+     * Evaluates all parameter entity references in the specified text according to the specified mode as per the
+     * XML specification. Returns the expanded text. Parameter entities are expanded recursively.
+     * @param $text The text to scan for parameter entities.
+     * @param $peStyle The mode of expansion. Depending on the mode, entities are expanded differently as per the specification.
+     * @return string The text with all parameter entities expanded.
+     */
     private function evaluatePEReferencesIn($text, $peStyle)
     {
         $matches = [];
@@ -291,8 +372,17 @@ class DTD
 
     private function parseGlobalPEReference($referenceText)
     {
+        // TODO what is the meaning of this?
         $this->addFatalError("The parameter entity '" . $referenceText . "' is not yet declared.", $this->line);
     }
+
+    /**
+     * Checks whether the three tokens in $tokens starting $index exist, represent matching quotation marks and then
+     * returns the middle token.
+     * @param array $tokens An array of tokens.
+     * @param int $index The index of the token which should represent the first apostrophe or double quote.
+     * @return bool|string The token, if parsed correctly; otherwise false. If false is returned, a fatal error is triggered as well.
+     */
     private function parseQuotedString($tokens, $index)
     {
         if ($index + 2 >= count($tokens))
@@ -306,6 +396,7 @@ class DTD
         if ($firstQuote !== "'" && $firstQuote !== '"')
         {
             $this->addFatalError("A quotation mark or apostrophe was expected but '" . $firstQuote . "' is present instead.", $this->line);
+            return false;
         }
         if ($firstQuote !== $lastQuote)
         {
@@ -314,11 +405,26 @@ class DTD
         }
         return $middle;
     }
+
+    /**
+     * Checks whether the three tokens in $tokens starting $index exist, represent matching quotation marks and then
+     * returns the middle token.
+     *
+     * Notice: This is a wrapper around parseQuotedString that does no additional work.
+     * @param array $tokens An array of tokens.
+     * @param int $index The index of the token which should represent the first apostrophe or double quote.
+     * @return bool|string The token, if parsed correctly; otherwise false. If false is returned, a fatal error is triggered as well.
+     */
     private function parseExternalIdentifier($tokens, $index)
     {
         $identifier = $this->parseQuotedString($tokens, $index);
         return $identifier;
     }
+
+    /**
+     * Parses an element declaration and adds it to the element list. If it fails, it adds an error to the error list.
+     * @param string $declaration The !ELEMENT declaration string, starting just after the !ELEMENT text.
+     */
     private function parseElement($declaration)
     {
         $declaration = $this->evaluatePEReferencesIn($declaration, Internal\PEStyle::MatchingParentheses);
@@ -352,7 +458,8 @@ class DTD
             $contentspec = str_replace("\t", "", $contentspec);
             $contentspec = str_replace("\n", "", $contentspec);
             $isMixed = $this->startsWith($contentspec, "(#PCDATA");
-            // TODO verify legality of children regex
+            // We should verify the legality of the context regular expression here, but we don't need it.
+            // In future versions of the DTDParser, this should probably be done.
         }
         if (array_key_exists($name, $this->elements))
         {
@@ -372,6 +479,12 @@ class DTD
             $this->elements[$name] = new Element($name, $contentspec, $isMixed);
         }
     }
+
+    /**
+     * Parses an ATTLIST declaration and adds the information to the element list. If it fails, an error will be
+     * added to the error list.
+     * @param string $markupDeclaration The !ATTLIST declaration string, starting just after the !ATTLIST text.
+     */
     private function parseAttlist($markupDeclaration)
     {
         $markupDeclaration = $this->evaluatePEReferencesIn($markupDeclaration, Internal\PEStyle::IgnoreQuotedText);
@@ -555,6 +668,11 @@ class DTD
             $this->addFatalError("An attribute definition inside the ATTLIST was not completed.", $this->line);
         }
     }
+
+    /**
+     * Parses a notation declaration and adds it to the notations list. If it fails, an error is added to the error list.
+     * @param string $markupDeclaration The !NOTATION declaration string, starting just after the !NOTATION text.
+     */
     private function parseNotation($markupDeclaration)
     {
         $markupDeclaration = $this->evaluatePEReferencesIn($markupDeclaration, Internal\PEStyle::IgnoreQuotedText);
@@ -622,6 +740,13 @@ class DTD
             $this->addFatalError("'" . $markupDeclaration . "' is not a well-formed NOTATION declaration.", $this->line);
         }
     }
+
+    /**
+     * Parses an !ENTITY declaration and adds it to the general entities or parameter entities list. If it fails,
+     * it adds an error to the error list. If it's a parameter entity, its replacement text is generated at this point
+     * by evaluating parameter entity references inside its value.
+     * @param string $markupDeclaration An !ENTITY declaration string, starting just after the !ENTITY text.
+     */
     private function parseEntityDeclaration($markupDeclaration)
     {
         $tokenizationError = "";
@@ -750,6 +875,7 @@ class DTD
                     $externalContent = file_get_contents($systemIdentifier);
                     if ($externalContent !== false)
                     {
+                        // This should probably, at user option, be permitted.
                         $this->addWarning("This DTD parser is not programmed to parse additional external entities.", $this->line);
                     }
                     else
@@ -808,6 +934,11 @@ class DTD
             }
         }
     }
+
+    /**
+     * Parses the specified string as a DTD markup declaration.
+     * @param string $markupDeclaration A DTD markup declaration to parse.
+     */
     private function parseMarkupDeclaration($markupDeclaration)
     {
         if ($this->startsWith($markupDeclaration, "<!ELEMENT ") || $this->startsWith($markupDeclaration, "<!ELEMENT\n") || $this->startsWith($markupDeclaration, "<!ELEMENT\t"))
@@ -820,9 +951,14 @@ class DTD
             $this->parseEntityDeclaration(substr($markupDeclaration, strlen("<!ENTITY "), -1));
         else
         {
-            $this->addFatalError("This declaration type does not exist (only ELEMENT, ATTLIST, NOTATION and ENTITY are possible.", $this->line);
+            $this->addFatalError("This declaration type does not exist (only ELEMENT, ATTLIST, NOTATION and ENTITY are possible).", $this->line);
         }
     }
+
+    /**
+     * Parses a processing instruction and adds it to the list of processing instruction. Adds an error if the parsing fails.
+     * @param string $processingInstruction A processing instruction text, starting just after the left angle bracket and the question mark.
+     */
     private function parseProcessingInstruction($processingInstruction)
     {
         $split = explode(' ', $processingInstruction, 2);
@@ -838,6 +974,12 @@ class DTD
         }
         $this->processingInstructions = new ProcessingInstruction($split[0], $split[1]);
     }
+
+    /**
+     * Parses the given text as the contents of a DTD file.
+     * @param string $text The text of the DTD file.
+     * @param bool $isInternalSubset True, if the text is the contents of the internal subset of an XML file instead. There are additional restrictions by the specification on what can be present in the internal subset.
+     */
     private function parseGlobalSpace($text, $isInternalSubset)
     {
         $this->line = 1;
@@ -850,7 +992,8 @@ class DTD
                                                   // str_replace only counts a \n as a newline if it is within
                                                   // quotes.
         // 2. Remove comments
-        // TODO save comments
+        // Comments should probably be saved as well. Someone might want to access them. In future versions of the
+        // parser, this functionality should be added. Plus, multiline comments mess with line numbers in errors.
         $text = preg_replace('/<!--(([^-])|(-[^-]))*-->/', '', $text);
         $length = strlen($text);
         // 3. Go through the text, searching for
@@ -862,7 +1005,7 @@ class DTD
         //  f) <![ INCLUDE [ ]]>
         //  g) <![ IGNORE [ ]]>
         //  h) <!-- causes error, it should have been removed
-        $this->currentOffset = $this->findNonspace($text, $this->currentOffset, $length);
+        $this->currentOffset = $this->findNonSpace($text, $this->currentOffset, $length);
         while ($this->currentOffset !== false)
         {
              if (substr($text, $this->currentOffset, 3) === "]]>")
@@ -1016,7 +1159,7 @@ class DTD
                 $this->currentOffset++;
             }
             // Find next character.
-            $this->currentOffset = $this->findNonspace($text, $this->currentOffset, $length);
+            $this->currentOffset = $this->findNonSpace($text, $this->currentOffset, $length);
         }
         if ($includeSectionsOpened > 0 || $ignoreSectionsOpened > 0)
         {
@@ -1024,6 +1167,11 @@ class DTD
         }
     }
 
+    /**
+     * Creates a new DTD object from the specified DTD text and internal subset. These texts are parsed immediately.
+     * @param string $text The contents of a DTD file.
+     * @param string $internalSubset The contents of an internal subset.
+     */
     private function __construct($text, $internalSubset)
     {
         $this->xmlRegexes = new Internal\XmlRegexes();
@@ -1048,6 +1196,7 @@ class DTD
 /**
  * Represents an XML notation declaration
  * @link http://www.w3.org/TR/REC-xml/#Notations
+ * @ingroup SoothsilverDtdParser
  */
 class Notation
 {
@@ -1064,6 +1213,12 @@ class Notation
      */
     public $systemID = "";
 
+    /**
+     * Creates a new Notation.
+     * @param string $name The notation name.
+     * @param string $systemID The notation's system id.
+     * @param string $publicID The notation's public id.
+     */
     public function  __construct($name, $systemID, $publicID)
     {
         $this->name =$name;
@@ -1109,17 +1264,26 @@ class Attribute
         $this->defaultValue = $defaultValue;
     }
 }
+/**
+ * Represents a processing instruction.
+ * @package Soothsilver\DtdParser
+ */
 class ProcessingInstruction
 {
     /**
-     * @var string
+     * @var string $target The target of the processing instruction.
      */
     public $target;
     /**
-     * @var string
+     * @var string $data Data passed to the target of the processing instruction.
      */
     public $data;
 
+    /**
+     * Creates a new processing instruction.
+     * @param string $target The target of the instruction.
+     * @param string $data The data passed to the target.
+     */
     public function __construct($target, $data)
     {
         $this->target = $target;
@@ -1253,10 +1417,26 @@ namespace Soothsilver\DtdParser\Internal;
  * @package Soothsilver\DtdParser\Internal
  */
 class XmlRegexes {
+    /**
+     * @var string The NameChar production.
+     */
     public $NameChar;
+    /**
+     * @var string The NameStartChar production.
+     */
     public $NameStartChar;
+    /**
+     * @var string The NAME production.
+     */
     public $Name;
+    /**
+     * @var string The NMTOKEN production.
+     */
     public $NmToken;
+
+    /**
+     * Initializes members with productions from the specification.
+     */
     public function __construct()
     {
         $this->NameChar = "[:A-Z_a-z\\-.0-9\\xC0-\\xD6\\xD8-\\xF6\\xF8-\\x{2FF}\\x{370}-\\x{37D}\\x{37F}-\\x{1FFF}\\x{200C}-\\x{200D}\\x{2070}-\\x{218F}\\x{2C00}-\\x{2FEF}\\x{3001}-\\x{D7FF}\\x{F900}-\\x{FDCF}\\x{FDF0}-\\x{FFFD}\\x{10000}-\\x{EFFFF}]";
@@ -1284,8 +1464,23 @@ abstract class AttlistMode {
  * @package Soothsilver\DtdParser\Internal
  */
 abstract class PEStyle {
+    /**
+     * Do not expand parameter entities inside quotes. Expand all other parameter entities by adding a single space
+     * before and after the replacement text, as per the specification.
+     */
     const IgnoreQuotedText = 0;
+    /**
+     * Do not expand parameter entities inside quotes. Expand all other parameter entities by adding a single space
+     * before and after the replacement text, as per the specification.
+     *
+     * In addition, add an error if, after replacement is done, there are unpaired parentheses. This is not currently
+     * being done and should be improved in a future version.
+     */
     const MatchingParentheses = 1;
+    /**
+     * Expand all parameter entities but do not add a single space before and after the replacement text, because we
+     * are now in the middle of an entity declaration.
+     */
     const InEntityDeclaration = 2;
 }
 

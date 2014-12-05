@@ -1,0 +1,41 @@
+/** @mainpage @projectname documentation
+
+@section sec_projectDescription Project description
+
+@projectname is an online application for assignment of homeworks, upload of
+solutions and their semi-automated correction. It was created as a "small software
+project" (requirement for completing
+bachelor studies at <a href="http://www.mff.cuni.cz/toUTF8.en/">Faculty of
+Mathematics and Physics at Charles University in Prague</a>) to be later extended
+into bachelor thesis.
+
+Initial project specification can be found <a href="http://www.ksi.mff.cuni.cz/~mlynkova/bp.html">
+here</a>.
+
+
+@section sec_projectParts Project parts
+
+Whole project consists of more than just the @projectname application. Various
+project parts are briefly described below together with links to their resources.
+
+- <b><a href="@projectwww">@projectname application</a></b>
+- <b>@ref page_manual</b>
+- <b><a href="modules.html">Developer documentation</a></b> (also accessible
+	directly from the top menu)
+- <b>Plugins</b> for correction of
+	<a href="http://www.ksi.mff.cuni.cz/~mlynkova/prg036/index.html">XML Technologies
+	lecture</a> homeworks (distributed together with the application)
+- <b><a href="@asmjpf">Java plugin development framework project</a></b>,
+	containing not just the framework, but also some full-fledged plugins and
+	small windowed application for Java plugin testing
+
+
+@section sec_author About the author
+
+The whole project was created by <a href="mailto:jjkon@seznam.cz">Jan Konopásek</a>,
+who was, at the time of its publication, a developer of web applications and
+a student of Computer Sciences at aforementioned Faculty of Mathematics and Physics
+in Prague.
+
+
+*/

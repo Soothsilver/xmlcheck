@@ -1,0 +1,74 @@
+/**
+
+@defgroup database Database
+@ingroup core
+
+Manages data storage and retrieval.
+
+@note Database is currently considered to be "internal", thus sparsely documented.
+More documentation will be added after some refactoring takes place (separation
+of database requests into class hierarchy instead of containment in single module).
+
+
+@section sec_abstractionLayers Abstraction layers
+
+Database is a special part of @ref core that provides multiple abstraction layers
+over used database implementation. Only the top layer is accessible by the rest
+of the @ref core. Follows the description of these layers.
+
+@subsection sec_layerRequests Database requests
+
+Top layer accessible to other @ref core classes. It provides set of "database
+requests", each with its unique name and set of required arguments. See source
+code of @ref asm::db::QueryManager "QueryManager" class for examples of
+such names. It's purpose is to restrict database access to set of predefined
+actions and thus ensure consistency of contained data with application data model
+(e.g. database entry for default user type cannot be deleted).
+
+It should also provide high-level validation of database query data, so that any
+possible error messages refer to data in application terms and do not reveal
+anything about internal database structure. Data potentially harmful to database
+should also be rejected or cleaned at this level.
+
+Last function of this layer is to translate real field names in database entries
+to virtual entity property names. This means that the rest of the application
+receives data in application data model, not in database data model.
+@ref asm::db::DbLayout "DbLayout::field*" constants are used to access
+fields regardless of which tables they came from.
+
+@subsection sec_layerAbstractQuery Abstract queries
+
+Database requests are not translated directly to real database queries. Instead,
+they are translated to abstract queries, that contain all query information, but
+don't depend on any particular database implementation. This enables easy switching
+from one database implementation to another.
+
+Apart from abstraction, this layer ensures that queries sent to database are
+well-formed. All abstract query class methods are strongly typed (using PHP type
+hinting), so that invalid queries cannot be created.
+
+Additional functionality planned (but not yet implemented) for this layer is
+linking of database tables into interconnected application data model, meaning
+that the database would contain just plain tables and all table connections
+(currently implemented as database "views") would be created as abstract query
+classes.
+
+@subsection sec_layerImplementation Database implementation layer
+
+Abstract database queries are transformed to real query strings depending on
+type of used database. This process is fairly straightforward, as it is implemented
+as a part of abstract query itself. For an abstract query to be transformed into
+a real query string, it just needs an database-dependent set of "tokens".
+Switching to different implementation just means supplying different token set.
+
+@section sec_dbRequestWorkflow Database request workflow
+
+Interaction of individual sub-components during single database request is shown
+in following figure.
+
+@image html database.seq.png "Database request"
+
+@note This is an abstract sequence diagram. Object, method, and argument names
+	are symbolic and unrelated to real class/method names.
+
+*/

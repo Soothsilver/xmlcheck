@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_22" class="java.beans.XMLDecoder"> 
+ <object class="com.horstmann.violet.StateDiagramGraph"> 
+  <void method="addNode"> 
+   <object id="StateNode0" class="com.horstmann.violet.StateNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>&lt;b&gt;New&lt;/b&gt;</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>158.0</double> 
+     <double>99.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="CircularInitialStateNode0" class="com.horstmann.violet.CircularStateNode"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>213.0</double> 
+     <double>15.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="StateNode1" class="com.horstmann.violet.StateNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>&lt;b&gt;Corrected&lt;/b&gt;</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>415.0</double> 
+     <double>113.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="StateNode2" class="com.horstmann.violet.StateNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>&lt;b&gt;Confirmed&lt;/b&gt;</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>161.0</double> 
+     <double>207.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="StateNode3" class="com.horstmann.violet.StateNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>&lt;b&gt;Rated&lt;/b&gt;</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>162.0</double> 
+     <double>331.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="CircularFinalStateNode0" class="com.horstmann.violet.product.diagram.state.CircularFinalStateNode"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>457.0</double> 
+     <double>311.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"> 
+    <void property="label"> 
+     <string>upload</string> 
+    </void> 
+   </object> 
+   <object idref="CircularInitialStateNode0"/> 
+   <object idref="StateNode0"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"> 
+    <void property="label"> 
+     <string>corrected by plugin</string> 
+    </void> 
+   </object> 
+   <object idref="StateNode0"/> 
+   <object idref="StateNode1"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"> 
+    <void property="label"> 
+     <string>confirmed by submitter</string> 
+    </void> 
+   </object> 
+   <object idref="StateNode1"/> 
+   <object idref="StateNode2"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"> 
+    <void property="label"> 
+     <string>rated by group owner</string> 
+    </void> 
+   </object> 
+   <object idref="StateNode2"/> 
+   <object idref="StateNode3"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"> 
+    <void property="label"> 
+     <string>cancelled by submitter</string> 
+    </void> 
+   </object> 
+   <object idref="StateNode1"/> 
+   <object idref="CircularFinalStateNode0"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"> 
+    <void property="label"> 
+     <string>cancelled by submitter</string> 
+    </void> 
+   </object> 
+   <object idref="StateNode2"/> 
+   <object idref="CircularFinalStateNode0"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.StateTransitionEdge"> 
+    <void property="label"> 
+     <string>upload [problem not using plugin]</string> 
+    </void> 
+   </object> 
+   <object idref="CircularInitialStateNode0"/> 
+   <object idref="StateNode1"/> 
+  </void> 
+ </object> 
+</java> 

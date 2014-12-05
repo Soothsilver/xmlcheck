@@ -7,12 +7,15 @@ import sooth.entities.Tables;
 import sooth.entities.tables.records.SimilaritiesRecord;
 import sooth.objects.Similarity;
 
+import java.util.Date;
 import java.util.logging.Logger;
 
 public class InsertSimilaritiesBatch {
     private Logger logger = Logging.getLogger(InsertSimilaritiesBatch.class.getName());
     private InsertValuesStep5<SimilaritiesRecord, Integer, Integer, Integer, String, Byte> insertQuery;
     private int boundQueries = 0;
+    // TODO write in documentation and source code that max_allowed_packet must be changed
+    // TODO change query submission based on query length rather than fixed number
     private final int batchSize = 10000; // may not be optimal number, but definitely better than 1 (too many connections to database) and infinity (running out of memory)
 
     public void add(Similarity similarity) {
@@ -26,8 +29,10 @@ public class InsertSimilaritiesBatch {
         boundQueries++;
         if (boundQueries == batchSize) {
             logger.info("Too many insert commands in the batch. Executing...");
+            logger.info("Time: " + new Date());
             execute();
             logger.fine("Executed.");
+            logger.info("Time: " + new Date());;
         }
     }
     public void execute() {

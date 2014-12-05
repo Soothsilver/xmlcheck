@@ -6,13 +6,12 @@ import org.jooq.Result;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 import sooth.Logging;
-import sooth.entities.Tables;
 import sooth.entities.tables.records.DocumentsRecord;
 import sooth.entities.tables.records.SubmissionsRecord;
 import sooth.objects.Document;
-import sooth.objects.Similarity;
 import sooth.objects.Submission;
 import sooth.objects.SubmissionsByPlugin;
+import sooth.scripts.Operations;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -108,6 +107,7 @@ public class Database {
             String documentText = (String)record.getValue("dtext");
             Document.DocumentType documentType = Document.DocumentType.getDocumentTypeByMysqlIdentifier((int)record.getValue("dtype"));
             Document document = new Document(documentType, documentText, documentName);
+            document.setTextWithFoldedWhitespace(Operations.foldWhitespace(documentText));
             createdDocumentList.add(document);
         }
         return tree;

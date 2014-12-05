@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 public class Configuration {
 
     private static boolean ignoreSelfPlagiarism = true;
-    private static String submissionsFolder = "C:\\Apps\\UwAmp\\www\\xmlcheck\\www\\files\\submissions";
+    private static String submissionsFolder = "C:\\Apps\\EasyPHP\\data\\localweb\\xmlcheck\\www\\files\\submissions";
 
     public static Path getSubmissionInputPath(String submissionfile) {
         return Paths.get(submissionsFolder, submissionfile);

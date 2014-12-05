@@ -80,10 +80,13 @@ public class EntryPoint {
                     }
                 }
                 InsertSimilaritiesBatch batch = new InsertSimilaritiesBatch();
-                List<Similarity> similarities = Operations.compareToAll(submissions.get(thisOrderId), submissions, 0, thisOrderId);
-                for (Similarity similarity : similarities) {
-                    if (similarity.getScore() >= Similarity.MINIMUM_INTERESTING_SCORE) {
-                        batch.add(similarity);
+                // TODO maybe do this in parellel?:
+                if (thisOrderId != 0) {
+                    Iterable<Similarity> similarities = Operations.compareToAll(submissions.get(thisOrderId), submissions, 0, thisOrderId);
+                    for (Similarity similarity : similarities) {
+                        if (similarity.getScore() >= Similarity.MINIMUM_INTERESTING_SCORE) {
+                            batch.add(similarity);
+                        }
                     }
                 }
                 batch.execute();

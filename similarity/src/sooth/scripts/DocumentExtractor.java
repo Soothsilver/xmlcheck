@@ -15,6 +15,8 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 public class DocumentExtractor {
+    private static final int MAXIMUM_DOCUMENT_SIZE = 200000; // 200 kB
+
     private static Logger logger = Logging.getLogger(DocumentExtractor.class.getName());
     public static List<Document> getDocumentsFromZipArchive(Path pathToZipFile, String pluginIdentifier) {
         ArrayList<Document> documents = new ArrayList<>();
@@ -38,15 +40,24 @@ public class DocumentExtractor {
         ArrayList<Document> documents = new ArrayList<>();
         List<File> files = getAbsoluteFilesRecursively(submissionDirectory);
 
+        /*
+        TODO remove
+        This test is meaningless.
         // All submissions should have the DIRECTORY_STRUCTURE document extracted.
         StringBuilder textDirectoryStructure = new StringBuilder();
         files.forEach(file -> textDirectoryStructure.append(file.toPath().getFileName() + "\n"));
         Document documentDirectoryStructure = new Document(Document.DocumentType.DIRECTORY_STRUCTURE, textDirectoryStructure.toString(), "Directory Structure");
         documents.add(documentDirectoryStructure);
+        */
 
         // Extracting individual files.
         for (File file : files) {
             String extension = FilesystemUtils.getFileExtension(file).toLowerCase();
+            if (file.getPath().contains("MACOSX")) {
+                // Files in the __MACOSX folder will not be checked for plagiarism, because they are metadata created by
+                // MAC computers.
+                continue;
+            }
 
             Document.DocumentType type = getDocumentTypeFromExtension(pluginIdentifier, file, extension);
             if (type == null)
@@ -56,16 +67,24 @@ public class DocumentExtractor {
             if (type.canBePresentOnlyOnce()) {
                 for(Document d : documents) {
                     if (d.getType().equals(type)) {
-                        logger.warning("In this submission, a document of the same type is already present.");
+                        logger.warning("In this submission, a document of the same type is already present. (present: " + d.getName() + ", being added: " + file.getName() + ")");
                     }
                 }
             }
             try {
-                Document thisDocument = new Document(type, FilesystemUtils.loadTextFile(file), file.getName());
-                documents.add(thisDocument);
+                String fileContents = FilesystemUtils.loadTextFile(file);
+                if (fileContents.length() > MAXIMUM_DOCUMENT_SIZE)
+                {
+                    logger.warning("This document is too large. It won't be loaded in the database.");
+                }
+                else {
+                    Document thisDocument = new Document(type, fileContents, file.getName());
+                    thisDocument.setTextWithFoldedWhitespace(Operations.foldWhitespace(fileContents));
+                    documents.add(thisDocument);
+                }
             } catch (IOException e) {
                 logger.warning("This document could not be read from disk.");
-            }// TODO do not extract over-sized documents: maximum packet size seems to be 1 048 576 (1 MB!)
+            }
 
         }
 
@@ -107,12 +126,12 @@ public class DocumentExtractor {
                     type = Document.DocumentType.JAVA_SAX_HANDLER;
                 }
                 else {
-                    logger.warning("This submission contains a java source file other than the two permitted files ("+file.getName()+").");
+                    logger.fine("This submission contains a java source file other than the two permitted files ("+file.getName()+").");
                 }
                 break;
             default:
                 // This may be an additional text file or something, we don't want to check that
-                logger.warning("Unknown file extension: " + extension);
+                logger.fine("Unknown file extension: " + extension);
                 break;
         }
         return type;

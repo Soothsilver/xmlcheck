@@ -1,0 +1,9 @@
+/**
+
+@defgroup requests Core requests
+@ingroup core
+
+Core request handlers.
+Name of each handler class is the same as the name of the request it handles.
+
+*/

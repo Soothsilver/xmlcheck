@@ -3,6 +3,7 @@ package sooth.scripts;
 import org.jooq.DSLContext;
 import org.jooq.Result;
 import sooth.Logging;
+import sooth.Problems;
 import sooth.connection.Database;
 import sooth.connection.InsertSimilaritiesBatch;
 import sooth.entities.Tables;
@@ -12,9 +13,10 @@ import sooth.objects.Submission;
 import sooth.objects.SubmissionsByPlugin;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
+import java.util.Objects;
 import java.util.logging.Logger;
-
+// TODO (elsewhere) document and mind java heap space
 public class BatchActions {
     private static Logger logger = Logging.getLogger(BatchActions.class.getName());
     /**
@@ -32,16 +34,24 @@ public class BatchActions {
         logger.info("Extracting documents and submissions from database to memory.");
         SubmissionsByPlugin submissionsByPlugin = Database.runSubmissionsByPluginQueryOnAllIdentifiers();
         logger.info("Running comparisons.");
+
         InsertSimilaritiesBatch batch = new InsertSimilaritiesBatch();
         for (ArrayList<Submission> submissions : submissionsByPlugin.values())
         {
             int k = 1;
-            if (submissions.size() > 0) {
-                logger.info("Identifier category: " + submissions.get(0).getPluginIdentifier());
+            if (submissions.isEmpty()) {
+                continue;
             }
-            for (int i = 0; i < submissions.size(); i++)
+            logger.info("Identifier category: " + submissions.get(0).getPluginIdentifier() + " (count " + submissions.size() + ")");
+            logger.info("Time: " + new Date());
+            if (!Objects.equals(submissions.get(0).getPluginIdentifier(), Problems.HW1_DTD)) {
+                logger.info("Ignoring.");
+                continue;
+            }
+
+            for (int i = 1; i < submissions.size(); i++)
             {
-                List<Similarity> similarities = Operations.compareToAll(submissions.get(i), submissions, 0, i);
+                Iterable<Similarity> similarities = Operations.compareToAll(submissions.get(i), submissions, 0, i);
                 for (Similarity similarity : similarities) {
                     if (similarity.getScore() >= Similarity.MINIMUM_INTERESTING_SCORE) {
                         batch.add(similarity);
@@ -50,10 +60,12 @@ public class BatchActions {
                 if (i == submissions.size()*k/10)
                 {
                     logger.info("Percent done: " + (k*10));
+                    logger.info("Time: " + new Date());
                     k++;
                 }
             }
         }
+
         logger.info("Submitting the batch to the database.");
         batch.execute();
         logger.info("Done.");

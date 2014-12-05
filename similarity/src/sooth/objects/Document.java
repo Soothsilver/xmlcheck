@@ -1,6 +1,14 @@
 package sooth.objects;
 
 public class Document {
+    public String getTextWithFoldedWhitespace() {
+        return textWithFoldedWhitespace;
+    }
+
+    public void setTextWithFoldedWhitespace(String textWithFoldedWhitespace) {
+        this.textWithFoldedWhitespace = textWithFoldedWhitespace;
+    }
+
     public static enum DocumentType {
         PRIMARY_XML_FILE(1),
         DTD_FILE(2),
@@ -27,6 +35,7 @@ public class Document {
         }
 
 
+
         private int mysqlIdentifier;
         private DocumentType(int mysqlIdentifier) {
             this.mysqlIdentifier = mysqlIdentifier;
@@ -48,6 +57,7 @@ public class Document {
     private String name;
     private String text;
     private DocumentType type;
+    private String textWithFoldedWhitespace;
 
     public String getName() {
         return name;

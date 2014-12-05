@@ -1,4 +1,5 @@
 <?php
+// TODO (elsewhere) when editing a user, add information about all submissions of his and add a reference to this from the plagiarismCheck menu
 function startsWith($haystack, $needle)
 {
     $length = strlen($needle);

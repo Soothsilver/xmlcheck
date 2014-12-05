@@ -1,4 +1,7 @@
 asm = window.asm || {};
+/**
+ *
+ */
 asm.lang = {
     general : {
         success : "Success",

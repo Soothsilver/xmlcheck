@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_23" class="java.beans.XMLDecoder"> 
+ <object class="com.horstmann.violet.ObjectDiagramGraph"> 
+  <void method="addNode"> 
+   <object id="ObjectNode0" class="com.horstmann.violet.ObjectNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Lecturer</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>217.0</double> 
+     <double>212.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="ObjectNode1" class="com.horstmann.violet.ObjectNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Topic</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>553.0</double> 
+     <double>346.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="ObjectNode2" class="com.horstmann.violet.ObjectNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Lecture</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>546.0</double> 
+     <double>213.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="ObjectNode3" class="com.horstmann.violet.ObjectNode"> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Question</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>551.0</double> 
+     <double>497.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="ObjectNode4" class="com.horstmann.violet.ObjectNode"> 
+    <void method="addChild"> 
+     <object id="FieldNode0" class="com.horstmann.violet.FieldNode"> 
+      <void property="name"> 
+       <void property="justification"> 
+        <int>1</int> 
+       </void> 
+       <void property="text"> 
+        <string>type</string> 
+       </void> 
+      </void> 
+      <void property="value"> 
+       <void property="text"> 
+        <string>random</string> 
+       </void> 
+      </void> 
+     </object> 
+    </void> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Test</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>220.0</double> 
+     <double>327.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="FieldNode0"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>252.5</double> 
+     <double>409.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object id="ObjectNode5" class="com.horstmann.violet.ObjectNode"> 
+    <void method="addChild"> 
+     <object id="FieldNode1" class="com.horstmann.violet.FieldNode"> 
+      <void property="name"> 
+       <void property="justification"> 
+        <int>1</int> 
+       </void> 
+       <void property="text"> 
+        <string>type</string> 
+       </void> 
+      </void> 
+      <void property="value"> 
+       <void property="text"> 
+        <string>premade</string> 
+       </void> 
+      </void> 
+     </object> 
+    </void> 
+    <void property="name"> 
+     <void property="text"> 
+      <string>Test</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>217.0</double> 
+     <double>482.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object idref="FieldNode1"/> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>262.5</double> 
+     <double>559.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="addNode"> 
+   <object class="com.horstmann.violet.NoteNode"> 
+    <void property="color"> 
+     <object class="java.awt.Color"> 
+      <int>255</int> 
+      <int>239</int> 
+      <int>213</int> 
+      <int>255</int> 
+     </object> 
+    </void> 
+    <void property="text"> 
+     <void property="text"> 
+      <string>At present time only the random tests
+are implemented and each can use
+either one topic or &apos;any topic&apos;.</string> 
+     </void> 
+    </void> 
+   </object> 
+   <object class="java.awt.geom.Point2D$Double"> 
+    <void method="setLocation"> 
+     <double>412.0</double> 
+     <double>579.0</double> 
+    </void> 
+   </object> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ObjectRelationshipEdge"> 
+    <void property="endLabel"> 
+     <string>0..*</string> 
+    </void> 
+    <void property="middleLabel"> 
+     <string>belongs to</string> 
+    </void> 
+    <void property="startArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/> 
+    </void> 
+    <void property="startLabel"> 
+     <string>1..1</string> 
+    </void> 
+   </object> 
+   <object idref="ObjectNode2"/> 
+   <object idref="ObjectNode1"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ObjectRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/> 
+    </void> 
+    <void property="endLabel"> 
+     <string>1..1</string> 
+    </void> 
+    <void property="middleLabel"> 
+     <string>belongs to</string> 
+    </void> 
+    <void property="startLabel"> 
+     <string>0..*</string> 
+    </void> 
+   </object> 
+   <object idref="ObjectNode3"/> 
+   <object idref="ObjectNode1"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ObjectRelationshipEdge"> 
+    <void property="endLabel"> 
+     <string>0..*</string> 
+    </void> 
+    <void property="middleLabel"> 
+     <string>owned by</string> 
+    </void> 
+    <void property="startArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/> 
+    </void> 
+    <void property="startLabel"> 
+     <string>1..1</string> 
+    </void> 
+   </object> 
+   <object idref="ObjectNode0"/> 
+   <object idref="ObjectNode2"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ObjectRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/> 
+    </void> 
+    <void property="endLabel"> 
+     <string>1..1</string> 
+    </void> 
+    <void property="middleLabel"> 
+     <string>belongs to</string> 
+    </void> 
+    <void property="startLabel"> 
+     <string>0..*</string> 
+    </void> 
+   </object> 
+   <object idref="ObjectNode4"/> 
+   <object idref="ObjectNode2"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ObjectRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/> 
+    </void> 
+    <void property="endLabel"> 
+     <string>1..*</string> 
+    </void> 
+    <void property="middleLabel"> 
+     <string>uses</string> 
+    </void> 
+    <void property="startLabel"> 
+     <string>0..*</string> 
+    </void> 
+   </object> 
+   <object idref="ObjectNode4"/> 
+   <object idref="ObjectNode1"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ObjectRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/> 
+    </void> 
+    <void property="endLabel"> 
+     <string>1..*</string> 
+    </void> 
+    <void property="middleLabel"> 
+     <string>uses</string> 
+    </void> 
+    <void property="startLabel"> 
+     <string>0..*</string> 
+    </void> 
+   </object> 
+   <object idref="ObjectNode5"/> 
+   <object idref="ObjectNode3"/> 
+  </void> 
+  <void method="connect"> 
+   <object class="com.horstmann.violet.ObjectRelationshipEdge"> 
+    <void property="endArrowHead"> 
+     <object class="com.horstmann.violet.ArrowHead" field="TRIANGLE"/> 
+    </void> 
+    <void property="endLabel"> 
+     <string>1..1</string> 
+    </void> 
+    <void property="middleLabel"> 
+     <string>belongs to</string> 
+    </void> 
+    <void property="startLabel"> 
+     <string>0..*</string> 
+    </void> 
+   </object> 
+   <object idref="ObjectNode5"/> 
+   <object idref="ObjectNode2"/> 
+  </void> 
+ </object> 
+</java> 

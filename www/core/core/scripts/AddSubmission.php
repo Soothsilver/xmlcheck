@@ -3,6 +3,7 @@
 namespace asm\core;
 use asm\core\lang\Language;
 use asm\core\lang\StringID;
+use asm\utils\Filesystem;
 use asm\utils\StringUtils;
 
 /**
@@ -53,7 +54,7 @@ final class AddSubmission extends DataScript
         // Put into database
         Repositories::persistAndFlush($newSubmission);
 
-        // Launch plugin
+        // Launch plugin, or set full success if not connected to any plugin
         if ($assignment->getProblem()->getPlugin() === null)
         {
             $newSubmission->setSuccess(100);
@@ -69,6 +70,26 @@ final class AddSubmission extends DataScript
                 $newSubmission->getId(),
                 explode(';', $assignment->getProblem()->getConfig())
             );
+        }
+
+        // Run checking for plagiarism
+        $similarityJar = Config::get('paths', 'similarity');
+        if ($similarityJar != null && is_file($similarityJar))
+        {
+            $arguments = "makOne " . $newSubmission->getId();
+
+            // Get config file and autoloader file
+            $paths = Config::get('paths');
+            $vendorAutoload = $paths['composerAutoload'];
+            $java = Config::get('bin', 'java');
+
+            // This code will be passed, shell-escaped to the PHP CLI
+            $launchCode = <<<LAUNCH_CODE
+require_once '$vendorAutoload';
+`"$java" -Dfile.encoding=UTF-8 -jar "$similarityJar" $arguments`;
+LAUNCH_CODE;
+
+            ShellUtils::phpExecInBackground(Config::get('bin', 'phpCli'), $launchCode);
         }
 	}
 }
