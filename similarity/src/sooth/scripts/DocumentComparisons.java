@@ -5,7 +5,7 @@ import sooth.similarity.ComparisonResult;
 import sooth.similarity.*;
 
 public class DocumentComparisons {
-    private static final int LEVENSHTEIN_MAX_DOCUMENT_SIZE = 10000;
+    private static final int LEVENSHTEIN_MAX_DOCUMENT_SIZE = 200000;
     private static final int OBVIOUS_SIZE_DIFFERENCE = 2000;
 
 
