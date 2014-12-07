@@ -2,11 +2,9 @@ package sooth;
 
 import org.jooq.DSLContext;
 import sooth.connection.Database;
-import sooth.connection.InsertSimilaritiesBatch;
 import sooth.entities.Tables;
 import sooth.entities.tables.records.PluginsRecord;
 import sooth.entities.tables.records.SubmissionsRecord;
-import sooth.objects.Similarity;
 import sooth.objects.Submission;
 import sooth.objects.SubmissionsByPlugin;
 import sooth.scripts.BatchActions;
@@ -79,17 +77,9 @@ public class EntryPoint {
                         break;
                     }
                 }
-                InsertSimilaritiesBatch batch = new InsertSimilaritiesBatch();
                 // TODO maybe do this in parellel?:
-                if (thisOrderId != 0) {
-                    Iterable<Similarity> similarities = Operations.compareToAll(submissions.get(thisOrderId), submissions, 0, thisOrderId);
-                    for (Similarity similarity : similarities) {
-                        if (similarity.getScore() >= Similarity.MINIMUM_INTERESTING_SCORE) {
-                            batch.add(similarity);
-                        }
-                    }
-                }
-                batch.execute();
+                System.out.println("TODO: NOT YET IMPLEMENTED");
+                System.exit(1);
                 return;
             case ACTION_COMPARE_TWO_DIRECTLY:
                 int submissionOne;

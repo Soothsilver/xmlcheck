@@ -96,6 +96,7 @@ asm.lang = {
         assignments : "Assignments",
         correction : "Grade Submissions (Legacy)",
         correctionAll : "Grade Submissions",
+        correctionAbsolutelyAll : "Show All Submissions",
         correctionSeparated : "Grade Submissions (New)",
         groups : "Groups",
         userRatings : "User Ratings",

@@ -17,7 +17,7 @@ final class GetRatingSums extends DataScript
 			return false;
 
 		$ratings = Repositories::getEntityManager()->createQuery(
-			"SELECT s, SUM(s.rating) AS rating, a, g.id FROM \Submission s JOIN s.assignment a JOIN a.group g WHERE s.user = :userId GROUP BY g, g.name"
+			"SELECT s, SUM(s.rating) AS rating, a, g.id FROM \Submission s JOIN s.assignment a JOIN a.group g WHERE s.user = :userId AND s.status = 'graded' GROUP BY g, g.name"
 		)->setParameter('userId', User::instance()->getId())->getResult();
 
 		foreach ($ratings as $rating) {

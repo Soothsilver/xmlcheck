@@ -103,7 +103,7 @@ public class Operations {
         }
     }
 
-    private static Similarity compare(Submission oldSubmission, Submission newSubmission) {
+    public static Similarity compare(Submission oldSubmission, Submission newSubmission) {
         // Compare all documents to all documents.
         // Default metric: take the highest similarity from among documents
         Similarity similarity = new Similarity(0, "", oldSubmission.getSubmissionId(), newSubmission.getSubmissionId(), false);
@@ -114,7 +114,7 @@ public class Operations {
                 if (oldDocument.getType().equals(newDocument.getType()))
                 {
                     logger.fine("Now comparing " + oldDocument.getType() + " documents.");
-                    ComparisonResult result = DocumentComparisons.compare(oldDocument, newDocument, oldSubmission.getPluginIdentifier());
+                    ComparisonResult result = DocumentComparisons.levenshteinCompare(oldDocument, newDocument, oldSubmission.getPluginIdentifier());
                     if (similarity.getScore() < result.getSimilarity()) {
                         similarity.setScore(result.getSimilarity());
                     }

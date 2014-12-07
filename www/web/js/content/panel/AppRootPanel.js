@@ -148,6 +148,9 @@ asm.ui.panel.AppRootPanel = asm.ui.ContentSwitcher.extend({
 		this._mainPanel.bind('goToSubmissionDetails', function(submissionId) {
 			this._navigator.redirect('submissionDetails', submissionId.newId);
 		}, this);
+		this._mainPanel.bind('goToUsersSubmissions', function(userId) {
+			this._navigator.redirect('correctionAbsolutelyAll', userId.newId);
+		}, this);
 		this._mainPanel.bind('panel.adjustRequest', function (params) {
 			this.redirect.apply(this, params.params);
 		}, this);

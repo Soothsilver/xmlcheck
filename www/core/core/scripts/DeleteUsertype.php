@@ -42,6 +42,7 @@ class DeleteUsertype extends DataScript
         Repositories::remove($deletedType);
         Repositories::flushAll();
         return true;
+        // TODO (elsewhere) write in userdocs that 1 is a special USERTYPE: Student
 	}
 }
 

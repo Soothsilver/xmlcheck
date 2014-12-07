@@ -6,12 +6,16 @@
  */
 /*
  * @namespace Soothsilver\DtdParser
+ * @ingroup SoothsilverDtdParser
  */
 namespace Soothsilver\DtdParser;
+/**
+ * @defgroup SoothsilverDtdParser Soothsilver DTD Parser
+ */
+
 
 /**
  * Represents all information extracted from a Document Type Declaration file, possibly combined with an internal subset.
- * @defgroup SoothsilverDtdParser Soothsilver DTD Parser
  * @ingroup SoothsilverDtdParser
  */
 class DTD

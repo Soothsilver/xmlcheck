@@ -83,7 +83,7 @@ asm.ui.table.SimilaritiesTable = asm.ui.DynamicTable.extend({
             },
             structure: {
                 id: { key: true, hidden: true, comparable: true },
-                submissionId: { hidden: true, comparable: true},
+                submissionId: { hidden: false, label: "ID", comparable: true},
                 suspicious : { label:asm.lang.submissionDetails.suspicious, comparable: true, renderer: function(data)
                 {
                     if (data == 'yes') {
@@ -129,6 +129,7 @@ asm.ui.panel.SubmissionDetails = asm.ui.Container.extend({
          similaritiesTables.refresh(true);
          asm.ui.globals.stores.similarities.get(function(sts){
              similaritiesTables.refresh(true);
+             similaritiesTables.table('sort', 'similarityScore', false);
         })
          asm.ui.globals.stores.correctionAbsolutelyAll.get($.proxy(function(storedData) {
              for (var index = 0; index < storedData.length; ++index) {
@@ -141,7 +142,9 @@ asm.ui.panel.SubmissionDetails = asm.ui.Container.extend({
                  this._triggerError(new asm.ui.Error("This submission id does not exist.", asm.ui.Error.ERROR));
                  return;
              }
-             infoForm.setFieldValue('realName', newSubmission.author);
+
+             infoForm.setFieldValue('realName', '');
+             infoForm.setFieldValue('realName', "<a id='realNameId' href='' onclick='return false;'>" + newSubmission.author + "</a>");
              infoForm.setFieldValue('email', "<a href='mailto:" + newSubmission.authorEmail + "'>" + newSubmission.authorEmail + "</a>");
              infoForm.setFieldValue('points', newSubmission.rating);
              infoForm.setFieldValue('details', newSubmission.details);
@@ -154,6 +157,14 @@ asm.ui.panel.SubmissionDetails = asm.ui.Container.extend({
                  $.proxy(
                      function () {
                          asm.ui.globals.fileSaver.request('DownloadSubmissionInput', {id: newSubmission.id }, null, triggerError);
+                     }
+                     ,this
+                 )
+             );
+             $("#realNameId").click(
+                 $.proxy(
+                     function () {
+                        this.trigger('goToUsersSubmissions', { newId : newSubmission.authorId });
                      }
                      ,this
                  )

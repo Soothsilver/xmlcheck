@@ -2,6 +2,13 @@
 
 namespace asm\core;
 
+use asm\core\lang\Language;
+use asm\core\lang\StringID;
+
+/**
+ * Returns similarities between the submission with the specified ID (in parameter newId) and all older submissions.
+ * @package asm\core
+ */
 final class GetSimilarities extends DataScript
 {
 	protected function body ()

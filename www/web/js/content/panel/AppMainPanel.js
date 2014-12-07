@@ -38,6 +38,8 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 
                         correctionSeparated: new asm.ui.panel.CorrectionWithSeparatedAssignments(),
 						correctionAll: new asm.ui.panel.Correction(),
+						correctionAbsolutelyAll: new asm.ui.table.CorrectionAbsolutelyAll(),
+
 						submissionDetails: new asm.ui.panel.SubmissionDetails(),
 
 						requests: new asm.ui.table.SubscriptionRequests({
@@ -177,6 +179,7 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 				attachments: asm.ui.globals.icons.attachment,
 				correctionAll: asm.ui.globals.icons.submission,
                 correctionSeparated: asm.ui.globals.icons.submission,
+				correctionAbsolutelyAll: asm.ui.globals.icons.submission,
 				errorLog: asm.ui.globals.icons.log,
 				groups: asm.ui.globals.icons.group,
 				lectures: asm.ui.globals.icons.lecture,
@@ -208,6 +211,7 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 				attachments: ['lecturesManageAll', 'lecturesManageOwn'],
 				correctionAll: ['submissionsCorrect'],
                 correctionSeparated: ['submissionsCorrect'],
+				correctionAbsolutelyAll: [ 'groupsManageAll', 'lectureManageAll', 'otherAdministration'],
 				groups: ['groupsAdd', 'groupsManageAll', 'groupsManageOwn'],
 				lectures: ['lecturesAdd', 'lecturesManageAll', 'lecturesManageOwn'],
 				plugins: ['pluginsExplore'],
@@ -234,6 +238,7 @@ asm.ui.panel.AppMainPanel = asm.ui.Container.extend({
 					'assignments': asm.lang.menu.assignments,
 					'groups': asm.lang.menu.groups,
                     'correctionAll': asm.lang.menu.correctionAll,
+					'correctionAbsolutelyAll' : asm.lang.menu.correctionAbsolutelyAll,
 					'userRatings': asm.lang.menu.userRatings,
 					'requests': asm.lang.menu.subscriptionRequests
 				},

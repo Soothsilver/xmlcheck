@@ -16,7 +16,7 @@ public class InsertSimilaritiesBatch {
     private int boundQueries = 0;
     // TODO write in documentation and source code that max_allowed_packet must be changed
     // TODO change query submission based on query length rather than fixed number
-    private final int batchSize = 10000; // may not be optimal number, but definitely better than 1 (too many connections to database) and infinity (running out of memory)
+    public static final int batchSize = 20000; // may not be optimal number, but definitely better than 1 (too many connections to database) and infinity (running out of memory)
 
     public void add(Similarity similarity) {
         if (insertQuery == null) {
@@ -36,6 +36,10 @@ public class InsertSimilaritiesBatch {
         }
     }
     public void execute() {
+        if (boundQueries == 0) {
+            logger.info("There are no queries waiting to be inserted.");
+            return;
+        }
         insertQuery.execute();
         boundQueries = 0;
         insertQuery = null;

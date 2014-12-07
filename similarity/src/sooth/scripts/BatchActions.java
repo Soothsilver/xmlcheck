@@ -33,9 +33,14 @@ public class BatchActions {
         logger.info("I will now recheck the entire database for plagiarism.");
         logger.info("Extracting documents and submissions from database to memory.");
         SubmissionsByPlugin submissionsByPlugin = Database.runSubmissionsByPluginQueryOnAllIdentifiers();
-        logger.info("Running comparisons.");
+        logger.info("Creating comparison commands.");
 
-        InsertSimilaritiesBatch batch = new InsertSimilaritiesBatch();
+        int totalComparisons = 100; // safety margin
+        for (ArrayList<Submission> submissions : submissionsByPlugin.values()) {
+            totalComparisons += submissions.size() * (submissions.size()+1) /2;
+        }
+
+        SimilarityCheckingBatch similarityBatch = new SimilarityCheckingBatch(totalComparisons);
         for (ArrayList<Submission> submissions : submissionsByPlugin.values())
         {
             int k = 1;
@@ -44,11 +49,16 @@ public class BatchActions {
             }
             logger.info("Identifier category: " + submissions.get(0).getPluginIdentifier() + " (count " + submissions.size() + ")");
             logger.info("Time: " + new Date());
+
             if (!Objects.equals(submissions.get(0).getPluginIdentifier(), Problems.HW1_DTD)) {
                 logger.info("Ignoring.");
                 continue;
             }
 
+            for (int i = 1; i < submissions.size(); i++) {
+                similarityBatch.addComparisonOfOneToMany(submissions.get(i), submissions, 0, i);
+            }
+            /*
             for (int i = 1; i < submissions.size(); i++)
             {
                 Iterable<Similarity> similarities = Operations.compareToAll(submissions.get(i), submissions, 0, i);
@@ -64,11 +74,23 @@ public class BatchActions {
                     k++;
                 }
             }
+            */
         }
-
-        logger.info("Submitting the batch to the database.");
+        logger.info("There are "  + similarityBatch.size() + " similarity commands.");
+        logger.info("Executing them!");
+        logger.info("Time: " + new Date());
+        Iterable<Similarity> similarities = similarityBatch.execute();
+        logger.info("Submitting them to the database!");
+        logger.info("Time: " + new Date());
+        InsertSimilaritiesBatch batch = new InsertSimilaritiesBatch();
+        for (Similarity similarity : similarities) {
+            if (similarity.getScore() >= Similarity.MINIMUM_INTERESTING_SCORE) {
+                batch.add(similarity);
+            }
+        }
         batch.execute();
         logger.info("Done.");
+        logger.info("Time: " + new Date());
         logger.info("The entire database has been fully checked for plagiarism.");
     }
 
@@ -87,6 +109,7 @@ public class BatchActions {
     private static void destroyAllSimilarities() {
         logger.info("I will destroy all similarities.");
         DSLContext context = Database.getContext();
+        context.truncate(Tables.SIMILARITIES).execute();
         context.delete(Tables.SIMILARITIES).execute();
         logger.info("All similarities destroyed and removed from the database.");
     }

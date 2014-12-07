@@ -926,6 +926,7 @@ INPUT_FILTER           =
 # filters are used. If the FILTER_PATTERNS tag is empty or if none of the
 # patterns match the file name, INPUT_FILTER is applied.
 
+FILTER_PATTERNS        = "*.php = php scripts/phpfilter.php"
 #FILTER_PATTERNS        = "*.php = php scripts/phpfilter.php" \
 #                         "*.js = php scripts/jsfilter.php"
 
