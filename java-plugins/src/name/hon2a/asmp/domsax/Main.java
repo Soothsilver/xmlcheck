@@ -8,9 +8,9 @@ import name.hon2a.asm.Utils;
 /**
  * Assignment Manager plugin for automating DOM-SAX assignment correction.
  *
- * Compiles Java sources provided by @ref student and runs compiled scripts on
+ * Compiles Java sources provided by student and runs compiled scripts on
  * XML input also provided. Saves output for non-automated part of correction
- * (input is different for every @ref student as are details of his assignment).
+ * (input is different for every student as are details of his assignment).
  *
  * In DOM-SAX assignment, students are required to write their own Java classes
  * that facilitate DOM transformations / SAX event handling. DOM transformation

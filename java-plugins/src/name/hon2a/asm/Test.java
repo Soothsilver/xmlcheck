@@ -20,7 +20,7 @@ import java.util.Map;
  * as parsing same input or using same resources).
  *
  * Similarly to plugin criteria, tests have @link Goal goals @endlink . While
- * criteria should reflect how well @ref student performed (possibly integrating weights
+ * criteria should reflect how well a student performed (possibly integrating weights
  * in future), test goals have no such limitation. They only mark individual
  * tasks and their completion.
  *
@@ -42,8 +42,8 @@ public abstract class Test implements Runnable {
 	 */
 	protected enum ErrorType {
 		CODE_ERROR,	///< developer's error - corresponds to TestCodeException
-		USE_ERROR,	///< @ref teacher 's error - corresponds to TestUseException
-		DATA_ERROR, ///< invalid data (@ref student 's error) - corresponds to TestDataException
+		USE_ERROR,	///< teacher's error - corresponds to TestUseException
+		DATA_ERROR, ///< invalid data (student's error) - corresponds to TestDataException
 		EXCEPTION,	///< generic value for any exception not descended from TestException
 		ILLEGAL_ARGUMENT ///< illegal method argument, special case of EXCEPTION
 	}

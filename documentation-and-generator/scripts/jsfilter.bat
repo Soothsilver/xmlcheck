@@ -1,4 +1,4 @@
 @echo off
-cd ./docs/
+cd ./scripts/
 php -f ./jsfilter.php %1
 cd ../

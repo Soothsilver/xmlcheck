@@ -1,8 +1,17 @@
 <?php
+/**
+ * Contains classes related to showing the user message in his or her language.
+ */
 namespace asm\core\lang;
 
+/**
+ * Contains constant integers that represent various messages to be shown to the user.
+ */
 abstract class StringID
 {
+    // There is no PHPDoc documentation for these constants because they are explained in the Czech and English
+    // message below.
+
     const InvalidLogin = 0;
     const InsufficientPrivileges = 1;
     const UploadUnsuccessful = 2;
@@ -47,8 +56,15 @@ abstract class StringID
     const UserNameExists = 34;
 }
 
+/**
+ * Handles translation of user messages to the appropriate language.
+ */
 class Language {
 
+    /**
+     * Returns the language code of the language to display the interface in.
+     * @return string The language code ("cs" or "en").
+     */
     private static function getLanguage()
     {
         if (isset($_COOKIE["language"]))
@@ -61,6 +77,13 @@ class Language {
             return "cs";
         }
     }
+
+    /**
+     * Returns the Czech variant of the specified message.
+     * @param $textId int A StringID identification of a message.
+     * @return string The message in Czech.
+     * @throws \Exception When the ID does not have an associated message neither in Czech nor in English.
+     */
     private static function getCzech($textId)
     {
         switch($textId)
@@ -110,6 +133,13 @@ class Language {
         }
         return "TRANSLATION MISSING(" . self::getEnglish($textId) . ")";
     }
+
+    /**
+     * Returns the English variant of the specified message.
+     * @param $textId int A StringID identification of a message.
+     * @return string The message in English.
+     * @throws \Exception When the ID does not have an associated message in English.
+     */
     private static function getEnglish($textId)
     {
         switch ($textId)
@@ -160,6 +190,13 @@ class Language {
         }
         throw new \Exception("This string (" . $textId . ") does not exist.");
     }
+
+    /**
+     * Returns the string corresponding to the specified message ID in the current display language.
+     * @param int $textId A StringID identification of a message.
+     * @return string The message in Czech or English, as appropriate.
+     * @throws \Exception When the ID does not have an associated message neither in the display language nor in English.
+     */
     public static function get($textId)
     {
         $lang = self::getLanguage();

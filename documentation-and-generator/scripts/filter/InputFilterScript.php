@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\docs;
+require_once __DIR__ . '/IInputFilter.php';
 use InvalidArgumentException;
 
 /**
@@ -8,6 +9,9 @@ use InvalidArgumentException;
  */
 class InputFilterScript
 {
+	/**
+	 * @var IInputFilter The filter to apply.
+     */
 	protected $filter;
 
 	/**

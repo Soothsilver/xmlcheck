@@ -1,4 +1,6 @@
 <?php
+die();
+
 readfile($argv[1]);
 die();
 

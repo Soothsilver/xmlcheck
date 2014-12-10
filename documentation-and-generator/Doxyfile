@@ -703,7 +703,7 @@ CITE_BIB_FILES         =
 # messages are off.
 # The default value is: NO.
 
-QUIET                  = NO
+QUIET                  = YES
 
 # The WARNINGS tag can be used to turn on/off the warning messages that are
 # generated to standard error ( stderr) by doxygen. If WARNINGS is set to YES
@@ -848,6 +848,7 @@ RECURSIVE              = YES
 # run.
 
 EXCLUDE                = ../www/web/lib/js
+EXCLUDE               += ../dtd-parser/README.md
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or
 # directories that are symbolic links (a Unix file system feature) are excluded
@@ -926,7 +927,8 @@ INPUT_FILTER           =
 # filters are used. If the FILTER_PATTERNS tag is empty or if none of the
 # patterns match the file name, INPUT_FILTER is applied.
 
-FILTER_PATTERNS        = "*.php = php scripts/phpfilter.php"
+FILTER_PATTERNS        = "*.php=scripts\phpfilter.bat"
+FILTER_PATTERNS       += "*.js=scripts\jsfilter.bat"
 #FILTER_PATTERNS        = "*.php = php scripts/phpfilter.php" \
 #                         "*.js = php scripts/jsfilter.php"
 

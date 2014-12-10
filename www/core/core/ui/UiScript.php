@@ -20,10 +20,27 @@ use asm\utils\Filesystem, asm\utils\Validator;
  */
 abstract class UiScript
 {
-    private $errors = array();    ///< (array) script errors
-    private $failed = false;    ///< (bool) true if script failed to finish successfully
-    private $params = array();    ///< (array) script arguments (associative)
+	/**
+	 * Errors generated during the execution of the script.
+	 * @var Error[]
+     */
+	private $errors = array();
+	/**
+	 * True, if the script failed to finish successfully.
+	 * @var bool
+     */
+	private $failed = false;
+	/**
+	 * An associative array of script arguments.
+	 * @var array
+	 */
+    private $params = array();
 
+	/**
+	 * Checks whether the active user is authorized to manage the specified lecture.
+	 * @param \Lecture $lecture The lecture the active user wants to manage.
+	 * @return bool True, if the user is authorized.
+     */
 	protected function authorizedToManageLecture(\Lecture $lecture)
 	{
 		$user = User::instance();
@@ -79,6 +96,12 @@ abstract class UiScript
         return false;
     }
 
+	/**
+	 * Adds an error with the message based on the given StringID.
+	 *
+	 * @param int $stringID The StringID of the message to show to the user.
+	 * @return bool Always returns false.
+	 */
     protected final function death($stringID)
     {
         $this->addError(Error::levelError, Language::get($stringID));
@@ -115,12 +138,21 @@ abstract class UiScript
         $this->params = $params;
     }
 
-    protected function paramExists($paramName){
+	/**
+	 * Returns true if a parameter with the given name exists. This is useful for checkboxes: A browser sends information about a checkbox if and only if the user checked the checkbox.
+	 * @param string $paramName Name of the parameter.
+	 * @return bool Does the parameter exist?
+     */
+	protected function paramExists($paramName){
         return array_key_exists($paramName, $this->params);
     }
 
 	/**
 	 * Gets script argument with supplied key or all arguments.
+	 *
+	 * It is not recommended to use "null" as an argument. Previously, this was used for the "extract" function but using the extract function,
+	 * even in the limited way it was used, is unsafe, and confuses IDEs.
+	 *
 	 * @param mixed $key argument key (string), array with argument keys, or null
 	 *		to get all arguments
 	 * @return mixed argument value if single key is supplied, otherwise associative
@@ -409,12 +441,12 @@ abstract class UiScript
 	 */
 	protected final function userHasPrivileges (...$privileges)
 	{
+		$reason = "";
         if (!User::instance()->isSessionValid($reason))
         {
             return $this->stop(Language::get(StringID::SessionInvalidated));
         }
 		if (!User::instance()->hasPrivileges(...$privileges))
-		// TODO remove this: if (!call_user_func_array(array(User::instance(), 'hasPrivileges'), func_get_args()))
 		{
             return $this->stop(Language::get(StringID::InsufficientPrivileges));
 		}

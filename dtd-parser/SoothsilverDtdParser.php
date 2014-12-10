@@ -4,19 +4,26 @@
  * - Add a feature to prevent XML explosion
  * - Remember comments and line feeds inside comments count
  */
-/*
- * @namespace Soothsilver\DtdParser
- * @ingroup SoothsilverDtdParser
- */
 namespace Soothsilver\DtdParser;
 /**
  * @defgroup SoothsilverDtdParser Soothsilver DTD Parser
+ * A standalone DTD parser for PHP.
+ * @{
+ */
+
+/**
+ * @namespace Soothsilver
+ * Contains all classes belonging to the standalone DTD parser. This is a supernamespace based on the author's nickname.
+ */
+
+/**
+ * @namespace Soothsilver\DtdParser
+ * Contains all classes belonging to the standalone DTD parser.
  */
 
 
 /**
  * Represents all information extracted from a Document Type Declaration file, possibly combined with an internal subset.
- * @ingroup SoothsilverDtdParser
  */
 class DTD
 {
@@ -1184,7 +1191,7 @@ class DTD
     }
 
     /**
-     * Parse the text given as though it were part of a .dtd file and return an \Aurora\DTD instance, even if
+     * Parse the text given as though it were part of a .dtd file and return a \Soothsilver\DtdParser\DTD instance, even if
      * parsing fails.
      * @param string $text UTF-8 text to parse
      * @param string $internalSubset optionally, parse this XML internal subset in addition to the main DTD text given as the first parameter
@@ -1270,7 +1277,6 @@ class Attribute
 }
 /**
  * Represents a processing instruction.
- * @package Soothsilver\DtdParser
  */
 class ProcessingInstruction
 {
@@ -1418,7 +1424,6 @@ namespace Soothsilver\DtdParser\Internal;
 
 /**
  * Contains regular expressions for various productions in the XML specification
- * @package Soothsilver\DtdParser\Internal
  */
 class XmlRegexes {
     /**
@@ -1452,7 +1457,6 @@ class XmlRegexes {
 
 /**
  * Represents the parser state during the parsing of an ATTLIST declaration
- * @package Soothsilver\DtdParser\Internal
  */
 abstract class AttlistMode {
     const NeedName = 0;
@@ -1465,7 +1469,6 @@ abstract class AttlistMode {
 
 /**
  * Represents the state of the parser that determines what should be done about parameter entities found.
- * @package Soothsilver\DtdParser\Internal
  */
 abstract class PEStyle {
     /**
@@ -1490,10 +1493,12 @@ abstract class PEStyle {
 
 /**
  * Represents the parser state.
- * @package Soothsilver\DtdParser\Internal
  */
 abstract class TokenizeMode {
     const Attlist = 0;
     const EntityDeclaration = 1;
     const NotationDeclaration = 2;
 }
+/**
+ * @}
+ */
