@@ -1,7 +1,8 @@
 <?php
+namespace asm\unittests;
 
 
-class UtilsTest extends PHPUnit_Framework_TestCase {
+class UtilsTest extends \PHPUnit_Framework_TestCase {
 
     public function testParseBool()
     {

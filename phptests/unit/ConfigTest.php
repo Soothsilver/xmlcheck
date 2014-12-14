@@ -1,9 +1,11 @@
 <?php
+namespace asm\unittests;
+
 // NOTE: we cannot test state before the calling of :init() because due to its singleton pattern,
 // the data in Config is kept between unit test methods. We are sure, however, that calling init()
-// destroys the old state, so unit testing can be reasonbly performed.
+// destroys the old state, so unit testing can be reasonably performed.
 
-class ConfigTest extends PHPUnit_Framework_TestCase {
+class ConfigTest extends \PHPUnit_Framework_TestCase {
 
     public function testLoadSuccessful()
     {
@@ -65,7 +67,7 @@ HEREDOC;
         \asm\utils\Filesystem::removeFile("myconfig2.ini");
     }
 
-    public function testNonexistingThrowsException()
+    public function testNonExistingThrowsException()
     {
         $this->setExpectedException("\Exception");
         \asm\core\Config::init("myconfig2.ini");

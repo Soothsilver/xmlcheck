@@ -1,9 +1,10 @@
 <?php
+namespace asm\unittests;
 use asm\utils\Filesystem;
 
 require_once __DIR__ . "/checkerRunner.php";
 
-class XQueryTest extends PHPUnit_Framework_TestCase {
+class XQueryTest extends \PHPUnit_Framework_TestCase {
     private function runXQuery($zipFile, $queryCount, $fulfillment = null, $details = "")
     {
         $result = CheckerRunner::runChecker(new XQueryMockChecker(), Filesystem::combinePaths(CheckerRunner::$testCasesRoot, "XQUERY",  $zipFile), [$queryCount]);

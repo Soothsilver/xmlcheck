@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\docs;
+require_once __DIR__ . "/JsInputFilter.php";
 
 /**
  * Input filter for extensions of core JavaScript classes and jQuery.

@@ -2,10 +2,9 @@
 
 @defgroup ui User interface
 
-Provides interface between user and @projectname core.
+User interface is the client-side portion of ht project. It displays the webpage and communicates with the server.
 
 Programming language: <b>JavaScript</b> \n
-Function: <b>easy access to application</b> \n
 Interacts with: <b>@ref core</b> \n
 
 @section sec_uiBehavior Behavior
@@ -14,119 +13,41 @@ User interface (UI) is a separate part of @projectname. It is a JavaScript appli
 that runs in web browser and communicates with @ref core using HTTP POST and GET
 requests containing JSON-encoded data.
 
-Data is presented to user using combination of tables and forms with enhanced
+Data is presented to user using a combination of tables and forms with enhanced
 functionality.
 
 @section sec_uiTasks Tasks
 
 @subsection sec_uiPresentation Data and interactive elements presentation
 
-Accessible data is presented to user mostly using just two presentation elements -
+Accessible data is presented to the user mostly using just two presentation elements -
 table and form. Tables are used to display data for easy exploration and simple
 interaction, forms are used for more complicated interaction (usually with single
 item). Both elements are enhanced so that they fulfill their roles completely and
-without need of any support elements.
+without the need of any support elements.
 
 @subsection sec_uiNavigation Transparent navigation
 
-Web application runs in web browser and therefore some basic behavior is expected
+Web application runs in a web browser and therefore some basic behavior is expected
 of it, such as support of "Back" and "Forward" browser buttons. This is achieved
-by using hash part of page url to navigate page. There is always just one content
-area displayed, therefore the hash directly identifies content to be shown. This
-gives an additional benefit of being able to bookmark application with specific
-page open, etc.
+by using the hash part of page url to navigate between pages. There is always just one content
+area displayed, therefore the hash directly identifies the content to be shown. This
+gives an additional benefit of being able to bookmark a specific page.
 
 @subsection sec_uiUserSessions User session management
 
 User session management in UI reflects @ref core functionality. User session is
-started on login and user activity is periodically checked to determine whether
-send session refresh request to core, or whether to log user off. (User activity
-means mouse movement in this context.) If the user is inactive for too long, he
-is automatically logged off and all cached data is purged to prevent other users
-from it.
+started on login and user activity is periodically checked to determine whether to
+send a session refresh request to core, or whether to log the user off. (User activity
+means mouse movement in this context.) If the user is inactive for too long, he or she
+is automatically logged off and all cached data is purged to prevent other users from accessing it.
 
 @subsection sec_uiPrivileges Usertype-based functionality restriction
 
-Content shown to user after login depend on type of his user account, so that
-the user can see and access only those parts of the application he is allowed to
+Content shown to the user after login depends on the type of his or her user account, so that
+the user can see and access only those parts of the application he or she is allowed to
 interact with. This means that for two different users the application may look
 and feel different, and even for one user the behavior can change in time, provided
-that somebody changes his/her privileges.
-
-
-@section sec_uiLayout Layout and display elements
-
-Apart from Login, Register, and Activate pages, which are simply forms horizontally
-centered on the screen, the application has unified layout described in following
-figure:
-
-@image html uiLayout.mockup.png "UI layout"
-
-Content area can contain one or more of following elements:
-
-@image html table.mockup.png "Table"
-
-@image html form.mockup.png "Form"
-
-@image html panel.mockup.png "Panel"
-
-
-@section sec_uiHierarchy Content page hierarchy
-
-Follows content page hierarchy tree with content type description for each content
-page. Apart from elements described in previous sections, there is one additional
-composite element "editor", which consists of table and form combined (table is
-displayed by default, but switches to form if user clicks on "add" or "edit" action
-buttons).
-
-<ul>
-	<li><b>Login</b> [form]</li>
-	<li><b>User account registration</b> [form]</li>
-	<li><b>User account activation</b> [form]</li>
-	<li><b>Main application layout</b> (inner hierarchy just reflects menu grouping, all
-		items share the same content area, only one is displayed at a time)
-		<ul>
-			<li><b>"Home"</b> [~3 panels] (default page)</li>
-			<li>Student tasks
-				<ul>
-					<li><b>Assignments</b> current and past [pseudo-editor & table]
-						(pseudo-editor allows to add submissions for pending assignments)
-					</li>
-					<li><b>Submissions</b> new, corrected, and confirmed [3 tables]</li>
-					<li><b>Subscriptions</b> selected, available [2 tables]</li>
-				</ul>
-			</li>
-			<li>Group owner tasks
-				<ul>
-					<li><b>Assignments (management)</b> [editor]</li>
-					<li><b>Groups</b> [editor]</li>
-					<li><b>Subscription requests</b> [table]</li>
-				</ul>
-			</li>
-			<li>Lecturer tasks
-				<ul>
-					<li><b>Lectures</b> [editor]</li>
-					<li><b>Problems</b> [editor]</li>
-					<li><b>Plugins</b> [editor]</li>
-					<li><b>Plugin tests</b> [2 tables & form]</li>
-				</ul>
-			</li>
-			<li>Administration
-				<ul>
-					<li><b>UI log</b> [table]</li>
-					<li><b>System log</b> [table]</li>
-					<li><b>Users</b> [editor]</li>
-					<li><b>User types</b> [editor]</li>
-				</ul>
-			</li>
-			<li>Settings
-				<ul>
-					<li><b>User account settings</b> [form]</li>
-					<li><b>UI settings</b> [form]</li>
-				</ul>
-			</li>
-		</ul>
-	</li>
-</ul>
+that somebody changes his or her privileges.
 
 */

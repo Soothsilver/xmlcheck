@@ -1,10 +1,11 @@
 <?php
+namespace asm\unittests;
 use asm\utils\Filesystem;
 
 require_once __DIR__ . "/checkerRunner.php";
 require_once CheckerRunner::$xmlCheckRoot . '/files/plugins/DTD2014/Dtd2014Checker.php';
 
-class DtdTest extends PHPUnit_Framework_TestCase {
+class DtdTest extends \PHPUnit_Framework_TestCase {
 
     public function testChinese()
     {

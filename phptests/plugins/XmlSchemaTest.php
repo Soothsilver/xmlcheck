@@ -1,10 +1,11 @@
 <?php
+namespace asm\unittests;
 use asm\utils\Filesystem;
 
 require_once __DIR__ . "/checkerRunner.php";
 require_once CheckerRunner::$xmlCheckRoot . '/files/plugins/XML XMLSchema/XmlSchemaChecker.php';
 
-class XmlSchemaTest extends PHPUnit_Framework_TestCase {
+class XmlSchemaTest extends \PHPUnit_Framework_TestCase {
     public function testSimonRozsival()
     {
         $this->runSchemaTest('SimonRozsival.zip', 75, "defined mandatory attributes");

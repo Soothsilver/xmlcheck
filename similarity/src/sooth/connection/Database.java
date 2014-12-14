@@ -11,7 +11,6 @@ import sooth.entities.tables.records.SubmissionsRecord;
 import sooth.objects.Document;
 import sooth.objects.Submission;
 import sooth.objects.SubmissionsByPlugin;
-import sooth.scripts.Operations;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -107,7 +106,7 @@ public class Database {
             String documentText = (String)record.getValue("dtext");
             Document.DocumentType documentType = Document.DocumentType.getDocumentTypeByMysqlIdentifier((int)record.getValue("dtype"));
             Document document = new Document(documentType, documentText, documentName);
-            document.setTextWithFoldedWhitespace(Operations.foldWhitespace(documentText));
+            document.preprocess();
             createdDocumentList.add(document);
         }
         return tree;

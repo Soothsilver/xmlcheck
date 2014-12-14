@@ -10,7 +10,7 @@ import sooth.entities.tables.records.SubmissionsRecord;
 import sooth.objects.Document;
 import sooth.objects.Similarity;
 import sooth.objects.Submission;
-import sooth.similarity.ComparisonResult;
+import sooth.similarity.DocumentComparisonResult;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -21,9 +21,38 @@ import java.util.logging.Logger;
 public class Operations {
     private static Logger logger = Logging.getLogger(Operations.class.getName());
     private static final boolean useMultithreading = false;
+    public static final int MINIMUM_DOCUMENT_LENGTH = 500; // 500 bytes
 
-    public static String foldWhitespace(String text) {
-        return text.replaceAll("\\s+", ""); // TODO this does not fold, but remove
+    /**
+     * Removes whitespace from the specified string.
+     * @param text The string to remove whitespace from.
+     * @return The string with whitespace removed.
+     */
+    public static String removeWhitespace(String text) {
+        return text.replaceAll("\\s+", "");
+    }
+
+    /**
+     * Removes whitespace from each string in the array and returns an array with these modified strings.
+     * @param stringsToRemoveWhitespaceFrom The array of strings where whitespace should be removed.
+     * @return An array of the same size as the argument, containing the same strings in the same order, except that they have not whitespace.
+     */
+    public static String[] removeWhitespace(String[] stringsToRemoveWhitespaceFrom) {
+        String[] result = new String[stringsToRemoveWhitespaceFrom.length];
+        for (int i =0;i < stringsToRemoveWhitespaceFrom.length; i++)
+        {
+            result[i] = Operations.removeWhitespace(stringsToRemoveWhitespaceFrom[i]);
+        }
+        return result;
+    }
+
+    public static String removeSubstrings(String haystack, String[] needles) {
+        // This might benefit from a better algorithm such as Aho-Corasick.
+        // It's something to consider if this becomes a bottleneck.
+        for(String needle : needles) {
+            haystack = haystack.replace(needle, "");
+        }
+        return haystack;
     }
 
     private static class ComparisonRunner implements Runnable {
@@ -113,17 +142,31 @@ public class Operations {
             {
                 if (oldDocument.getType().equals(newDocument.getType()))
                 {
+                    if (oldDocument.getPreprocessedText().length() < Operations.MINIMUM_DOCUMENT_LENGTH ||
+                        newDocument.getPreprocessedText().length() < Operations.MINIMUM_DOCUMENT_LENGTH)
+                    {
+                        // It is meaningless to compare documents this small for similarity because they will be trivial.
+                        continue;
+                    }
                     logger.fine("Now comparing " + oldDocument.getType() + " documents.");
-                    ComparisonResult result = DocumentComparisons.levenshteinCompare(oldDocument, newDocument, oldSubmission.getPluginIdentifier());
+
+
+                   DocumentComparisonResult result = DocumentComparisons.greedyStringTilingCompare(oldDocument, newDocument, oldSubmission.getPluginIdentifier());
+                    // ComparisonResult result = DocumentComparisons.levenshteinCompare(oldDocument, newDocument, oldSubmission.getPluginIdentifier());
+
+
                     if (similarity.getScore() < result.getSimilarity()) {
                         similarity.setScore(result.getSimilarity());
                     }
                     if (result.isSuspicious()) {
                         similarity.setSuspicious(true);
                     }
-                    similarity.setDetails(similarity.getDetails() +
-                    oldDocument.getType() + " comparison (" + result.getSimilarity() + "%"+(result.isSuspicious() ? ", suspicious" : "")+ "):\n"
-                        + "Details: \n" + result.getDetails() + "\n\n");
+                    if (result.isSuspicious() || result.getSimilarity() > 0)
+                    {
+                        similarity.setDetails(similarity.getDetails() +
+                            oldDocument.getType() + " comparison (" + result.getSimilarity() + "%"+(result.isSuspicious() ? ", suspicious" : "")+ "):\n"
+                            + "Details: \n" + result.getDetails() + "\n\n");
+                    }
                 }
             }
         }

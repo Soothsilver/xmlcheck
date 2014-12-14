@@ -2,61 +2,45 @@
 
 @defgroup plugins Plugins
 
-@projectname plugins for automatic correction of submitted solutions.
+Plugins for automatic correction of submitted solutions.
 
 Programming language: <b>PHP, Java</b> \n
-Function: <b>correction of assignment solutions</b> \n
 Interacts with: <b>@ref core</b> \n
 
-Plugins are separate scripts/executables, each used for correction of solutions
-to specific problem. This module consists of two parts:
+Plugins are separate scripts, each used for automatic evaluation of student solutions
+to a specific problem. This module consists of three parts:
 
-- PHP plugin development framework,
-- finished plugins.
+- PHP plugin development framework;
+- Java plugin development framework;
+- Finished plugins.
 
-@anchor javaFramework
-There are also Java plugins included in @projectname, created using
-Java plugin framework, which is documented (and distributed) as a separate project.
-See <a href="@asmjpf">its documentation</a> for details.
+@section sec_pluginsPhpFramework Plugin frameworks
 
-@section sec_pluginsPhpFramework PHP plugin framework
-
-Structure of PHP plugin framework is very similar to that of abovementioned Java
-plugin framework. All classes are contained in @ref asm::plugin namespace. See
-<a href="@asmjpf">Java plugin framework documentation</a>
-for basic understanding of plugin development, @ref asm::plugin::Plugin "documentation"
-of @ref asm::plugin::Test "individual" @ref asm::plugin::SingleTestPlugin "classes"
-for @ref asm::plugin::PluginResponse "clarification", and documentation of
-@ref XmlDtdChecker "finished" @ref XmlSchemaChecker "plugins" for
-@ref XsltChecker "use samples".
-
-More documentation will be included in the next version of @projectname.
+Structure of the PHP plugin framework is very similar to that of the Java
+plugin framework. For PHP, all classes are contained in the @ref asm::plugin namespace, where as for Java,
+they are in the @ref name::hon2a::asm namespace.
 
 @section sec_pluginsFinished Finished plugins
 
-There are six plugins bundled with @projectname, all of them used for correction
-of homeworks for XML Technologies lecture of the Faculty of Mathematics and Physics
-at Charles University of Prague. Four of them are written in PHP, and their sources
-are included in this documentation, while two of them are written in Java and
-documented separately (@ref javaFramework "see above").
+There are six plugins bundled with @projectname, all of them used for evaluation
+of homework for the lecture XML Technologies of the Faculty of Mathematics and Physics
+at Charles University in Prague. Four of them are written in PHP and two of them are written in Java.
 
-Problem specifications can be found on
-<a href="http://www.ksi.mff.cuni.cz/~mlynkova/prg036/indexCV.html">this page</a>
-(maintained by XML Technologies lecturer).
+The task descriptions given to students may be found in the attached thesis and in the plugins themselves.
 
 @section sec_pluginsFormatting Plugin format
 
-Plugins must have a specific format to be accepted by @projectname application.
-All plugin files must be compressed in a single ZIP archive together with special
-"manifest" file described @ref sec_pluginsManifest "below". Plugins will be unpacked automaticaly
-when the plugins are added to @ref core, and launched using the information contained
-in the manifest. Folder structure of packed files will be preserved. Plugins will
+Plugins must have a specific format to work.
+All plugin files must be compressed in a single ZIP archive together with a special
+"manifest" file described @ref sec_pluginsManifest "below". Plugins will be unpacked automatically
+when the plugins are added in the user interface, and launched using the information contained
+in the manifest. Folder structure of the packed files will be preserved. Plugins will
 not be added to the application if the manifest file isn't well-formed or doesn't
 contain required data.
 
 @subsection sec_pluginsManifest Plugin manifest
 
-Plugin manifest is a XML file named <tt>manifest.xml</tt> and located in the plugin
+The plugin manifest is an XML file named <tt>manifest.xml</tt> and located in the plugin
 root folder (at the root level of ZIP archive, not in any subfolder). It has to
 have the following format:
 
@@ -65,6 +49,7 @@ have the following format:
 <plugin-manifest>
 	<mainFile>MAIN_FILE_PATH</mainFile>
 	<type>TYPE</type>
+	<identifier>IDENTIFIER</identifier>
 	<description>DESCRIPTION</description>
 	<arguments>
 		<argument>ARGUMENT_DESCRIPTION</argument>
@@ -80,6 +65,7 @@ where
 - @c DESCRIPTION is plugin description (names and specifications of required input
 	files, etc.),
 - <tt>\<arguments\></tt> tag is optional, and @c ARGUMENT_DESCRIPTION is a short
-	string with argument description.
+	string with argument description,
+- @c IDENTIFIER is a unique string. This identifier may be used by the similarity checking module
 
 */

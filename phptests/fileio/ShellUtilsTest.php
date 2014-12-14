@@ -1,9 +1,10 @@
 <?php
+namespace asm\unittests;
 
 
 use asm\utils\ShellUtils;
 
-class ShellUtilsTest extends PHPUnit_Framework_TestCase {
+class ShellUtilsTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testPhpExecInBackground()

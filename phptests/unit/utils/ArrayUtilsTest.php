@@ -1,7 +1,8 @@
 <?php
+namespace asm\unittests;
 use \asm\utils\ArrayUtils;
 
-class ArrayUtilsTest extends PHPUnit_Framework_TestCase
+class ArrayUtilsTest extends \PHPUnit_Framework_TestCase
 {
 
     public function testStripKeys()

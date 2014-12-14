@@ -1,9 +1,10 @@
 <?php
+namespace asm\unittests;
 use asm\utils\Filesystem;
 
 require_once __DIR__ . "/checkerRunner.php";
 
-class DomSaxTest extends PHPUnit_Framework_TestCase {
+class DomSaxTest extends \PHPUnit_Framework_TestCase {
     private function runDomSax($zipFile, $fulfillment = null, $details = "")
     {
         $result = CheckerRunner::runChecker(new DomSaxMockChecker(), Filesystem::combinePaths(CheckerRunner::$testCasesRoot, "DOMSAX",  $zipFile), []);

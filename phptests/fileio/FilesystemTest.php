@@ -1,4 +1,5 @@
 <?php
+namespace asm\unittests;
 /*
  *
  * File permissions are not tested, because they do not work on Windows.

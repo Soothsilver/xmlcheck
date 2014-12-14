@@ -238,7 +238,30 @@ TAB_SIZE               = 4
 # "Side Effects:". You can put \n's in the value part of an alias to insert
 # newlines.
 
-ALIASES                = 
+ALIASES                = "projectname=XML Check" \
+                         "module=<em>[module]</em>" \
+                         "singleton=<em>[singleton]</em>" \
+                         "adapter=<em>[adapter]</em>" \
+                         "phpenum=<em>[enum]</em>" \
+                         "tparam=" \
+                         "treturn=" \
+                         "mixin=<em>[mixin]</em>" \
+                         "optional=<em>[optional]</em>" \
+                         "abstract=This method should be considered abstract and must be implemented in descendants." \
+                         "mandatory=<em>[mandatory]</em>" \
+                         "mir=<span class=\"menuItem\">" \
+                         "endmir=</span>" \
+                         "flr=<span class=\"fieldItem\">" \
+                         "endflr=</span>" \
+                         "harr=<span class=\"icon icon-transfer-e-w\">&lt;&mdash;&gt;</span>" \
+                         "rarr=<span class=\"icon icon-arrow-1-e\">&mdash;&gt;</span>" \
+                         "larr=<span class=\"icon icon-arrow-1-e\">&lt;&mdash;</span>" \
+                         "dialog=<span class=\"icon icon-comment\">dialog</span>" \
+                         "projectwww=http://hon2a.wz.cz/asm/" \
+                         "asmjpf=http://hon2a.wz.cz/asm/docs-java/" \
+                         "ORM=" \
+                         "noinspection=" \
+                         "SuppressWarnings="
 
 # This tag can be used to specify a number of word-keyword mappings (TCL only).
 # A mapping has the form "name=value". For example adding "class=itcl::class"
@@ -771,7 +794,8 @@ INPUT                  = ../dtd-parser \
                          ../www/web \
                          ../www/index.php \
                          ../www/.htaccess \
-                         ../www/files/plugins
+                         ../www/files/plugins \
+                         ./scripts/src
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -832,7 +856,8 @@ FILE_PATTERNS          = *.c \
                          *.ucf \
                          *.qsf \
                          *.as \
-                         *.js
+                         *.js \
+                         *.doxy
 
 # The RECURSIVE tag can be used to specify whether or not subdirectories should
 # be searched for input files as well.
@@ -929,8 +954,7 @@ INPUT_FILTER           =
 
 FILTER_PATTERNS        = "*.php=scripts\phpfilter.bat"
 FILTER_PATTERNS       += "*.js=scripts\jsfilter.bat"
-#FILTER_PATTERNS        = "*.php = php scripts/phpfilter.php" \
-#                         "*.js = php scripts/jsfilter.php"
+FILTER_PATTERNS       += "*.java=scripts\javafilter.bat"
 
 # If the FILTER_SOURCE_FILES tag is set to YES, the input filter (if set using
 # INPUT_FILTER ) will also be used to filter the input files that are used for

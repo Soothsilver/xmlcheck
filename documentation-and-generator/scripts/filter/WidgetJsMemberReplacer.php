@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\docs;
+require_once __DIR__ . "/JsMemberReplacer.php";
 
 /**
  * Replacer used by WidgetJsInputFilter to for special treatment of class members

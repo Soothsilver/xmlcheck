@@ -1,39 +1,24 @@
 /**
 
 @defgroup core Core
-
-Provides main @projectname functionality.
+Core is the server-side portion of the project; it handles AJAX requests from the client side.
 
 Programming language: <b>PHP</b> \n
-Function: <b>interaction between other parts, main application logic</b> \n
-Interacts with: <b>@ref ui, @ref database, @ref plugins</b> \n
-
-Core is server-based part of @projectname that contains main application logic.
-
+Interacts with: <b>@ref ui, @ref plugins</b> \n
 
 @section sec_coreBehavior Behavior
 
-Core performes various tasks upon receiving @ref requests "requests" from @ref ui corresponding
+_Core_ performs various tasks upon receiving @ref requests "requests" from @ref ui corresponding
 to those tasks (henceforth known as "core requests"). Request and result format
 is described in @ref sec_coreInterfaces section. Apart from that the Core is "dead" -
 there are no Core processes running on the server that were not directly
-triggered by @ref ui request.
+triggered by an @ref ui request.
 
-Core uses @ref database for data storage.
-
-@subsection sec_coreErrorLogging Error logging
-
-Errors that occured during request handling are logged to log files. "System log"
-entries can be retrieved using @ref asm::core::GetSystemLog "GetSystemLog" request.
-Log is rotated (5 files, max. 2MB each), entries are separated with <tt>\\n-\\n</tt>,
-lines with <tt>\\n\\n</tt>, <tt>\\t</tt>, date is formatted as MySQL timestamp
-(see @ref asm::utils::Logger "Logger" for more info), so that the log is easily
-readable. Log entry header contains username, remote IP address from which the
-request came, and remote hostname.
+_Core_ uses the Doctrine2 framework to access a MySQL database.
 
 @section sec_coreTasks Tasks
 
-Following tasks are managed by application Core:
+The following tasks are managed by application Core:
 
 @subsection sec_coreUserSessions User session management
 
@@ -46,61 +31,68 @@ Session stays open until set time runs out (timeout can be postponed). User's
 permissions are determined on session start and used to determine whether to
 allow or deny every subsequent request until session ends.
 
-@subsubsection sec_coreUserSessionsReq Requests
+@subsubsection sec_coreUserSessionsReq Relevant requests
 
-@ref asm::core::Login "Login", @ref asm::core::Logout "Logout",
+@ref asm::core::Login "Login",
+@ref asm::core::Logout "Logout",
 @ref asm::core::RefreshSession "RefreshSession"
 
 
 @subsection sec_coreUsers User management
 
-Allow creation, management, and removal of users and user groups (more often
+The core allows for creation, management, and removal of users and user roles (more often
 called "user types" throughout the documentation). Each user belongs to exactly
 one user group, which determines his privileges. Default user type ("student")
 may not be removed and it is used as fallback for users whose user type is removed
 from the system. It may, however, be stripped of all privileges.
 
-Users can be created in two different ways. One way is to register new user account,
+Users can be created in two different ways. One way is to register a new user account,
 which can be done without user authentication. It creates new inactive account
-belonging to default user group and sends e-mail with activation code to e-mail address
+belonging to the default user group and sends an e-mail with an activation code to the e-mail address
 entered as part of user account details. Only after the account is activated
-using that code, can the user log in using the new account and access appropriate
-application features. Other way is to create full-fledged user account of any
-user type, but requires user creation privilege. In that case, user account is
+using that code can the user log in using the new account and access appropriate
+application features. The other way is to create a full-fledged user account of any
+user type, but this requires user creation privileges. In that case, the user account is
 active immediately upon creation.
 
-@subsubsection sec_coreUsersReq Requests
+Users also have the option to reset their password should they forget it.
+
+@subsubsection sec_coreUsersReq Relevant requests
 
 @ref asm::core::GetUsers "GetUsers", @ref asm::core::EditUser "EditUser",
 @ref asm::core::Activate "Activate", @ref asm::core::DeleteUser "DeleteUser",
 @ref asm::core::GetUsertypes "GetUsertypes", @ref asm::core::EditUsertype "EditUsertype",
-@ref asm::core::DeleteUsertype "DeleteUsertype"
+@ref asm::core::DeleteUsertype "DeleteUsertype", @ref asm::core::RequestResetLink "RequestResetLink",
+@ref asm::core::ResetPassword "ResetPassword"
 
 @subsection sec_corePlugins Plugin management
 
-Important @projectname feature is the ability to (partially) correct submitted
+An important @projectname feature is the ability to (partially) evaluate submitted
 solutions. It is achieved using plugins, which can be added and removed as needed.
-Required format of plugins is described in @ref asm::core::AddPlugin "AddPlugin"
-request. Plugins can also be tested without the need to create problems and
-assignments. Once added, plugins may not be changed in any way.
+The required format of plugins is described in the @ref asm::core::AddPlugin "AddPlugin"
+request. Plugins can also be tested without the need to create assignments.
+Once added, plugins may not be changed in any way, except by reloading information
+from their manifests.
 
-@subsubsection sec_corePluginsReq Requests
+@subsubsection sec_corePluginsReq Relevant requests
 
 @ref asm::core::GetPlugins "GetPlugins", @ref asm::core::AddPlugin "AddPlugin",
 @ref asm::core::DeletePlugin "DeletePlugin", @ref asm::core::GetPluginTests "GetPluginTests",
 @ref asm::core::AddPluginTest "AddPluginTest", @ref asm::core::DeletePluginTest "DeletePluginTest",
 @ref asm::core::DownloadPluginTestInput "DownloadPluginTestInput",
-@ref asm::core::DownloadPluginTestOutput "DownloadPluginTestOutput"
+@ref asm::core::DownloadPluginTestOutput "DownloadPluginTestOutput",
+@ref asm::core::ReloadManifests "ReloadManifests"
 
 @subsection sec_coreLectures Lecture management
 
-Main @projectname functionality starts with management of lectures. In context
-of this applicaton, lectures are basically groups of problems that can be assigned
+In context of this application, lectures are basically groups of problems that can be assigned
 to students as homework. Each problem belongs to exactly one lecture and consists
-of detailed description and optionally configuration of plugin used for correction
-of solutions submitted for this problem.
+of a detailed description and optionally arguments to the plugin used for automatic evaluation
+of solutions submitted for the problem.
 
-@subsubsection sec_coreLecturesReq Requests
+Attachments, questions and printable tests are also always associated with a single lecture.
+
+@subsubsection sec_coreLecturesReq Relevant requests
 
 @ref asm::core::GetLectures "GetLectures", @ref asm::core::EditLecture "EditLecture",
 @ref asm::core::DeleteLecture "DeleteLecture", @ref asm::core::GetProblems "GetProblems",
@@ -108,25 +100,18 @@ of solutions submitted for this problem.
 
 @subsection sec_coreGroups Assignment group management
 
-Following lecture & excercise group model used at <a href="www.cuni.cz">Charles
-University in Prague</a>, users are divided into "assignment groups" (simply called
-"groups" throughout this documentation). Lectures and groups are owned by user
-that created them, but group owner may be different from lecture owner to
-allow delegation of assignment management and correction to tutors of real-world
-excercise groups.
+A lecture consists of several groups which should correspond to the times a class takes place.
 
-@image html lectureGroupSystem.png "Lecture & group ownership"
-
-However, only problems belonging to the lecture the group is bound to can be
-assigned to students in that group, which means that all students attending the
-same lecture can easily be assigned the same problems.
+Problems are bound to a lecture, not a group, so students in all groups belonging to a single lecture can be assigned
+the same problem. Their deadlines are likely to be different, though, so the group's owner will create an assignment to
+give a problem to his or her students. This assignment will reference the problem and it will also specify a deadline.
 
 Users can subscribe to assignment groups to be able to see those groups' assignments
 and submit solutions. Groups can be either public or private, which determines
-whether users can subscribe to them directly, or must send subscription request
+whether users can subscribe to them directly, or must send a subscription request first
 and wait for the group owner to allow the subscription.
 
-@subsubsection sec_coreGroupsReq Requests
+@subsubsection sec_coreGroupsReq Relevant requests
 
 @ref asm::core::GetGroups "GetGroups", @ref asm::core::EditGroup "EditGroup",
 @ref asm::core::DeleteGroup "DeleteGroup", @ref asm::core::GetAssignments "GetAssignments",
@@ -138,57 +123,48 @@ and wait for the group owner to allow the subscription.
 @ref asm::core::PermitSubscription "PermitSubscription",
 @ref asm::core::ProhibitSubscription "ProhibitSubscription"
 
-@subsection sec_coreAssignments Hand-in and correction of problem solutions
+@subsection sec_coreAssignments Hand-in and grading of problem solutions
 
-Users subscribed to @ref sec_coreGroups "Assignment groups" can submit solutions to
-given assignments. Entities binding together such solutions with submit info
-(date) and results and output created by plugin during solution processing are
-called "submissions" throughout this documentation. (Plugin output is considered
-to be part of the solution to be viewed by group owner before rating the
-submission.) Life cycle of a submission is described in following diagram:
+Users subscribed to @ref sec_coreGroups "assignment groups" can submit solutions to
+given assignments. Entities binding together such solutions with the time of submission, results and output created by a plugin during solution processing are called "submissions" throughout this documentation. (Plugin output is considered
+to be part of the solution to be viewed by the group owner before grading the
+submission.)
 
-@image html submission.state.png "Submission states"
-
-Submission relationship to other entities is described by following diagram:
-
-@image html submission.png "Submission composition"
-
-@subsubsection sec_coreAssignmentsReq Requests
+@subsubsection sec_coreAssignmentsReq Relevant requests
 
 @ref asm::core::GetStudentAssignments "GetStudentAssignments",
-@ref asm::core::GetSubmissions "GetSubmissions", @ref asm::core::AddSubmission "AddSubmission",
-@ref asm::core::ConfirmSubmission "ConfirmSubmission",
+@ref asm::core::GetSubmissions "GetSubmissions",
+@ref asm::core::AddSubmission "AddSubmission",
+@ref asm::core::HandOffSubmission "HandOffSubmission",
 @ref asm::core::DownloadSubmissionInput "DownloadSubmissionInput"
 @ref asm::core::DownloadSubmissionOutput "DownloadSubmissionOutput",
 @ref asm::core::GetTeacherSubmissions "GetTeacherSubmissions",
 @ref asm::core::RateSubmission "RateSubmission"
 
-
 @section sec_coreInterfaces Interfaces
 
-Core interacts with @ref ui, @ref database, and @ref plugins. Interface with
-@ref database is explained on its page (and is mostly private at this time).
+The core interacts with the modules @ref ui and @ref plugins. It uses the Doctrine2 framework to interact with the database.
 
-@subsection sec_coreInterfaceUi Core <-> UI
+@subsection sec_coreInterfaceUi Communication between the Core and the User Interface
 
-@ref ui communicates with @ref core using HTTP POST (and possibly GET) requests.
-Each request must have @c action property set and it must contain valid request
+The @ref ui module communicates with the @ref core using HTTP POST (and possibly GET) requests.
+Each request must have the @c action property set and this property must contain valid request
 name. Other requirements are request-specific (see @ref requests).
 
-In response to requests, @ref core may return either an output file (in some special
+In response to requests, the @ref core may return either an output file (in some special
 cases), or JSON-encoded result data. Result data is an object with two properties.
-Property @c data contains request-specific result data (or may be empty in case
-of errors). Property @c errors is set only if some error(s) occured and contains
-an array of errors. For error properties see @ref asm::core::Error::toArray().
+The @c data property contains request-specific result data (or may be empty in case
+of errors). The @c errors property is set only if an error occurred and contains
+an array of errors.
 
-@subsection sec_coreInterfacePlugins Core <-> Plugins
+@subsection sec_coreInterfacePlugins Communication between the Core and a plugin
 
-@ref core launches plugins with appropriate arguments either directly (in case of
-PHP plugins), or from command-line (for more info see @ref plugins). Format of
-returned data depends on plugin type as well. PHP plugins return
+The @ref core launches plugins with appropriate arguments either directly (in case of
+PHP plugins), or from command-line (for more info see @ref plugins). The format of
+returned data depends on this. PHP plugins return a
 @ref asm::plugin::PluginResponse "PluginResponse" instance, while other plugins
-return XML formatted as follows. If plugin run finished successfully, following
-XML is returned:
+return XML formatted as follows (they use the standard output to deliver this XML).
+If a plugin run finished successfully, the following XML data are returned:
 
 @code
 <?xml version="1.0" standalone="yes"?>
@@ -205,11 +181,15 @@ XML is returned:
 </plugin-reply>
 @endcode
 
-where <tt>\<output\></tt> tag is optional, @c CRITERION_NAME is unique, @c PASSED
-is either @c true or @c false, @c FULFILLMENT is number from 0 to 100, and
-@c DETAILS is text containing any other info.
+where:
 
-If plugin run ended with error, following XML is returned:
+- The <tt>\<output\></tt> element is optional, but @c OUTPUT_FILE_PATH may contain the filename to a ZIP file generated by the plugin.
+- The @c CRITERION_NAME is a unique criterion name (such as "Submitted XPath queries are valid XPath").
+- The @c PASSED element contains either @c true or @c false.
+- The @c FULFILLMENT value is a number from 0 to 100, and
+- The @c DETAILS value is text containing any other information.
+
+If a plugin run ended with an error, the following XML data are returned:
 
 @code
 <?xml version="1.0" standalone="yes"?>
@@ -218,6 +198,5 @@ If plugin run ended with error, following XML is returned:
 </plugin-reply>
 @endcode
 
-where @c ERROR is text containing any and all error info.
-
+where @c ERROR is text containing relevant information.
 */

@@ -1,4 +1,5 @@
 <?php
+namespace asm\unittests;
 /**
  * Created by PhpStorm.
  * User: Petrik
@@ -8,7 +9,7 @@
 
 use\asm\utils\Flags;
 
-class FlagsTest extends PHPUnit_Framework_TestCase {
+class FlagsTest extends \PHPUnit_Framework_TestCase {
 
     public function testMatch()
     {

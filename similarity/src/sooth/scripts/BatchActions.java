@@ -3,6 +3,7 @@ package sooth.scripts;
 import org.jooq.DSLContext;
 import org.jooq.Result;
 import sooth.Logging;
+import sooth.Problems;
 import sooth.connection.Database;
 import sooth.connection.InsertSimilaritiesBatch;
 import sooth.entities.Tables;
@@ -13,6 +14,7 @@ import sooth.objects.SubmissionsByPlugin;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Objects;
 import java.util.logging.Logger;
 // TODO (elsewhere) document and mind java heap space
 public class BatchActions {
@@ -48,12 +50,12 @@ public class BatchActions {
             logger.info("Identifier category: " + submissions.get(0).getPluginIdentifier() + " (count " + submissions.size() + ")");
             logger.info("Time: " + new Date());
 
-            /*
+
             if (!Objects.equals(submissions.get(0).getPluginIdentifier(), Problems.HW1_DTD)) {
                 logger.info("Ignoring.");
                 continue;
             }
-            */
+
 
             for (int i = 1; i < submissions.size(); i++) {
                 similarityBatch.addComparisonOfOneToMany(submissions.get(i), submissions, 0, i);

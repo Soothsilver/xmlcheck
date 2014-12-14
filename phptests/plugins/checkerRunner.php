@@ -1,4 +1,5 @@
 <?php
+namespace asm\unittests;
 
 use asm\core\Config;
 use asm\utils\Filesystem;

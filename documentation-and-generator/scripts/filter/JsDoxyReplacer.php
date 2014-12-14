@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\docs;
+require_once __DIR__ . "/Replacer.php";
 
 /**
  * Replacer of pseudo-doxygen documentation entity templates (-> real doxygen entities).

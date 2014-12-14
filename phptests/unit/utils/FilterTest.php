@@ -1,4 +1,5 @@
 <?php
+namespace asm\unittests;
 use \asm\utils\Filter;
 
 class FilterTest extends \PHPUnit_Framework_TestCase {

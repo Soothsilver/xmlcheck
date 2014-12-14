@@ -1,7 +1,8 @@
 <?php
+namespace asm\unittests;
 use \asm\utils\Compression;
 
-class CompressionTest extends PHPUnit_Framework_TestCase {
+class CompressionTest extends \PHPUnit_Framework_TestCase {
 
     protected function setUp()
     {

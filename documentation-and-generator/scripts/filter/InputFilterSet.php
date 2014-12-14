@@ -3,6 +3,8 @@
 namespace asm\docs;
 use InvalidArgumentException;
 
+require_once __DIR__ . "/IInputFilter.php";
+
 /**
  * Joins input filters together to use first one that understands given code.
  */

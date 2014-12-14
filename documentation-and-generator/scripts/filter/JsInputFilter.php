@@ -2,6 +2,12 @@
 
 namespace asm\docs;
 
+require_once __DIR__ . "/IInputFilter.php";
+require_once __DIR__ . "/JsClassReplacer.php";
+require_once __DIR__ . "/JsMemberReplacer.php";
+require_once __DIR__ . "/JsDoxyReplacer.php";
+require_once __DIR__ . "/WidgetJsMemberReplacer.php";
+
 /**
  * Base for transformers of object-oriented JavaScript code to C#-like pseudo-code
  * compatible with doxygen.

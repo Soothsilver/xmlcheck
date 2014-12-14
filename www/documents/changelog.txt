@@ -1,3 +1,19 @@
+1.02
+* <b>Bugfix.</b> The script AddSubscription would add a subscription even though the user wasn't authorized to join a public group.
+* <b>Bugfix.</b> Various bugs were fixed. Some of them were detected by running IntelliJ IDEA's static analysis tool.
+* <b>DOM/SAX.</b>  In the DOM/SAX homework, it is now possible to enclose the entire submission in a folder in the ZIP file.
+* <b>XQuery.</b> In the XQuery homework, it is now possible to enclose the entire submission in a folder in the ZIP file. In addition, the query files no longer have to be in a subfolder called xquery, they may be right next to the main file instead.
+* <b>Tests, questions, attachments.</b> These features now work again even after database and table refactoring.
+* <b>Major database access refactoring.</b> The custom ORM framework is now fully removed. Doctrine2 is used instead.
+* <b>Login screen.</b>The login screen was too small. At some resolutions, buttons overflowed to a second line.
+* <b>Database.</b> Previously, the student usertype was represented by 0 in database, which caused problems when importing a database dump because inserting 0 into the ID field was considered as using auto-increment. Now, the student usertype is represented by 1 instead.
+* <b>Field lengths.</b> All text information from the user may now have any length. Username and password are still limited, but less than before: They must be at least 5 characters and at most 200 characters.
+* <b>Registration e-mail editable.</b> The e-mail sent to the user after registration can now be modified by editing a simple text file.
+* <b>Path resolving.</b> The user no longer has to specify the directory of the project in a configuration file because the system infers it.
+* <b>Refactoring.</b> Major refactoring of the project structure, and of all PHP files and all Java files.
+* <b>Reloading manifests.</b> The administrator now has the option to reload plugin information from manifest files.
+* <b>Plagiarism checking.</b> Added plagiarism checking functionality. This is not complete, though.
+
 1.01
 * <b>Attachments.</b> When you delete an attachment, the reference to it from questions is also removed.
 * <b>Bugfix.</b> Fixed bugs introduced in the previous version.

@@ -1,10 +1,11 @@
 <?php
+namespace asm\unittests;
 use asm\utils\Filesystem;
 
 require_once __DIR__ . "/checkerRunner.php";
 require_once CheckerRunner::$xmlCheckRoot . '/files/plugins/XML XPath/XpathChecker.php';
 
-class XPathTest extends PHPUnit_Framework_TestCase {
+class XPathTest extends \PHPUnit_Framework_TestCase {
     public function testMinimalExample()
     {
         $this->runXPathTest('minimalExample.zip', 100);

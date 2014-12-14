@@ -15,24 +15,28 @@ import java.util.zip.ZipOutputStream;
 
 /**
  * Wrapper module for various utility functions.
- * This file is duplicated by the FilesystemUtils.java file in the similarity module.
- *
+ * This file is duplicated by the FilesystemUtils.java file in the java-plugins module.
+ * This duplication exists to prevent dependency between these two independent modules.
  */
 public class FilesystemUtils {
 
 	/// OS-specific line separator
 	public static final String EOL_STRING = System.getProperty("line.separator");
 	public static final String INDENT_STRING = "   "; ///< default indentation string
-
 	private static final int BUFFER_SIZE = 2048; ///< default buffer size
 
+	/**
+	 * Returns the file extension of the specified file. If the file has no extension, then an empty string is returned.
+	 * @param file A non-null path.
+	 * @return The file extension of the specified file.
+	 */
 	public static String getFileExtension(File file) {
 		String name = file.getName();
 		int lastIndexOf = name.lastIndexOf(".");
 		if (lastIndexOf == -1) {
 			return "";
 		}
-		if (lastIndexOf == name.length()-1)
+		if (lastIndexOf == (name.length() - 1))
 		{
 			return "";
 		}

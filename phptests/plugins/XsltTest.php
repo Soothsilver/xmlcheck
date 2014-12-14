@@ -1,10 +1,14 @@
 <?php
-use asm\utils\Filesystem;
+namespace asm\unittests;
+
 
 require_once __DIR__ . "/checkerRunner.php";
 require_once CheckerRunner::$xmlCheckRoot . '/files/plugins/XML XSLT/XsltChecker.php';
 
-class XsltTest extends PHPUnit_Framework_TestCase {
+/**
+ * Tests the XSLT plugin.
+ */
+class XsltTest extends \PHPUnit_Framework_TestCase {
     private function runXsltTest($zipFile, $templateCount, $fulfillment = null, $details = "")
     {
         $result = CheckerRunner::runChecker(new XsltChecker(), Filesystem::combinePaths(CheckerRunner::$testCasesRoot, "XSLT",  $zipFile), [$templateCount]);

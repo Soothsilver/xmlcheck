@@ -1,9 +1,10 @@
 <?php
+namespace asm\unittests;
 
 
 use asm\utils\Security;
 
-class SecurityTest extends PHPUnit_Framework_TestCase {
+class SecurityTest extends \PHPUnit_Framework_TestCase {
 
 
     public function testHash()

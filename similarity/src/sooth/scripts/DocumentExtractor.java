@@ -40,22 +40,12 @@ public class DocumentExtractor {
         ArrayList<Document> documents = new ArrayList<>();
         List<File> files = getAbsoluteFilesRecursively(submissionDirectory);
 
-        /*
-        TODO remove
-        This test is meaningless.
-        // All submissions should have the DIRECTORY_STRUCTURE document extracted.
-        StringBuilder textDirectoryStructure = new StringBuilder();
-        files.forEach(file -> textDirectoryStructure.append(file.toPath().getFileName() + "\n"));
-        Document documentDirectoryStructure = new Document(Document.DocumentType.DIRECTORY_STRUCTURE, textDirectoryStructure.toString(), "Directory Structure");
-        documents.add(documentDirectoryStructure);
-        */
-
         // Extracting individual files.
         for (File file : files) {
             String extension = FilesystemUtils.getFileExtension(file).toLowerCase();
             if (file.getPath().contains("MACOSX")) {
                 // Files in the __MACOSX folder will not be checked for plagiarism, because they are metadata created by
-                // MAC computers.
+                // Macintosh computers.
                 continue;
             }
 
@@ -79,7 +69,7 @@ public class DocumentExtractor {
                 }
                 else {
                     Document thisDocument = new Document(type, fileContents, file.getName());
-                    thisDocument.setTextWithFoldedWhitespace(Operations.foldWhitespace(fileContents));
+                    thisDocument.preprocess();
                     documents.add(thisDocument);
                 }
             } catch (IOException e) {

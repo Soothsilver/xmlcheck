@@ -1,6 +1,7 @@
 <?php
 
 namespace asm\docs;
+require_once __DIR__ . "/Replacer.php";
 
 /**
  * Replacer of object-oriented JavaScript class definitions (-> pseudo-C# code).

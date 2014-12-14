@@ -14,13 +14,19 @@ use Exception;
  */
 class Config
 {
-	/// default separator of section name and key in folder structure variables
+	/**
+	 * Default separator of section name and key in folder structure variables
+     */
 	const defaultFolderDelimiter = '.';
-	/// name of folder structure section (contains relationships between other
-	/// configuration properties resolved to be resolved as part of initialization)
+	/**
+	 * Name of the folder structure section (contains relationships between other
+	 * configuration properties resolved to be resolved as part of initialization)
+     */
 	const folderStructureId = 'folderStructure';
-	/// key of custom folder delimiter (value with this key in folder structure
-	/// section is used instead of @ref defaultFolderDelimiter if present)
+	/**
+	 * Key of custom folder delimiter (value with this key in folder structure
+	 * section is used instead of @ref defaultFolderDelimiter if present)
+	 */
 	const folderDelimiterId = 'delimiter';
 
     /** @var Config */
@@ -71,7 +77,11 @@ class Config
         return self::$instance->_get("roots", "http");
     }
 
-	private $config;	///< associative array with configuration properties
+	/**
+	 * Associative array with configuration properties.
+	 * @var array
+     */
+	private $config;
 
     /**
      * Parses supplied INI files, merges them and initializes instance with extracted data.

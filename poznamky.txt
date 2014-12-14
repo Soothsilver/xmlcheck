@@ -1,11 +1,2 @@
 STUDENT: 2816
 ADMIN: 16777215
-
-AppMainPanel._triggerError(asm.ui.Error)
-
-Error: (message, severity)
-
-FORM:
- callbacks:
-  success: function(reponse, data) // data contains the form data
-  failure:
