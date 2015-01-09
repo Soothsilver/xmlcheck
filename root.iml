@@ -4,6 +4,9 @@
     <exclude-output />
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/documentation-and-generator" />
+      <excludeFolder url="file://$MODULE_DIR$/exported-system" />
+      <excludeFolder url="file://$MODULE_DIR$/www/files/output" />
+      <excludeFolder url="file://$MODULE_DIR$/www/files/submissions" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
   </component>

@@ -6,7 +6,14 @@ use asm\core\lang\Language;
 use asm\core\lang\StringID;
 use asm\utils\Filesystem;
 
-
+/**
+ * @ingroup requests
+ * Reloads information about all plugins from their manifests. The information reloaded is the plugin name, description,
+ * unique identifier and argument number and descriptions.
+ *
+ * Only plugins that are already in the database are reloaded. This request is invoked from "Other Administration"
+ * in the main menu (only administrators have access to it).
+ */
 final class ReloadManifests extends DataScript
 {
 	protected function body ()

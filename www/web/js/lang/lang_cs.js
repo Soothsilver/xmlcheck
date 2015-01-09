@@ -36,7 +36,7 @@ asm.otherlangs.cs = {
         password : "Heslo",
         register : "Registrace",
         activate : "Aktivování",
-        lostPassword : "Zapomenuté heslo?",
+        lostPassword : "Zapomenuté heslo0?",
         loginButton : "Přihlásit se",
         back : "Zpět",
         passwordResetSuccessful : "Vaše heslo bylo změněno. Můžete se nyní přihlásit s vaším novým heslem.",
