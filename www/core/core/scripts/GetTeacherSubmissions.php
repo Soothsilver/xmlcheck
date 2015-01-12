@@ -56,13 +56,26 @@ final class GetTeacherSubmissions extends DataScript
                     continue;
                 }
             }
+            $descriptionForTeacher = $submission->getInfo();
+            if ($submission->getSimilarityStatus() == \Submission::SIMILARITY_STATUS_GUILTY) {
+                $descriptionForTeacher = Language::get(StringID::ThisSubmissionIsPlagiarism) . "\n======\n" . $descriptionForTeacher;
+            }
+            if ($submission->getSimilarityStatus() == \Submission::SIMILARITY_STATUS_INNOCENT) {
+                $descriptionForTeacher = $descriptionForTeacher . "\n======\n" . Language::get(StringID::ThisSubmissionIsInnocent);
+            }
+            if ($submission->getSimilarityStatus() == \Submission::SIMILARITY_STATUS_NEW) {
+                $descriptionForTeacher = $descriptionForTeacher . "\n======\n" . Language::get(StringID::ThisHasYetToBeCheckedForPlagiarism);
+            }
+            if ($submission->getStatus() == \Submission::STATUS_REQUESTING_GRADING) {
+                $descriptionForTeacher = Language::get(StringID::GradingRequested) . " " . $descriptionForTeacher;
+            }
             $row = [
                 $submission->getId(),
                 $submission->getAssignment()->getProblem()->getName(),
                 $submission->getAssignment()->getGroup()->getName(),
                 $submission->getDate()->format("Y-m-d H:i:s"),
                 $submission->getSuccess(),
-                $submission->getInfo(),
+                $descriptionForTeacher,
                 $submission->getRating(),
                 $submission->getExplanation(),
                 $submission->getAssignment()->getReward(),

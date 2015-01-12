@@ -24,7 +24,7 @@ class Xtest
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=50, nullable=false)
+     * @ORM\Column(name="description", type="string",  nullable=false)
      */
     private $description;
 

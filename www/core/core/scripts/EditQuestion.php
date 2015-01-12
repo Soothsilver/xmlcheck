@@ -28,6 +28,7 @@ final class EditQuestion extends LectureScript
 		if (!$this->isInputValid($inputs))
 			return false;
 
+
 		$lectureId = $this->getParams('lecture');
 		$text = $this->getParams('text');
 		$type = $this->getParams('type');
@@ -54,6 +55,7 @@ final class EditQuestion extends LectureScript
 					return $this->death(StringID::AttachmentBelongsToAnotherLecture);
 			}
 		}
+
 		if (count($attTmp))
 		{
 			return $this->stop(ErrorCause::invalidInput('Following attachment IDs are invalid or inaccessible: ' .
@@ -68,7 +70,7 @@ final class EditQuestion extends LectureScript
 		}
 		else {
 			$question = Repositories::findEntity(Repositories::Question, $id);
-			if ($question->getLecture()->getId() !== $lectureId) {
+			if ($question->getLecture()->getId() != $lectureId) { // This must be a weak comparison, because lectureId comes from user and is text.
 				return $this->death(StringID::HackerError);
 			}
 		}

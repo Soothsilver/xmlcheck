@@ -2,12 +2,14 @@
   <library name="lib">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/java-plugins/lib" />
+      <root url="file://$PROJECT_DIR$/similarity/lib" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
       <root url="file://$PROJECT_DIR$/java-plugins/lib" />
     </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/java-plugins/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/similarity/lib" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/java-plugins/lib" recursive="false" type="SOURCES" />
   </library>
 </component>

@@ -411,6 +411,7 @@ asm.lang = {
         languageHint : "saved as a cookie on this computer"
     },
     grading : {
+        absolutelyAllCaption : "All submissions in the database",
         legacyAwaitingGradingCaption : "Submissions Awaiting Grading",
         legacyGradedCaption : "Graded Submissions",
         downloadSubmission : "download submission",

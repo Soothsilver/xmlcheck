@@ -36,7 +36,7 @@ asm.otherlangs.cs = {
         password : "Heslo",
         register : "Registrace",
         activate : "Aktivování",
-        lostPassword : "Zapomenuté heslo0?",
+        lostPassword : "Zapomenuté heslo?",
         loginButton : "Přihlásit se",
         back : "Zpět",
         passwordResetSuccessful : "Vaše heslo bylo změněno. Můžete se nyní přihlásit s vaším novým heslem.",
@@ -98,6 +98,7 @@ asm.otherlangs.cs = {
         assignments : "Zadat úkoly",
         correction : "Oznámkovat řešení (staré)",
         correctionAll : "Oznámkovat řešení",
+        correctionAbsolutelyAll : "Zobrazit všechna řešení",
         correctionSeparated: "Oznámkovat řešení (nové)",
         groups : "Skupiny",
         userRatings : "Hodnocení studentů",
@@ -449,6 +450,7 @@ asm.otherlangs.cs = {
         languageHint : "nastavení uloženo jako cookie na tomto počítači"
     },
     grading : {
+        absolutelyAllCaption : "Úplně všechna řešení",
         legacyAwaitingGradingCaption : "Neoznámkovaná řešení",
         legacyGradedCaption : "Oznámkovaná řešení",
         downloadSubmission : "stáhnout řešení",

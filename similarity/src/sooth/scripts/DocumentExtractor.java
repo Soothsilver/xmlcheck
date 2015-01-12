@@ -15,7 +15,8 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 public class DocumentExtractor {
-    private static final int MAXIMUM_DOCUMENT_SIZE = 200000; // 200 kB
+    private static final int MAXIMUM_DOCUMENT_SIZE = 50000; // 50 kB
+    private static final int MAXIMUM_NUMBER_OF_SAME_DOCUMENT_TYPE = 3;
 
     private static Logger logger = Logging.getLogger(DocumentExtractor.class.getName());
     public static List<Document> getDocumentsFromZipArchive(Path pathToZipFile, String pluginIdentifier) {
@@ -54,13 +55,28 @@ public class DocumentExtractor {
             {
                 continue;
             }
-            if (type.canBePresentOnlyOnce()) {
-                for(Document d : documents) {
-                    if (d.getType().equals(type)) {
+            if (type == Document.DocumentType.DTD_FILE ||
+                type == Document.DocumentType.XQUERY_QUERY ||
+                type == Document.DocumentType.XQUERY_ADDITIONAL_XML_FILE ||
+                type == Document.DocumentType.XPATH_QUERY) {
+                // These files are too small to be compared for similarity.
+                continue;
+            }
+
+            int sameDocumentsPresent = 0;
+            for(Document d : documents) {
+                if (d.getType().equals(type)) {
+                    if (type.canBePresentOnlyOnce()) {
                         logger.warning("In this submission, a document of the same type is already present. (present: " + d.getName() + ", being added: " + file.getName() + ")");
                     }
+                    sameDocumentsPresent++;
                 }
             }
+            if (sameDocumentsPresent >= MAXIMUM_NUMBER_OF_SAME_DOCUMENT_TYPE) {
+                logger.warning("There are too many of these files in the submission. Ignoring the rest.");
+                continue;
+            }
+
             try {
                 String fileContents = FilesystemUtils.loadTextFile(file);
                 if (fileContents.length() > MAXIMUM_DOCUMENT_SIZE)
@@ -69,7 +85,6 @@ public class DocumentExtractor {
                 }
                 else {
                     Document thisDocument = new Document(type, fileContents, file.getName());
-                    thisDocument.preprocess();
                     documents.add(thisDocument);
                 }
             } catch (IOException e) {

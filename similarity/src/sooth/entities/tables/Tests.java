@@ -16,7 +16,7 @@ package sooth.entities.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tests extends org.jooq.impl.TableImpl<sooth.entities.tables.records.TestsRecord> {
 
-	private static final long serialVersionUID = -1932926145;
+	private static final long serialVersionUID = -2113648168;
 
 	/**
 	 * The reference instance of <code>asmregen.tests</code>
@@ -39,7 +39,7 @@ public class Tests extends org.jooq.impl.TableImpl<sooth.entities.tables.records
 	/**
 	 * The column <code>asmregen.tests.description</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.TestsRecord, java.lang.String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.VARCHAR.length(50).nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.TestsRecord, java.lang.String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * The column <code>asmregen.tests.pluginId</code>.
@@ -54,7 +54,7 @@ public class Tests extends org.jooq.impl.TableImpl<sooth.entities.tables.records
 	/**
 	 * The column <code>asmregen.tests.input</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.TestsRecord, java.lang.String> INPUT = createField("input", org.jooq.impl.SQLDataType.VARCHAR.length(100).nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.TestsRecord, java.lang.String> INPUT = createField("input", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * The column <code>asmregen.tests.status</code>.
@@ -74,7 +74,7 @@ public class Tests extends org.jooq.impl.TableImpl<sooth.entities.tables.records
 	/**
 	 * The column <code>asmregen.tests.output</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.TestsRecord, java.lang.String> OUTPUT = createField("output", org.jooq.impl.SQLDataType.VARCHAR.length(100).nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.TestsRecord, java.lang.String> OUTPUT = createField("output", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * Create a <code>asmregen.tests</code> table reference

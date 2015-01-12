@@ -106,7 +106,7 @@ class Core
                 if (isset($responseString))
                 {
                     try {
-                        $response = PluginResponse::fromXml(simplexml_load_string($responseString));
+                        $response = \asm\plugin\PluginResponse::fromXmlString($responseString);
                     }
                     catch (Exception $ex)
                     {
@@ -156,7 +156,10 @@ class Core
                 // There is a sort of a race condition in here.
                 // It is, in theory, possible, that there will be two submissions with the "latest" status after all is done
                 // This should not happen in practice, though, and even if it does, it will have negligible negative effects.
-                $previousSubmissions = Repositories::makeDqlQuery("SELECT s FROM Submission s WHERE s.assignment = :sameAssignment AND s.status != 'graded' AND s.status != 'deleted'");
+                $previousSubmissions = Repositories::makeDqlQuery("SELECT s FROM \Submission s WHERE s.user = :sameUser AND s.assignment = :sameAssignment AND s.status != 'graded' AND s.status != 'deleted'")
+                        ->setParameter('sameUser', $submission->getUser()->getId())
+                        ->setParameter('sameAssignment', $submission->getAssignment()->getId())
+                        ->getResult();
                 foreach ($previousSubmissions as $previousSubmission)
                 {
                     $previousSubmission->setStatus(\Submission::STATUS_NORMAL);

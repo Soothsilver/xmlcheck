@@ -16,7 +16,7 @@ package sooth.entities.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Attachments extends org.jooq.impl.TableImpl<sooth.entities.tables.records.AttachmentsRecord> {
 
-	private static final long serialVersionUID = 1391046689;
+	private static final long serialVersionUID = -1285631190;
 
 	/**
 	 * The reference instance of <code>asmregen.attachments</code>
@@ -39,7 +39,7 @@ public class Attachments extends org.jooq.impl.TableImpl<sooth.entities.tables.r
 	/**
 	 * The column <code>asmregen.attachments.name</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.AttachmentsRecord, java.lang.String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(20).nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.AttachmentsRecord, java.lang.String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * The column <code>asmregen.attachments.type</code>.
@@ -49,7 +49,7 @@ public class Attachments extends org.jooq.impl.TableImpl<sooth.entities.tables.r
 	/**
 	 * The column <code>asmregen.attachments.file</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.AttachmentsRecord, java.lang.String> FILE = createField("file", org.jooq.impl.SQLDataType.VARCHAR.length(100).nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.AttachmentsRecord, java.lang.String> FILE = createField("file", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * The column <code>asmregen.attachments.lectureId</code>.

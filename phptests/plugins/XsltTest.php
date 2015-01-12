@@ -1,6 +1,8 @@
 <?php
 namespace asm\unittests;
 
+use asm\utils\Filesystem;
+use XsltChecker;
 
 require_once __DIR__ . "/checkerRunner.php";
 require_once CheckerRunner::$xmlCheckRoot . '/files/plugins/XML XSLT/XsltChecker.php';

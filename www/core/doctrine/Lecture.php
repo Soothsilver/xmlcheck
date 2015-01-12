@@ -30,7 +30,7 @@ class Lecture
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=20, nullable=false)
+     * @ORM\Column(name="name", type="string", nullable=false)
      */
     private $name;
 

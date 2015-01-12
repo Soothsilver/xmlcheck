@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="CookieUtils.js"></script>
+    <script type="text/javascript">
+        if (cookies.exists('language'))
+        {
+            var displayLanguage = cookies.get('language');
+            // Default is Czech language.
+            if (displayLanguage !== 'en')
+            {
+                alert ('not en');
+            }
+            else
+            {
+                alert ('en');
+            }
+        };
+        function cs() {
+            cookies.set('language', 'cs');
+            window.location.reload(true);
+        }
+        function en() {
+            cookies.set('language', 'en');
+            window.location.reload(true);
+        }
+    </script>
+</head>
+<body>
+    <a onclick="cs(); return false;">cs</a>
+    <a onclick="en(); return false;">en</a>
+</body>
+</html>

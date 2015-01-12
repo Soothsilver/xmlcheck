@@ -1,6 +1,7 @@
 <?php
 namespace asm\unittests;
 use asm\utils\Filesystem;
+use Dtd2014Checker;
 
 require_once __DIR__ . "/checkerRunner.php";
 require_once CheckerRunner::$xmlCheckRoot . '/files/plugins/DTD2014/Dtd2014Checker.php';

@@ -1,6 +1,7 @@
 package sooth.similarity;
 
 import org.omg.CORBA.PRIVATE_MEMBER;
+import sun.security.pkcs11.wrapper.CK_RSA_PKCS_OAEP_PARAMS;
 
 /**
  * This test returns the number of tree edit operations that must be performed on a tree to transform it into the other tree.
@@ -14,9 +15,34 @@ import org.omg.CORBA.PRIVATE_MEMBER;
  * Space complexity: O(m*n)
  */
 public class ZhangShashaAlgorithm {
-
+    /**
+     * This thread-local instance field contains an instance of ZhangShashaAlgorithm for each thread. In this way,
+     * within a thread, ZhangShashaAlgorithm is a singleton class.
+     */
+    private static ThreadLocal<ZhangShashaAlgorithm> instance = new ThreadLocal<ZhangShashaAlgorithm>() {
+        @Override
+        protected ZhangShashaAlgorithm initialValue() {
+            return new ZhangShashaAlgorithm();
+        }
+    };
+    /**
+     * Returns the instance of ZhangShashaAlgorithm for this thread. If the instance does not exist yet, it is created.
+     * @return An instance of the ZhangShashaAlgorithm class.
+     */
+    public static ZhangShashaAlgorithm getInstance() {
+        return instance.get();
+    }
+    /**
+     * Cost to delete one node from the first tree.
+     */
     public static final int DELETION_COST = 1;
+    /**
+     * Cost to insert one node to the second tree.
+     */
     public static final int INSERTION_COST = 1;
+    /**
+     * Cost to relabel one node.
+     */
     public static final int RELABEL_COST = 1;
 
     private int[][] treedist = new int[1][1];
@@ -46,51 +72,65 @@ public class ZhangShashaAlgorithm {
         {
             for (int j : two.keyroots)
             {
-                calculateTreeDist(i+1, j+1);
+                calculateTreeDist(i, j);
             }
         }
 
         return treedist[one.getNodeCount()][two.getNodeCount()];
     }
 
+    /**
+     * Returns the minimum of three values. This function is needed in the Zhang-Shasha algorithm.
+     * @param a The first value.
+     * @param b The second value.
+     * @param c The third value.
+     * @return Minimum of the values.
+     */
+    private int min(int a, int b, int c)
+    {
+        return Math.min(a, Math.min(b, c));
+    }
+    /**
+     * Calculates part of  tree distance matrix as per the paper.
+     * forestdist is indexed in this way:
+     * 0 means the empty set
+     * An integer "k" means the set from l(i) to l(i)+k.
+     * @param iMajor Index of a keyroot in the tree (zero-based).
+     * @param jMajor Index of a keyroot in the second tree (zero-based).
+     */
     private void calculateTreeDist(int iMajor, int jMajor) {
         forestdist[0][0] = 0;
-        int li = firstTree.nodes.get(iMajor-1).LeftmostLeaf + 1;
-        int lj = secondTree.nodes.get(jMajor-1).LeftmostLeaf + 1;
-        forestdist[li-1][0] = 0;
-        forestdist[0][lj-1] = 0;
-        for (int i = li; i <= iMajor; i++) {
-            forestdist[i][0] = forestdist[i - 1][0] + DELETION_COST;
-            forestdist[i][lj-1] = forestdist[i - 1][lj-1] + DELETION_COST;
+        int li = firstTree.nodes.get(iMajor).LeftmostLeaf + 1; // one-based
+        int lj = secondTree.nodes.get(jMajor).LeftmostLeaf + 1; // one-based
+        iMajor++; // one-based
+        jMajor++; // one-based
+        int m = iMajor - li + 1;
+        int n = jMajor - lj + 1;
+        for (int k = 1; k <= m; k++) {
+            forestdist[k][0] = forestdist[k-1][0] + DELETION_COST;
         }
-        for (int j = lj; j <= jMajor; j++) {
-            forestdist[0][j] = forestdist[0][j-1] + INSERTION_COST;
-            forestdist[li-1][j] = forestdist[li-1][j-1] + INSERTION_COST;
+        for (int k = 1; k <= n; k++) {
+            forestdist[0][k] = forestdist[0][k-1] + INSERTION_COST;
         }
-        for (int i = li; i <= iMajor; i++) {
-            for (int j = lj; j <= jMajor; j++) {
-                int lSmallI = firstTree.nodes.get(i-1).LeftmostLeaf + 1;
-                int lSmallJ = secondTree.nodes.get(j-1).LeftmostLeaf + 1;
-                if (lSmallI == li && lSmallJ == lj) {
-                    forestdist[i][j] = Math.min(
-                      Math.min(
-                              forestdist[i-1][j] + DELETION_COST,
-                              forestdist[i][j-1] + INSERTION_COST
-                      ),
-                              forestdist[i-1][j-1] + (firstTree.nodes.get(i-1).Label.equals(secondTree.nodes.get(j-1).Label) ? 0 : RELABEL_COST)
-                      );
-                    treedist[i][j] = forestdist[i][j];
-
-                } else {
-                    forestdist[i][j] = Math.min(
-                                forestdist[i-1][j] + DELETION_COST,
-                            Math.min(
-                                forestdist[i][j-1] + INSERTION_COST,
-                                forestdist[lSmallI-1][lSmallJ-1] + treedist[i][j] // is calculation needed ?
-                            )
+        for (int x = 1; x <= m; x++)
+            for (int y = 1; y <= n; y++) {
+                int lx = firstTree.nodes.get(li - 1 + x - 1).LeftmostLeaf + 1;
+                int ly = secondTree.nodes.get(lj - 1 + y - 1).LeftmostLeaf + 1;
+                // x ... number of positions east of l(i)-1 (i.e. x=1 ... l(i))
+                if (lx == li && ly == lj) {
+                    forestdist[x][y] = min(
+                            forestdist[x-1][y] + DELETION_COST,
+                            forestdist[x][y-1] + INSERTION_COST,
+                            forestdist[x-1][y-1] + (firstTree.nodes.get(li - 1 + x - 1).Label.equals(secondTree.nodes.get(lj - 1 + y - 1).Label) ? 0 : RELABEL_COST)
                     );
-                }
+                    treedist[li + x - 1][lj + y - 1] = forestdist[x][y];
+                } else {
+                  forestdist[x][y] = min(
+                          forestdist[x-1][y] + DELETION_COST,
+                          forestdist[x][y-1] + INSERTION_COST,
+                          forestdist[lx - li + 1 - 1][ly - lj + 1 - 1] + treedist[li + x - 1][lj + y - 1]
+                  );
+                };
             }
-        }
     }
 }

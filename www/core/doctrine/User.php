@@ -24,7 +24,7 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, nullable=false)
+     * @ORM\Column(name="name", type="string", nullable=false)
      */
     private $name;
 
@@ -38,21 +38,21 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="pass", type="string", length=255, nullable=false)
+     * @ORM\Column(name="pass", type="string", nullable=false)
      */
     private $pass;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="realName", type="string", length=30, nullable=false)
+     * @ORM\Column(name="realName", type="string",  nullable=false)
      */
     private $realName;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=50, nullable=false)
+     * @ORM\Column(name="email", type="string",  nullable=false)
      */
     private $email;
 
@@ -66,21 +66,21 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="activationCode", type="string", length=32, nullable=false)
+     * @ORM\Column(name="activationCode", type="string",  nullable=false)
      */
     private $activationCode;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="encryptionType", type="string", length=255, nullable=false)
+     * @ORM\Column(name="encryptionType", type="string", nullable=false)
      */
     private $encryptionType = 'md5';
 
     /**
      * @var string
      *
-     * @ORM\Column(name="resetLink", type="string", length=255, nullable=true)
+     * @ORM\Column(name="resetLink", type="string",  nullable=true)
      */
     private $resetLink;
 

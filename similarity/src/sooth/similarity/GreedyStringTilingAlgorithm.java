@@ -54,7 +54,7 @@ public class GreedyStringTilingAlgorithm {
      * Specifies the MinimumMatchLength, which is a parameter of the Greedy-String-Tiling algorithm. A brief explanation is that only substrings greater or equal to this length can be considered tiles.
      */
     @SuppressWarnings("FieldCanBeLocal")
-    private int MinimumMatchLength = 2;
+    private int MinimumMatchLength = 8;
 
     /**
      * Initializes a new instance of the GreedyStringTilingAlgorithm class.

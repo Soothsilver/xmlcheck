@@ -1,6 +1,7 @@
 <?php
 namespace asm\unittests;
 use asm\utils\Filesystem;
+use XmlSchemaChecker;
 
 require_once __DIR__ . "/checkerRunner.php";
 require_once CheckerRunner::$xmlCheckRoot . '/files/plugins/XML XMLSchema/XmlSchemaChecker.php';

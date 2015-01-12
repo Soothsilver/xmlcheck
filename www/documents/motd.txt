@@ -1,3 +1,10 @@
-Děkujeme čtenáři, že čte tuto uživatelskou dokumentaci. V dnešní době si málokdo najde čas, aby četl manuály, a místo toho očekává, že všemu porozumí i bez návodů a instrukcí. Systém XML Check je samozřejmě velmi intuitivní, ovšem možná vám tato dokumentace ukáže nějaké triky, které vám usnadní její použití.
+Vítejte v systému XML Check.
 
-Nebo se alespoň můžete podívat, co vidí v aplikaci váš cvičící.
+Pokud v systému objevíte chybu, oznamte mi to prosím na <a href="mailto:petrhudecek2010@gmail.com">petrhudecek2010@gmail.com</a>.
+
+Abyste zbytečně neprovokovali systém na kontrolu podobnosti:
+- Nahrávejte jen svá vlastní řešení, nikoliv řešení vašich spolužáků.
+- Nahrávejte jen soubory, které jsou nutné (nenahrávejte např. celé projekty NetBeans).
+
+Děkuji
+Petr Hudeček

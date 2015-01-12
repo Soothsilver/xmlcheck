@@ -24,7 +24,7 @@ class Plugin
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=20, nullable=false)
+     * @ORM\Column(name="name", type="string", nullable=false)
      */
     private $name;
 
@@ -45,7 +45,7 @@ class Plugin
     /**
      * @var string
      *
-     * @ORM\Column(name="mainFile", type="string", length=100, nullable=false)
+     * @ORM\Column(name="mainFile", type="string", nullable=false)
      */
     private $mainfile;
 

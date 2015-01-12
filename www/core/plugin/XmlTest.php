@@ -70,7 +70,11 @@ abstract class XmlTest extends Test
     {
         if ($xmlErrorMessage === "Space needed here")
         {
-            return "Space needed here (a common error is not putting the encoding in the XML declaration of a DTD, or not putting a space after a SYSTEM token).";
+            return "Space needed here (a common error is not putting the encoding in the XML declaration of a DTD, or not putting a space after a SYSTEM token, or forgetting the question mark at the end of the XML prolog).";
+        }
+        else if ($xmlErrorMessage === "Blank needed here")
+        {
+            return "Blank needed here (a common error is not putting the encoding in the XML declaration of a DTD, or not putting a space after a SYSTEM token, or forgetting the question mark at the end of the XML prolog).";
         }
         else if (strpos($xmlErrorMessage, " not defined") !== false)
         {

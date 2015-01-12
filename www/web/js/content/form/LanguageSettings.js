@@ -11,8 +11,8 @@ asm.ui.form.LanguageSettings = asm.ui.DynamicForm.extend({
                     else if (data.language === 'English')
                     {
                         cookies.set('language', 'en');
-                    }
-                    window.location.reload();
+					}
+                    window.location.reload(true);
                     return false;
                 }
 			},

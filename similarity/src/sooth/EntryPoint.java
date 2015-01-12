@@ -1,29 +1,47 @@
 package sooth;
 
+import com.sun.tools.internal.ws.processor.model.Operation;
+import org.ini4j.Wini;
 import org.jooq.DSLContext;
 import sooth.connection.Database;
 import sooth.entities.Tables;
 import sooth.entities.tables.records.PluginsRecord;
 import sooth.entities.tables.records.SubmissionsRecord;
+import sooth.objects.Similarity;
 import sooth.objects.Submission;
 import sooth.objects.SubmissionsByPlugin;
 import sooth.scripts.BatchActions;
 import sooth.scripts.Operations;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class EntryPoint {
     private static final String ACTION_HELP = "help";
     private static final String ACTION_RELOAD_ALL_DOCUMENTS = "reloadalldocuments";
     private static final String ACTION_RECHECK_ENTIRE_DATABASE = "recheckall";
-    private static final String ACTION_LOAD_AND_CHECK_ARGUMENT = "makeone";
+    private static final String ACTION_EXTRACT_DOCUMENTS_FROM_ONE = "makeone";
     private static final String ACTION_COMPARE_TWO_DIRECTLY = "compare";
+    private static final String ACTION_EXTRACT_AND_ANALYZE_NEW_SUBMISSIONS_IF_POSSIBLE = "comparenew";
 
     private static final String ERROR_NOT_ENOUGH_ARGUMENTS = "You did not supply enough arguments for this action.";
     private static final String ERROR_MUST_BE_INTEGER = "The argument must be an integer.";
     private static final String ERROR_SUBMISSION_DOES_NOT_EXIST = "The specified submission does not exist.";
 
     public static void main(String[] args) {
+
+        // Load configuration
+        try {
+            Configuration.loadFromConfigIni(new Wini(new File("config.ini")));
+        } catch (IOException e) {
+            System.err.println("The config.ini file must be located in the current working directory.");
+            return;
+        }
+
+        // Based on the first argument, do something.
         if (args.length == 0) {
             printHelp();
             return;
@@ -39,9 +57,9 @@ public class EntryPoint {
             case ACTION_RECHECK_ENTIRE_DATABASE:
                 BatchActions.runPlagiarismCheckingOnEntireDatabase();;
                 return;
-            case ACTION_LOAD_AND_CHECK_ARGUMENT:
+            case ACTION_EXTRACT_DOCUMENTS_FROM_ONE:
                 if (args.length < 2) {
-                    System.out.println(ERROR_NOT_ENOUGH_ARGUMENTS);
+                    System.err.println(ERROR_NOT_ENOUGH_ARGUMENTS);
                     System.exit(1);
                     return;
                 }
@@ -50,36 +68,18 @@ public class EntryPoint {
                     argumentId = Integer.parseInt(args[1]);
                 }
                 catch (NumberFormatException exception) {
-                    System.out.println(ERROR_MUST_BE_INTEGER);
+                    System.err.println(ERROR_MUST_BE_INTEGER);
                     System.exit(1);
                     return;
                 }
                 DSLContext context = Database.getContext();
                 SubmissionsRecord thisSubmission = context.selectFrom(Tables.SUBMISSIONS).where(Tables.SUBMISSIONS.ID.equal(argumentId)).fetchOne();
                 if (thisSubmission == null) {
-                    System.out.println(ERROR_SUBMISSION_DOES_NOT_EXIST);
+                    System.err.println(ERROR_SUBMISSION_DOES_NOT_EXIST);
                     System.exit(1);
                     return;
                 }
                 Operations.createDatabaseDocumentsFromSubmissionRecord(thisSubmission);
-                PluginsRecord plugin = Operations.getPluginsRecordFromSubmissionsRecord(thisSubmission);
-                if (plugin == null) {
-                    System.out.println("This submission is not associated with a plugin.");
-                    System.exit(1);
-                    return;
-                }
-                SubmissionsByPlugin submissionsByPlugin = Database.runSubmissionsByPluginQueryOnThisIdentifier(plugin.getIdentifier());
-                List<Submission> submissions = submissionsByPlugin.get(plugin.getIdentifier());
-                int thisOrderId = -1;
-                for (int i = 0; i < submissions.size(); i++) {
-                    if (submissions.get(i).getSubmissionId() == thisSubmission.getId()) {
-                        thisOrderId = i;
-                        break;
-                    }
-                }
-                // TODO maybe do this in parellel?:
-                System.out.println("TODO: NOT YET IMPLEMENTED");
-                System.exit(1);
                 return;
             case ACTION_COMPARE_TWO_DIRECTLY:
                 int submissionOne;
@@ -93,8 +93,27 @@ public class EntryPoint {
                     System.exit(1);
                     return;
                 }
-                System.out.println("TODO: Not yet implemented.");
-                System.exit(1);
+
+                SubmissionsByPlugin submissionsByPlugin = Database.runSubmissionsByPluginQueryOnTheseSubmissions(submissionOne, submissionTwo);
+                if (submissionsByPlugin.size() == 0) {
+                    System.err.println("These submissions do not exist.");
+                    return;
+                } else if (submissionsByPlugin.size() > 1) {
+                    System.err.println("These submissions do not share the corrective plugin.");
+                    return;
+                }
+                Map.Entry<String, ArrayList<Submission>> entry = submissionsByPlugin.entrySet().iterator().next();
+                ArrayList<Submission> submissions = entry.getValue();
+                if (submissions.size() != 2) {
+                    System.err.println("Only one of the two submissions was found.");
+                    return;
+                }
+                Similarity similarity = Operations.compare(submissions.get(0), submissions.get(1));
+                System.out.println("Score: " + similarity.getScore());
+                System.out.println(similarity.getDetails());
+                return;
+            case ACTION_EXTRACT_AND_ANALYZE_NEW_SUBMISSIONS_IF_POSSIBLE:
+                BatchActions.extractAndAnalyzeNewSubmissionsIfPossible();
                 return;
             default:
                 System.out.println("Argument 1 (action) not recognized.");
@@ -117,7 +136,8 @@ public class EntryPoint {
         help += ACTION_RELOAD_ALL_DOCUMENTS + ": Delete all documents from database and reload them anew from files.\n";
         help += ACTION_RECHECK_ENTIRE_DATABASE + ": Delete all similarity records from database and recalculate them anew from documents in the database.\n";
         help += ACTION_COMPARE_TWO_DIRECTLY + " [id1] [id2]: Run similarity checking on the two specified submissions in the database.\n";
-        help += ACTION_LOAD_AND_CHECK_ARGUMENT + " [id1]: Extract documents for the specified submission and run similarity checking for this submission only.";
+        help += ACTION_EXTRACT_DOCUMENTS_FROM_ONE + " [id1]: Extract documents from the submission with specified ID.\n";
+        help += ACTION_EXTRACT_AND_ANALYZE_NEW_SUBMISSIONS_IF_POSSIBLE + ": Load new submissions from the database, extract documents and return them to database, and run similarity checking on them. This only happens if this module is not already running.\n";
         System.out.println(help);
     }
 }

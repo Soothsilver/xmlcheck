@@ -1,7 +1,7 @@
 package sooth.scripts;
 
 import sooth.Logging;
-import sooth.connection.Configuration;
+import sooth.Configuration;
 import sooth.connection.InsertSimilaritiesBatch;
 import sooth.objects.Similarity;
 import sooth.objects.Submission;
@@ -47,7 +47,7 @@ public class SimilarityCheckingBatch {
     }
 
     public Iterable<Similarity> execute() {
-        int coreCount = Runtime.getRuntime().availableProcessors();
+        int coreCount = Runtime.getRuntime().availableProcessors(); // TODO when multithreading disabled, this should probably be 1.
         int size = commands.size();
         int workload = size / coreCount;
         int at = 0;
@@ -123,7 +123,10 @@ public class SimilarityCheckingBatch {
             int count = upToExclusive - from;
             int k = 1;
             for (int i = from; i < upToExclusive; i++) {
-                queue.add(Operations.compare(commands.get(i).oldSubmission, commands.get(i).newSubmission));
+                Similarity similarity = Operations.compare(commands.get(i).oldSubmission, commands.get(i).newSubmission);
+                if (similarity.isSuspicious() || similarity.getScore() >= Configuration.levenshteinMasterThreshold) {
+                    queue.add(similarity);
+                }
                 if (i == from + count*k/10)
                 {
                     System.gc();

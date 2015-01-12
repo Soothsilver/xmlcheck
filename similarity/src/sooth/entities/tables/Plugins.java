@@ -16,7 +16,7 @@ package sooth.entities.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Plugins extends org.jooq.impl.TableImpl<sooth.entities.tables.records.PluginsRecord> {
 
-	private static final long serialVersionUID = 43872838;
+	private static final long serialVersionUID = 1413862351;
 
 	/**
 	 * The reference instance of <code>asmregen.plugins</code>
@@ -39,7 +39,7 @@ public class Plugins extends org.jooq.impl.TableImpl<sooth.entities.tables.recor
 	/**
 	 * The column <code>asmregen.plugins.name</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.PluginsRecord, java.lang.String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(20).nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.PluginsRecord, java.lang.String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * The column <code>asmregen.plugins.type</code>.
@@ -54,7 +54,7 @@ public class Plugins extends org.jooq.impl.TableImpl<sooth.entities.tables.recor
 	/**
 	 * The column <code>asmregen.plugins.mainFile</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.PluginsRecord, java.lang.String> MAINFILE = createField("mainFile", org.jooq.impl.SQLDataType.VARCHAR.length(100).nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.PluginsRecord, java.lang.String> MAINFILE = createField("mainFile", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * The column <code>asmregen.plugins.config</code>.

@@ -54,6 +54,11 @@ abstract class StringID
     const ResetLinkExpired = 31;
     const AttachmentExists = 32;
     const UserNameExists = 34;
+
+    const ThisSubmissionIsPlagiarism = 35;
+    const ThisSubmissionIsInnocent = 36;
+    const ThisHasYetToBeCheckedForPlagiarism = 37;
+    const GradingRequested = 38;
 }
 
 /**
@@ -130,6 +135,11 @@ class Language {
             case StringID::ResetLinkDoesNotExist: return "Kód na obnovení hesla není v databázi. Možná byl přepsán nově vygenerovaným kódem.";
             case StringID::ResetLinkExpired: return "Již uběhlo 24 hodin od odeslání tohoto kódu na obnovení hesla, proto byl kód zneplatněn. Prosím vygenerujte nový.";
             case StringID::UserNameExists: return "Toto uživatelské jméno již někdo používá.";
+
+            case StringID::ThisSubmissionIsPlagiarism : return "Toto řešení je podezřele podobné jiným řešením.";
+            case StringID::ThisSubmissionIsInnocent: return "Kontrola podobnosti: Toto řešení se nijak zvlášť nepodobá žádnému jinému řešení.";
+            case StringID::ThisHasYetToBeCheckedForPlagiarism : return "Kontrola podobnosti: Toto řešení je ve frontě a bude zpracováno později.";
+            case StringID::GradingRequested : return "Student žádá o obodování!";
         }
         return "TRANSLATION MISSING(" . self::getEnglish($textId) . ")";
     }
@@ -187,6 +197,11 @@ class Language {
             case StringID::ResetLinkDoesNotExist: return "This password reset code is not present in the database. Perhaps it was overwritten by a newly generated one.";
             case StringID::ResetLinkExpired: return "More than 24 hours elapsed since this code was generated and it was therefore disabled. Please generate a new one.";
             case StringID::UserNameExists: return "This user name is already taken.";
+
+            case StringID::ThisSubmissionIsPlagiarism : return "This submission is suspiciously similar to another one.";
+            case StringID::ThisSubmissionIsInnocent: return "Similarity analysis: The system did not detect significant similarity to any other submission.";
+            case StringID::ThisHasYetToBeCheckedForPlagiarism : return "Similarity analysis: This submission is queued for similarity analysis.";
+            case StringID::GradingRequested : return "Grading requested by student!";
         }
         throw new \Exception("This string (" . $textId . ") does not exist.");
     }

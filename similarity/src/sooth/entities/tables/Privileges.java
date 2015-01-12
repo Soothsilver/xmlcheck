@@ -16,7 +16,7 @@ package sooth.entities.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Privileges extends org.jooq.impl.TableImpl<sooth.entities.tables.records.PrivilegesRecord> {
 
-	private static final long serialVersionUID = 1240990404;
+	private static final long serialVersionUID = -850291582;
 
 	/**
 	 * The reference instance of <code>asmregen.privileges</code>
@@ -39,7 +39,7 @@ public class Privileges extends org.jooq.impl.TableImpl<sooth.entities.tables.re
 	/**
 	 * The column <code>asmregen.privileges.name</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.PrivilegesRecord, java.lang.String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(20).nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.PrivilegesRecord, java.lang.String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * The column <code>asmregen.privileges.privileges</code>.

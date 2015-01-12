@@ -1,12 +1,49 @@
 package sooth.objects;
 
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import sooth.Logging;
+import sooth.Configuration;
 import sooth.scripts.Operations;
+import sooth.similarity.ZhangShashaTree;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.io.StringReader;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 /**
  * Represents a single file from a submission.
  */
 public class Document {
+    private Logger logger = Logging.getLogger(Document.class.getName());
+    private static DocumentBuilder documentBuilder;
+    static {
+        try {
+            /**
+             * This code block is copied from: http://stackoverflow.com/a/155874/1580088
+             * The purpose is to prevent the DOM parser from trying to load the DTD file referenced in DOCTYPE
+             * because this file will not exist (the XML data are already in memory and were loaded from the database,
+             * not from the filesystem).
+             *
+             * This is implementation-specific. It is possible that it won't work with future versions of Java.
+             */
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            documentBuilder = null;
+            factory.setValidating(false);
+            factory.setFeature("http://xml.org/sax/features/namespaces", false);
+            factory.setFeature("http://xml.org/sax/features/validation", false);
+            factory.setFeature("http://apache.org/xml/features/nonvalidating/load-dtd-grammar", false);
+            factory.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+            documentBuilder = factory.newDocumentBuilder();
+
+        } catch (ParserConfigurationException ignored) {
+            // Cannot occur.
+        }
+    }
 
     /**
      * Returns file contents with whitespace removed and, in some cases, with other preprocessing already done.
@@ -29,6 +66,27 @@ public class Document {
      */
     public void preprocess()
     {
+        // Preprocess trees.
+        if ((type == DocumentType.PRIMARY_XML_FILE) || (type == DocumentType.XSD_SCHEMA) || (type == DocumentType.XSLT_SCRIPT))
+        {
+            if (Configuration.preprocessZhangShashaTrees)
+            {
+                InputSource inputSource = new InputSource(new StringReader(text));
+                try {
+                    org.w3c.dom.Document xmlDocument = documentBuilder.parse(inputSource);
+                    this.tree = new ZhangShashaTree(xmlDocument);
+                } catch (SAXException e) {
+                    // This is not a valid XML file.
+                    this.tree = null;
+                } catch (IOException ignored) {
+                    logger.severe("This IOException exception should never occur.");
+                    // Will not occur.
+                    this.tree = null;
+                }
+            }
+        }
+
+        // Preprocess text.
         if ((type == DocumentType.JAVA_SAX_HANDLER))
         {
             // In this template, there are at times common single-line comments.
@@ -125,6 +183,12 @@ public class Document {
         {
             this.preprocessedText = Operations.removeWhitespace(this.text);
         }
+        // Pure text is no longer needed.
+        this.text = "";
+    }
+
+    public ZhangShashaTree getZhangShashaTree() {
+        return tree;
     }
 
 
@@ -140,8 +204,8 @@ public class Document {
         XSD_SCHEMA(6),
         XQUERY_QUERY(7),
         XQUERY_ADDITIONAL_XML_FILE(8),
-        XSLT_SCRIPT(9),
-        DIRECTORY_STRUCTURE(10);
+        XSLT_SCRIPT(9);
+        // No longer used: DIRECTORY_STRUCTURE(10);
 
         /**
          * Returns a value indicating whether a submission may legally contain several documents of this type.
@@ -217,6 +281,7 @@ public class Document {
      */
     private String preprocessedText;
 
+    private ZhangShashaTree tree = null;
     /**
      * Gets the filename of the document file.
      * @return The filename of the document file.

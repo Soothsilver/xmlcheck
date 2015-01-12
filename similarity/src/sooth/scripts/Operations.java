@@ -2,7 +2,7 @@ package sooth.scripts;
 
 import org.jooq.DSLContext;
 import sooth.Logging;
-import sooth.connection.Configuration;
+import sooth.Configuration;
 import sooth.connection.Database;
 import sooth.entities.Tables;
 import sooth.entities.tables.records.PluginsRecord;
@@ -53,6 +53,22 @@ public class Operations {
             haystack = haystack.replace(needle, "");
         }
         return haystack;
+    }
+
+    public static void redetermineGuiltOrInnocence() {
+        DSLContext context = Database.getContext();
+        String guiltyQuery =
+                "UPDATE submissions SET submissions.similarityStatus = 'guilty' " +
+                "WHERE submissions.similarityStatus = 'checked' " +
+                "AND submissions.status <> 'deleted' " +
+                "AND EXISTS ( SELECT id FROM similarities WHERE similarities.newSubmissionId = submissions.id AND similarities.suspicious = 1)";
+        context.execute(guiltyQuery);
+        String innocentQuery =
+                "UPDATE submissions SET submissions.similarityStatus = 'innocent' " +
+                        "WHERE submissions.similarityStatus = 'checked' " +
+                        "AND submissions.status <> 'deleted' " +
+                        "AND NOT EXISTS ( SELECT id FROM similarities WHERE similarities.newSubmissionId = submissions.id AND similarities.suspicious = 1)";
+        context.execute(innocentQuery);
     }
 
     private static class ComparisonRunner implements Runnable {
@@ -138,12 +154,14 @@ public class Operations {
         Similarity similarity = new Similarity(0, "", oldSubmission.getSubmissionId(), newSubmission.getSubmissionId(), false);
         for (Document oldDocument : oldSubmission.getDocuments())
         {
+
             for (Document newDocument : newSubmission.getDocuments())
             {
+
                 if (oldDocument.getType().equals(newDocument.getType()))
                 {
                     if (oldDocument.getPreprocessedText().length() < Operations.MINIMUM_DOCUMENT_LENGTH ||
-                        newDocument.getPreprocessedText().length() < Operations.MINIMUM_DOCUMENT_LENGTH)
+                            newDocument.getPreprocessedText().length() < Operations.MINIMUM_DOCUMENT_LENGTH)
                     {
                         // It is meaningless to compare documents this small for similarity because they will be trivial.
                         continue;
@@ -151,9 +169,23 @@ public class Operations {
                     logger.fine("Now comparing " + oldDocument.getType() + " documents.");
 
 
-                   DocumentComparisonResult result = DocumentComparisons.greedyStringTilingCompare(oldDocument, newDocument, oldSubmission.getPluginIdentifier());
-                    // ComparisonResult result = DocumentComparisons.levenshteinCompare(oldDocument, newDocument, oldSubmission.getPluginIdentifier());
+                    // Zhang-Shasha
 
+                    DocumentComparisonResult result = null;
+                    if (oldDocument.getType() == Document.DocumentType.PRIMARY_XML_FILE ||
+                            oldDocument.getType() == Document.DocumentType.XSD_SCHEMA ||
+                            oldDocument.getType() == Document.DocumentType.XSLT_SCRIPT) {
+                        if (oldDocument.getZhangShashaTree() != null && newDocument.getZhangShashaTree() != null) {
+                            result = DocumentComparisons.zhangShashaCompare(oldDocument, newDocument, oldSubmission.getPluginIdentifier());
+                            if (!result.isSuspicious()) {
+                                result = null; // We will still try a Levenshtein comparison if Zhang-Shasha did not trigger.
+                            }
+                        }
+                    }
+
+                    if (result == null) {
+                        result = DocumentComparisons.levenshteinCompare(oldDocument, newDocument, oldSubmission.getPluginIdentifier());
+                    }
 
                     if (similarity.getScore() < result.getSimilarity()) {
                         similarity.setScore(result.getSimilarity());
@@ -161,11 +193,11 @@ public class Operations {
                     if (result.isSuspicious()) {
                         similarity.setSuspicious(true);
                     }
-                    if (result.isSuspicious() || result.getSimilarity() > 0)
+                    if (result.isSuspicious() || result.getSimilarity() >= Configuration.levenshteinMasterThreshold)
                     {
                         similarity.setDetails(similarity.getDetails() +
-                            oldDocument.getType() + " comparison (" + result.getSimilarity() + "%"+(result.isSuspicious() ? ", suspicious" : "")+ "):\n"
-                            + "Details: \n" + result.getDetails() + "\n\n");
+                                oldDocument.getType() + " comparison (" + result.getSimilarity() + "%"+(result.isSuspicious() ? ", suspicious" : "")+ "):\n"
+                                + "Details: \n" + result.getDetails() + "\n\n");
                     }
                 }
             }
@@ -189,6 +221,11 @@ public class Operations {
             )).fetchAny();
         return correspondingPlugin;
     }
+
+    /**
+     * Extracts all relevant documents from the ZIP file associated with the specified submissions and puts those documents into the database.
+     * @param submission The submission record identifying the submission whose documents should be put into the database.
+     */
     public static void createDatabaseDocumentsFromSubmissionRecord(SubmissionsRecord submission) {
         PluginsRecord plugin = getPluginsRecordFromSubmissionsRecord(submission);
         if (plugin == null) {

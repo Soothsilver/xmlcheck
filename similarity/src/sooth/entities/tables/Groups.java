@@ -16,7 +16,7 @@ package sooth.entities.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Groups extends org.jooq.impl.TableImpl<sooth.entities.tables.records.GroupsRecord> {
 
-	private static final long serialVersionUID = -1930009856;
+	private static final long serialVersionUID = 456078;
 
 	/**
 	 * The reference instance of <code>asmregen.groups</code>
@@ -39,7 +39,7 @@ public class Groups extends org.jooq.impl.TableImpl<sooth.entities.tables.record
 	/**
 	 * The column <code>asmregen.groups.name</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.GroupsRecord, java.lang.String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(20).nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.GroupsRecord, java.lang.String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * The column <code>asmregen.groups.description</code>.
@@ -47,14 +47,14 @@ public class Groups extends org.jooq.impl.TableImpl<sooth.entities.tables.record
 	public final org.jooq.TableField<sooth.entities.tables.records.GroupsRecord, java.lang.String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
 
 	/**
-	 * The column <code>asmregen.groups.ownerId</code>.
-	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.GroupsRecord, java.lang.Integer> OWNERID = createField("ownerId", org.jooq.impl.SQLDataType.INTEGER, this, "");
-
-	/**
 	 * The column <code>asmregen.groups.type</code>.
 	 */
 	public final org.jooq.TableField<sooth.entities.tables.records.GroupsRecord, java.lang.String> TYPE = createField("type", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
+
+	/**
+	 * The column <code>asmregen.groups.deleted</code>.
+	 */
+	public final org.jooq.TableField<sooth.entities.tables.records.GroupsRecord, java.lang.Byte> DELETED = createField("deleted", org.jooq.impl.SQLDataType.TINYINT.nullable(false), this, "");
 
 	/**
 	 * The column <code>asmregen.groups.lectureId</code>.
@@ -62,9 +62,9 @@ public class Groups extends org.jooq.impl.TableImpl<sooth.entities.tables.record
 	public final org.jooq.TableField<sooth.entities.tables.records.GroupsRecord, java.lang.Integer> LECTUREID = createField("lectureId", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
 	/**
-	 * The column <code>asmregen.groups.deleted</code>.
+	 * The column <code>asmregen.groups.ownerId</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.GroupsRecord, java.lang.Byte> DELETED = createField("deleted", org.jooq.impl.SQLDataType.TINYINT.nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.GroupsRecord, java.lang.Integer> OWNERID = createField("ownerId", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
 	/**
 	 * Create a <code>asmregen.groups</code> table reference
@@ -117,7 +117,7 @@ public class Groups extends org.jooq.impl.TableImpl<sooth.entities.tables.record
 	 */
 	@Override
 	public java.util.List<org.jooq.ForeignKey<sooth.entities.tables.records.GroupsRecord, ?>> getReferences() {
-		return java.util.Arrays.<org.jooq.ForeignKey<sooth.entities.tables.records.GroupsRecord, ?>>asList(sooth.entities.Keys.FK_F06D3970E05EFD25, sooth.entities.Keys.FK_F06D39703BC48E00);
+		return java.util.Arrays.<org.jooq.ForeignKey<sooth.entities.tables.records.GroupsRecord, ?>>asList(sooth.entities.Keys.FK_F06D39703BC48E00, sooth.entities.Keys.FK_F06D3970E05EFD25);
 	}
 
 	/**

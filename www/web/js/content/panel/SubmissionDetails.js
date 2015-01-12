@@ -84,7 +84,7 @@ asm.ui.table.SimilaritiesTable = asm.ui.DynamicTable.extend({
             structure: {
                 id: { key: true, hidden: true, comparable: true },
                 submissionId: { hidden: false, label: "ID", comparable: true},
-                suspicious : { label:asm.lang.submissionDetails.suspicious, comparable: true, renderer: function(data)
+                suspicious : { label:asm.lang.submissionDetails.suspicious, comparable: true, string: true, renderer: function(data)
                 {
                     if (data == 'yes') {
                         return asm.lang.general.yes;

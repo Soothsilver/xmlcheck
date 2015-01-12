@@ -19,6 +19,11 @@ class Submission
     const STATUS_GRADED = "graded";
     const STATUS_DELETED = "deleted";
 
+    const SIMILARITY_STATUS_GUILTY = "guilty";
+    const SIMILARITY_STATUS_INNOCENT = "innocent";
+    const SIMILARITY_STATUS_CHECKED = "checked";
+    const SIMILARITY_STATUS_NEW = "new";
+
     /**
      * @ORM\OneToMany(targetEntity="Document", mappedBy="submission")
      */
@@ -54,7 +59,7 @@ class Submission
     /**
      * @var string
      *
-     * @ORM\Column(name="submissionFile", type="string", length=100, nullable=false)
+     * @ORM\Column(name="submissionFile", type="string", nullable=false)
      */
     private $submissionFile = '';
 
@@ -89,7 +94,7 @@ class Submission
     /**
      * @var string
      *
-     * @ORM\Column(name="outputFile", type="string", length=100, nullable=false)
+     * @ORM\Column(name="outputFile", type="string", nullable=false)
      */
     private $outputfile = '';
 
@@ -107,6 +112,11 @@ class Submission
      */
     private $explanation = '';
 
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private $similarityStatus = self::SIMILARITY_STATUS_NEW;
 
 
     /**
@@ -380,5 +390,28 @@ class Submission
     public function getDocuments()
     {
         return $this->documents;
+    }
+
+    /**
+     * Set similarityStatus
+     *
+     * @param string $similarityStatus
+     * @return Submission
+     */
+    public function setSimilarityStatus($similarityStatus)
+    {
+        $this->similarityStatus = $similarityStatus;
+    
+        return $this;
+    }
+
+    /**
+     * Get similarityStatus
+     *
+     * @return string 
+     */
+    public function getSimilarityStatus()
+    {
+        return $this->similarityStatus;
     }
 }

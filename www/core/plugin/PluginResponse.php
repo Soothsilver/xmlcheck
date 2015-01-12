@@ -2,6 +2,7 @@
 
 namespace asm\plugin;
 use asm\utils\Utils, asm\utils\StringUtils, SimpleXMLElement;
+use SebastianBergmann\Exporter\Exception;
 
 
 /**
@@ -45,12 +46,31 @@ class PluginResponse
 	}
 
 	/**
-	 * Creates PluginResponse instance with data parsed from XML (as returned from toXml()).
+	 * Creates a PluginResponse instance with data parsed from XML (as returned from toXml()).
+	 * Note that it also removes all data before the start of the XML prolog. This is due to a probable bug in
+	 * the Java Base Library, where, in certain timing, streams are not redirected before being output and thus text
+	 * printed by the user may be printed into the output stream where only the XML data should be.
+	 *
+	 * @param string $responseString String given as the standard output of a Java plugin.
+	 * @return PluginResponse The parsed response.
+	 */
+	public static function fromXmlString($responseString)
+	{
+		$prologPosition = strpos($responseString, "<?xml");
+		if ($prologPosition === false) {
+			throw new Exception("The plugin did not return XML data because it did not return a XML prolog.");
+		}
+		$responseString = substr($responseString, $prologPosition);
+		return self::fromXml(simplexml_load_string($responseString));
+	}
+
+	/**
+	 * Creates a PluginResponse instance with data parsed from XML (as returned from toXml()).
 	 * @param SimpleXMLElement $xml
 	 * @return PluginResponse instance
 	 * @see toXml()
 	 */
-	public static function fromXml (SimpleXMLElement $xml)
+	private static function fromXml (SimpleXMLElement $xml)
 	{
 		/** @noinspection PhpUndefinedFieldInspection */
 		if ($xml->error)

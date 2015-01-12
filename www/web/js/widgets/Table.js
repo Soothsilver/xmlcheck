@@ -301,8 +301,10 @@ $.widget('ui.table', {
 				this.select();
 			})
 			.bind('change', $.proxy(function (event) {
-				this.option('rowsPerPage', event.currentTarget.value);
-                cookies.set('rowsPerPage', event.currentTarget.value);
+				if (+event.currentTarget.value > 0) {
+					this.option('rowsPerPage', +event.currentTarget.value);
+					cookies.set('rowsPerPage', +event.currentTarget.value);
+				}
 			}, this));
 		bottomLeft.append(asm.lang.table.footer_show + ' ')
 			.append(rowsPerPageInput)

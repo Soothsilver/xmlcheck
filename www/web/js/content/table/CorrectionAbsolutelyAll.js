@@ -15,7 +15,7 @@ asm.ui.table.CorrectionAbsolutelyAll = asm.ui.table.CorrectionBase.extend({
             structure: {
                 problem: { hidden: false }
             },
-            title:  'TODO FINISH', // TODO put title
+            title:  asm.lang.grading.absolutelyAllCaption,
             stores: [asm.ui.globals.stores.correctionAbsolutelyAll]
         };
         this.base($.extend(true, defaults, config));

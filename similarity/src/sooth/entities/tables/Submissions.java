@@ -16,7 +16,7 @@ package sooth.entities.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Submissions extends org.jooq.impl.TableImpl<sooth.entities.tables.records.SubmissionsRecord> {
 
-	private static final long serialVersionUID = 347136159;
+	private static final long serialVersionUID = 1484923784;
 
 	/**
 	 * The reference instance of <code>asmregen.submissions</code>
@@ -49,7 +49,7 @@ public class Submissions extends org.jooq.impl.TableImpl<sooth.entities.tables.r
 	/**
 	 * The column <code>asmregen.submissions.submissionFile</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.SubmissionsRecord, java.lang.String> SUBMISSIONFILE = createField("submissionFile", org.jooq.impl.SQLDataType.VARCHAR.length(100).nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.SubmissionsRecord, java.lang.String> SUBMISSIONFILE = createField("submissionFile", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * The column <code>asmregen.submissions.date</code>.
@@ -74,7 +74,7 @@ public class Submissions extends org.jooq.impl.TableImpl<sooth.entities.tables.r
 	/**
 	 * The column <code>asmregen.submissions.outputFile</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.SubmissionsRecord, java.lang.String> OUTPUTFILE = createField("outputFile", org.jooq.impl.SQLDataType.VARCHAR.length(100).nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.SubmissionsRecord, java.lang.String> OUTPUTFILE = createField("outputFile", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * The column <code>asmregen.submissions.rating</code>.
@@ -85,6 +85,11 @@ public class Submissions extends org.jooq.impl.TableImpl<sooth.entities.tables.r
 	 * The column <code>asmregen.submissions.explanation</code>.
 	 */
 	public final org.jooq.TableField<sooth.entities.tables.records.SubmissionsRecord, java.lang.String> EXPLANATION = createField("explanation", org.jooq.impl.SQLDataType.CLOB.nullable(false), this, "");
+
+	/**
+	 * The column <code>asmregen.submissions.similarityStatus</code>.
+	 */
+	public final org.jooq.TableField<sooth.entities.tables.records.SubmissionsRecord, java.lang.String> SIMILARITYSTATUS = createField("similarityStatus", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * Create a <code>asmregen.submissions</code> table reference

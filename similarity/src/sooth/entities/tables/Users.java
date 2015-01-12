@@ -16,7 +16,7 @@ package sooth.entities.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Users extends org.jooq.impl.TableImpl<sooth.entities.tables.records.UsersRecord> {
 
-	private static final long serialVersionUID = -1048284723;
+	private static final long serialVersionUID = 1988009374;
 
 	/**
 	 * The reference instance of <code>asmregen.users</code>
@@ -54,12 +54,12 @@ public class Users extends org.jooq.impl.TableImpl<sooth.entities.tables.records
 	/**
 	 * The column <code>asmregen.users.realName</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.UsersRecord, java.lang.String> REALNAME = createField("realName", org.jooq.impl.SQLDataType.VARCHAR.length(30).nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.UsersRecord, java.lang.String> REALNAME = createField("realName", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * The column <code>asmregen.users.email</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.UsersRecord, java.lang.String> EMAIL = createField("email", org.jooq.impl.SQLDataType.VARCHAR.length(50).nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.UsersRecord, java.lang.String> EMAIL = createField("email", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * The column <code>asmregen.users.lastAccess</code>.
@@ -69,7 +69,7 @@ public class Users extends org.jooq.impl.TableImpl<sooth.entities.tables.records
 	/**
 	 * The column <code>asmregen.users.activationCode</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.UsersRecord, java.lang.String> ACTIVATIONCODE = createField("activationCode", org.jooq.impl.SQLDataType.VARCHAR.length(32).nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.UsersRecord, java.lang.String> ACTIVATIONCODE = createField("activationCode", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * The column <code>asmregen.users.encryptionType</code>.

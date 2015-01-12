@@ -16,7 +16,7 @@ package sooth.entities.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Lectures extends org.jooq.impl.TableImpl<sooth.entities.tables.records.LecturesRecord> {
 
-	private static final long serialVersionUID = -616314488;
+	private static final long serialVersionUID = 1545376658;
 
 	/**
 	 * The reference instance of <code>asmregen.lectures</code>
@@ -39,7 +39,7 @@ public class Lectures extends org.jooq.impl.TableImpl<sooth.entities.tables.reco
 	/**
 	 * The column <code>asmregen.lectures.name</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.LecturesRecord, java.lang.String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(20).nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.LecturesRecord, java.lang.String> NAME = createField("name", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * The column <code>asmregen.lectures.description</code>.

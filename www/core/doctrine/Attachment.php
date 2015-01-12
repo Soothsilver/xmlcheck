@@ -24,7 +24,7 @@ class Attachment
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=20, nullable=false)
+     * @ORM\Column(name="name", type="string", nullable=false)
      */
     private $name;
 
@@ -38,7 +38,7 @@ class Attachment
     /**
      * @var string
      *
-     * @ORM\Column(name="file", type="string", length=100, nullable=false)
+     * @ORM\Column(name="file", type="string", nullable=false)
      */
     private $file;
 

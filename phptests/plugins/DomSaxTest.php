@@ -82,7 +82,7 @@ class DomSaxMockChecker
             if (isset($responseString))
             {
                 try {
-                    $response = \asm\plugin\PluginResponse::fromXml(simplexml_load_string($responseString));
+                    $response = \asm\plugin\PluginResponse::fromXmlString($responseString);
                 }
                 catch (Exception $ex)
                 {

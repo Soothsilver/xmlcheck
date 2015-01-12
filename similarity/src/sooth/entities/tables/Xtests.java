@@ -16,7 +16,7 @@ package sooth.entities.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Xtests extends org.jooq.impl.TableImpl<sooth.entities.tables.records.XtestsRecord> {
 
-	private static final long serialVersionUID = 1602122763;
+	private static final long serialVersionUID = 1402974482;
 
 	/**
 	 * The reference instance of <code>asmregen.xtests</code>
@@ -39,7 +39,7 @@ public class Xtests extends org.jooq.impl.TableImpl<sooth.entities.tables.record
 	/**
 	 * The column <code>asmregen.xtests.description</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.XtestsRecord, java.lang.String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.VARCHAR.length(50).nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.XtestsRecord, java.lang.String> DESCRIPTION = createField("description", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * The column <code>asmregen.xtests.template</code>.

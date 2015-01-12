@@ -3,7 +3,8 @@
 namespace asm\core;
 use asm\core\lang\Language;
 use asm\core\lang\StringID;
-use asm\utils\Filesystem;
+
+use asm\utils\ShellUtils;
 use asm\utils\StringUtils;
 
 /**
@@ -17,7 +18,10 @@ use asm\utils\StringUtils;
  */
 final class AddSubmission extends DataScript
 {
-	protected function body ()
+    /**
+     * Performs the function of this script.
+     */
+    protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::assignmentsSubmit))
 			return;
@@ -76,17 +80,21 @@ final class AddSubmission extends DataScript
         $similarityJar = Config::get('paths', 'similarity');
         if ($similarityJar != null && is_file($similarityJar))
         {
-            $arguments = "makOne " . $newSubmission->getId();
+            $arguments = "comparenew";
 
             // Get config file and autoloader file
             $paths = Config::get('paths');
             $vendorAutoload = $paths['composerAutoload'];
             $java = Config::get('bin', 'java');
+            $javaArguments = Config::get('bin', 'javaArguments');
+
+            $pathToCore = Config::get('paths', 'core');
 
             // This code will be passed, shell-escaped to the PHP CLI
             $launchCode = <<<LAUNCH_CODE
 require_once '$vendorAutoload';
-`"$java" -Dfile.encoding=UTF-8 -jar "$similarityJar" $arguments`;
+chdir("$pathToCore");
+`"$java" $javaArguments -Dfile.encoding=UTF-8 -jar "$similarityJar" $arguments`;
 LAUNCH_CODE;
 
             ShellUtils::phpExecInBackground(Config::get('bin', 'phpCli'), $launchCode);

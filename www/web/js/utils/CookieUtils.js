@@ -20,6 +20,8 @@
  \*/
 
 var cookies = {
+    // This method is buggy.
+    // Use jQuery.cookie(sKey) instead.
     get: function (sKey) {
         return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
     },

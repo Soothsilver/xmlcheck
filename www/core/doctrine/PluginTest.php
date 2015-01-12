@@ -26,7 +26,7 @@ class PluginTest
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=50, nullable=false)
+     * @ORM\Column(name="description", type="string", nullable=false)
      */
     private $description;
 
@@ -47,7 +47,7 @@ class PluginTest
     /**
      * @var string
      *
-     * @ORM\Column(name="input", type="string", length=100, nullable=false)
+     * @ORM\Column(name="input", type="string", nullable=false)
      */
     private $input;
 
@@ -75,7 +75,7 @@ class PluginTest
     /**
      * @var string
      *
-     * @ORM\Column(name="output", type="string", length=100, nullable=false)
+     * @ORM\Column(name="output", type="string", nullable=false)
      */
     private $output;
 
