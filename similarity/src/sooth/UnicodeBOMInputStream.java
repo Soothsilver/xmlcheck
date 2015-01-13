@@ -99,6 +99,7 @@ public class UnicodeBOMInputStream extends InputStream
 
     /**
      * Returns the bytes corresponding to this @c BOM value.
+     * @return A byte array.
      */
     public final byte[] getBytes()
     {
@@ -111,6 +112,11 @@ public class UnicodeBOMInputStream extends InputStream
       return result;
     }
 
+    /**
+     * Initializes information about the Byte Order Mark.
+     * @param bom Bytes making up the mark.
+     * @param description Name of the mark.
+     */
     private BOM(final byte[] bom, final String description)
     {
       assert(bom != null)               : "invalid BOM: null is not allowed";
@@ -121,6 +127,9 @@ public class UnicodeBOMInputStream extends InputStream
       this.description    = description;
     }
 
+    /**
+     * Bytes making up the byte order mark.
+     */
     final byte[] bytes;
     private final String  description;
 
@@ -136,8 +145,8 @@ public class UnicodeBOMInputStream extends InputStream
    * @throws java.io.IOException on reading from the specified @c InputStream
    * when trying to detect the Unicode BOM.
    */
-  public UnicodeBOMInputStream(final InputStream inputStream) throws  NullPointerException,
-                                                                      IOException
+  public UnicodeBOMInputStream(final InputStream inputStream) throws
+          IOException
 
   {
     if (inputStream == null) {
@@ -242,19 +251,23 @@ public class UnicodeBOMInputStream extends InputStream
     return in.read();
   }
 
+  /**
+   * Read the next bytes in the stream. This will read an amount of bytes equal to the length of the array b.
+   * @param b An array to read into.
+   * @return The total number of bytes read or -1 if no data was read.
+   * @throws IOException
+   * @throws NullPointerException
+   */
   @Override
-  public int read(final byte[] b) throws  IOException,
-                                          NullPointerException
-  {
+  public int read(final byte[] b) throws  IOException {
     return in.read(b,0,b.length);
   }
+
 
   @Override
   public int read(final byte[] b,
                   final int off,
-                  final int len) throws IOException,
-                                        NullPointerException
-  {
+                  final int len) throws IOException {
     return in.read(b,off,len);
   }
 

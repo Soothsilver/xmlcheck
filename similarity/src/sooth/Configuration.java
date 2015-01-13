@@ -1,12 +1,9 @@
 package sooth;
 
-import com.sun.corba.se.impl.copyobject.FallbackObjectCopierImpl;
 import org.ini4j.Profile;
 import org.ini4j.Wini;
-import sun.swing.SwingUtilities2;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
@@ -31,45 +28,37 @@ public class Configuration {
         }
     }
 
+    /**
+     * Loads configuration for the similarity module from the 'config.ini' file of the main application.
+     * @param configurationFile The config.ini file loaded into a Wini object.
+     */
     public static void loadFromConfigIni(Wini configurationFile)
     {
         // MySQL credentials
         Profile.Section sectionMySQL = configurationFile.get("database");
-        dbHostname = clearQuotes(sectionMySQL.get("host").trim());
-        dbUser = clearQuotes(sectionMySQL.get("user").trim());
-        dbPassword = clearQuotes(sectionMySQL.get("pass").trim());
-        dbDatabaseName = clearQuotes(sectionMySQL.get("db").trim());
+        dbHostname = clearQuotes(sectionMySQL.get("host"));
+        dbUser = clearQuotes(sectionMySQL.get("user"));
+        dbPassword = clearQuotes(sectionMySQL.get("pass"));
+        dbDatabaseName = clearQuotes(sectionMySQL.get("db"));
 
         // Submissions folder
         submissionsFolder = System.getProperty("user.dir") + File.separator + ".." + File.separator + "files" + File.separator + "submissions";
 
         // Similarity settings
         Profile.Section section = configurationFile.get("similarity");
-        String enableSimilarityCheckingValue = section.get("enableSimilarityChecking").trim();
-        String enableZhangShashaValue = section.get("enableZhangShasha").trim();
-        String zhangShashaMasterThresholdValue = section.get("zhangShashaMasterThreshold").trim();
-        String levenshteinMasterThresholdValue = section.get("levenshteinMasterThreshold").trim();
-        String zhangShashaSuspicionThresholdValue = section.get("zhangShashaSuspicionThreshold").trim();
-        String levenshteinSuspicionThresholdValue = section.get("levenshteinSuspicionThreshold").trim();
+        String enableSimilarityCheckingValue = clearQuotes(section.get("enableSimilarityChecking"));
+        String enableZhangShashaValue = clearQuotes(section.get("enableZhangShasha"));
+        String levenshteinMasterThresholdValue = clearQuotes(section.get("levenshteinMasterThreshold"));
+        String zhangShashaSuspicionThresholdValue = clearQuotes(section.get("zhangShashaSuspicionThreshold"));
+        String levenshteinSuspicionThresholdValue = clearQuotes(section.get("levenshteinSuspicionThreshold"));
 
         if (enableSimilarityCheckingValue != null)
         {
-            if (Objects.equals(enableSimilarityCheckingValue.toLowerCase(), "true")) {
-                enableSimilarityChecking = true;
-            } else {
-                enableSimilarityChecking = false;
-            }
+            enableSimilarityChecking = Objects.equals(enableSimilarityCheckingValue.toLowerCase(), "true");
         }
         if (enableZhangShashaValue != null)
         {
-            if (Objects.equals(enableZhangShashaValue.toLowerCase(), "true")) {
-                preprocessZhangShashaTrees = true;
-            } else {
-                preprocessZhangShashaTrees = false;
-            }
-        }
-        if (zhangShashaMasterThresholdValue != null) {
-            zhangShashaMasterThreshold = parseIntegerWithDefault(zhangShashaMasterThresholdValue, zhangShashaMasterThreshold);
+            preprocessZhangShashaTrees = Objects.equals(enableZhangShashaValue.toLowerCase(), "true");
         }
         if (levenshteinMasterThresholdValue != null) {
             levenshteinMasterThreshold = parseIntegerWithDefault(levenshteinMasterThresholdValue, levenshteinMasterThreshold);
@@ -92,9 +81,16 @@ public class Configuration {
         */
     }
 
+    /**
+     * Trims the given string and removes double quotes from it if there are double quotes. If the given string is null,
+     * then null is returned.
+     * @param iniValue A string to trim and remove quotes from.
+     * @return The trimmed string.
+     */
     private static String clearQuotes(String iniValue) {
+        if (iniValue == null) { return null; }
         iniValue = iniValue.trim();
-        if (iniValue.charAt(0) == '"' && iniValue.charAt(iniValue.length() - 1) == '"') {
+        if ((iniValue.charAt(0) == '"') && (iniValue.charAt(iniValue.length() - 1) == '"')) {
             iniValue = iniValue.substring(1, iniValue.length() - 1);
         }
         return iniValue;
@@ -109,15 +105,40 @@ public class Configuration {
      * Indicates whether Zhang-Shasha post-order tree representations should be generated from XML files during preprocessing.
      */
     public static boolean preprocessZhangShashaTrees = true;
+    /**
+     * Indicates whether similarity checking should be performed at all.
+     */
     public static boolean enableSimilarityChecking = true;
-    public static int zhangShashaMasterThreshold = 0;
+    /**
+     * If the similarity of two submissions is lesser than this, then it's not relevant at all and will not be put into database, unless it is above the Zhang-Shasha suspicion threshold.
+     */
     public static int levenshteinMasterThreshold = 0;
+    /**
+     * If the similarity of two submission based on Zhang-Shasha is greater or equal to this value, it is put into database and marked as suspicious.
+     */
+    @SuppressWarnings("MagicNumber") // This is a default value that may be overridden in the config.ini file, thus it's not a constant.
     public static int zhangShashaSuspicionThreshold = 90;
+    /**
+     * If the similarity of two submission based on Levenshtein distance is greater or equal to this value, it is put into database and marked as suspicious.
+     */
+    @SuppressWarnings("MagicNumber") // This is a default value that may be overridden in the config.ini file, thus it's not a constant.
     public static int levenshteinSuspicionThreshold = 80;
 
+    /**
+     * Database server IP or hostname.
+     */
     public static String dbHostname = "";
+    /**
+     * Database user.
+     */
     public static String dbUser = "";
+    /**
+     * Database password.
+     */
     public static String dbPassword = "";
+    /**
+     * Database name.
+     */
     public static String dbDatabaseName = "";
 
 

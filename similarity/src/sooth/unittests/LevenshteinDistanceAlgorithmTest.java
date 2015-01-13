@@ -5,6 +5,7 @@ import sooth.similarity.LevenshteinDistanceAlgorithm;
 
 import static org.junit.Assert.*;
 
+@SuppressWarnings("ALL")
 public class LevenshteinDistanceAlgorithmTest {
 
     @Test

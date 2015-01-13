@@ -4,6 +4,7 @@ import org.junit.Test;
 import sooth.similarity.IdentityAlgorithm;
 import static org.junit.Assert.*;
 
+@SuppressWarnings("ALL")
 public class IdentityAlgorithmTest {
 
     @Test

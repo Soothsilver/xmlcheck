@@ -4,7 +4,7 @@ import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import sooth.Logging;
 import sooth.Configuration;
-import sooth.scripts.Operations;
+import sooth.scripts.PreprocessingUtilities;
 import sooth.similarity.ZhangShashaTree;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -94,7 +94,7 @@ public class Document {
 
             // It is important this is done only after the previous command because otherwise we will erase the newline
             // that ends the single-line comments we want to delete.
-            this.preprocessedText = Operations.removeWhitespace(this.text);
+            this.preprocessedText = PreprocessingUtilities.removeWhitespace(this.text);
 
             String[] commonSaxText = new String[]
                 {
@@ -126,13 +126,13 @@ public class Document {
                     "public void processingInstruction(String target, String data) throws SAXException {",
                     "public void skippedEntity(String name) throws SAXException {"
                 };
-            commonSaxText = Operations.removeWhitespace(commonSaxText);
+            commonSaxText = PreprocessingUtilities.removeWhitespace(commonSaxText);
 
             // Remove comments because the template offered during the lecture is used by many students and has long comments
             this.preprocessedText = Pattern.compile("/\\*\\*.+?\\*/", Pattern.DOTALL).matcher(this.preprocessedText).replaceAll("");
 
             // Remove parts common to all submissions
-            this.preprocessedText = Operations.removeSubstrings(this.preprocessedText, commonSaxText);
+            this.preprocessedText = PreprocessingUtilities.removeSubstrings(this.preprocessedText, commonSaxText);
         }
         else if (type == DocumentType.JAVA_DOM_TRANSFORMER)
         {
@@ -141,7 +141,7 @@ public class Document {
 
             // It is important this is done only after the previous command because otherwise we will erase the newline
             // that ends the single-line comments we want to delete.
-            this.preprocessedText = Operations.removeWhitespace(this.text);
+            this.preprocessedText = PreprocessingUtilities.removeWhitespace(this.text);
 
             String[] commonDomText = new String[]
                 {
@@ -173,20 +173,24 @@ public class Document {
                     "writer.transform(new DOMSource(doc), new StreamResult(new File(",
                     "public void transform (Document xmlDocument) {"
                 };
-            commonDomText = Operations.removeWhitespace(commonDomText);
+            commonDomText = PreprocessingUtilities.removeWhitespace(commonDomText);
 
 
             // Remove parts common to all submissions
-            this.preprocessedText = Operations.removeSubstrings(this.preprocessedText, commonDomText);
+            this.preprocessedText = PreprocessingUtilities.removeSubstrings(this.preprocessedText, commonDomText);
         }
         else
         {
-            this.preprocessedText = Operations.removeWhitespace(this.text);
+            this.preprocessedText = PreprocessingUtilities.removeWhitespace(this.text);
         }
         // Pure text is no longer needed.
         this.text = "";
     }
 
+    /**
+     * Returns a labeled ordered tree representing the XML document, or null if the tree could not be created.
+     * @return A labeled ordered tree representing this XML document, or null.
+     */
     public ZhangShashaTree getZhangShashaTree() {
         return tree;
     }
@@ -196,16 +200,42 @@ public class Document {
      * Represents the type of the file, such as an XML document or an XPath query.
      */
     public static enum DocumentType {
+        /**
+         * A XML file.
+         */
         PRIMARY_XML_FILE(1),
+        /**
+         * A DTD file. This is currently not used because it was determined that these files are too small to be meaningfully compared.
+         */
         DTD_FILE(2),
+        /**
+         * Java source code for the SAX handler in assignment 2.
+         */
         JAVA_SAX_HANDLER(3),
+        /**
+         * Java source code for the DOM transformer in assignment 2.
+         */
         JAVA_DOM_TRANSFORMER(4),
+        /**
+         * An XPath query. This is currently not used because it was determined that these files are too small to be meaningfully compared.
+         */
         XPATH_QUERY(5),
+        /**
+         * An XSD schema.
+         */
         XSD_SCHEMA(6),
+        /**
+         * An XQuery query. This is currently not used because it was determined that these files are too small to be meaningfully compared.
+         */
         XQUERY_QUERY(7),
+        /**
+         * A XML file in assignment 5 (XQuery). This is currently not used because it was determined that these files are usually too small to be meaningfully compared.
+         */
         XQUERY_ADDITIONAL_XML_FILE(8),
+        /**
+         * An XSLT transformation script.
+         */
         XSLT_SCRIPT(9);
-        // No longer used: DIRECTORY_STRUCTURE(10);
 
         /**
          * Returns a value indicating whether a submission may legally contain several documents of this type.
@@ -222,8 +252,7 @@ public class Document {
                 (this.mysqlIdentifier == 3) ||
                 (this.mysqlIdentifier == 4) ||
                 (this.mysqlIdentifier == 6) ||
-                (this.mysqlIdentifier == 9) ||
-                (this.mysqlIdentifier == 10);
+                (this.mysqlIdentifier == 9);
         }
 
         /**

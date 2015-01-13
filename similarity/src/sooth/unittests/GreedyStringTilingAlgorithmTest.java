@@ -5,6 +5,7 @@ import sooth.similarity.GreedyStringTilingAlgorithm;
 
 import static org.junit.Assert.*;
 
+@SuppressWarnings("ALL")
 public class GreedyStringTilingAlgorithmTest {
 
     @Test

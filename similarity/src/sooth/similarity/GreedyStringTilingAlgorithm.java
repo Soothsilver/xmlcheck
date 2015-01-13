@@ -1,6 +1,5 @@
 package sooth.similarity;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -195,19 +194,4 @@ public class GreedyStringTilingAlgorithm {
      * legally occur in XML text and we trust that Java code of most student will not contain this character.
      */
     private static final char MARKED_CHARACTER = '\u0001';
-
-    /**
-     * This is the "value" private field of the String class. It is set by the static constructor of the class. We use
-     * this field (and Java reflection) because it's faster than using traditional access methods such as charAt.
-     */
-    @SuppressWarnings("FieldCanBeLocal")
-    private static Field stringValueField = null; // TODO remove this maybe (check after speed problems emerge)
-    static {
-        try {
-            stringValueField = String.class.getDeclaredField("value");
-            stringValueField.setAccessible(true);
-        } catch (NoSuchFieldException ignored) {
-            // Won't happen.
-        }
-    }
 }

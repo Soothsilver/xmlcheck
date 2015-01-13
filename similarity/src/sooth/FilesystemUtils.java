@@ -20,10 +20,18 @@ import java.util.zip.ZipOutputStream;
  */
 public class FilesystemUtils {
 
-	/// OS-specific line separator
+	/**
+	 * OS-specific line separator
+	 */
 	public static final String EOL_STRING = System.getProperty("line.separator");
-	public static final String INDENT_STRING = "   "; ///< default indentation string
-	private static final int BUFFER_SIZE = 2048; ///< default buffer size
+	/**
+	 * Default indentation string
+	 */
+	public static final String INDENT_STRING = "   ";
+	/**
+	 * Default buffer size.
+	 */
+	private static final int BUFFER_SIZE = 2048;
 
 	/**
 	 * Returns the file extension of the specified file. If the file has no extension, then an empty string is returned.
@@ -49,6 +57,7 @@ public class FilesystemUtils {
 	 * Slightly modified by Petr Hudecek in order to make it pass IntelliJ IDEA static code analysis
      * @param sourceDirectory directory to copy contents from
      * @param copyInto files and directories from the first directory will be copied into this one
+	 * @throws java.io.IOException When an IO operation fails.
      */
     public static void copyDirectory(File sourceDirectory, File copyInto) throws IOException {
         final Path targetPath = copyInto.toPath();
@@ -133,8 +142,8 @@ public class FilesystemUtils {
 	 *
 	 * @param source file descriptor of source file
 	 * @return Text contents of source file in a string.
-	 * @throws java.io.FileNotFoundException
-	 * @throws java.io.IOException
+	 * @throws java.io.FileNotFoundException When the file does not exist.
+	 * @throws java.io.IOException When the file cannot be read.
 	 */
 	public static String loadTextFile (File source) throws IOException {
 		StringBuilder textContent = new StringBuilder(BUFFER_SIZE);
@@ -166,8 +175,8 @@ public class FilesystemUtils {
 	 * Recode file to default system encoding.
 	 *
 	 * @param source file descriptor of source file
-	 * @throws java.io.FileNotFoundException
-	 * @throws java.io.IOException
+	 * @throws java.io.FileNotFoundException When the file does not exist.
+	 * @throws java.io.IOException When the file cannot be read or written into.
 	 */
 	public static void recodeFileToDefaultEncoding (File source)
 			throws IOException {
@@ -183,7 +192,7 @@ public class FilesystemUtils {
 	 * @param destination destination file
 	 * @param is input stream
 	 * @param charsetName name of charset which should be used (default if null)
-	 * @throws java.io.IOException
+	 * @throws java.io.IOException When an I/O error occurs.
 	 */
 	@SuppressWarnings("ResultOfMethodCallIgnored")
 	public static void saveTextFile (File destination, InputStream is, String charsetName) throws IOException {
@@ -215,7 +224,7 @@ public class FilesystemUtils {
 	 *
 	 * @param destination destination file
 	 * @param contents input stream
-	 * @throws java.io.IOException
+	 * @throws java.io.IOException When an I/O error occurs.
 	 */
 	@SuppressWarnings("ResultOfMethodCallIgnored")
 	public static void saveBinaryFile (File destination, InputStream contents) throws IOException {
@@ -315,7 +324,7 @@ public class FilesystemUtils {
 	 * @param sourceFolder source folder
 	 * @param zos output stream
 	 * @param pathBase path prefix for added entries
-	 * @throws java.io.IOException
+	 * @throws java.io.IOException When an I/O error occurs.
 	 */
 	private static void zipDirectory (File sourceFolder, ZipOutputStream zos, String pathBase) throws IOException {
 		String[] folderContents = sourceFolder.list();
@@ -352,8 +361,7 @@ public class FilesystemUtils {
 	 *
 	 * @param sourceFolder source folder
 	 * @param archive destination file
-	 * @throws java.io.FileNotFoundException
-	 * @throws java.io.IOException
+	 * @throws java.io.IOException When an I/O error occurs.
 	 */
 	public static void zip (File sourceFolder, File archive)
 			  throws IOException {
@@ -373,8 +381,7 @@ public class FilesystemUtils {
 	 *
 	 * @param archive ZIP archive
 	 * @param destinationFolder destination folder
-	 * @throws java.io.FileNotFoundException
-	 * @throws java.io.IOException
+	 * @throws java.io.IOException When an I/O error occurs.
 	 */
 	@SuppressWarnings("ResultOfMethodCallIgnored")
 	public static void unzip (File archive, File destinationFolder)
@@ -686,6 +693,11 @@ public class FilesystemUtils {
 		return getMessageTrace(e, false);
 	}
 
+	/**
+	 * Replaces the characters "&", "<" and ">" with XML entities.
+	 * @param str The string to replace characters in.
+	 * @return The string with characters replaced.
+	 */
 	public static String escapeXml (String str) {
 		str = str.replace("&", "&amp;");
 		str = str.replace("<", "&lt;");

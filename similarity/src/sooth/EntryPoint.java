@@ -1,24 +1,25 @@
 package sooth;
 
-import com.sun.tools.internal.ws.processor.model.Operation;
 import org.ini4j.Wini;
 import org.jooq.DSLContext;
 import sooth.connection.Database;
 import sooth.entities.Tables;
-import sooth.entities.tables.records.PluginsRecord;
 import sooth.entities.tables.records.SubmissionsRecord;
 import sooth.objects.Similarity;
 import sooth.objects.Submission;
 import sooth.objects.SubmissionsByPlugin;
 import sooth.scripts.BatchActions;
-import sooth.scripts.Operations;
+import sooth.scripts.ComparisonFunctions;
+import sooth.scripts.DocumentExtractor;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
+/**
+ * This class is the entry point for the similarity.jar archive. Its main method is called from the main application.
+ */
 public class EntryPoint {
     private static final String ACTION_HELP = "help";
     private static final String ACTION_RELOAD_ALL_DOCUMENTS = "reloadalldocuments";
@@ -31,6 +32,10 @@ public class EntryPoint {
     private static final String ERROR_MUST_BE_INTEGER = "The argument must be an integer.";
     private static final String ERROR_SUBMISSION_DOES_NOT_EXIST = "The specified submission does not exist.";
 
+    /**
+     * This method is called when the main application causes similarity.jar to run.
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
 
         // Load configuration
@@ -38,6 +43,13 @@ public class EntryPoint {
             Configuration.loadFromConfigIni(new Wini(new File("config.ini")));
         } catch (IOException e) {
             System.err.println("The config.ini file must be located in the current working directory.");
+            return;
+        }
+
+        if (!Configuration.enableSimilarityChecking) {
+            System.out.println("Similarity checking is disabled in the configuration file.");
+            System.out.println("Put enableSimilarityChecking = true in the file to proceed.");
+            System.exit(1);
             return;
         }
 
@@ -52,10 +64,10 @@ public class EntryPoint {
                 printHelp();
                 return;
             case ACTION_RELOAD_ALL_DOCUMENTS:
-                BatchActions.createDocumentsFromAllSubmissions();;
+                BatchActions.createDocumentsFromAllSubmissions();
                 return;
             case ACTION_RECHECK_ENTIRE_DATABASE:
-                BatchActions.runPlagiarismCheckingOnEntireDatabase();;
+                BatchActions.runPlagiarismCheckingOnEntireDatabase();
                 return;
             case ACTION_EXTRACT_DOCUMENTS_FROM_ONE:
                 if (args.length < 2) {
@@ -79,7 +91,7 @@ public class EntryPoint {
                     System.exit(1);
                     return;
                 }
-                Operations.createDatabaseDocumentsFromSubmissionRecord(thisSubmission);
+                DocumentExtractor.createDatabaseDocumentsFromSubmissionRecord(thisSubmission);
                 return;
             case ACTION_COMPARE_TWO_DIRECTLY:
                 int submissionOne;
@@ -95,7 +107,7 @@ public class EntryPoint {
                 }
 
                 SubmissionsByPlugin submissionsByPlugin = Database.runSubmissionsByPluginQueryOnTheseSubmissions(submissionOne, submissionTwo);
-                if (submissionsByPlugin.size() == 0) {
+                if (submissionsByPlugin.isEmpty()) {
                     System.err.println("These submissions do not exist.");
                     return;
                 } else if (submissionsByPlugin.size() > 1) {
@@ -108,7 +120,7 @@ public class EntryPoint {
                     System.err.println("Only one of the two submissions was found.");
                     return;
                 }
-                Similarity similarity = Operations.compare(submissions.get(0), submissions.get(1));
+                Similarity similarity = ComparisonFunctions.compare(submissions.get(0), submissions.get(1));
                 System.out.println("Score: " + similarity.getScore());
                 System.out.println(similarity.getDetails());
                 return;
@@ -119,7 +131,6 @@ public class EntryPoint {
                 System.out.println("Argument 1 (action) not recognized.");
                 printHelp();
                 System.exit(1);
-                return;
         }
     }
 

@@ -1,4 +1,20 @@
+1.03
+* <b>Similarity module.</b> Submissions are now checked against each other for suspicious similarity.
+* <b>DTD.</b> Due to an update in used libraries, one of the error message was no longer informative.
+* <b>DOM/SAX.</b> Sometimes, due to timing, user output would not be captured and would corrupt the plugin reply.
+* <b>XSD.</b> The schemaLocation attribute was not interpreted correctly.
+* <b>New submission system.</b> When the user deleted their latest submission, the second latest submission would not automatically become their latest one.
+* <b>New submission system.</b> When the user uploaded a new submission, their previous submission would remain marked as latest.
+* <b>Attachments.</b> Editing an attachment would produce an error.
+* <b>Database.</b> Foreign keys introduced in all relationships between tables.
+* <b>User interface.</b> Database definition corrected to allow for longer usernames, passwords and object names.
+* <b>User interface.</b> Changing language to either Czech or English would cause the user interface to briefly display in English.
+* <b>User interface.</b> If the user typed text that is not a number into the textbox for the number of rows, a corrupted cookie would be saved on the user's computer.
+* <b>User interface.</b> The table of similar submissions would not sort correctly.
+* <b>Language.</b> Many grammar error and typos fixed in documentation files.
+
 1.02
+* <b>New submission system.</b> The confirmation system was overhauled completely.
 * <b>Bugfix.</b> The script AddSubscription would add a subscription even though the user wasn't authorized to join a public group.
 * <b>Bugfix.</b> Various bugs were fixed. Some of them were detected by running IntelliJ IDEA's static analysis tool.
 * <b>DOM/SAX.</b>  In the DOM/SAX homework, it is now possible to enclose the entire submission in a folder in the ZIP file.

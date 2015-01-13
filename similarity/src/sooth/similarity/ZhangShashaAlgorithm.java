@@ -1,8 +1,5 @@
 package sooth.similarity;
 
-import org.omg.CORBA.PRIVATE_MEMBER;
-import sun.security.pkcs11.wrapper.CK_RSA_PKCS_OAEP_PARAMS;
-
 /**
  * This test returns the number of tree edit operations that must be performed on a tree to transform it into the other tree.
  *
@@ -58,7 +55,7 @@ public class ZhangShashaAlgorithm {
      * @return The tree edit distance.
      */
     public int compare(ZhangShashaTree one, ZhangShashaTree two) {
-        if (treedist.length <= one.getNodeCount() || treedist.length <= two.getNodeCount())
+        if ((treedist.length <= one.getNodeCount()) || (treedist.length <= two.getNodeCount()))
         {
             int higherNodeCount = Math.max(one.getNodeCount(), two.getNodeCount()) + 1;
             treedist = new int[higherNodeCount][higherNodeCount];
@@ -98,6 +95,7 @@ public class ZhangShashaAlgorithm {
      * @param iMajor Index of a keyroot in the tree (zero-based).
      * @param jMajor Index of a keyroot in the second tree (zero-based).
      */
+    @SuppressWarnings("UnclearBinaryExpression") // This method is much clearer without the additional parentheses, thank you very much.
     private void calculateTreeDist(int iMajor, int jMajor) {
         forestdist[0][0] = 0;
         int li = firstTree.nodes.get(iMajor).LeftmostLeaf + 1; // one-based
@@ -112,25 +110,26 @@ public class ZhangShashaAlgorithm {
         for (int k = 1; k <= n; k++) {
             forestdist[0][k] = forestdist[0][k-1] + INSERTION_COST;
         }
-        for (int x = 1; x <= m; x++)
+        for (int x = 1; x <= m; x++) {
             for (int y = 1; y <= n; y++) {
                 int lx = firstTree.nodes.get(li - 1 + x - 1).LeftmostLeaf + 1;
                 int ly = secondTree.nodes.get(lj - 1 + y - 1).LeftmostLeaf + 1;
                 // x ... number of positions east of l(i)-1 (i.e. x=1 ... l(i))
                 if (lx == li && ly == lj) {
                     forestdist[x][y] = min(
-                            forestdist[x-1][y] + DELETION_COST,
-                            forestdist[x][y-1] + INSERTION_COST,
-                            forestdist[x-1][y-1] + (firstTree.nodes.get(li - 1 + x - 1).Label.equals(secondTree.nodes.get(lj - 1 + y - 1).Label) ? 0 : RELABEL_COST)
+                            forestdist[x - 1][y] + DELETION_COST,
+                            forestdist[x][y - 1] + INSERTION_COST,
+                            forestdist[x - 1][y - 1] + (firstTree.nodes.get(li - 1 + x - 1).Label.equals(secondTree.nodes.get(lj - 1 + y - 1).Label) ? 0 : RELABEL_COST)
                     );
                     treedist[li + x - 1][lj + y - 1] = forestdist[x][y];
                 } else {
-                  forestdist[x][y] = min(
-                          forestdist[x-1][y] + DELETION_COST,
-                          forestdist[x][y-1] + INSERTION_COST,
-                          forestdist[lx - li + 1 - 1][ly - lj + 1 - 1] + treedist[li + x - 1][lj + y - 1]
-                  );
-                };
+                    forestdist[x][y] = min(
+                            forestdist[x - 1][y] + DELETION_COST,
+                            forestdist[x][y - 1] + INSERTION_COST,
+                            forestdist[lx - li + 1 - 1][ly - lj + 1 - 1] + treedist[li + x - 1][lj + y - 1]
+                    );
+                }
             }
+        }
     }
 }

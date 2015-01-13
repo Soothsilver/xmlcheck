@@ -2,9 +2,8 @@ package sooth.scripts;
 
 import org.jooq.DSLContext;
 import org.jooq.Result;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 import sooth.Logging;
-import sooth.Problems;
 import sooth.connection.Database;
 import sooth.connection.InsertSimilaritiesBatch;
 import sooth.entities.Tables;
@@ -18,9 +17,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileLock;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.logging.Logger;
-// TODO (elsewhere) document and mind java heap space
 
 /**
  * This class contains static functions that perform actions on the entire database.
@@ -48,13 +49,12 @@ public class BatchActions {
 
         int totalComparisons = 100; // safety margin
         for (ArrayList<Submission> submissions : submissionsByPlugin.values()) {
-            totalComparisons += submissions.size() * (submissions.size()+1) /2;
+            totalComparisons += (submissions.size() * (submissions.size() + 1)) / 2;
         }
 
         SimilarityCheckingBatch similarityBatch = new SimilarityCheckingBatch(totalComparisons);
         for (ArrayList<Submission> submissions : submissionsByPlugin.values())
         {
-            int k = 1;
             if (submissions.isEmpty()) {
                 continue;
             }
@@ -102,10 +102,7 @@ public class BatchActions {
         logger.info("I will now recreate document records from all submissions.");
         DSLContext context = Database.getContext();
         Result<SubmissionsRecord> submissions = context.selectFrom(Tables.SUBMISSIONS).where(Tables.SUBMISSIONS.STATUS.notEqual("deleted")).fetch();
-        for(SubmissionsRecord record : submissions) {
-
-            Operations.createDatabaseDocumentsFromSubmissionRecord(record);
-        }
+        submissions.forEach(DocumentExtractor::createDatabaseDocumentsFromSubmissionRecord);
         logger.info("Document records created.");
     }
 
@@ -131,10 +128,15 @@ public class BatchActions {
         logger.info("All documents destroyed and removed from the database..");
     }
 
+    /**
+     * Discovers if another instance of this module is already running.
+     * If it is, this function does nothing.
+     * If it's not, then new submissions that have yet to be analyzed for similarity, are analyzed and then the process is repeated until there are no new submissions in the database.
+     */
     public static void extractAndAnalyzeNewSubmissionsIfPossible() {
         // First, make a lock.
         File lockFile = new File("similarity.lock");
-        RandomAccessFile randomAccessFile = null;
+        RandomAccessFile randomAccessFile;
         try {
             randomAccessFile = new RandomAccessFile(lockFile, "rw");
         } catch (FileNotFoundException ignored) {
@@ -143,20 +145,25 @@ public class BatchActions {
         }
         try {
             FileLock fileLock = randomAccessFile.getChannel().tryLock();
-            // We are now the only instance running.
-            while (extractAndAnalyzeNewSubmissions()) {
-                // Repeat until false is returned.
-            }
             if (fileLock == null) {
                 System.out.println("Another instance of the similarity module is in progress. Aborting this instance.");
                 return;
             }
+
+            // We are now the only instance running.
+            //noinspection StatementWithEmptyBody
+            while (extractAndAnalyzeNewSubmissions()) {
+                // Repeat until false is returned.
+            }
         } catch (IOException e) {
-            System.err.println("An error occured when attempting to secure a file lock.");
-            return;
+            System.err.println("An error occurred when attempting to secure a file lock.");
         }
     }
 
+    /**
+     * Retrieves from the database all submissions that are yet to be analyzed for similarity, loads the contents of their files into the database and analyzes them.
+     * @return Returns true if any submissions were analyzed. Returns false if there are no new submissions in the database.
+     */
     private static boolean extractAndAnalyzeNewSubmissions() {
         // We are now the only instance running.
 
@@ -167,19 +174,18 @@ public class BatchActions {
                        .where(Tables.SUBMISSIONS.STATUS.notEqual("deleted"))
                        .and(Tables.SUBMISSIONS.SIMILARITYSTATUS.equal("new")).fetch();
 
-        if (submissions.size() == 0) {
+        if (submissions.isEmpty()) {
             logger.info("No new submission detected. Success.");
             return false;
         }
         // Create documents
         logger.info("I will now recreate document records from all new submissions.");
-        for(SubmissionsRecord record : submissions) {
-            Operations.createDatabaseDocumentsFromSubmissionRecord(record);
-        }
+        submissions.forEach(DocumentExtractor::createDatabaseDocumentsFromSubmissionRecord);
         logger.info("Document records created.");
 
         // Create set of submission ids that need to be checked
         SortedSet<Integer> newSubmissions = new TreeSet<>();
+        //noinspection Convert2streamapi
         for (SubmissionsRecord record : submissions) {
             newSubmissions.add(record.getId());
         }
@@ -189,14 +195,13 @@ public class BatchActions {
         // Set initial capacity
         int totalComparisons = 100;
         for (ArrayList<Submission> typedSubmissions : submissionsByPlugin.values()) {
-            totalComparisons += typedSubmissions.size() * (typedSubmissions.size()+1) /2;
+            totalComparisons += (typedSubmissions.size() * (typedSubmissions.size() + 1)) / 2;
         }
 
         // Create comparison commands
         SimilarityCheckingBatch similarityBatch = new SimilarityCheckingBatch(totalComparisons);
         for (ArrayList<Submission> typedSubmissions : submissionsByPlugin.values())
         {
-            int k = 1;
             if (submissions.isEmpty()) {
                 continue;
             }
@@ -227,11 +232,32 @@ public class BatchActions {
 
         // Determine guilt or innocence
         logger.info("Determining guilt...");
-        Operations.redetermineGuiltOrInnocence();
+        redetermineGuiltOrInnocence();
         logger.info("Time: " + new Date() + ". Done.");
 
         // Repeat?
         logger.info("At least one new submission was processed. Similarity checking will not be immediately repeated.");
         return true;
+    }
+
+    /**
+     * Runs two MySQL queries that update the similarity status of all submissions in the database thus:
+     * 1. All submissions checked by this module that are suspiciously similar to at least one other submission are considered 'guilty' (i.e. plagiarisms)
+     * 2. All other submissions checked by this module are considered 'innocent'.
+     */
+    public static void redetermineGuiltOrInnocence() {
+        DSLContext context = Database.getContext();
+        String guiltyQuery =
+                "UPDATE submissions SET submissions.similarityStatus = 'guilty' " +
+                "WHERE submissions.similarityStatus = 'checked' " +
+                "AND submissions.status <> 'deleted' " +
+                "AND EXISTS ( SELECT id FROM similarities WHERE similarities.newSubmissionId = submissions.id AND similarities.suspicious = 1)";
+        context.execute(guiltyQuery);
+        String innocentQuery =
+                "UPDATE submissions SET submissions.similarityStatus = 'innocent' " +
+                        "WHERE submissions.similarityStatus = 'checked' " +
+                        "AND submissions.status <> 'deleted' " +
+                        "AND NOT EXISTS ( SELECT id FROM similarities WHERE similarities.newSubmissionId = submissions.id AND similarities.suspicious = 1)";
+        context.execute(innocentQuery);
     }
 }

@@ -19,6 +19,7 @@
     <property name="dir.java-plugins.build" location="${dir.java-plugins}/generated-files/build" />
     <property name="dir.java-plugins.jars" location="${dir.java-plugins}/generated-files/jars" />
     <property name="dir.exported-system" location="exported-system" />
+    <property name="dir.additional-files" location="additional-files" />
 
     <property name="dir.similarity" location="similarity" />
     <property name="dir.similarity.build" location="${dir.similarity}/build" />
@@ -46,6 +47,8 @@
                 <exclude name="**/files/output/**" />
             </fileset>
         </copy>
+        <copy file="${dir.additional-files}/install.sql" tofile="${dir.exported-system}/install.sql" />
+        <copy file="${dir.additional-files}/config.ini" tofile="${dir.exported-system}/core/config.ini" />
         <mkdir dir="${dir.exported-system}/files/submissions" />
         <mkdir dir="${dir.exported-system}/files/output" />
     </target>

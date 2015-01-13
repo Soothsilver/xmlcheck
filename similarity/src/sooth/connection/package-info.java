@@ -1,4 +1,4 @@
 /**
- * Contains classes that deal with accessing the database and with communication with the main XML Check application.
+ * Contains classes that deal with accessing the database.
  */
 package sooth.connection;
