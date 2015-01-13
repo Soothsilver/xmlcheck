@@ -4,7 +4,7 @@
  * Author:  Gregory Pakosz.
  * Date:    02 - November - 2005
  * ____________________________________________________________________________
- * Slightly modified by Petr Hudecek in 2014 in order to make the file pass IntelliJ IDEA static code analysis.
+ * Slightly modified by Petr Hudeček in 2014 in order to make the file pass IntelliJ IDEA static code analysis.
  */
 package sooth;
 

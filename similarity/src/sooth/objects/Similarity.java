@@ -30,11 +30,11 @@ public class Similarity {
     /**
      * The primary key value of the row that represents the older submission in the database table.
      */
-    private int oldSubmissionId;
+    private final int oldSubmissionId;
     /**
      * The primary key value of the row that represents the newer submission in the database table.
      */
-    private int newSubmissionId;
+    private final int newSubmissionId;
     /**
      * A value indicating whether there is an extremely high chance that one of the two submissions is plagiarism.
      */

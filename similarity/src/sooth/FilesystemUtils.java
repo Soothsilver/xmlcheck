@@ -54,7 +54,7 @@ public class FilesystemUtils {
     /**
      * Copies the contents of the source directory into the second directory.
      * Code by Archimedes Trajano at http://stackoverflow.com/a/10068306/1580088
-	 * Slightly modified by Petr Hudecek in order to make it pass IntelliJ IDEA static code analysis
+	 * Slightly modified by Petr Hudeček in order to make it pass IntelliJ IDEA static code analysis
      * @param sourceDirectory directory to copy contents from
      * @param copyInto files and directories from the first directory will be copied into this one
 	 * @throws java.io.IOException When an IO operation fails.

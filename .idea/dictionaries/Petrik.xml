@@ -1,37 +1,52 @@
 <component name="ProjectDictionaryState">
   <dictionary name="Petrik">
     <words>
+      <w>&amp;amp</w>
       <w>aaabc</w>
       <w>abcde</w>
       <w>abcdefgh</w>
+      <w>asmfull</w>
       <w>asmregen</w>
+      <w>atts</w>
       <w>baaac</w>
       <w>chdir</w>
+      <w>codegen</w>
       <w>comparenew</w>
       <w>corasick</w>
       <w>dfile</w>
       <w>dname</w>
+      <w>doctype</w>
+      <w>domsax</w>
       <w>dtext</w>
       <w>dtype</w>
       <w>edcba</w>
       <w>endcode</w>
+      <w>endian</w>
       <w>filenames</w>
       <w>forestdist</w>
       <w>fugdcb</w>
+      <w>hudeček</w>
       <w>ijklmno</w>
+      <w>intelli</w>
       <w>jdbc</w>
+      <w>jooq</w>
       <w>kaizhong</w>
+      <w>karp</w>
       <w>keyroot</w>
       <w>keyroots</w>
       <w>levenshtein</w>
       <w>macosx</w>
       <w>makeone</w>
+      <w>maxmatch</w>
       <w>multithreading</w>
       <w>nahraná</w>
       <w>nenahrávejte</w>
       <w>nonvalidating</w>
       <w>obodování</w>
+      <w>pakosz</w>
+      <w>preprocess</w>
       <w>preprocessing</w>
+      <w>rdbms</w>
       <w>recheckall</w>
       <w>reloadalldocuments</w>
       <w>sdate</w>
@@ -40,9 +55,13 @@
       <w>substrings</w>
       <w>suser</w>
       <w>textbox</w>
+      <w>trajano</w>
       <w>treedist</w>
       <w>uploadovat</w>
       <w>usernames</w>
+      <w>vstupni</w>
+      <w>vystupni</w>
+      <w>xmlcheck</w>
       <w>xquery</w>
       <w>zhang</w>
     </words>

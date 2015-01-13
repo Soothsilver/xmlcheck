@@ -20,17 +20,16 @@ public class SimilarityCheckingBatch {
     /**
      * If true, the module will use all available processor cores. If false, only one processor core will be used.
      */
-    @SuppressWarnings("FieldCanBeLocal") // This is a constant.
     private static final boolean useMultithreading = true;
 
-    private Logger logger = Logging.getLogger(SimilarityCheckingBatch.class.getName());
+    private final Logger logger = Logging.getLogger(SimilarityCheckingBatch.class.getName());
 
     /**
      * This data structure represents a request to compare two submissions.
      */
     private class SimilarityCommand {
-        private Submission oldSubmission;
-        private Submission newSubmission;
+        private final Submission oldSubmission;
+        private final Submission newSubmission;
 
         /**
          * Initializes a new instance of the SimilarityCommand class which represents a request to compare two submissions.
@@ -43,7 +42,7 @@ public class SimilarityCheckingBatch {
         }
     }
 
-    private ArrayList<SimilarityCommand> commands;
+    private final ArrayList<SimilarityCommand> commands;
 
     /**
      * Initializes a new instance of the SimilarityCheckingBatch class.
@@ -164,11 +163,11 @@ public class SimilarityCheckingBatch {
      * This class represents a single worker thread that performs similarity comparisons.
      */
     private class Runner implements Runnable {
-        private List<SimilarityCommand> commands;
-        private int from;
-        private int upToExclusive;
-        private SimilarityInsertionQueue queue;
-        private int threadIndex;
+        private final List<SimilarityCommand> commands;
+        private final int from;
+        private final int upToExclusive;
+        private final SimilarityInsertionQueue queue;
+        private final int threadIndex;
 
         /**
          * Initializes a new instance of the Runner class.

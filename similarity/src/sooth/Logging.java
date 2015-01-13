@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  */
 public class Logging {
     /**
-     * Formats the log output in a way Petr Hudecek finds the most aesthetically pleasing.
+     * Formats the log output in a way Petr Hudeček finds the most aesthetically pleasing.
      */
     private static class SimpleRecordFormatter extends java.util.logging.Formatter {
 

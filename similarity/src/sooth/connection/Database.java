@@ -24,11 +24,11 @@ import java.util.logging.Logger;
  * Contains static data and methods relating to the use of database.
  */
 public class Database {
-    private static Logger logger = Logging.getLogger(Database.class.getName());
+    private static final Logger logger = Logging.getLogger(Database.class.getName());
     /**
      * This logger is used to suppress logging data from the jOOQ framework which outputs excessive amounts of data, most of which is useless.
      */
-    private static Logger orgLogger = Logger.getLogger("org");
+    private static final Logger orgLogger = Logger.getLogger("org");
     private static DSLContext context = null;
     private static Connection connection = null;
 

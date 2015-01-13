@@ -11,17 +11,17 @@ public class DocumentComparisonResult {
      * A value, from 0 to 100, that indicates the measure of similarity of the two submissions. A value of 100 means
      * the submissions are identical.
      */
-    private int similarity;
+    private final int similarity;
     /**
      * Additional information about the executed comparison test.
      */
-    private String details;
+    private final String details;
     /**
      * A value indicating whether there is an extremely high probability that one of the two submissions is plagiarism.
      * If any document comparison is flagged as suspicious, the higher-level submission comparison will also be flagged
      * suspicious.
      */
-    private boolean suspicious;
+    private final boolean suspicious;
 
     /**
      * Gets a value indicating whether there is an extremely high probability that one of the two submissions is plagiarism.

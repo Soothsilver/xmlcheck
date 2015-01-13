@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  * implement the actual algorithms and do not concern themselves with interpreting results.
  */
 public class ComparisonFunctions {
-    private static Logger logger = Logging.getLogger(ComparisonFunctions.class.getName());
+    private static final Logger logger = Logging.getLogger(ComparisonFunctions.class.getName());
 
     /**
      * The size in bytes a document must have to be compared for similarity at all. The default is 500 (i.e. 500 bytes)
@@ -40,7 +40,7 @@ public class ComparisonFunctions {
      * The singleton instance of the Greedy-String-Tiling algorithm. Because this algorithm does not keep any local
      * variables across runs, it is thread-safe and thus can be here as a singleton.
      */
-    private static GreedyStringTilingAlgorithm greedyStringTilingAlgorithm = new GreedyStringTilingAlgorithm();
+    private static final GreedyStringTilingAlgorithm greedyStringTilingAlgorithm = new GreedyStringTilingAlgorithm();
 
     /**
      * Compares two documents using Zhang-Shasha algorithm. This method is thread-safe. Both documents MUST have correctly formed trees or this function will throw an exception.

@@ -13,7 +13,7 @@ public class Submission {
     private int submissionId = -1;
     private int userId = -1;
     private Date uploadTime = null;
-    private String pluginIdentifier;
+    private final String pluginIdentifier;
 
     /**
      * Returns all loaded documents associated with this submission. A document is a file. Some documents such as

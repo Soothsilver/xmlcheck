@@ -27,7 +27,7 @@ import java.util.logging.Logger;
  * This class contains static functions that perform actions on the entire database.
  */
 public class BatchActions {
-    private static Logger logger = Logging.getLogger(BatchActions.class.getName());
+    private static final Logger logger = Logging.getLogger(BatchActions.class.getName());
     /**
      * Deletes all documents and similarities detected, recreates all documents, and then runs similarity checking on everything.
      * This method will take a great amount of time to run.

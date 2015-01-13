@@ -16,7 +16,7 @@ public class ZhangShashaAlgorithm {
      * This thread-local instance field contains an instance of ZhangShashaAlgorithm for each thread. In this way,
      * within a thread, ZhangShashaAlgorithm is a singleton class.
      */
-    private static ThreadLocal<ZhangShashaAlgorithm> instance = new ThreadLocal<ZhangShashaAlgorithm>() {
+    private static final ThreadLocal<ZhangShashaAlgorithm> instance = new ThreadLocal<ZhangShashaAlgorithm>() {
         @Override
         protected ZhangShashaAlgorithm initialValue() {
             return new ZhangShashaAlgorithm();

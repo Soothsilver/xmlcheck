@@ -27,7 +27,7 @@ public class DocumentExtractor {
     private static final int MAXIMUM_DOCUMENT_SIZE = 50000; // 50 kB
     private static final int MAXIMUM_NUMBER_OF_SAME_DOCUMENT_TYPE = 3;
 
-    private static Logger logger = Logging.getLogger(DocumentExtractor.class.getName());
+    private static final Logger logger = Logging.getLogger(DocumentExtractor.class.getName());
 
     /**
      * Returns a list of documents (non-preprocessed) contained in the ZIP file.
@@ -35,7 +35,7 @@ public class DocumentExtractor {
      * @param pluginIdentifier Unique string identifier of the plugin that is supposed to evaluate this submission.
      * @return The (possibly empty) list of documents.
      */
-    public static List<Document> getDocumentsFromZipArchive(Path pathToZipFile, String pluginIdentifier) {
+    private static List<Document> getDocumentsFromZipArchive(Path pathToZipFile, String pluginIdentifier) {
         ArrayList<Document> documents = new ArrayList<>();
         if (!Files.exists(pathToZipFile)) {
             logger.warning("The specified path '" + pathToZipFile + "' does not lead to a file.");

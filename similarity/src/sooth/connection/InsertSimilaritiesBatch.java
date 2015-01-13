@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  * you must increase the value of max_allowed_packet in the MySQL configuration file my.ini. The value "512M" is sufficient.
  */
 public class InsertSimilaritiesBatch {
-    private Logger logger = Logging.getLogger(InsertSimilaritiesBatch.class.getName());
+    private final Logger logger = Logging.getLogger(InsertSimilaritiesBatch.class.getName());
     private InsertValuesStep5<SimilaritiesRecord, Integer, Integer, Integer, String, Byte> insertQuery;
     private int boundQueries = 0;
     /**

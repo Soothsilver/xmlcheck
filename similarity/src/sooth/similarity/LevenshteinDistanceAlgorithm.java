@@ -31,7 +31,7 @@ public class LevenshteinDistanceAlgorithm {
      * This thread-local instance field contains an instance of LevenshteinDistanceTest for each thread. In this way,
      * within a thread, LevenshteinDistanceTest is a singleton class.
      */
-    private static ThreadLocal<LevenshteinDistanceAlgorithm> instance = new ThreadLocal<LevenshteinDistanceAlgorithm>() {
+    private static final ThreadLocal<LevenshteinDistanceAlgorithm> instance = new ThreadLocal<LevenshteinDistanceAlgorithm>() {
         @Override
         protected LevenshteinDistanceAlgorithm initialValue() {
             return new LevenshteinDistanceAlgorithm();

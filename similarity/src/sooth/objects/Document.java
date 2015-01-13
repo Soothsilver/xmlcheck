@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  * Represents a single file from a submission.
  */
 public class Document {
-    private Logger logger = Logging.getLogger(Document.class.getName());
+    private final Logger logger = Logging.getLogger(Document.class.getName());
     private static DocumentBuilder documentBuilder;
     static {
         try {
@@ -258,7 +258,7 @@ public class Document {
         /**
          * The integer this document type is represented by in a database table.
          */
-        private int mysqlIdentifier;
+        private final int mysqlIdentifier;
 
         /**
          * Initializes a new instance of the DocumentType enumeration class.
@@ -296,7 +296,7 @@ public class Document {
     /**
      * Filename of the document file.
      */
-    private String name;
+    private final String name;
     /**
      * Contents of the document file.
      */
@@ -304,7 +304,7 @@ public class Document {
     /**
      * Type of the document. For example, this could be an XPATH_QUERY.
      */
-    private DocumentType type;
+    private final DocumentType type;
     /**
      * Text of the document with whitespace removed and some other modifications performed. See @ref getPreprocessedText for details.
      */

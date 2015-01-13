@@ -26,15 +26,15 @@ public class GreedyStringTilingAlgorithm {
         /**
          * The position where the common substring starts in the shorter of the two strings.
          */
-        public int PatternStart;
+        public final int PatternStart;
         /**
          * The position where the common substring starts in the longer of the two strings.
          */
-        public int DocumentStart;
+        public final int DocumentStart;
         /**
          * Length of the common substring.
          */
-        public int Length;
+        public final int Length;
 
         /**
          * Initializes an instance of the Match class which represents a common substring among two strings.
@@ -52,7 +52,6 @@ public class GreedyStringTilingAlgorithm {
     /**
      * Specifies the MinimumMatchLength, which is a parameter of the Greedy-String-Tiling algorithm. A brief explanation is that only substrings greater or equal to this length can be considered tiles.
      */
-    @SuppressWarnings("FieldCanBeLocal")
     private int MinimumMatchLength = 8;
 
     /**
