@@ -168,6 +168,7 @@ public class BatchActions {
         // We are now the only instance running.
 
         // Find new submissions.
+        logger.info("Time: " + new Date());
         DSLContext context = Database.getContext();
         Result<SubmissionsRecord> submissions =
                 context.selectFrom(Tables.SUBMISSIONS)
@@ -179,8 +180,10 @@ public class BatchActions {
             return false;
         }
         // Create documents
+        logger.info("Time: " + new Date());
         logger.info("I will now recreate document records from all new submissions.");
         submissions.forEach(DocumentExtractor::createDatabaseDocumentsFromSubmissionRecord);
+        logger.info("Time: " + new Date());
         logger.info("Document records created.");
 
         // Create set of submission ids that need to be checked

@@ -36,6 +36,9 @@
             <include name="**/*.jar" />
         </fileset>
     </path>
+    <target name="export-with-example-config"  depends="export" description="Exports, then copies the standard base config.ini file into the exported directory.">
+        <copy file="${dir.additional-files}/config.ini" tofile="${dir.exported-system}/core/config.ini" />
+    </target>
     <target name="export" depends="update-all" description="Exports the current version of the system to a separate directory that is ready to be uploaded to a production server. This means the contents of the 'www' subdirectory is copied, except that submissions and output are not copied (plugins are). The config.ini file isn't copied either.">
         <delete includeemptydirs="true">
             <fileset dir="${dir.exported-system}" includes="**/*" />

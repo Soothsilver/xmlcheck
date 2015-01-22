@@ -98,8 +98,8 @@ public class ZhangShashaAlgorithm {
     @SuppressWarnings("UnclearBinaryExpression") // This method is much clearer without the additional parentheses, thank you very much.
     private void calculateTreeDist(int iMajor, int jMajor) {
         forestdist[0][0] = 0;
-        int li = firstTree.nodes.get(iMajor).LeftmostLeaf + 1; // one-based
-        int lj = secondTree.nodes.get(jMajor).LeftmostLeaf + 1; // one-based
+        int li = firstTree.nodes.get(iMajor).getLeftmostLeaf() + 1; // one-based
+        int lj = secondTree.nodes.get(jMajor).getLeftmostLeaf() + 1; // one-based
         iMajor++; // one-based
         jMajor++; // one-based
         int m = iMajor - li + 1;
@@ -112,14 +112,14 @@ public class ZhangShashaAlgorithm {
         }
         for (int x = 1; x <= m; x++) {
             for (int y = 1; y <= n; y++) {
-                int lx = firstTree.nodes.get(li - 1 + x - 1).LeftmostLeaf + 1;
-                int ly = secondTree.nodes.get(lj - 1 + y - 1).LeftmostLeaf + 1;
+                int lx = firstTree.nodes.get(li - 1 + x - 1).getLeftmostLeaf() + 1;
+                int ly = secondTree.nodes.get(lj - 1 + y - 1).getLeftmostLeaf() + 1;
                 // x ... number of positions east of l(i)-1 (i.e. x=1 ... l(i))
                 if (lx == li && ly == lj) {
                     forestdist[x][y] = min(
                             forestdist[x - 1][y] + DELETION_COST,
                             forestdist[x][y - 1] + INSERTION_COST,
-                            forestdist[x - 1][y - 1] + (firstTree.nodes.get(li - 1 + x - 1).Label.equals(secondTree.nodes.get(lj - 1 + y - 1).Label) ? 0 : RELABEL_COST)
+                            forestdist[x - 1][y - 1] + (firstTree.nodes.get(li - 1 + x - 1).getLabel().equals(secondTree.nodes.get(lj - 1 + y - 1).getLabel()) ? 0 : RELABEL_COST)
                     );
                     treedist[li + x - 1][lj + y - 1] = forestdist[x][y];
                 } else {
