@@ -2,8 +2,8 @@ package sooth.objects;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
-import sooth.Logging;
 import sooth.Configuration;
+import sooth.Logging;
 import sooth.scripts.PreprocessingUtilities;
 import sooth.similarity.ZhangShashaTree;
 

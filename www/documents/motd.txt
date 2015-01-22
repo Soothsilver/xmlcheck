@@ -1,4 +1,4 @@
-Vítejte v systému XML Check.
+Vítejte v systému XML Check. Můžete se podívat do <a href="xmlcheck-uzivatelska-dokumentace.pdf">uživatelské dokumentace</a>.
 
 Pokud v systému objevíte chybu, oznamte mi to prosím na <a href="mailto:petrhudecek2010@gmail.com">petrhudecek2010@gmail.com</a>.
 
