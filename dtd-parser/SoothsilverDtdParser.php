@@ -325,7 +325,7 @@ namespace Soothsilver\DtdParser {
 
         /**
          * Checks whether the specified haystack begins with the specified needle.
-         * @param string $haystack The string whose beginning we search. (TODO grammar)
+         * @param string $haystack The string whose beginning we search.
          * @param string $needle The beginning we search for.
          * @return bool Does the haystack start with the needle?
          */
@@ -356,7 +356,8 @@ namespace Soothsilver\DtdParser {
                     switch($peStyle)
                     {
                         case Internal\PEStyle::IgnoreQuotedText:
-                        case Internal\PEStyle::MatchingParentheses: // TODO matching parentheses do not work
+                        case Internal\PEStyle::MatchingParentheses:
+                            // This may need further testing.
                             // The two spaces are mandated by specification to disallow funny stuff
                             $text = substr($text, 0, $entityBeginsAt) . " " . $replacementText . " " . substr($text, $entityEndsBefore);
                             break;
@@ -487,7 +488,6 @@ namespace Soothsilver\DtdParser {
                 $isMixed = $this->startsWith($contentspec, "(#PCDATA");
                 // We should verify the legality of the context regular expression here, but we don't need it.
                 // In future versions of the DTDParser, this should probably be done.
-                // TODO differentiate mixed from pure text content
             }
             if (array_key_exists($name, $this->elements))
             {
@@ -568,7 +568,7 @@ namespace Soothsilver\DtdParser {
                             $state = Internal\AttlistMode::InsideEnumeration_NeedValue;
                             break;
                         case "NOTATION":
-                            $attributeType = Attribute::ATTTYPE_NOTATION; // TODO validity checks
+                            $attributeType = Attribute::ATTTYPE_NOTATION;
                             $state = Internal\AttlistMode::AfterNOTATION;
                             break;
                         default:
@@ -1469,7 +1469,7 @@ namespace Soothsilver\DtdParser {
          */
         public function isPureText()
         {
-            return $this->contentSpecification === "(#PCDATA)" || $this->contentSpecification === "(#PCDATA)*";
+            return $this->contentSpecification === "(#PCDATA)" || $this->contentSpecification === "(#PCDATA)*" || $this->contentSpecification === "#PCDATA";
         }
     }
 
@@ -1566,7 +1566,7 @@ namespace Soothsilver\DtdParser {
         public $publicId = false;
 
         /**
-         * Initializes a new instance of the ParamaterEntity class. For internal use only.
+         * Initializes a new instance of the ParameterEntity class. For internal use only.
          * @param string $name Name of the parameter entity.
          * @param string $replacementText Replacement text of the entity. All parameter entity references inside the replacement text are already fully expanded.
          * @param boolean $external A value that indicates whether this is an external entity. External entities are not loaded.
