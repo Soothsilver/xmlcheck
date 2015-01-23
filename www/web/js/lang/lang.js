@@ -185,7 +185,7 @@ asm.lang = {
         rewardHint : "maximum reward that can be gained for this assignment",
         addEditAssignmentCaption : "Add/Edit Assignment",
         addSubmissionButAlreadyGradedMessage: "<b>Warning! </b>Your teacher already graded you for this assignment. While uploading new submissions does not cancel your grade automatically, your teacher will have the possibility to erase your previous grade and replace it by grading your new submission. It is at his or her discretion, however.",
-        addSubmissionButAlreadyExistsMessage: "Your new submission will supersede your older ones for this assignment.",
+        addSubmissionButAlreadyExistsMessage: "Your new submission will supersede your older ones for this assignment. If you explicitly requested grading for an earlier submission, that request will be canceled.",
         addSubmissionFirstTimeMessage: "You can submit as many submissions as you like. Your teacher will grade your latest submission when deadline comes.",
         addSubmissionAfterDeadline : "<b>Notice. </b>It is past deadline. Your teacher may award you fewer points because of this."
     },

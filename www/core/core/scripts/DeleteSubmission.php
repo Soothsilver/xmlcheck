@@ -13,7 +13,11 @@ use asm\core\lang\StringID;
  */
 class DeleteSubmission extends DataScript
 {
-	protected function body ()
+    /**
+     * Runs this script.
+     * @return bool Is it successful?
+     */
+    protected function body ()
 	{
         if (!$this->isInputSet(array('id')))
 			return false;
@@ -29,6 +33,10 @@ class DeleteSubmission extends DataScript
         if ($submission->getStatus() === \Submission::STATUS_GRADED)
         {
             return $this->death(StringID::CannotDeleteGradedSubmissions);
+        }
+        if ($submission->getStatus() === \Submission::STATUS_REQUESTING_GRADING)
+        {
+            return $this->death(StringID::CannotDeleteHandsoffSubmissions);
         }
         $status = $submission->getStatus();
         $submission->setStatus(\Submission::STATUS_DELETED);

@@ -189,7 +189,7 @@ asm.otherlangs.cs = {
         somethingSubmitted : "Řešení",
         somethingSubmittedYes : "odevzdáno",
         addSubmissionButAlreadyGradedMessage: "<b>Varování! </b>Za tento úkol jste již byli oznámkováni! Upload dalšího řešení sice automaticky nezruší vaši známku, váš cvičící ji ale pak může smazat a nahradit známkou za toto nové řešení, pokud uzná za vhodné.",
-        addSubmissionButAlreadyExistsMessage: "Vaše nové řešení přepíše vaše starší řešení tohoto úkolu..",
+        addSubmissionButAlreadyExistsMessage: "Vaše nové řešení přepíše vaše starší řešení tohoto úkolu. Pokud jste požádali o předčasné oznámkování, bude tato žádost zrušena.",
         addSubmissionFirstTimeMessage: "Můžete uploadovat libovolné množství řešení. Cvičící vám opraví jen to nejnovější, a to až po termínu.",
         addSubmissionAfterDeadline : "<b>Poznámka. </b>Již je po termínu. Váš cvičící vás za pozdní odevzdání může penalizovat."
     },
