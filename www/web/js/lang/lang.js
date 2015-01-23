@@ -130,8 +130,8 @@ asm.lang = {
         subscriptionRequests : 'subscription request(s) pending',
         tasksRequireAttention : 'Following tasks require your attention:',
         currentGroupRatings : 'Current group ratings:',
-        passwordChanged : 'Full name, e-mail and password changed.',
-        passwordNotChanged : 'Full name and e-mail changed. Password remains the same.',
+        passwordChanged : 'Full name, e-mail and password changed. Your new full name will appear in the top right corner the next time you log in.',
+        passwordNotChanged : 'Full name and e-mail changed. Password remains the same. Your new full name will appear in the top right corner the next time you log in.',
         points : 'points'
 },
     userInterface : {

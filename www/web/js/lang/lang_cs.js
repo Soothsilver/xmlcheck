@@ -135,8 +135,8 @@ asm.otherlangs.cs = {
         subscriptionRequests : 'žádostí o členství k vyřešení',
         tasksRequireAttention : 'Následující situace vyžadují vaši pozornost:',
         currentGroupRatings : 'Vaše aktuální hodnocení:',
-        passwordChanged : 'Celé jméno, e-mail a heslo byly změněny.',
-        passwordNotChanged : 'Celé jméno a e-mail změněny. Heslo zůstává beze změny.',
+        passwordChanged : 'Celé jméno, e-mail a heslo byly změněny. Nové jméno se v pravém horním rohu zobrazí po opětovném přihlášení.',
+        passwordNotChanged : 'Celé jméno a e-mail změněny. Heslo zůstává beze změny. Nové jméno se v pravém horním rohu zobrazí po opětovném přihlášení.',
         points: "bodů"
     },
     userInterface : {

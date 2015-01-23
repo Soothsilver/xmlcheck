@@ -28,7 +28,12 @@ use asm\utils\Security;
  */
 final class EditUser extends DataScript
 {
-	protected function body ()
+    /**
+     * Runs this script.
+     * @return bool Is it successful?
+     * @throws \Exception Should never occur.
+     */
+    protected function body ()
 	{
 		$inputs = array(
 			'name' => array(
@@ -95,7 +100,7 @@ final class EditUser extends DataScript
         $pass = Security::hash($pass, Security::HASHTYPE_PHPASS);
         $canAddUsers = User::instance()->hasPrivileges(User::usersAdd);
         $canEditUsers = User::instance()->hasPrivileges(User::usersManage);
-        $isEditingSelf = ($id === User::instance()->getId());
+        $isEditingSelf = ($id == User::instance()->getId()); // This must not be a strict comparison.
         /**
          * @var $user \User
          */
