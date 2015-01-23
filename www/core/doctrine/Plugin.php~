@@ -24,7 +24,7 @@ class Plugin
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=20, nullable=false)
+     * @ORM\Column(name="name", type="string", nullable=false)
      */
     private $name;
 
@@ -45,9 +45,14 @@ class Plugin
     /**
      * @var string
      *
-     * @ORM\Column(name="mainFile", type="string", length=100, nullable=false)
+     * @ORM\Column(name="mainFile", type="string", nullable=false)
      */
     private $mainfile;
+
+    /**
+     * @ORM\Column(name="identifier", type="string")
+     */
+    private $identifier;
 
     /**
      * @var string
@@ -77,7 +82,7 @@ class Plugin
      * Set name
      *
      * @param string $name
-     * @return Plugins
+     * @return Plugin
      */
     public function setName($name)
     {
@@ -100,7 +105,7 @@ class Plugin
      * Set type
      *
      * @param string $type
-     * @return Plugins
+     * @return Plugin
      */
     public function setType($type)
     {
@@ -123,7 +128,7 @@ class Plugin
      * Set description
      *
      * @param string $description
-     * @return Plugins
+     * @return Plugin
      */
     public function setDescription($description)
     {
@@ -146,7 +151,7 @@ class Plugin
      * Set mainfile
      *
      * @param string $mainfile
-     * @return Plugins
+     * @return Plugin
      */
     public function setMainfile($mainfile)
     {
@@ -169,7 +174,7 @@ class Plugin
      * Set config
      *
      * @param string $config
-     * @return Plugins
+     * @return Plugin
      */
     public function setConfig($config)
     {
@@ -226,5 +231,28 @@ class Plugin
     public function getPluginTests()
     {
         return $this->pluginTests;
+    }
+
+    /**
+     * Set identifier
+     *
+     * @param string $identifier
+     * @return Plugin
+     */
+    public function setIdentifier($identifier)
+    {
+        $this->identifier = $identifier;
+
+        return $this;
+    }
+
+    /**
+     * Get identifier
+     *
+     * @return string 
+     */
+    public function getIdentifier()
+    {
+        return $this->identifier;
     }
 }

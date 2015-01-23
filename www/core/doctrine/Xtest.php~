@@ -24,7 +24,7 @@ class Xtest
     /**
      * @var string
      *
-     * @ORM\Column(name="description", type="string", length=50, nullable=false)
+     * @ORM\Column(name="description", type="string",  nullable=false)
      */
     private $description;
 
@@ -73,7 +73,7 @@ class Xtest
      * Set description
      *
      * @param string $description
-     * @return Xtests
+     * @return Xtest
      */
     public function setDescription($description)
     {
@@ -96,7 +96,7 @@ class Xtest
      * Set template
      *
      * @param string $template
-     * @return Xtests
+     * @return Xtest
      */
     public function setTemplate($template)
     {
@@ -119,7 +119,7 @@ class Xtest
      * Set count
      *
      * @param integer $count
-     * @return Xtests
+     * @return Xtest
      */
     public function setCount($count)
     {
@@ -142,7 +142,7 @@ class Xtest
      * Set generated
      *
      * @param string $generated
-     * @return Xtests
+     * @return Xtest
      */
     public function setGenerated($generated)
     {

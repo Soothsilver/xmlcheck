@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Group
 {
+    const TYPE_PUBLIC = "public";
+    const TYPE_PRIVATE = "private";
     /**
      * @var Lecture
      * @ORM\ManyToOne(targetEntity="Lecture",inversedBy="groups")
@@ -27,7 +29,7 @@ class Group
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=20, nullable=false)
+     * @ORM\Column(name="name", type="string", nullable=false)
      */
     private $name;
     /**
@@ -71,7 +73,7 @@ class Group
      * Set name
      *
      * @param string $name
-     * @return Groups
+     * @return Group
      */
     public function setName($name)
     {
@@ -94,7 +96,7 @@ class Group
      * Set description
      *
      * @param string $description
-     * @return Groups
+     * @return Group
      */
     public function setDescription($description)
     {
@@ -117,7 +119,7 @@ class Group
      * Set type
      *
      * @param string $type
-     * @return Groups
+     * @return Group
      */
     public function setType($type)
     {

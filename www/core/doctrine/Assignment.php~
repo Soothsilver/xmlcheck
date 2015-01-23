@@ -60,7 +60,7 @@ class Assignment
      * Set deadline
      *
      * @param \DateTime $deadline
-     * @return Assignments
+     * @return Assignment
      */
     public function setDeadline($deadline)
     {
@@ -81,7 +81,7 @@ class Assignment
      * Set reward
      *
      * @param integer $reward
-     * @return Assignments
+     * @return Assignment
      */
     public function setReward($reward)
     {
@@ -122,7 +122,7 @@ class Assignment
     /**
      * Set group
      *
-     * @param \Group $problem
+     * @param \Group $group
      * @return Assignment
      */
     public function setGroup(\Group $group)
