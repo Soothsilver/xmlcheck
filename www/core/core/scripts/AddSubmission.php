@@ -36,9 +36,17 @@ final class AddSubmission extends DataScript
          */
         $assignment = Repositories::getEntityManager()->find('Assignment', $assignmentId);
         $query = "SELECT s, a FROM Subscription s, Assignment a WHERE s.group = a.group AND s.user = " . $userId . " AND a.id = " . $assignmentId;
-        if ( count(Repositories::getEntityManager()->createQuery($query)->getResult()) === 0)
+        /**
+         * @var $result \Subscription[]
+         */
+        $result = Repositories::getEntityManager()->createQuery($query)->getResult();
+        if ( count($result) === 0)
         {
             $this->stop(Language::get(StringID::HackerError));
+            return;
+        }
+        if ($result[0]->getStatus() == \Subscription::STATUS_REQUESTED) {
+            $this->stop(Language::get(StringID::SubscriptionNotYetAccepted));
             return;
         }
 
