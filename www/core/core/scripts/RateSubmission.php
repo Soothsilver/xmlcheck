@@ -83,7 +83,6 @@ final class RateSubmission extends DataScript
 		$student = $submission->getUser();
         if ($student->getSendEmailOnSubmissionRated())
         {
-
 			// Load email.
             $email = file_get_contents(Config::get("paths", $rating == $maxReward ? "successEmail" : "failureEmail"));
             $email = str_replace( "%{Points}", $rating, $email);

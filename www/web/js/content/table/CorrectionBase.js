@@ -36,7 +36,7 @@ asm.ui.table.CorrectionBase = asm.ui.DynamicTable.extend({
 		var triggerError = $.proxy(this._triggerError, this);
 		return {
 			icon: 'ui-icon-' + asm.ui.globals.icons[reRate ? 'edit' : 'rating'],
-			label: asm.lang.grading.gradeSubmission,
+			label: reRate ? asm.lang.grading.regradeSubmission : asm.lang.grading.gradeSubmission,
 			action: $.proxy(function (id, values) {
 				var options = [],
 					maxRating = values['reward'],
@@ -53,11 +53,11 @@ asm.ui.table.CorrectionBase = asm.ui.DynamicTable.extend({
 
                     asm.ui.globals.dialogManager.form($.proxy(function (data) {
                         asm.ui.globals.coreCommunicator.request('RateSubmission', data, $.proxy(function () {
-                            asm.ui.globals.stores.ratingsTeacher.expire();
                             asm.ui.globals.stores.ratingsTeacherDetailed.expire();
-                            if (!reRate) {
-                                asm.ui.globals.stores.correctionRated.expire();
-                            }
+							asm.ui.globals.stores.correctionRated.expire();
+							asm.ui.globals.stores.correction.expire();
+							asm.ui.globals.stores.correctionAll.expire();
+							asm.ui.globals.stores.correctionAbsolutelyAll.expire();
                             this.refresh(true);
                         }, this), $.noop, triggerError);
                     }, this), {

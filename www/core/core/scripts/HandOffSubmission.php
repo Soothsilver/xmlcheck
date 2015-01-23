@@ -27,18 +27,23 @@ class HandOffSubmission extends DataScript
         $submission = Repositories::findEntity(Repositories::Submission, $id);
 		$userId = User::instance()->getId();
         if ($submission->getUser()->getId() != $userId) { return $this->death(StringID::HackerError); }
-        $submission->setStatus(\Submission::STATUS_REQUESTING_GRADING);
 
         // First, if you handed something off previously, it is no longer handed off
-        $yourSubmissions = Repositories::getRepository(Repositories::Submission)->findBy(['user'=>$userId,'assignment'=>$submission->getAssignment()->getId(),'status'=>\Submission::STATUS_REQUESTING_GRADING]);
+        /**
+         * @var $yourSubmissions \Submission[]
+         */
+        $yourSubmissions = Repositories::getRepository(Repositories::Submission)->findBy(['user'=>$userId,'assignment'=>$submission->getAssignment()->getId()]);
         foreach($yourSubmissions as $previouslyHandedOffSubmission)
         {
-            /** @var \Submission $previouslyHandedOffSubmission */
-            $previouslyHandedOffSubmission->setStatus(\Submission::STATUS_NORMAL);
-            Repositories::persistAndFlush($previouslyHandedOffSubmission);
+                if ($previouslyHandedOffSubmission->getStatus() == \Submission::STATUS_REQUESTING_GRADING ||
+                $previouslyHandedOffSubmission->getStatus() == \Submission::STATUS_LATEST) {
+                        $previouslyHandedOffSubmission->setStatus(\Submission::STATUS_NORMAL);
+                        Repositories::persistAndFlush($previouslyHandedOffSubmission);
+                }
         }
 
-        // Hand off the submission
+        // Next, hand off the submission
+        $submission->setStatus(\Submission::STATUS_REQUESTING_GRADING);
         Repositories::persistAndFlush($submission);
 
         $emailText = file_get_contents(Config::get("paths", "newSubmissionEmail"));
@@ -49,10 +54,12 @@ class HandOffSubmission extends DataScript
         $subject = $lines[0]; // The first line is subject.
         $text = preg_replace('/^.*\n/', '', $emailText); // Everything except the first line.
 
-        $to = $submission->getAssignment()->getGroup()->getOwner()->getEmail();
-        if (!Core::sendEmail($to, $subject, $text))
-        {
-            return $this->death(StringID::MailError);
+
+        $to = $submission->getAssignment()->getGroup()->getOwner();
+        if ($to->getSendEmailOnNewSubmission()) {
+                if (!Core::sendEmail($to->getEmail(), $subject, $text)) {
+                        return $this->death(StringID::MailError);
+                }
         }
         return true;
     }
