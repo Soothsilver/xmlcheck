@@ -2,25 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eda54cdc-a67c-46e8-bf5d-f1d7408e0e60" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Apps\EasyPHP\data\localweb\xmlcheck\www\vendor\soothsilver\dtd-parser\LICENSE" afterPath="" />
-      <change type="DELETED" beforePath="C:\Apps\EasyPHP\data\localweb\xmlcheck\www\vendor\soothsilver\dtd-parser\README.md" afterPath="" />
-      <change type="DELETED" beforePath="C:\Apps\EasyPHP\data\localweb\xmlcheck\www\vendor\soothsilver\dtd-parser\SoothsilverDtdParser.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\Apps\EasyPHP\data\localweb\xmlcheck\www\vendor\soothsilver\dtd-parser\composer.json" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Assignment.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Assignment.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Attachment.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Attachment.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Document.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Document.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Group.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Group.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Lecture.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Lecture.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Plugin.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Plugin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/PluginTest.php" afterPath="$PROJECT_DIR$/www/core/doctrine/PluginTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Problem.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Problem.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Question.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Question.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Similarity.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Similarity.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Submission.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Submission.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Subscription.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Subscription.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/User.php" afterPath="$PROJECT_DIR$/www/core/doctrine/User.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/UserType.php" afterPath="$PROJECT_DIR$/www/core/doctrine/UserType.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Xtest.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Xtest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="xmlcheck.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -145,7 +127,7 @@
         <entry file="file://$PROJECT_DIR$/www/files/log/placeholder.txt">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="571">
-              <caret line="0" column="13" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
+              <caret line="0" column="61" selection-start-line="0" selection-start-column="61" selection-end-line="0" selection-end-column="61" />
               <folding />
             </state>
           </provider>
@@ -355,14 +337,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32996634" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32996634" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -522,7 +504,7 @@
     <entry file="file://$PROJECT_DIR$/www/files/log/placeholder.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="571">
-          <caret line="0" column="13" selection-start-line="0" selection-start-column="13" selection-end-line="0" selection-end-column="13" />
+          <caret line="0" column="61" selection-start-line="0" selection-start-column="61" selection-end-line="0" selection-end-column="61" />
           <folding />
         </state>
       </provider>
