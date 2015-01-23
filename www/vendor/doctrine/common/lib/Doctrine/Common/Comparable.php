@@ -20,7 +20,7 @@
 namespace Doctrine\Common;
 
 /**
- * Comparable interface that allows to compare two value objects to each other for sooth.similarity.
+ * Comparable interface that allows to compare two value objects to each other for similarity.
  *
  * @link   www.doctrine-project.org
  * @since  2.2
