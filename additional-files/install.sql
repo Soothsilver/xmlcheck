@@ -33,3 +33,7 @@ ALTER TABLE subscriptions ADD CONSTRAINT FK_4778A01ED8188B0 FOREIGN KEY (groupId
 ALTER TABLE subscriptions ADD CONSTRAINT FK_4778A0164B64DCC FOREIGN KEY (userId) REFERENCES users (id);
 ALTER TABLE users ADD CONSTRAINT FK_1483A5E98CDE5729 FOREIGN KEY (type) REFERENCES privileges (id);
 ALTER TABLE xtests ADD CONSTRAINT FK_82F1254C3BC48E00 FOREIGN KEY (lectureId) REFERENCES lectures (id);
+
+INSERT INTO `privileges` (`id`, `name`, `privileges`) VALUES (1,'STUDENT',2816),(2,'ADMIN',16777215),(3,'lecturer',622816),(4,'tutor',10760192),(5,'administrator',2769147);
+
+INSERT INTO `users` (`id`, `name`, `type`, `pass`, `realName`, `email`, `lastAccess`, `activationCode`, `encryptionType`, `resetLink`, `resetLinkExpiry`, `send_email_on_submission_rated`, `send_email_on_new_assignment`, `send_email_on_new_submission`, `deleted`) VALUES (1,'admin',2,md5('admin'),'Administrator','admin@example.com','2012-01-04 09:50:03','','md5',NULL,NULL,1,1,1,0)

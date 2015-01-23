@@ -20,7 +20,7 @@ asm.ui.panel.Home = asm.ui.ContentPanel.extend({
                 text: asm.lang.home.noMotd
             },
 			copyright: {
-				text: '<span class="fakeIcon">&copy;</span> &nbsp2009-2010 &nbsp;<strong>Jan Konopásek</strong>, 2014 <strong>Petr Hudeček</strong>'
+				text: '<span class="fakeIcon">&copy;</span> &nbsp2009-2010 &nbsp;<strong>Jan Konopásek</strong>, 2014-2015 <strong>Petr Hudeček</strong>'
 			}
 		};
 
