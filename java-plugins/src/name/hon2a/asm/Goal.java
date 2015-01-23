@@ -9,9 +9,18 @@ package name.hon2a.asm;
  * @author %hon2a
  */
 public class Goal {
-	protected String name; ///< human-readable goal description
-	protected boolean reached = false; ///< reached flag (true if goal is reached)
-	protected TestError error = null; ///< error (needs to be set if goal is failed)
+	/**
+	 * Human-readable goal description
+	 */
+	protected final String name;
+	/**
+	 * Reached flag (true if goal is reached)
+	 */
+	protected boolean reached = false;
+	/**
+	 * Error (needs to be set if goal is failed)
+	 */
+	protected TestError error = null; 
 
 	/**
 	 * Sole constructor that sets goal description.
@@ -36,7 +45,7 @@ public class Goal {
 	 * @param sourcePath path to error origin
 	 * @param lineNumber line number or error origin
 	 */
-	public void fail (String message, String sourcePath, int lineNumber) {
+	protected void fail(String message, String sourcePath, int lineNumber) {
 		this.reached = false;
 		this.error = new TestError(message, sourcePath, lineNumber);
 	}
@@ -60,7 +69,7 @@ public class Goal {
 	 * @param sourcePath path to error origin
 	 * @param lineNumber line number of error origin
 	 */
-	public void reachOnCondition (boolean condition, String errorMessage, String sourcePath, int lineNumber) {
+	protected void reachOnCondition(boolean condition, String errorMessage, String sourcePath, int lineNumber) {
 		if (condition) {
 			this.reach();
 		} else {
@@ -77,7 +86,7 @@ public class Goal {
 	 * @param condition condition on which goal is reached
 	 * @param errorMessage error message in case of failure
 	 */
-	public void reachOnCondition (boolean condition, String errorMessage) {
+	protected void reachOnCondition(boolean condition, String errorMessage) {
 		this.reachOnCondition(condition, errorMessage, null, 0);
 	}
 

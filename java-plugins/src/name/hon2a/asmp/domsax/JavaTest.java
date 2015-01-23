@@ -18,18 +18,38 @@ import java.util.Map;
  */
 public abstract class JavaTest extends Test {
 
+	/**
+	 * Initializes a new instance of JavaTest.
+	 * @param sources Locations of source files.
+	 * @param params Values of parameters.
+	 * @param outputFolder Where to put output files.
+	 */
 	protected JavaTest(Map<String, String> sources, Map<String, String> params, File outputFolder) {
 		super(sources, params, outputFolder);
 	}
 
+	/**
+	 * Initializes a new instance of JavaTest without output.
+	 * @param sources Locations of source files.
+	 * @param params Values of parameters.
+	 */
 	protected JavaTest(Map<String, String> sources, Map<String, String> params) {
 		super(sources, params, null);
 	}
 
+	/**
+	 * Initializes a new instance of JavaTest without parameters.
+	 * @param sources Locations of source files.
+	 * @param outputFolder Where to put output files.
+	 */
 	protected JavaTest(Map<String, String> sources, File outputFolder) {
 		super(sources, null, outputFolder);
 	}
 
+	/**
+	 * Initializes a new instance of JavaTest without parameters or output.
+	 * @param sources Locations of source files.
+	 */
 	protected JavaTest(Map<String, String> sources) {
 		super(sources, null, null);
 	}
@@ -72,6 +92,13 @@ public abstract class JavaTest extends Test {
 		}
 	}
 
+	/**
+	 * Loads a Java class from a Java class file
+	 * @param classPath Path to the class file.
+	 * @param className Name of the class.
+	 * @return The loaded Java class.
+	 * @throws TestException When any error occurs.
+	 */
 	protected final Object loadJavaSource (File classPath, String className) throws TestException {
 		try {
 			URLClassLoader loader = URLClassLoader.newInstance(new URL[] { classPath.toURI().toURL() });
@@ -93,6 +120,7 @@ public abstract class JavaTest extends Test {
 	 * @param methodName name of method to be invoked
 	 * @param args arguments passed to run script
 	 * @throws name.hon2a.asm.TestException in case script cannot be loaded or throws an exception
+	 * @return Return value of the method specified by caller
 	 */
 	@SuppressWarnings({"ToArrayCallWithZeroLengthArrayArgument", "unchecked"})
 	// ToArrayCallWithZeroLengthArrayArgument is suppressed because the performance gains are doubtful, and it would clutter the code
@@ -119,6 +147,7 @@ public abstract class JavaTest extends Test {
 	 * @param className name of class to be loaded
 	 * @param methodName name of method to be invoked
 	 * @throws name.hon2a.asm.TestException in case script cannot be loaded or throws an exception
+	 * @return Return value of the method specified by caller
 	 */
 	protected final Object runJavaSource (File classPath, String className, String methodName)
 			  throws TestException {

@@ -7,6 +7,9 @@ use asm\core\lang\StringID;
 
 use asm\utils\StringUtils;
 
+/**
+ * This request allows the user to have a password reset link sent to him or her.
+ */
 final class RequestResetLink extends DataScript
 {
 	protected function body ()

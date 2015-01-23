@@ -25,6 +25,7 @@ public class EntryPoint {
     private static final String ACTION_RELOAD_ALL_DOCUMENTS = "reloadalldocuments";
     private static final String ACTION_RECHECK_ENTIRE_DATABASE = "recheckall";
     private static final String ACTION_EXTRACT_DOCUMENTS_FROM_ONE = "makeone";
+    private static final String ACTION_MAKE_ALL = "makeall";
     private static final String ACTION_COMPARE_TWO_DIRECTLY = "compare";
     private static final String ACTION_EXTRACT_AND_ANALYZE_NEW_SUBMISSIONS_IF_POSSIBLE = "comparenew";
 
@@ -68,6 +69,9 @@ public class EntryPoint {
                 return;
             case ACTION_RECHECK_ENTIRE_DATABASE:
                 BatchActions.runPlagiarismCheckingOnEntireDatabase();
+                return;
+            case ACTION_MAKE_ALL:
+                BatchActions.makeEntireDatabase();
                 return;
             case ACTION_EXTRACT_DOCUMENTS_FROM_ONE:
                 if (args.length < 2) {
@@ -146,6 +150,7 @@ public class EntryPoint {
         help += ACTION_HELP + ": Print this message.\n";
         help += ACTION_RELOAD_ALL_DOCUMENTS + ": Delete all documents from database and reload them anew from files.\n";
         help += ACTION_RECHECK_ENTIRE_DATABASE + ": Delete all similarity records from database and recalculate them anew from documents in the database.\n";
+        help += ACTION_MAKE_ALL + ": Reload all documents, then recheck entire database (the two actions above).\n";
         help += ACTION_COMPARE_TWO_DIRECTLY + " [id1] [id2]: Run similarity checking on the two specified submissions in the database.\n";
         help += ACTION_EXTRACT_DOCUMENTS_FROM_ONE + " [id1]: Extract documents from the submission with specified ID.\n";
         help += ACTION_EXTRACT_AND_ANALYZE_NEW_SUBMISSIONS_IF_POSSIBLE + ": Load new submissions from the database, extract documents and return them to database, and run similarity checking on them. This only happens if this module is not already running.\n";

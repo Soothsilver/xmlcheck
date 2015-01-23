@@ -6,6 +6,9 @@ use asm\core\lang\StringID;
 use asm\utils\Security;
 
 
+/**
+ * This request allows the user to reset his or her password after he or she clicked on the reset link.
+ */
 final class ResetPassword extends DataScript
 {
 	protected function body ()

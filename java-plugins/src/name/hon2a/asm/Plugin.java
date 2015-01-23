@@ -35,9 +35,18 @@ public abstract class Plugin {
 	 */
 	protected final class Results {
 
-		protected boolean passed; ///< passed flag (true if criterion is met)
-		protected int fulfillment; ///< fulfillment percentage (value from 0 to 100)
-		protected String details; ///< error details (if criterion is not met)
+		/**
+		 * passed flag (true if criterion is met)
+		 */
+		protected final boolean passed;
+		/**
+		 * fulfillment percentage (value from 0 to 100)
+		 */
+		protected final int fulfillment;
+		/**
+		 *  error details (if criterion is not met)
+		 */
+		protected final String details;
 
 		/**
 		 * Simple constructor in case criterion is met.
@@ -89,9 +98,13 @@ public abstract class Plugin {
 	
 	private File dataFolder; ///< temporary folder with unpacked submission files
 	private File outputFolder; ///< temporary folder for plugin output
-	private Map<String, Criterion> criteria = new HashMap<>(); ///< plugin criteria
+	private final Map<String, Criterion> criteria = new HashMap<>(); ///< plugin criteria
 
-	protected Map<String, String> config; ///< plugin config
+	/**
+	 * Plugin config. Some plugins may use this in the future.
+	 */
+	@SuppressWarnings({"FieldCanBeLocal", "UnusedDeclaration"})
+	private Map<String, String> config;
 
 	/**
 	 * Constructor for configurable plugins.
@@ -114,7 +127,7 @@ public abstract class Plugin {
 	 * Should be used for setting up plugin criteria and such.
 	 *
 	 * @param params params passed to plugin on run
-	 * @throws PluginException
+	 * @throws PluginException When an override method causes any error.
 	 */
 	protected abstract void setUp (String[] params) throws PluginException;
 
@@ -124,7 +137,7 @@ public abstract class Plugin {
 	 * Should be used for executing tests, computing, ... anything that needs to
 	 * be done before criteria can be checked.
 	 * 
-	 * @throws PluginException
+	 * @throws PluginException When an override method causes an error.
 	 */
 	protected abstract void execute () throws PluginException;
 
@@ -231,7 +244,7 @@ public abstract class Plugin {
 	 * Check all plugin criteria and return results.
 	 * 
 	 * @return Map of results identified by criteria names.
-	 * @throws PluginException
+	 * @throws PluginException In case of inconsistent plugin state.
 	 */
 	private Map<String, Results> assessResults () throws PluginException {
 		Map<String, Results> results = new HashMap<>(this.criteria.size());
@@ -245,7 +258,7 @@ public abstract class Plugin {
 	 * Compress all contents of output folder into one zip archive.
 	 *
 	 * @return File descriptor of output archive.
-	 * @throws java.io.IOException
+	 * @throws java.io.IOException When the ZIP archive could not be created.
 	 */
 	private File packOutput () throws IOException {
 		File outputFile = null;
@@ -257,6 +270,11 @@ public abstract class Plugin {
 		return outputFile;
 	}
 
+	/**
+	 * Replaces XML special characters with XML entities.
+	 * @param str String to replace characters in.
+	 * @return String with characters replaced.
+	 */
 	private String prepareErrorDetails (String str) {
 		if (str == null) {
 			return "";
@@ -297,8 +315,8 @@ public abstract class Plugin {
 	 * CRITERION_FULFILLMENT_PERCENTAGE is integer between 0 and 100 (inclusive)
 	 *
 	 * @return Plugin response XML string.
-	 * @throws PluginException
-	 * @throws java.io.IOException
+	 * @throws PluginException When any plugin-specific error occurs.
+	 * @throws java.io.IOException When the files specified by plugins do not exist.
 	 */
 	private String makeReplyXml () throws PluginException, IOException {
 		Map<String, Results> results = this.assessResults();
@@ -345,7 +363,7 @@ public abstract class Plugin {
 	 * 
 	 * @param name criterion name (should be descriptive)
 	 * @param criterion criterion instance
-	 * @throws PluginCodeException
+	 * @throws PluginCodeException When a criterion with this name already exists.
 	 */
 	protected final void addCriterion (String name, Criterion criterion) throws PluginCodeException {
 		if (this.criteria.get(name) != null) {
@@ -359,7 +377,7 @@ public abstract class Plugin {
 	 * 
 	 * @param params array of supplied arguments
 	 * @param descriptions descriptions of expected arguments
-	 * @throws PluginException
+	 * @throws PluginException When the lengths of the two arrays do not match.
 	 */
 	protected final void requireParams (String[] params, String[] descriptions)
 			  throws PluginException {

@@ -19,7 +19,6 @@ final class IsNameTaken extends DataScript
 
 		$table = $this->getParams('table');
 		$name = strtolower($this->getParams('name'));
-		// TODO remove this: $repositoryName = false;
 		$columnName = "name";
 		switch ($table)
 		{

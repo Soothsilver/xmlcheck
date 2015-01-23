@@ -41,6 +41,7 @@ public class BatchActions {
      * Deletes all similarity records from the database, then runs similarity checking on everything.
      */
     public static void runPlagiarismCheckingOnEntireDatabase() {
+        logger.info("Time: " + new Date());
         BatchActions.destroyAllSimilarities();
         logger.info("I will now recheck the entire database for plagiarism.");
         logger.info("Extracting documents and submissions from database to memory.");
@@ -98,12 +99,14 @@ public class BatchActions {
      * This method will take a lot of time because it makes a lot of I/O operations.
      */
     public static void createDocumentsFromAllSubmissions() {
+        logger.info("Time: " + new Date());
         BatchActions.destroyAllDocuments();
         logger.info("I will now recreate document records from all submissions.");
         DSLContext context = Database.getContext();
         Result<SubmissionsRecord> submissions = context.selectFrom(Tables.SUBMISSIONS).where(Tables.SUBMISSIONS.STATUS.notEqual("deleted")).fetch();
         submissions.forEach(DocumentExtractor::createDatabaseDocumentsFromSubmissionRecord);
         logger.info("Document records created.");
+        logger.info("Time: " + new Date());
     }
 
     /**
@@ -248,7 +251,7 @@ public class BatchActions {
      * 1. All submissions checked by this module that are suspiciously similar to at least one other submission are considered 'guilty' (i.e. plagiarisms)
      * 2. All other submissions checked by this module are considered 'innocent'.
      */
-    public static void redetermineGuiltOrInnocence() {
+    private static void redetermineGuiltOrInnocence() {
         DSLContext context = Database.getContext();
         String guiltyQuery =
                 "UPDATE submissions SET submissions.similarityStatus = 'guilty' " +

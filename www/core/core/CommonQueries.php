@@ -2,8 +2,10 @@
 namespace asm\core;
 
 
+/**
+ * Contains classes that return results from database for complicated queries that are used across multiple requests.
+ */
 class CommonQueries {
-    // TODO None of this works, I think.
 
     /**
      * Returns an array of all attachments that can be viewed and deleted by the logged-in user.
@@ -19,7 +21,7 @@ class CommonQueries {
         }
         else
         {
-            return  Repositories::getEntityManager()->createQuery("SELECT a FROM \Attachment a WHERE a.lecture.owner = :ownerId")
+            return  Repositories::getEntityManager()->createQuery("SELECT a FROM \Attachment a JOIN a.lecture l WHERE l.owner = :ownerId")
                 ->setParameter('ownerId', User::instance()->getId())
                 ->getResult();
         }
@@ -38,7 +40,7 @@ class CommonQueries {
         }
         else
         {
-            return  Repositories::getEntityManager()->createQuery("SELECT q FROM \Question q WHERE q.lecture.owner = :ownerId")
+            return  Repositories::getEntityManager()->createQuery("SELECT q FROM \Question q JOIN q.lecture l WHERE l.owner = :ownerId")
                 ->setParameter('ownerId', User::instance()->getId())
                 ->getResult();
         }
@@ -58,7 +60,7 @@ class CommonQueries {
         }
         else
         {
-            return  Repositories::getEntityManager()->createQuery("SELECT x FROM \Xtest x WHERE x.lecture.owner = :ownerId")
+            return  Repositories::getEntityManager()->createQuery("SELECT x FROM \Xtest x JOIN x.lecture l WHERE l.owner = :ownerId")
                 ->setParameter('ownerId', User::instance()->getId())
                 ->getResult();
         }

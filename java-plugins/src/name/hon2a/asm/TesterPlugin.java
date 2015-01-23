@@ -110,7 +110,7 @@ public abstract class TesterPlugin extends Plugin {
 		}
 	}
 
-	private List<Test> tests = new ArrayList<>(); ///< list of used tests
+	private final List<Test> tests = new ArrayList<>(); ///< list of used tests
 	private Map[] testResults; ///< array of results maps of all tests
 
 	/**

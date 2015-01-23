@@ -23,11 +23,11 @@ public class FilesystemUtils {
 	/**
 	 * OS-specific line separator
 	 */
-	public static final String EOL_STRING = System.getProperty("line.separator");
+	private static final String EOL_STRING = System.getProperty("line.separator");
 	/**
 	 * Default indentation string
 	 */
-	public static final String INDENT_STRING = "   ";
+	private static final String INDENT_STRING = "   ";
 	/**
 	 * Default buffer size.
 	 */
@@ -88,7 +88,7 @@ public class FilesystemUtils {
 	 * @return File descriptor of created file.
 	 * @throws java.io.IOException if file cannot be created
 	 */
-	public static File createTempFile (String extension) throws IOException {
+	private static File createTempFile(String extension) throws IOException {
 		final File tempFile;
 		tempFile = File.createTempFile("asmTempFile_" + Long.toString(System.nanoTime()),
 				((extension == null) ? "" : ("." + extension)));
@@ -257,7 +257,7 @@ public class FilesystemUtils {
 	 * @param filler indentation string
 	 * @return Indented text.
 	 */
-	public static String indent (String text, int count, String filler) {
+	private static String indent(String text, int count, String filler) {
 		if ((text == null) || (count < 0) || (filler == null)) {
 			return null;
 		}
@@ -292,7 +292,7 @@ public class FilesystemUtils {
 	 * @param count indentation depth
 	 * @return Indented text.
 	 */
-	public static String indent (String text, int count) {
+	private static String indent(String text, int count) {
 		return indent(text, count, INDENT_STRING);
 	}
 
@@ -302,7 +302,7 @@ public class FilesystemUtils {
 	 * @param text text to be indented
 	 * @return Indented text.
 	 */
-	public static String indent (String text) {
+	private static String indent(String text) {
 		return indent(text, 1);
 	}
 
@@ -502,7 +502,7 @@ public class FilesystemUtils {
 	 * @param delimiter custom delimiter, or null to join by an empty string
 	 * @return String consisting of array elements delimited by custom string.
 	 */
-	public static String join (Object[] array, String delimiter) {
+	private static String join(Object[] array, String delimiter) {
 		if (array.length == 0) {
 			return "";
 		} else if (array.length == 1) {
@@ -672,7 +672,7 @@ public class FilesystemUtils {
 	 * @param detailed set to true to get detailed report instead of just messages
 	 * @return Human-readable exception report.
 	 */
-	public static String getMessageTrace (Throwable e, boolean detailed) {
+	private static String getMessageTrace(Throwable e, boolean detailed) {
 		StringBuilder traceBuilder = new StringBuilder();
 		while (e != null) {
 			String message = detailed ? createDetailedMessage(e) : createSimpleMessage(e);

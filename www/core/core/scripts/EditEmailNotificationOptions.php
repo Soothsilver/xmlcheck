@@ -3,9 +3,12 @@
 namespace asm\core;
 
 
+/**
+ * This request allows a user to change what emails he will receive.
+ */
 final class EditEmailNotificationOptions extends DataScript
 {
-	protected function body ()
+    protected function body ()
 	{
         if (!$this->userHasPrivileges())
              return false;

@@ -59,6 +59,8 @@ abstract class StringID
     const ThisSubmissionIsInnocent = 36;
     const ThisHasYetToBeCheckedForPlagiarism = 37;
     const GradingRequested = 38;
+
+    const CannotDeleteQuestionThatsPartOfATest = 39;
 }
 
 /**
@@ -140,6 +142,7 @@ class Language {
             case StringID::ThisSubmissionIsInnocent: return "Kontrola podobnosti: Toto řešení se nijak zvlášť nepodobá žádnému jinému řešení.";
             case StringID::ThisHasYetToBeCheckedForPlagiarism : return "Kontrola podobnosti: Toto řešení je ve frontě a bude zpracováno později.";
             case StringID::GradingRequested : return "Student žádá o obodování!";
+            case StringID::CannotDeleteQuestionThatsPartOfATest: return "Není možné smazat otázku, protože je součásti nějakého testu. Nejprve smažte test.";
         }
         return "TRANSLATION MISSING(" . self::getEnglish($textId) . ")";
     }
@@ -202,6 +205,7 @@ class Language {
             case StringID::ThisSubmissionIsInnocent: return "Similarity analysis: The system did not detect significant similarity to any other submission.";
             case StringID::ThisHasYetToBeCheckedForPlagiarism : return "Similarity analysis: This submission is queued for similarity analysis.";
             case StringID::GradingRequested : return "Grading requested by student!";
+            case StringID::CannotDeleteQuestionThatsPartOfATest: return "The question cannot be deleted because it is part of a test. Delete the test first.";
         }
         throw new \Exception("This string (" . $textId . ") does not exist.");
     }

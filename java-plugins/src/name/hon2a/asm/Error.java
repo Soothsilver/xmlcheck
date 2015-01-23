@@ -8,7 +8,9 @@ package name.hon2a.asm;
  */
 public class Error {
 
-	/// plain message string
+	/**
+	 * Plain message string.
+	 */
 	protected final String message;
 
 	/**

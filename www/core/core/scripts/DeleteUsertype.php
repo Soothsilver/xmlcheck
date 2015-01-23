@@ -13,7 +13,11 @@ use asm\core\lang\StringID;
  */
 class DeleteUsertype extends DataScript
 {
-	protected function body ()
+    /**
+     * Deletes the usertype specified by ID.
+     * @return bool Was it successful?
+     */
+    protected function body ()
 	{
 		if (!$this->userHasPrivileges(User::usersPrivPresets))
 			return false;
@@ -42,7 +46,6 @@ class DeleteUsertype extends DataScript
         Repositories::remove($deletedType);
         Repositories::flushAll();
         return true;
-        // TODO (elsewhere) write in userdocs that 1 is a special USERTYPE: Student
 	}
 }
 

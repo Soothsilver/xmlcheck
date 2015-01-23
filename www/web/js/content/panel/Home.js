@@ -126,7 +126,7 @@ asm.ui.panel.Home = asm.ui.ContentPanel.extend({
 					return function (data) {
 						if (data === null) {
 							props.count = 0;
-							// TODO bez tohoto se stávala chyba u řešení požadavku "žádostí o členství k vyřešení"
+							// Bez tohoto se stávala chyba u řešení požadavku "žádostí o členství k vyřešení".
 						}
 						else {
 							props.count = props.filter ? $.grep(data, props.filter).length : data.length;

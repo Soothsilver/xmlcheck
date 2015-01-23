@@ -9,7 +9,7 @@ package name.hon2a.asm;
  */
 public class TestException extends Exception {
 
-	public TestException (String message) {
+	protected TestException(String message) {
 		super(message);
 	}
 

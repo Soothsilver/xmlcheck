@@ -83,7 +83,8 @@ class TestXmlSchema extends \asm\plugin\XmlTest
 	protected function checkXmlSchemaConstructCoverage (SimpleXMLElement $schemaXml)
 	{
 		// $xsdPrefixes = array_keys($schemaXml->getDocNamespaces(), 'http://www.w3.org/2001/XMLSchema');
-		// TODO: this may not be working: $xsdPrefix = count($xsdPrefixes) ? $xsdPrefixes[0] : 'xsd';
+		// This may not be working: $xsdPrefix = count($xsdPrefixes) ? $xsdPrefixes[0] : 'xsd';
+        // We have disabled it and automatic plugin tests still run correctly.
 		$schemaXml->registerXPathNamespace('xs', 'http://www.w3.org/2001/XMLSchema');
 		return $this->checkUsingXpath($schemaXml, self::goalCoveredSchema, array(
 			'data' => array(

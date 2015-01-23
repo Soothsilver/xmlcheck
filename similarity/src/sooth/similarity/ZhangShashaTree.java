@@ -15,11 +15,11 @@ public class ZhangShashaTree {
     /**
      * A list of keyroots of this tree. See the original article by Zhang and Shasha for more details.
      */
-    public List<Integer> keyroots = new ArrayList<>();
+    public final List<Integer> keyroots = new ArrayList<>();
     /**
      * A list of all nodes in this tree sorted by postorder.
      */
-    public List<ZhangShashaNode> nodes = new ArrayList<>();
+    public final List<ZhangShashaNode> nodes = new ArrayList<>();
 
 
     /**
@@ -77,8 +77,8 @@ public class ZhangShashaTree {
      */
     public static class ZhangShashaNode {
 
-        private int leftmostLeaf;
-        private String label;
+        private final int leftmostLeaf;
+        private final String label;
 
         /**
          * Initializes a new instance of the Zhang-Shasha node class.

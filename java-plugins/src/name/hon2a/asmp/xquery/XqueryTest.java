@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
  */
 public class XqueryTest extends Test {
 
-    private File dataFolder;
+    private final File dataFolder;
 
 	public static final String sourceXml = "xmlDocument"; ///< source ID of xml document
 	public static final String sourceXqueryMask = "xqueryMaskLegacy"; ///< ID of xquery source mask (before 2015)
@@ -43,9 +43,9 @@ public class XqueryTest extends Test {
 	public static final String paramQueryCountMin = "queryCountMin"; ///< param ID of min. query count param
 	public static final String paramOutputXmlMask = "outputXmlMask"; ///< param ID of output xml path mask
 
-	public static final String goalQueryCount = "queryCount"; ///< goal ID of query count goal
-	public static final String goalConstructCoverage = "coveredConstructs"; ///< goal ID of XQuery construct coverage goal
-	public static final String goalValidQueries = "validQueries"; ///< goal ID of valid queries goal
+	private static final String goalQueryCount = "queryCount"; ///< goal ID of query count goal
+	private static final String goalConstructCoverage = "coveredConstructs"; ///< goal ID of XQuery construct coverage goal
+	private static final String goalValidQueries = "validQueries"; ///< goal ID of valid queries goal
 
 	/**
 	 * Required source: XqueryTest::sourceXml, XqueryTest::sourceXqueryMask;

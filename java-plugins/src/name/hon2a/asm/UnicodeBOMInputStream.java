@@ -136,8 +136,8 @@ public class UnicodeBOMInputStream extends InputStream
    * @throws java.io.IOException on reading from the specified @c InputStream
    * when trying to detect the Unicode BOM.
    */
-  public UnicodeBOMInputStream(final InputStream inputStream) throws  NullPointerException,
-                                                                      IOException
+  public UnicodeBOMInputStream(final InputStream inputStream) throws
+      IOException
 
   {
     if (inputStream == null) {
@@ -243,18 +243,14 @@ public class UnicodeBOMInputStream extends InputStream
   }
 
   @Override
-  public int read(final byte[] b) throws  IOException,
-                                          NullPointerException
-  {
+  public int read(final byte[] b) throws  IOException {
     return in.read(b,0,b.length);
   }
 
   @Override
   public int read(final byte[] b,
                   final int off,
-                  final int len) throws IOException,
-                                        NullPointerException
-  {
+                  final int len) throws IOException {
     return in.read(b,off,len);
   }
 

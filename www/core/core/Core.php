@@ -13,12 +13,14 @@ use
  */
 class Core
 {
-	protected static $mailer;	///< mailer instance
     /**
-     * @var \asm\utils\Logger
+     * @var \asm\utils\Logger logger instance
      */
-	protected static $logger;	///< logger instance
-	protected static $request = null;	///< name of UI request being handled
+	protected static $logger;
+    /**
+     * @var string name of UI request being handled
+     */
+	protected static $request = null;
 
 	/**
 	 * [Initializes mailer and] sends e-mail.
@@ -106,7 +108,7 @@ class Core
                 if (isset($responseString))
                 {
                     try {
-                        $response = \asm\plugin\PluginResponse::fromXmlString($responseString);
+                        $response = PluginResponse::fromXmlString($responseString);
                     }
                     catch (Exception $ex)
                     {

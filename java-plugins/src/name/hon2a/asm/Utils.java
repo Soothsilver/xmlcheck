@@ -22,7 +22,7 @@ public class Utils {
 
 	/// OS-specific line separator
 	public static final String EOL_STRING = System.getProperty("line.separator");
-	public static final String INDENT_STRING = "   "; ///< default indentation string
+	private static final String INDENT_STRING = "   "; ///< default indentation string
 
 	private static final int BUFFER_SIZE = 2048; ///< default buffer size
 
@@ -231,7 +231,7 @@ public class Utils {
 	 * @param filler indentation string
 	 * @return Indented text.
 	 */
-	public static String indent (String text, int count, String filler) {
+	private static String indent(String text, int count, String filler) {
 		if ((text == null) || (count < 0) || (filler == null)) {
 			return null;
 		}
@@ -266,7 +266,7 @@ public class Utils {
 	 * @param count indentation depth
 	 * @return Indented text.
 	 */
-	public static String indent (String text, int count) {
+	private static String indent(String text, int count) {
 		return indent(text, count, INDENT_STRING);
 	}
 

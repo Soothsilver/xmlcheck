@@ -20,7 +20,7 @@ public class ComparisonFunctions {
     /**
      * The size in bytes a document must have to be compared for similarity at all. The default is 500 (i.e. 500 bytes)
      */
-    public static final int MINIMUM_DOCUMENT_LENGTH = 500;
+    private static final int MINIMUM_DOCUMENT_LENGTH = 500;
     /**
      * Maximum size in bytes of a document in order to be comparable by the Levenshtein algorithm.
      * By default, we compare all documents because the DocumentExtractor already prevents small documents from being
@@ -48,7 +48,7 @@ public class ComparisonFunctions {
      * @param newDocument The second document.
      * @return An object describing the similarity of the documents.
      */
-    public static DocumentComparisonResult zhangShashaCompare(Document oldDocument, Document newDocument)
+    private static DocumentComparisonResult zhangShashaCompare(Document oldDocument, Document newDocument)
     {
         Document.DocumentType type = oldDocument.getType();
         ZhangShashaTree oldDocumentTree = oldDocument.getZhangShashaTree();
@@ -146,7 +146,7 @@ public class ComparisonFunctions {
      * @param newDocument The second document.
      * @return An object describing the similarity of the documents.
      */
-    public static DocumentComparisonResult levenshteinCompare(Document oldDocument, Document newDocument)
+    private static DocumentComparisonResult levenshteinCompare(Document oldDocument, Document newDocument)
     {
         Document.DocumentType type = oldDocument.getType();
         String oldDocumentText = oldDocument.getPreprocessedText();

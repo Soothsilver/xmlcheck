@@ -29,8 +29,18 @@ final class DeleteQuestion extends LectureScript
 		{
 			return $this->death(StringID::InsufficientPrivileges);
 		}
-		// TODO What if some tests refer to this question?
-		// Then those tests should have this question removed from their list, or, better yet, the question deletion should be denied.
+		// What if some tests refer to this question? Then the deletion should not be permitted.
+		/**
+		 * @var $xtests \Xtest[]
+		 */
+		$xtests = Repositories::getRepository(Repositories::Xtest)->findAll();
+		foreach ($xtests as $xtest) {
+			$templateArray =  explode(',', $xtest->getTemplate());
+			if (in_array($question->getId(), $templateArray)) {
+				return $this->death(StringID::CannotDeleteQuestionThatsPartOfATest);
+			}
+		}
+
 		Repositories::remove($question);
 		return true;
 	}

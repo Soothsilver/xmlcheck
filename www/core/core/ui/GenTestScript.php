@@ -3,6 +3,9 @@
 namespace asm\core;
 
 
+/**
+ * This class provides methods used in printable-test-related scripts.
+ */
 abstract class GenTestScript extends LectureScript
 {
 	protected function parseQuestions ($questionString)

@@ -14,7 +14,6 @@ class Security {
     /**
      * This string in the user's encryptionType means that his password is hashed using the MD5 algorithm.
      */
-    // TODO zeptat se pani Holubové, jestli se mam obtěžovat s programátorskou dokumentaci, a popř. jak ji vyznačit
     const HASHTYPE_MD5 = 'md5';
     /**
      * Creates a hash of the password given using the specified encryption method.

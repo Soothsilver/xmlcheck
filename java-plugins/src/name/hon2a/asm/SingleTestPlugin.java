@@ -13,7 +13,7 @@ public abstract class SingleTestPlugin extends Plugin {
 
 	protected final class TestGoalCriterion extends Criterion {
 
-		private String goalName;
+		private final String goalName;
 
 		/**
 		 * Default and only constructor.

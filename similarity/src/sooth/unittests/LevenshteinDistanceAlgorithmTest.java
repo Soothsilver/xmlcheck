@@ -1,8 +1,5 @@
 package sooth.unittests;
 
-// TODO Zhang-Shasha unit test
-// TODO Zhang-Shasha tree complete implementation
-
 import org.junit.Test;
 import sooth.similarity.LevenshteinDistanceAlgorithm;
 

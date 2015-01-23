@@ -25,19 +25,37 @@ import java.util.Map;
  */
 public class DomJavaTest extends JavaTest {
 
-	public static final String sourceJava = "javaFiles"; ///< source ID of Java files
-	public static final String sourceXml = "xmlDocument"; ///< source ID of xml document
-	/// param ID of main class of user script
+	/**
+	 * Source ID of Java files.
+	 */
+	public static final String sourceJava = "javaFiles";
+	/**
+	 * Source ID of xml document.
+	 */
+	public static final String sourceXml = "xmlDocument";
+	/**
+	 * Param ID of main class of user script
+	 */
 	public static final String paramDomScript = "userClass";
-	public static final String paramOutputFile = "outputFile"; ///< param ID of output file path
-	private static final String goalTransformXml = "transform"; ///< goal ID of transform xml goal
+	/**
+	 * Param ID of output file path
+	 */
+	public static final String paramOutputFile = "outputFile";
+	/**
+	 * Goal ID of transform xml goal
+	 */
+	private static final String goalTransformXml = "transform";
 
-	/// name of main method (access point) of user DOM script
+	/**
+	 * Name of main method (access point) of user DOM script
+	 */
 	private static final String domScriptMainMethod = "transform";
 
 	/**
-	 * Required source: DomJavaTest::sourceJava, DomJavaTest::sourceXml;
-	 * required parameters: DomJavaTest::paramDomScript, DomJavaTest::paramOutputFile.
+	 * Initializes a new instance of DomJavaTest.
+	 * @param sources Required sourceS: DomJavaTest::sourceJava, DomJavaTest::sourceXml
+	 * @param params required parameters: DomJavaTest::paramDomScript, DomJavaTest::paramOutputFile
+	 * @param outputFolder Folder to put output files into.
 	 */
 	public DomJavaTest (Map<String, String> sources, Map<String, String> params, File outputFolder) {
 		super(sources, params, outputFolder);

@@ -10,8 +10,8 @@ package name.hon2a.asm;
  */
 public class TestError extends Error {
 
-	protected String sourcePath = null; ///< path of file where error occurred
-	protected int lineNumber = 0; ///< line number on which error occurred
+	private String sourcePath = null; ///< path of file where error occurred
+	private int lineNumber = 0; ///< line number on which error occurred
 
 	/**
 	 * Default constructor.
