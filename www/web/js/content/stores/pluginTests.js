@@ -8,7 +8,8 @@ asm.ui.globals.stores.pluginTests = new asm.ui.TableStore({
 		'arguments',
 		'status',
 		'fulfillment',
-		'details'
+		'details',
+		'hasOutput'
 	],
 	request: 'GetPluginTests'
 });

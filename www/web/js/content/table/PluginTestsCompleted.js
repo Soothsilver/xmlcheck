@@ -15,6 +15,10 @@ asm.ui.table.PluginTestsCompleted = asm.ui.table.PluginTestsBase.extend({
 				}, {
 					icon: 'ui-icon-' + asm.ui.globals.icons.downloadOutput,
 					label: asm.lang.pluginTests.downloadOutput,
+					filter: function (id, values)
+					{
+						return values['hasOutput'] == 'yes';
+					},
 					action: function (id) {
 						asm.ui.globals.fileSaver.request('DownloadPluginTestOutput', { id: id }, null, triggerError);
 					}

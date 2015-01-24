@@ -8,7 +8,10 @@ asm.ui.table.PluginTestsBase = asm.ui.DynamicTable.extend({
 				id: { key: true, hidden: true, comparable: true },
 				description: { label: asm.lang.pluginTests.description, comparable: true, string: true },
 				plugin: { label: asm.lang.pluginTests.plugin, comparable: true, string: true },
-				config: { label: asm.lang.pluginTests.config, string: true }
+				config: { label: asm.lang.pluginTests.config, string: true },
+				hasOutput: { hidden: true, renderer: function (value) {
+					return (value ? 'yes' : 'no');
+				}}
 			},
 			title: "this title is never actually shown",
 			transformer: function (row) {

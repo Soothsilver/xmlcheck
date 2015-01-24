@@ -21,7 +21,7 @@ final class DownloadPluginTestOutput extends DownloadScript
 		 * @var $test \PluginTest
 		 */
 		$test = Repositories::findEntity(Repositories::PluginTest, $this->getParams('id'));
-		$this->setOutput(Config::get('paths', 'output') . $test->getOutput(),
+		$this->setOutput($test->getOutput(),
 			Config::get('defaults', 'pluginOutputFileName') . '.zip');
 		return true;
 	}

@@ -30,7 +30,8 @@ final class GetPluginTests extends DataScript
 				$test->getConfig(),
 				$test->getStatus(),
 				$test->getSuccess(),
-				$test->getInfo()
+				$test->getInfo(),
+				($test->getOutput() ? "yes" : "")
 			]);
 		}
 		return true;
