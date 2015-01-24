@@ -40,7 +40,7 @@ final class GetTeacherSubmissions extends DataScript
             $submissions = Repositories::makeDqlQuery("SELECT submission, user, assignment, problem, _group FROM \Submission submission JOIN submission.assignment assignment JOIN assignment.problem problem JOIN submission.user user JOIN assignment.group _group WHERE submission.status <> 'deleted'")->getResult();
         }
         else {
-            $submissions = Repositories::makeDqlQuery("SELECT submission, user, assignment, problem, _group FROM \Submission submission JOIN submission.assignment assignment JOIN assignment.problem problem JOIN submission.user user JOIN assignment.group _group WHERE _group.owner = :submissionCorrector AND (submission.status = 'graded' OR submission.status = 'latest' OR submission.status = 'handsoff')")->setParameter('submissionCorrector', $userId)->getResult();
+            $submissions = Repositories::makeDqlQuery("SELECT submission, user, assignment, problem, _group FROM \Submission submission JOIN submission.assignment assignment JOIN assignment.problem problem JOIN submission.user user JOIN assignment.group _group WHERE _group.owner = :submissionCorrector AND (submission.status = 'graded' OR submission.status = 'latest' OR submission.status = 'handsoff') AND _group.deleted = 0")->setParameter('submissionCorrector', $userId)->getResult();
         }
 
         foreach($submissions as $submission)

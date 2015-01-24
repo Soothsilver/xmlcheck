@@ -169,7 +169,7 @@ class Core
                 $submission->setStatus(\Submission::STATUS_LATEST);
                 $submission->setInfo($response->getDetails());
                 $submission->setSuccess($response->getFulfillment());
-                $submission->setOutputfile($response->getOutput());
+                $submission->setOutputfile($outputFile);
                 Repositories::getEntityManager()->persist($submission);
                 Repositories::flushAll();
             }
