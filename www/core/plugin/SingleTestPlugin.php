@@ -68,7 +68,7 @@ abstract class SingleTestPlugin extends Plugin {
 	{
 		if (count($this->results['errors']))
 		{
-			throw new PluginException("<b>Failure.</b> "
+			throw new PluginException("Failure. "
 					. StringUtils::indent(implode("\n", $this->results['errors'])));
 		}
 

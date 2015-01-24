@@ -56,13 +56,19 @@ asm.ui.form.Question = asm.ui.DynamicForm.extend({
 		this.setFieldOptions('lecture',
 				asm.ui.Utils.tableToOptions(asm.ui.globals.stores.lectures.get(), 'id', 'name'));
 
+
+
+		var a = this.form('getFieldByName', 'id').field('option', 'value');
+
 		var lectureEl = this.form('getFieldByName', 'lecture'),
 			attachmentsEl = this.form('getFieldByName', 'attachments'),
 			attachments = asm.ui.globals.stores.attachments.get();
 		lectureEl.unbind('change.pageInit').bind('change.pageInit', function () {
 			var lectureId = lectureEl.field('option', 'value'),
 				attFiltered = $.grep(attachments, function (attachment) {
-					return (attachment.lectureId == lectureId);
+					return true;
+					// This is not working: return (attachment.lectureId == lectureId);
+					// Instead, we will return all attachments and possibly deny them server-side.
 				}),
 				noAttachments = !attFiltered.length;
 			attachmentsEl.field('option', 'type', noAttachments ? 'info' : 'multiselect')

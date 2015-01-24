@@ -42,14 +42,14 @@ class PluginTest
      *
      * @ORM\Column(name="config", type="text", nullable=false)
      */
-    private $config;
+    private $config = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="input", type="string", nullable=false)
      */
-    private $input;
+    private $input = '';
 
     /**
      * @var string
@@ -70,14 +70,14 @@ class PluginTest
      *
      * @ORM\Column(name="info", type="text", nullable=false)
      */
-    private $info;
+    private $info = '';
 
     /**
      * @var string
      *
      * @ORM\Column(name="output", type="string", nullable=false)
      */
-    private $output;
+    private $output = '';
 
 
 

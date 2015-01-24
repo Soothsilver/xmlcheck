@@ -145,8 +145,7 @@ class Core
             if ($isTest)
             {
                 $pluginTest = Repositories::findEntity(Repositories::PluginTest, $rowId);
-
-                $submission->setStatus(\PluginTest::STATUS_COMPLETED);
+                $pluginTest->setStatus(\PluginTest::STATUS_COMPLETED);
                 $pluginTest->setSuccess($response->getFulfillment());
                 $pluginTest->setInfo($response->getDetails());
                 $pluginTest->setOutput($outputFile);
@@ -183,6 +182,7 @@ class Core
             if ($isTest)
             {
                 $pluginTest = Repositories::findEntity(Repositories::PluginTest, $rowId);
+                $pluginTest->setStatus(\PluginTest::STATUS_COMPLETED);
                 $pluginTest->setSuccess(0);
                 $pluginTest->setInfo($errorInformation);
                 Repositories::persistAndFlush($pluginTest);

@@ -17,6 +17,7 @@ final class GetAttachments extends DataScript
 		if (!$this->userHasPrivileges(User::lecturesManageAll, User::lecturesManageOwn))
 			return false;
 
+
 		$attachments = CommonQueries::GetAttachmentsVisibleToActiveUser();
 		foreach ($attachments as $attachment) {
 			$this->addRowToOutput([
