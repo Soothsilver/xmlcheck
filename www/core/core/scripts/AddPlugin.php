@@ -35,8 +35,10 @@ final class AddPlugin extends DataScript
 			return $this->death(StringID::PluginNameAlreadyExists);
 
 		$pluginFile = $this->getUploadedFile('plugin');
+
 		if (!$pluginFile)
 			return false;
+
 
 		$pluginFolder = Config::get('paths', 'plugins') . $name;
 

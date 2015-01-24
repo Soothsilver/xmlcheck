@@ -52,7 +52,7 @@ final class EditLecture extends DataScript
 		}
 		else if ($isIdSet)
 		{
-			if ($id !== $lectureWithThisName->getId())
+			if ($id != $lectureWithThisName->getId())
 				return $this->stop(ErrorCause::dataMismatch('lecture'));
 
 			if (!$user->hasPrivileges(User::lecturesManageAll)
