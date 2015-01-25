@@ -16,7 +16,7 @@ package sooth.entities.tables;
 @java.lang.SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Subscriptions extends org.jooq.impl.TableImpl<sooth.entities.tables.records.SubscriptionsRecord> {
 
-	private static final long serialVersionUID = 709751846;
+	private static final long serialVersionUID = -886578594;
 
 	/**
 	 * The reference instance of <code>asmregen.subscriptions</code>
@@ -37,9 +37,9 @@ public class Subscriptions extends org.jooq.impl.TableImpl<sooth.entities.tables
 	public final org.jooq.TableField<sooth.entities.tables.records.SubscriptionsRecord, java.lang.Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
 	/**
-	 * The column <code>asmregen.subscriptions.status</code>.
+	 * The column <code>asmregen.subscriptions.userId</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.SubscriptionsRecord, java.lang.String> STATUS = createField("status", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.SubscriptionsRecord, java.lang.Integer> USERID = createField("userId", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
 	/**
 	 * The column <code>asmregen.subscriptions.groupId</code>.
@@ -47,9 +47,9 @@ public class Subscriptions extends org.jooq.impl.TableImpl<sooth.entities.tables
 	public final org.jooq.TableField<sooth.entities.tables.records.SubscriptionsRecord, java.lang.Integer> GROUPID = createField("groupId", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
 	/**
-	 * The column <code>asmregen.subscriptions.userId</code>.
+	 * The column <code>asmregen.subscriptions.status</code>.
 	 */
-	public final org.jooq.TableField<sooth.entities.tables.records.SubscriptionsRecord, java.lang.Integer> USERID = createField("userId", org.jooq.impl.SQLDataType.INTEGER, this, "");
+	public final org.jooq.TableField<sooth.entities.tables.records.SubscriptionsRecord, java.lang.String> STATUS = createField("status", org.jooq.impl.SQLDataType.VARCHAR.length(255).nullable(false), this, "");
 
 	/**
 	 * Create a <code>asmregen.subscriptions</code> table reference
@@ -102,7 +102,7 @@ public class Subscriptions extends org.jooq.impl.TableImpl<sooth.entities.tables
 	 */
 	@Override
 	public java.util.List<org.jooq.ForeignKey<sooth.entities.tables.records.SubscriptionsRecord, ?>> getReferences() {
-		return java.util.Arrays.<org.jooq.ForeignKey<sooth.entities.tables.records.SubscriptionsRecord, ?>>asList(sooth.entities.Keys.FK_4778A01ED8188B0, sooth.entities.Keys.FK_4778A0164B64DCC);
+		return java.util.Arrays.<org.jooq.ForeignKey<sooth.entities.tables.records.SubscriptionsRecord, ?>>asList(sooth.entities.Keys.FK_4778A0164B64DCC, sooth.entities.Keys.FK_4778A01ED8188B0);
 	}
 
 	/**

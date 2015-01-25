@@ -20,13 +20,6 @@
         c) Jedna bude využívat kontext (např. počet zaměstnanců, kteří jsou starší 60 let, ale nemají dovolenou)
         (Systém automaticky nekontroluje, ale snažte se, aby vaše řešení bylo minimálně tak složité, jako uvedené příklady.)
 
-        Omezení DOM/SAX autocorrect pluginu:
-        TODO: upravit
-        - data.xml musí být přímo v kořenu ZIP souboru, nemůže být uvnitř složky, která je celá zazipovaná
-        - soubory musí být v balíčku "user", nikoliv v "dom.user" nebo "sax.user"
-        - Na serveru běží Java 7.
-        - XML soubor se smí odkazovat na nějaké DTD, v takovém případě ale oproti němu musí být validní.
-
         Nahrajte jen soubory relevantní k domácímu úkolu! Nenahrávejte celé projekty NetBeans/Eclipse, protože obsahují mnoho různých souborů XML a systém pak může vaše řešení mylně označit za podezřelé z opisování.
 
         Použijte prosím tyto kostry souborů:
