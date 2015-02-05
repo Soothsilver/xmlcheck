@@ -2,21 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eda54cdc-a67c-46e8-bf5d-f1d7408e0e60" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/core/scripts/EditGroup.php" afterPath="$PROJECT_DIR$/www/core/core/scripts/EditGroup.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/core/scripts/EditLecture.php" afterPath="$PROJECT_DIR$/www/core/core/scripts/EditLecture.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/core/scripts/EditProblem.php" afterPath="$PROJECT_DIR$/www/core/core/scripts/EditProblem.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/web/js/content/form/Group.js" afterPath="$PROJECT_DIR$/www/web/js/content/form/Group.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Group.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Group.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/core/scripts/IsNameTaken.php" afterPath="$PROJECT_DIR$/www/core/core/scripts/IsNameTaken.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/web/js/content/form/Lecture.js" afterPath="$PROJECT_DIR$/www/web/js/content/form/Lecture.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Lecture.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Lecture.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/Petr.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/Petr.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/web/js/content/form/Problem.js" afterPath="$PROJECT_DIR$/www/web/js/content/form/Problem.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Problem.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Problem.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/documents/changelog.txt" afterPath="$PROJECT_DIR$/www/documents/changelog.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/internal.ini" afterPath="$PROJECT_DIR$/www/core/internal.ini" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/files/plugins/DTD2014/manifest.xml" afterPath="$PROJECT_DIR$/www/files/plugins/DTD2014/manifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/files/plugins/XML XQuery/manifest.xml" afterPath="$PROJECT_DIR$/www/files/plugins/XML XQuery/manifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="xmlcheck.iws" />
@@ -79,11 +66,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Group.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Group.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/core/doctrine/Group.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.44576877" vertical-offset="0" max-vertical-offset="4352">
-              <caret line="21" column="19" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+            <state vertical-scroll-proportion="-15.038462" vertical-offset="0" max-vertical-offset="4352">
+              <caret line="23" column="57" selection-start-line="23" selection-start-column="57" selection-end-line="23" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -129,11 +116,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="EditProblem.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="EditProblem.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/core/core/scripts/EditProblem.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.730769" vertical-offset="0" max-vertical-offset="1598">
-              <caret line="21" column="23" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
+            <state vertical-scroll-proportion="0.5137068" vertical-offset="453" max-vertical-offset="1496">
+              <caret line="52" column="64" selection-start-line="52" selection-start-column="64" selection-end-line="52" selection-end-column="64" />
               <folding />
             </state>
           </provider>
@@ -142,8 +129,8 @@
       <file leaf-file-name="EditLecture.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/core/core/scripts/EditLecture.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.769231" vertical-offset="0" max-vertical-offset="1326">
-              <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+            <state vertical-scroll-proportion="-15.038462" vertical-offset="238" max-vertical-offset="1173">
+              <caret line="37" column="22" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
               <folding />
             </state>
           </provider>
@@ -218,8 +205,6 @@
         <option value="$PROJECT_DIR$/www/files/plugins/DTD2014/manifest.xml" />
         <option value="$PROJECT_DIR$/www/files/plugins/XML XQuery/manifest.xml" />
         <option value="$PROJECT_DIR$/www/core/core/scripts/IsNameTaken.php" />
-        <option value="$PROJECT_DIR$/www/core/core/scripts/EditProblem.php" />
-        <option value="$PROJECT_DIR$/www/core/core/scripts/EditLecture.php" />
         <option value="$PROJECT_DIR$/www/web/js/content/form/Group.js" />
         <option value="$PROJECT_DIR$/www/web/js/content/form/Problem.js" />
         <option value="$PROJECT_DIR$/www/web/js/content/form/Lecture.js" />
@@ -227,6 +212,8 @@
         <option value="$PROJECT_DIR$/www/core/doctrine/Problem.php" />
         <option value="$PROJECT_DIR$/www/core/doctrine/Lecture.php" />
         <option value="$PROJECT_DIR$/www/core/doctrine/Group.php" />
+        <option value="$PROJECT_DIR$/www/core/core/scripts/EditLecture.php" />
+        <option value="$PROJECT_DIR$/www/core/core/scripts/EditProblem.php" />
       </list>
     </option>
   </component>
@@ -300,6 +287,86 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="xmlcheck" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xmlcheck" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xmlcheck" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xmlcheck" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xmlcheck" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xmlcheck" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xmlcheck" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xmlcheck" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="xmlcheck" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="www" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -469,6 +536,7 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.224" sideWeight="0.4994664" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39955106" sideWeight="0.50052136" order="7" side_tool="true" content_ui="tabs" />
@@ -482,7 +550,6 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.224" sideWeight="0.4994664" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.7824109" order="2" side_tool="false" content_ui="tabs" />
@@ -523,7 +590,8 @@
     <MESSAGE value="some bugfix" />
     <MESSAGE value="THA FINAL COMMIT!!!" />
     <MESSAGE value="some update" />
-    <option name="LAST_COMMIT_MESSAGE" value="some update" />
+    <MESSAGE value="groups, problems and lectures can have identical names now&#10;(problems and lectures still have issues with PHP code)&#10;(also, name checking from JS works well now)" />
+    <option name="LAST_COMMIT_MESSAGE" value="groups, problems and lectures can have identical names now&#10;(problems and lectures still have issues with PHP code)&#10;(also, name checking from JS works well now)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -874,14 +942,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/core/core/scripts/EditProblem.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.730769" vertical-offset="0" max-vertical-offset="1598">
-          <caret line="21" column="23" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/web/js/content/form/Group.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="986">
@@ -902,14 +962,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
           <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/core/core/scripts/EditLecture.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.769231" vertical-offset="0" max-vertical-offset="1326">
-          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
           <folding />
         </state>
       </provider>
@@ -948,8 +1000,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/core/doctrine/Group.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44576877" vertical-offset="0" max-vertical-offset="4352">
-          <caret line="21" column="19" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+        <state vertical-scroll-proportion="-15.038462" vertical-offset="0" max-vertical-offset="4352">
+          <caret line="23" column="57" selection-start-line="23" selection-start-column="57" selection-end-line="23" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/core/core/scripts/EditLecture.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.038462" vertical-offset="238" max-vertical-offset="1173">
+          <caret line="37" column="22" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/core/core/scripts/EditProblem.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5137068" vertical-offset="453" max-vertical-offset="1496">
+          <caret line="52" column="64" selection-start-line="52" selection-start-column="64" selection-end-line="52" selection-end-column="64" />
           <folding />
         </state>
       </provider>

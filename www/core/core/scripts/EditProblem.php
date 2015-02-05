@@ -68,12 +68,6 @@ final class EditProblem extends DataScript
             Repositories::persistAndFlush($problem);
         }
         else {
-            // Verify that there is no name conflict
-            $problem = Repositories::getRepository(Repositories::Problem)->findOneBy(array('name' => $name));
-            if ($problem !== null) {
-                return $this->death(StringID::ProblemNameExists);
-            }
-
             $problem = new \Problem();
             $problem->setLecture($lecture);
             $problem->setName($name);

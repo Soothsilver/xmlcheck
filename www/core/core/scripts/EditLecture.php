@@ -32,13 +32,10 @@ final class EditLecture extends DataScript
 		$id = $this->getParams('id');
 		$isIdSet = (($id !== null) && ($id !== ''));
 
-		/** @var \Lecture $lectureWithThisName */
-		$lectureWithThisName = Repositories::getRepository(Repositories::Lecture)->findOneBy(['name' => $name]);
-
 		$user = User::instance();
 		$userId = $user->getId();
 
-		if ($lectureWithThisName === null)
+		if (!$isIdSet)
 		{
 			if (!$this->userHasPrivileges(User::lecturesAdd))
 				return false;
@@ -51,20 +48,14 @@ final class EditLecture extends DataScript
 		}
 		else if ($isIdSet)
 		{
-			if ($id != $lectureWithThisName->getId())
-				return $this->stop(ErrorCause::dataMismatch('lecture'));
-
+			$lecture = Repositories::findEntity(Repositories::Lecture, $id);
 			if (!$user->hasPrivileges(User::lecturesManageAll)
 					&& (!$user->hasPrivileges(User::lecturesManageOwn)
-						|| ($lectureWithThisName->getOwner()->getId() != $userId)))
+						|| ($lecture->getOwner()->getId() != $userId)))
 				return $this->death(StringID::InsufficientPrivileges);
 
-			$lectureWithThisName->setDescription($description);
-			Repositories::persistAndFlush($lectureWithThisName);
-		}
-		else
-		{
-			return $this->stop(ErrorCause::nameTaken('lecture', $name));
+			$lecture->setDescription($description);
+			Repositories::persistAndFlush($lecture);
 		}
 		return true;
 	}
