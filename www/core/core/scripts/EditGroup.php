@@ -21,10 +21,7 @@ final class EditGroup extends DataScript
     {
         $inputs = array(
             'lecture' => 'isIndex',
-            'name' => array(
-                'isName',
-                'isNotEmpty',
-            ),
+            'name' => 'isNotEmpty',
             'description' => array()
         );
         if (!$this->isInputValid($inputs))
@@ -45,14 +42,8 @@ final class EditGroup extends DataScript
         {
             /**
              * @var $group \Group
-             * @var $sameNameGroup \Group[]
              */
             $group = Repositories::findEntity(Repositories::Group, $groupId);
-            $sameNameGroup = Repositories::getRepository(Repositories::Group)->findBy(['name' => $groupName]);
-            if (count($sameNameGroup) == 1 && $sameNameGroup[0]->getId() !== (int)$groupId)
-            {
-                return $this->death(StringID::GroupNameExists);
-            }
             $group->setName($groupName);
             $group->setDescription($groupDescription);
             $group->setType($public);
@@ -61,11 +52,7 @@ final class EditGroup extends DataScript
         else
         {
             if (!$this->userHasPrivileges(User::groupsAdd)) { return $this->death(StringID::InsufficientPrivileges); }
-            $sameNameGroup = Repositories::getRepository(Repositories::Group)->findBy(['name' => $groupName]);
-            if (count($sameNameGroup) > 0)
-            {
-                return $this->death(StringID::GroupNameExists);
-            }
+
             $group = new \Group();
             $group->setDeleted(false);
             $group->setDescription($groupDescription);

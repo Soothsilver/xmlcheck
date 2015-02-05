@@ -15,7 +15,7 @@ asm.ui.form.Lecture = asm.ui.DynamicForm.extend({
 						label: asm.lang.lectures.lectureName,
 						type: 'text',
 						hint: asm.lang.lectures.lectureNameHint,
-						check: ['isName', 'isNotEmpty', asm.ui.Macros.nameCheck('lectures')]
+						check: [ 'isNotEmpty']
 					},
 					description: {
 						label: asm.lang.lectures.description,

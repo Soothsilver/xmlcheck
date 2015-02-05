@@ -21,7 +21,7 @@ asm.ui.form.Group = asm.ui.DynamicForm.extend({
 						label: asm.lang.groups.groupName,
 						type: 'text',
 						hint: asm.lang.groups.groupNameHint,
-						check: ['isName', 'isNotEmpty', asm.ui.Macros.nameCheck('groups')]
+						check: [ 'isNotEmpty' ]
 					},
 					description: {
 						label: asm.lang.groups.description,

@@ -2,41 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eda54cdc-a67c-46e8-bf5d-f1d7408e0e60" name="Default" comment="">
-      <change type="DELETED" beforePath="C:\Apps\EasyPHP\data\localweb\xmlcheck\similarity\src\sooth\entities\package-info.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Apps\EasyPHP\data\localweb\xmlcheck\similarity\src\sooth\entities\tables\package-info.java" afterPath="" />
-      <change type="DELETED" beforePath="C:\Apps\EasyPHP\data\localweb\xmlcheck\similarity\src\sooth\entities\tables\records\package-info.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/files/plugins/XML DomSax/DomSaxPlugin.jar" afterPath="$PROJECT_DIR$/www/files/plugins/XML DomSax/DomSaxPlugin.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/similarity.jar" afterPath="$PROJECT_DIR$/www/core/similarity.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/Asmregen.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/Asmregen.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Assignments.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Assignments.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/AssignmentsRecord.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/AssignmentsRecord.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Attachments.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Attachments.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/AttachmentsRecord.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/AttachmentsRecord.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Groups.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Groups.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/GroupsRecord.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/GroupsRecord.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/Keys.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/Keys.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Lectures.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Lectures.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/LecturesRecord.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/LecturesRecord.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Plugins.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Plugins.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/PluginsRecord.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/PluginsRecord.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Privileges.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Privileges.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/PrivilegesRecord.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/PrivilegesRecord.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Problems.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Problems.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/ProblemsRecord.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/ProblemsRecord.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Questions.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Questions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/QuestionsRecord.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/QuestionsRecord.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Submissions.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Submissions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/SubmissionsRecord.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/SubmissionsRecord.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Subscriptions.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Subscriptions.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/SubscriptionsRecord.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/SubscriptionsRecord.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/Tables.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/Tables.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Tests.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Tests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/TestsRecord.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/TestsRecord.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Users.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Users.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/UsersRecord.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/UsersRecord.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Xtests.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/Xtests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/XtestsRecord.java" afterPath="$PROJECT_DIR$/similarity/src/sooth/entities/tables/records/XtestsRecord.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/files/plugins/XML DomSax/manifest.xml" afterPath="$PROJECT_DIR$/www/files/plugins/XML DomSax/manifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/core/scripts/EditGroup.php" afterPath="$PROJECT_DIR$/www/core/core/scripts/EditGroup.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/core/scripts/EditLecture.php" afterPath="$PROJECT_DIR$/www/core/core/scripts/EditLecture.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/core/scripts/EditProblem.php" afterPath="$PROJECT_DIR$/www/core/core/scripts/EditProblem.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/web/js/content/form/Group.js" afterPath="$PROJECT_DIR$/www/web/js/content/form/Group.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Group.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Group.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/core/scripts/IsNameTaken.php" afterPath="$PROJECT_DIR$/www/core/core/scripts/IsNameTaken.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/web/js/content/form/Lecture.js" afterPath="$PROJECT_DIR$/www/web/js/content/form/Lecture.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Lecture.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Lecture.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dictionaries/Petr.xml" afterPath="$PROJECT_DIR$/.idea/dictionaries/Petr.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/web/js/content/form/Problem.js" afterPath="$PROJECT_DIR$/www/web/js/content/form/Problem.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/doctrine/Problem.php" afterPath="$PROJECT_DIR$/www/core/doctrine/Problem.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/documents/changelog.txt" afterPath="$PROJECT_DIR$/www/documents/changelog.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/internal.ini" afterPath="$PROJECT_DIR$/www/core/internal.ini" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/files/plugins/DTD2014/manifest.xml" afterPath="$PROJECT_DIR$/www/files/plugins/DTD2014/manifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/files/plugins/XML XQuery/manifest.xml" afterPath="$PROJECT_DIR$/www/files/plugins/XML XQuery/manifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="xmlcheck.iws" />
@@ -99,101 +79,101 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Sandbox.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/java-plugins/src/Sandbox.java">
+      <file leaf-file-name="Group.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/www/core/doctrine/Group.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="102" max-vertical-offset="493">
-              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.44576877" vertical-offset="0" max-vertical-offset="4352">
+              <caret line="21" column="19" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InsertSimilaritiesBatch.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/similarity/src/sooth/connection/InsertSimilaritiesBatch.java">
+      <file leaf-file-name="Problem.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/core/doctrine/Problem.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="1190">
-              <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
+            <state vertical-scroll-proportion="-3.2692308" vertical-offset="0" max-vertical-offset="4471">
+              <caret line="5" column="29" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="regenerate-jooq-entities.bat" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/similarity/src/sooth/connection/regenerate-jooq-entities.bat">
+      <file leaf-file-name="Lecture.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/core/doctrine/Lecture.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="119">
+            <state vertical-scroll-proportion="-5.8846154" vertical-offset="0" max-vertical-offset="6171">
+              <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="doctrine-update-db.bat" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/doctrine-update-db.bat">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="170">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DocumentExtractor.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/similarity/src/sooth/scripts/DocumentExtractor.java">
+      <file leaf-file-name="EditGroup.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/core/core/scripts/EditGroup.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="3825">
-              <caret line="48" column="33" selection-start-line="48" selection-start-column="33" selection-end-line="48" selection-end-column="33" />
+            <state vertical-scroll-proportion="-13.307693" vertical-offset="181" max-vertical-offset="1275">
+              <caret line="31" column="21" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="manifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/files/plugins/DTD2014/manifest.xml">
+      <file leaf-file-name="EditProblem.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/core/core/scripts/EditProblem.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.5384617" vertical-offset="26" max-vertical-offset="901">
-              <caret line="10" column="50" selection-start-line="10" selection-start-column="50" selection-end-line="10" selection-end-column="50" />
+            <state vertical-scroll-proportion="-13.730769" vertical-offset="0" max-vertical-offset="1598">
+              <caret line="21" column="23" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="manifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/files/plugins/XML DomSax/manifest.xml">
+      <file leaf-file-name="EditLecture.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/core/core/scripts/EditLecture.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.038462" vertical-offset="9" max-vertical-offset="918">
-              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+            <state vertical-scroll-proportion="-11.769231" vertical-offset="0" max-vertical-offset="1326">
+              <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="manifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/files/plugins/XML XMLSchema/manifest.xml">
+      <file leaf-file-name="Group.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/web/js/content/form/Group.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.230769" vertical-offset="0" max-vertical-offset="595">
-              <caret line="8" column="130" selection-start-line="8" selection-start-column="128" selection-end-line="8" selection-end-column="130" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="986">
+              <caret line="23" column="46" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="manifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/files/plugins/XML XPath/manifest.xml">
+      <file leaf-file-name="Problem.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/web/js/content/form/Problem.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.384615" vertical-offset="0" max-vertical-offset="765">
-              <caret line="22" column="44" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="44" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1309">
+              <caret line="22" column="46" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="manifest.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/files/plugins/XML XQuery/manifest.xml">
+      <file leaf-file-name="Lecture.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/web/js/content/form/Lecture.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.730769" vertical-offset="111" max-vertical-offset="952">
-              <caret line="26" column="41" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="manifest.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/www/files/plugins/XML XSLT/manifest.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="6.653113" vertical-offset="102" max-vertical-offset="5848">
-              <caret line="28" column="18" selection-start-line="27" selection-start-column="52" selection-end-line="28" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
+              <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -230,10 +210,23 @@
         <option value="$PROJECT_DIR$/www/core/core/scripts/DownloadPluginTestOutput.php" />
         <option value="$PROJECT_DIR$/www/core/core/ui/UiScript.php" />
         <option value="$PROJECT_DIR$/www/core/core/scripts/AddPlugin.php" />
-        <option value="$PROJECT_DIR$/www/core/core/scripts/EditLecture.php" />
         <option value="$PROJECT_DIR$/www/core/core/Core.php" />
         <option value="$PROJECT_DIR$/www/core/core/scripts/GetTeacherSubmissions.php" />
         <option value="$PROJECT_DIR$/www/files/plugins/XML DomSax/manifest.xml" />
+        <option value="$PROJECT_DIR$/www/core/internal.ini" />
+        <option value="$PROJECT_DIR$/www/documents/changelog.txt" />
+        <option value="$PROJECT_DIR$/www/files/plugins/DTD2014/manifest.xml" />
+        <option value="$PROJECT_DIR$/www/files/plugins/XML XQuery/manifest.xml" />
+        <option value="$PROJECT_DIR$/www/core/core/scripts/IsNameTaken.php" />
+        <option value="$PROJECT_DIR$/www/core/core/scripts/EditProblem.php" />
+        <option value="$PROJECT_DIR$/www/core/core/scripts/EditLecture.php" />
+        <option value="$PROJECT_DIR$/www/web/js/content/form/Group.js" />
+        <option value="$PROJECT_DIR$/www/web/js/content/form/Problem.js" />
+        <option value="$PROJECT_DIR$/www/web/js/content/form/Lecture.js" />
+        <option value="$PROJECT_DIR$/www/core/core/scripts/EditGroup.php" />
+        <option value="$PROJECT_DIR$/www/core/doctrine/Problem.php" />
+        <option value="$PROJECT_DIR$/www/core/doctrine/Lecture.php" />
+        <option value="$PROJECT_DIR$/www/core/doctrine/Group.php" />
       </list>
     </option>
   </component>
@@ -242,9 +235,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP 5.6" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="840" />
-    <option name="width" value="840" />
-    <option name="height" value="1010" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1696" />
+    <option name="height" value="1026" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -291,7 +285,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -310,219 +303,10 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="files" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="files" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugins" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="files" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugins" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="XML XSLT" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="files" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugins" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="XML XQuery" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="files" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugins" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="XML XPath" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="files" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugins" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="XML XMLSchema" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="files" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugins" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="XML DomSax" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xmlcheck" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="files" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="plugins" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DTD2014" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -680,7 +464,7 @@
     <option name="totallyTimeSpent" value="278000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="840" y="0" width="840" height="1010" extended-state="0" />
+    <frame x="-8" y="-8" width="1696" height="1026" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -691,14 +475,14 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.5051151" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25030527" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1923077" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36828643" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17582418" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2312009" sideWeight="0.4994664" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.224" sideWeight="0.4994664" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.7824109" order="2" side_tool="false" content_ui="tabs" />
@@ -771,118 +555,6 @@
     </buildFile>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/www/web/js/content/panel/CorrectionWithSeparatedAssignments.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1904">
-          <caret line="3" column="21" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/web/js/content/panel/AppMainPanel.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="447" max-vertical-offset="5168">
-          <caret line="39" column="58" selection-start-line="39" selection-start-column="58" selection-end-line="39" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/web/js/content/panel/Correction.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1003">
-          <caret line="8" column="44" selection-start-line="8" selection-start-column="44" selection-end-line="8" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/web/js/content/table/CorrectionRated.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
-          <caret line="22" column="43" selection-start-line="22" selection-start-column="43" selection-end-line="22" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/web/js/content/stores/correctionAll.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="598">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/web/js/lang/lang.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15384616" vertical-offset="7239" max-vertical-offset="9877">
-          <caret line="414" column="54" selection-start-line="414" selection-start-column="54" selection-end-line="414" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/web/js/lang/lang_cs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33277592" vertical-offset="7859" max-vertical-offset="9826">
-          <caret line="458" column="25" selection-start-line="458" selection-start-column="8" selection-end-line="458" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/web/js/content/table/CorrectionNew.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="476">
-          <caret line="8" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/web/js/content/table/CorrectionBase.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="702" max-vertical-offset="2363">
-          <caret line="54" column="109" selection-start-line="54" selection-start-column="109" selection-end-line="54" selection-end-column="109" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/core/core/scripts/HandOffSubmission.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.846154" vertical-offset="481" max-vertical-offset="1275">
-          <caret line="51" column="50" selection-start-line="51" selection-start-column="50" selection-end-line="51" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/core/core/scripts/GetAttachments.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.384615" vertical-offset="0" max-vertical-offset="697">
-          <caret line="22" column="29" selection-start-line="22" selection-start-column="29" selection-end-line="22" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/web/js/content/form/Register.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1207">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/web/lib/js/jquery-1.7.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="53976" max-vertical-offset="158593">
-          <caret line="3207" column="13" selection-start-line="3207" selection-start-column="13" selection-end-line="3207" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/web/js/utils/Utils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="460" max-vertical-offset="2618">
-          <caret line="37" column="4" selection-start-line="37" selection-start-column="4" selection-end-line="37" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/web/js/panel/DynamicForm.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1667" max-vertical-offset="2431">
-          <caret line="91" column="7" selection-start-line="91" selection-start-column="7" selection-end-line="91" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/web/js/content/form/Question.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="796" max-vertical-offset="1683">
-          <caret line="56" column="24" selection-start-line="56" selection-start-column="24" selection-end-line="56" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/core/doctrine/PluginTest.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-15.692307" vertical-offset="102" max-vertical-offset="4811">
@@ -1021,13 +693,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/core/core/scripts/EditLecture.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="408" max-vertical-offset="1343">
-          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="dbDummy://dbtable:/4c76943d/5fd0fbe1-6b7b-4f49-bbb6-a36ddb319c85/asmregen..groups">
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
@@ -1037,7 +702,6 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="102">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1045,7 +709,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="459" max-vertical-offset="1394">
           <caret line="42" column="9" selection-start-line="42" selection-start-column="9" selection-end-line="42" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1061,7 +724,6 @@
       <provider editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="100">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1069,7 +731,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="2924" max-vertical-offset="6409">
           <caret line="172" column="14" selection-start-line="172" selection-start-column="14" selection-end-line="172" selection-end-column="14" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1077,7 +738,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="697" max-vertical-offset="1734">
           <caret line="42" column="426" selection-start-line="42" selection-start-column="426" selection-end-line="42" selection-end-column="426" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1085,7 +745,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="527">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1093,7 +752,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1309">
           <caret line="19" column="34" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1101,7 +759,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="659">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1109,54 +766,190 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="510" max-vertical-offset="3825">
           <caret line="48" column="33" selection-start-line="48" selection-start-column="33" selection-end-line="48" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/web/js/content/panel/AppMainPanel.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="4080" max-vertical-offset="5100">
+          <caret line="240" column="71" selection-start-line="240" selection-start-column="71" selection-end-line="240" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/web/js/lang/lang_cs.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1471" max-vertical-offset="9809">
+          <caret line="99" column="44" selection-start-line="99" selection-start-column="44" selection-end-line="100" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/web/js/lang/lang.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1411" max-vertical-offset="9486">
+          <caret line="83" column="24" selection-start-line="83" selection-start-column="24" selection-end-line="83" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/core/internal.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="986">
+          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/documents/changelog.txt">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="3179">
+          <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/files/plugins/DTD2014/manifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.5384617" vertical-offset="26" max-vertical-offset="901">
-          <caret line="10" column="50" selection-start-line="10" selection-start-column="50" selection-end-line="10" selection-end-column="50" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="935">
+          <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="30" selection-end-column="191" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/files/plugins/XML DomSax/manifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.038462" vertical-offset="9" max-vertical-offset="918">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/files/plugins/XML XMLSchema/manifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.230769" vertical-offset="0" max-vertical-offset="595">
-          <caret line="8" column="130" selection-start-line="8" selection-start-column="128" selection-end-line="8" selection-end-column="130" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1003">
+          <caret line="41" column="9" selection-start-line="6" selection-start-column="8" selection-end-line="41" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/files/plugins/XML XPath/manifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.384615" vertical-offset="0" max-vertical-offset="765">
-          <caret line="22" column="44" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="765">
+          <caret line="6" column="2" selection-start-line="6" selection-start-column="2" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/files/plugins/XML XMLSchema/manifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="595">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="24" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/files/plugins/XML XQuery/manifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.730769" vertical-offset="111" max-vertical-offset="952">
-          <caret line="26" column="41" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="918">
+          <caret line="24" column="0" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/files/plugins/XML XSLT/manifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="6.653113" vertical-offset="102" max-vertical-offset="5848">
-          <caret line="28" column="18" selection-start-line="27" selection-start-column="52" selection-end-line="28" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="663">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/core/core/Repositories.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.423077" vertical-offset="2313" max-vertical-offset="3451">
+          <caret line="156" column="27" selection-start-line="156" selection-start-column="27" selection-end-line="156" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/core/core/scripts/IsNameTaken.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-28.115385" vertical-offset="136" max-vertical-offset="1088">
+          <caret line="51" column="61" selection-start-line="51" selection-start-column="61" selection-end-line="51" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/core/core/scripts/EditProblem.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.730769" vertical-offset="0" max-vertical-offset="1598">
+          <caret line="21" column="23" selection-start-line="21" selection-start-column="23" selection-end-line="21" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/web/js/content/form/Group.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="986">
+          <caret line="23" column="46" selection-start-line="23" selection-start-column="46" selection-end-line="23" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/web/js/content/form/Problem.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1309">
+          <caret line="22" column="46" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/web/js/content/form/Lecture.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="612">
+          <caret line="14" column="38" selection-start-line="14" selection-start-column="38" selection-end-line="14" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/core/core/scripts/EditLecture.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-11.769231" vertical-offset="0" max-vertical-offset="1326">
+          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/core/core/scripts/EditGroup.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-13.307693" vertical-offset="181" max-vertical-offset="1275">
+          <caret line="31" column="21" selection-start-line="31" selection-start-column="21" selection-end-line="31" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/core/doctrine/Problem.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.2692308" vertical-offset="0" max-vertical-offset="4471">
+          <caret line="5" column="29" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/core/doctrine/Lecture.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.8846154" vertical-offset="0" max-vertical-offset="6171">
+          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doctrine-update-db.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="865">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/core/doctrine/Group.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44576877" vertical-offset="0" max-vertical-offset="4352">
+          <caret line="21" column="19" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
           <folding />
         </state>
       </provider>

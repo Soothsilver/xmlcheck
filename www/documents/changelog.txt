@@ -1,3 +1,7 @@
+1.04
+* <b>Bugfix.</b> Many bugs introduced since 1.00 were fixed.
+* <b>Submitting to private group.</b> Previously, a student was able to upload submissions to a private group he or she was requesting to join but was not yet granted access.
+
 1.03
 * <b>Similarity module.</b> Submissions are now checked against each other for suspicious similarity.
 * <b>DTD.</b> Due to an update in used libraries, one of the error message was no longer informative.
@@ -69,6 +73,7 @@
 * <b>AuroraDTD.</b> Conditional sections are forbidden in internal subset.
 * <b>Composer.</b> We now use Composer for SwiftMailer.
 * <b>Refactoring.</b> Major refactoring occurred.
+* <b>Firefox.</b> In Mozilla Firefox, it was not possible to select text.
 <small>
 * <b>No more installer.</b> The project will no longer have an installer.
 * <b>SwiftMailer.</b> Instead of the PHP module Mail, we are now using SwiftMailer. We are no longer dependent on any PEAR modules.

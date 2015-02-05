@@ -24,10 +24,7 @@ final class EditProblem extends DataScript
         // Verify input
 		$inputs = array(
 			'lecture' => 'isIndex',
-			'name' => array(
-				'isName',
-                'isNotEmpty'
-			),
+			'name' => 'isNotEmpty',
 			'description' => array(),
 			'pluginId' => 'isIndex',
 		);

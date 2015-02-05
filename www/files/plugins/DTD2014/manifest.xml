@@ -4,11 +4,11 @@
 	<mainFile>Dtd2014Checker.php</mainFile>
 	<type>php</type>
 	<description>
-        Vaše řešení musí obsahovat právě jeden .xml soubor a právě jeden .dtd soubor. Oba soubory musí být v UTF-8 bez Byte Order Mark nebo UTF-16 s Byte Order Mark.
+        Vaše řešení musí obsahovat právě jeden .xml soubor a právě jeden .dtd soubor. Oba soubory musí být v UTF-8 bez Byte Order Mark.
 
         Používejte XML verze 1.0.
 
-        Deklarace DOCTYPE XML souboru se musí odkazovat na .dtd soubor v řešení.
+        Deklarace DOCTYPE souboru XML se musí odkazovat na .dtd soubor v řešení.
         XML i DTD soubor musí být správně zformované a validní.
 
         DTD musí obsahovat:
@@ -25,8 +25,8 @@
         11. Deklaraci atributu IDREF
 
         XML musí použít každou funkcionalitu, která je vyžadována 11 body v předešlém odstavci, např. tedy musí obsahovat čistě textový element, různé druhy atributů, ID atribut a IDREF atribut.
-        XML dokument musí mít hloubku alespoň 5.
-        Alespoň jeden element musí obsahovat alespoň 10 synů.
+        XML dokument musí mít hloubku alespoň 5 ("depth").
+        Alespoň jeden element musí obsahovat alespoň 10 synů ("fan-out").
 
         Dohromady musí být v XML a DTD souboru alespoň jedno použití vlastní nadefinované entity (obecné nebo parametrické), jedna instrukce ke zpracování, jedna sekce CDATA a jeden komentář.
 

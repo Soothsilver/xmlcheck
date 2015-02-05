@@ -5,18 +5,17 @@
 	<type>java</type>
 	<description>
         Vaše řešení bude obsahovat jeden XML soubor a pět XQuery souborů.
-        Musíte mít přesně tuto adresářovou strukturu (nesmí být obaleno složkou navíc):
+        Musíte mít přesně tuto adresářovou strukturu:
 
         /data.xml
-        /xquery/query1.xq (Pozor! query1, nikoliv xquery1)
-        /xquery/query2.xq
-        /xquery/query3.xq
-        /xquery/query4.xq
-        /xquery/query5.xq
-        /xquery/...další XML soubory...
+        /query1.xq (Pozor! query1, nikoliv xquery1)
+        /query2.xq
+        /query3.xq
+        /query4.xq
+        /query5.xq
+        /...další XML soubory...
 
-        Dotazy budou spouštěny oproti souboru "data.xml", nicméně lokálním adresářem pro dotazy bude podadresář "xquery".
-        Pokud tedy použijete konstrukci doc("secondfile.xml"), bude se soubor "secondfile.xml" hledat ve složce xquery, tedy půjde o /xquery/secondfile.xml
+        Dotazy budou spouštěny oproti souboru "data.xml".
 
         Dotazy musí mezi sebou dohromady použít následující konstrukce:
         1. Funkci min(), max(), avg() anebo sum() v klauzuli "where"

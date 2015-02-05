@@ -20,7 +20,6 @@ final class EditLecture extends DataScript
 	{
 		$inputs = array(
 			'name' => array(
-				'isName',
 				'isNotEmpty'
 			),
 			'description' => 'isNotEmpty',

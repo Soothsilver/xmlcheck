@@ -44,8 +44,13 @@ final class IsNameTaken extends DataScript
 				return $this->stop('name duplicity check cannot be performed on table' . $table);
 		}
 
-		$results = Repositories::getRepository($repositoryName)->findBy([$columnName -> $name]);
+		$repository = Repositories::getRepository($repositoryName);
+		$results = $repository->findBy([$columnName => $name]);
 		$nameConflict = (count($results) > 0);
+		if ($table == 'groups' || $table == 'lectures' || $table == 'problems') {
+			$nameConflict = false;
+			// For these three, we now allow duplicate names.
+		}
 		$this->addOutput('nameTaken', $nameConflict);
 		return true;
 	}

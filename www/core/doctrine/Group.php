@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Group
  *
- * @ORM\Table(name="groups", uniqueConstraints={@ORM\UniqueConstraint(name="name", columns={"name"})}, indexes={@ORM\Index(name="lectureId", columns={"lectureId"}), @ORM\Index(name="ownerId", columns={"ownerId"})})
+ * @ORM\Table(name="groups", indexes={@ORM\Index(name="lectureId", columns={"lectureId"}), @ORM\Index(name="ownerId", columns={"ownerId"})})
  * @ORM\Entity
  */
 class Group
