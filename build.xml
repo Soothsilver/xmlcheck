@@ -51,7 +51,6 @@
             </fileset>
         </copy>
         <copy file="${dir.additional-files}/install.sql" tofile="${dir.exported-system}/install.sql" />
-        <copy file="${dir.additional-files}/config.ini" tofile="${dir.exported-system}/core/config.ini" />
         <mkdir dir="${dir.exported-system}/files/submissions" />
         <mkdir dir="${dir.exported-system}/files/output" />
     </target>

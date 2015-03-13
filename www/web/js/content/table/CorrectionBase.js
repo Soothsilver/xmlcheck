@@ -70,7 +70,7 @@ asm.ui.table.CorrectionBase = asm.ui.DynamicTable.extend({
                                 type: 'select',
                                 options: options,
                                 label: asm.lang.grading.rating,
-                                value: reRate ? rating : Math.floor(fulfillment * maxRating / 100)
+                                value: reRate ? rating : maxRating
                             },
                             explanation: {
                                type: 'textarea',

@@ -6,5 +6,7 @@ Abyste zbytečně neprovokovali systém na kontrolu podobnosti:
 - Nahrávejte jen svá vlastní řešení, nikoliv řešení vašich spolužáků.
 - Nahrávejte jen soubory, které jsou nutné (nenahrávejte např. celé projekty NetBeans).
 
+Abyste viděli domácí úkoly, musíte se nejprve přidat do nějaké skupiny na stránce Student>>Členství.
+
 Děkuji
 Petr Hudeček

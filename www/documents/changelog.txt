@@ -1,3 +1,11 @@
+1.06
+* <b>Bugfix.</b> Previously, groups would show up in the "Available Groups" table, even though you were already subscribed.
+* <b>Grading.</b> When teacher wants to grade a submission, the highest possible amount of points will be pre-selected.
+* <b>New message of the day.</b> Information was added to the message-of-the-day that tells new users to subscribe to a group so they can see assignments.
+
+1.05
+* <b>Bugfix.</b> Additional bugs were fixed.
+
 1.04
 * <b>Bugfix.</b> Many bugs introduced since 1.00 were fixed.
 * <b>Submitting to private group.</b> Previously, a student was able to upload submissions to a private group he or she was requesting to join but was not yet granted access.

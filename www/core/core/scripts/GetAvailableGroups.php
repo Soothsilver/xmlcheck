@@ -27,7 +27,7 @@ final class GetAvailableGroups extends DataScript
          * @var $subscriptions \Subscription[]
          */
         $subscriptions = Repositories::getRepository(Repositories::Subscription)->findBy(array('user' => $user->getId()));
-        $subscriptionIds = array_map(function ($subscription) { /** @var $subscription \Subscription */ return $subscription->getId(); }, $subscriptions);
+        $subscriptionGroupIds = array_map(function ($subscription) { /** @var $subscription \Subscription */ return $subscription->getGroup()->getId(); }, $subscriptions);
         $conditions = array('deleted' => false);
         if (!$displayPrivate)
         {
@@ -40,7 +40,7 @@ final class GetAvailableGroups extends DataScript
         $groups = Repositories::getRepository(Repositories::Group)->findBy($conditions);
         foreach ($groups as $group)
         {
-            if (in_array($group->getId(), $subscriptionIds))
+            if (in_array($group->getId(), $subscriptionGroupIds))
             {
                 continue;
             }
