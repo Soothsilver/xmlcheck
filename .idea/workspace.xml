@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="eda54cdc-a67c-46e8-bf5d-f1d7408e0e60" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/files/plugins/XML DomSax/DomSaxPlugin.jar" afterPath="$PROJECT_DIR$/www/files/plugins/XML DomSax/DomSaxPlugin.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/similarity.jar" afterPath="$PROJECT_DIR$/www/core/similarity.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/web/js/content/table/CorrectionBase.js" afterPath="$PROJECT_DIR$/www/web/js/content/table/CorrectionBase.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/core/scripts/GetAvailableGroups.php" afterPath="$PROJECT_DIR$/www/core/core/scripts/GetAvailableGroups.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/documents/changelog.txt" afterPath="$PROJECT_DIR$/www/documents/changelog.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/documents/motd.txt" afterPath="$PROJECT_DIR$/www/documents/motd.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/core/internal.ini" afterPath="$PROJECT_DIR$/www/core/internal.ini" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="xmlcheck.iws" />
@@ -53,16 +47,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="EditProblem.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/core/core/scripts/EditProblem.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="453" max-vertical-offset="1496">
-              <caret line="65" column="41" selection-start-line="65" selection-start-column="41" selection-end-line="65" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="build.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build.xml">
           <provider selected="true" editor-type-id="text-editor">
@@ -83,14 +67,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="changelog.txt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="changelog.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/documents/changelog.txt">
           <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.39104116" vertical-offset="187" max-vertical-offset="5287">
+            <state vertical-scroll-proportion="-6.678571" vertical-offset="187" max-vertical-offset="5287">
               <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="internal.ini" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/www/core/internal.ini">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.78612715" vertical-offset="0" max-vertical-offset="969">
+              <caret line="40" column="27" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -189,7 +183,6 @@
         <option value="$PROJECT_DIR$/www/core/core/Core.php" />
         <option value="$PROJECT_DIR$/www/core/core/scripts/GetTeacherSubmissions.php" />
         <option value="$PROJECT_DIR$/www/files/plugins/XML DomSax/manifest.xml" />
-        <option value="$PROJECT_DIR$/www/core/internal.ini" />
         <option value="$PROJECT_DIR$/www/files/plugins/DTD2014/manifest.xml" />
         <option value="$PROJECT_DIR$/www/files/plugins/XML XQuery/manifest.xml" />
         <option value="$PROJECT_DIR$/www/core/core/scripts/IsNameTaken.php" />
@@ -207,6 +200,7 @@
         <option value="$PROJECT_DIR$/www/web/js/content/table/CorrectionBase.js" />
         <option value="$PROJECT_DIR$/www/documents/motd.txt" />
         <option value="$PROJECT_DIR$/www/documents/changelog.txt" />
+        <option value="$PROJECT_DIR$/www/core/internal.ini" />
       </list>
     </option>
   </component>
@@ -331,7 +325,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="documents" />
+              <option name="myItemId" value="core" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -500,6 +494,7 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.224" sideWeight="0.4994664" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39955106" sideWeight="0.50052136" order="7" side_tool="true" content_ui="tabs" />
@@ -513,7 +508,6 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.224" sideWeight="0.4994664" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.7824109" order="2" side_tool="false" content_ui="tabs" />
@@ -556,7 +550,8 @@
     <MESSAGE value="some update" />
     <MESSAGE value="groups, problems and lectures can have identical names now&#10;(problems and lectures still have issues with PHP code)&#10;(also, name checking from JS works well now)" />
     <MESSAGE value="now it works for problems and lectures also" />
-    <option name="LAST_COMMIT_MESSAGE" value="now it works for problems and lectures also" />
+    <MESSAGE value="1.06 upgrades" />
+    <option name="LAST_COMMIT_MESSAGE" value="1.06 upgrades" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -767,13 +762,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/core/internal.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="986">
-          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/files/plugins/DTD2014/manifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="935">
@@ -970,8 +958,16 @@
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39104116" vertical-offset="187" max-vertical-offset="5287">
+        <state vertical-scroll-proportion="-6.678571" vertical-offset="187" max-vertical-offset="5287">
           <caret line="22" column="45" selection-start-line="22" selection-start-column="45" selection-end-line="22" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/core/internal.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.78612715" vertical-offset="0" max-vertical-offset="969">
+          <caret line="40" column="27" selection-start-line="40" selection-start-column="27" selection-end-line="40" selection-end-column="27" />
           <folding />
         </state>
       </provider>
