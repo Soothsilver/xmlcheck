@@ -64,10 +64,11 @@ public class SaxJavaTest extends JavaTest {
 		PrintStream systemOutStream = System.out;
 		PrintStream systemErrStream = System.err;
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		System.setOut(new PrintStream(byteArrayOutputStream));
+
+    	System.setOut(new PrintStream(byteArrayOutputStream));
 		System.setErr(new PrintStream(new NullOutputStream()));
 
-		File sourcePath = this.getSourceFile(SaxJavaTest.sourceJava);
+        File sourcePath = this.getSourceFile(SaxJavaTest.sourceJava);
 		this.compileJavaSources(sourcePath);
 
 		DefaultHandler userHandler;
@@ -93,6 +94,9 @@ public class SaxJavaTest extends JavaTest {
 
 
 		try {
+
+            System.setOut(new PrintStream(byteArrayOutputStream));
+            System.setErr(new PrintStream(new NullOutputStream()));
 			saxParser.parse(new ByteArrayInputStream(xmlInputString.getBytes()), userHandler,
 					inputFile.getAbsolutePath());
 		} catch (SAXException e) {

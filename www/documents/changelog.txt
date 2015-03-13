@@ -1,3 +1,6 @@
+1.07
+* <b>DOM/SAX.</b> A workaround was added that causes the DOM/SAX plugin to output the SAX output text file more often than before.
+
 1.06
 * <b>Bugfix.</b> Previously, groups would show up in the "Available Groups" table, even though you were already subscribed.
 * <b>Grading.</b> When teacher wants to grade a submission, the highest possible amount of points will be pre-selected.

@@ -88,10 +88,13 @@
         <jar
                 jarfile="${dir.java-plugins.jars}/${jarfile.domSax}"
                 basedir="${dir.java-plugins.build}"
-                includes="name/hon2a/asmp/domsax/*.class">
+                includes="name/hon2a/asmp/domsax/*.class,Sandbox.class,DomSaxEntryPoint.class">
+
             <zipfileset src="${dir.java-plugins.jars}/${jarfile.framework}" />
             <manifest>
-                <attribute name="Main-Class" value="name.hon2a.asmp.domsax.Main" />
+                <attribute name="Main-Class" value="Sandbox" />
+                <!--  <attribute name="Main-Class" value="Sandbox" /> -->
+                <!--  <attribute name="Main-Class" value="name.hon2a.asmp.domsax.Main" />-->
             </manifest>
         </jar>
     </target>
