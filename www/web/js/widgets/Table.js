@@ -1507,10 +1507,15 @@ $.widget('ui.table', {
         // This sets the colspan of the global action, or of the local actions if they are shorter
         this._adjustActionSpan();
 
-
+        
+        if (sort && (this.sortBy !== null)) {
+            this.sort();
+        }
 
         // Apply user-selected filters in the UI.
         this._applyFilters();
+
+
 
         // Show the first page
         this.page(1);
