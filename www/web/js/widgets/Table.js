@@ -1507,7 +1507,7 @@ $.widget('ui.table', {
         // This sets the colspan of the global action, or of the local actions if they are shorter
         this._adjustActionSpan();
 
-        
+
         if (sort && (this.sortBy !== null)) {
             this.sort();
         }
