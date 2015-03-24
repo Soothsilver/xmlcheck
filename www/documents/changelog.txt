@@ -1,3 +1,10 @@
+1.09
+
+1.08
+* <b>Compiler now uses Java 8.</b> Due to an oversight, previously, students' Java sources were compiled using Javac 7 and run using Java 8. Now, the compiler uses Java 8 as it should have.
+* <b>Sorting tables.</b> A regression was fixed that caused sort to be canceled when table data was refreshed.
+* <b>__MACOSX.</b> Previously, if a Mac OS X user sent the entire submission in a zipped folder, it would not be accepted because when creating a ZIP file, Mac OS X automatically adds another folder with metadata. That folder is now ignored.
+
 1.07
 * <b>DOM/SAX.</b> A workaround was added that causes the DOM/SAX plugin to output the SAX output text file more often than before.
 

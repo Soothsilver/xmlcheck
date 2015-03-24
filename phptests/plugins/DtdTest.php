@@ -12,6 +12,14 @@ class DtdTest extends \PHPUnit_Framework_TestCase {
     {
         $this->runDtdTest("chinese.zip", null,"UTF-16 but has UTF-8" );
     }
+    public function testMacOsX()
+    {
+        $this->runDtdTest("macosx.zip", 100);
+    }
+    public function testNotMacOsX()
+    {
+        $this->runDtdTest("not_macosx.zip", 0, "Your submission must contain an XML file ending with '.xml'.");
+    }
 
 
 

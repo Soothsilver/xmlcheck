@@ -70,7 +70,7 @@ class Compression
 
 	/**
 	 * Unpack ZIP archive to specified folder.
-     * If it contains only a single directory and nothing else, its contents are extracted instead of the entire ZIP file.
+     * If it contains only a single directory and nothing else, its contents are extracted instead of the entire ZIP file. This also happens if the only other directory is the "__MACOSX" metadata folder that Macintosh operating systems add to generated ZIP files.
      *
      * This function is a security vulnerability. Possible attacks include a very large ZIP file, such as a ZIP bomb, or putting in a file with a relative path such as '../etc/passwd'.
      *
@@ -109,6 +109,9 @@ class Compression
         }
         // On Linux, scandir returns the "." and ".." pseudofolders we are not interested in
         $files = array_diff($files, [ ".", ".." ]);
+
+        // For ZIP files generated on Mac OS X, we are not interested in the metadata folder.
+        $files = array_diff($files, [ "__MACOSX" ]);
 
         if (count($files) === 0)
         {

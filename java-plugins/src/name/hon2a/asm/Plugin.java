@@ -171,6 +171,17 @@ public abstract class Plugin {
             {
                 Utils.copyDirectory(files[0], this.dataFolder);
             }
+            if ((files.length == 2) && files[0].isDirectory() && files[1].isDirectory())
+            {
+                if (files[0].getName().equalsIgnoreCase("__MACOSX"))
+                {
+                    Utils.copyDirectory(files[1], this.dataFolder);
+                }
+                else if (files[1].getName().equalsIgnoreCase("__MACOSX"))
+                {
+                    Utils.copyDirectory(files[0], this.dataFolder);
+                }
+            }
 
 			this.outputFolder = Utils.createTempDirectory();
 

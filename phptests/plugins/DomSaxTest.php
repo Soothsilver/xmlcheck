@@ -7,10 +7,25 @@ require_once __DIR__ . "/checkerRunner.php";
 class DomSaxTest extends \PHPUnit_Framework_TestCase {
     private function runDomSax($zipFile, $fulfillment = null, $details = "")
     {
-        $result = CheckerRunner::runChecker(new DomSaxMockChecker(), Filesystem::combinePaths(CheckerRunner::$testCasesRoot, "DOMSAX",  $zipFile), []);
+        $result = CheckerRunner::runChecker(new DomSaxMockChecker(), Filesystem::combinePaths(CheckerRunner::$testCasesRoot, "DOMSAX", $zipFile), []);
         CheckerRunner::assert($this, $zipFile, $result, $fulfillment, $details);
-    }
 
+    }
+    public function testAvoidWarnings ()
+    {
+        $result = CheckerRunner::runChecker(new DomSaxMockChecker(), Filesystem::combinePaths(CheckerRunner::$testCasesRoot, "DOMSAX", "macosx_failure.zip"), []);
+        $this->assertEquals(0, $result->getFulfillment());
+        $this->assertNotContains("51", $result->getDetails());
+        $this->assertNotContains("warning", $result->getDetails());
+    }
+    public function testMacOsX()
+    {
+        $this->runDomSax("macosx.zip", 100);
+    }
+    public function testNotMacOsX()
+{
+    $this->runDomSax("not_macosx.zip", 0);
+}
     public function testPetrHudecek()
     {
         $this->runDomSax("PetrHudecekDomSax.zip", 100);
