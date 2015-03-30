@@ -71,7 +71,18 @@ final class AddSubmission extends DataScript
         {
             $newSubmission->setSuccess(100);
             $newSubmission->setInfo(Language::get(StringID::NoPluginUsed));
-            Repositories::persistAndFlush($newSubmission);
+            $previousSubmissions = Repositories::makeDqlQuery("SELECT s FROM \Submission s WHERE s.user = :sameUser AND s.assignment = :sameAssignment AND s.status != 'graded' AND s.status != 'deleted'")
+                ->setParameter('sameUser', User::instance()->getEntity()->getId())
+                ->setParameter('sameAssignment', $assignment->getId())
+                ->getResult();
+            foreach ($previousSubmissions as $previousSubmission)
+            {
+                $previousSubmission->setStatus(\Submission::STATUS_NORMAL);
+                Repositories::getEntityManager()->persist($previousSubmission);
+            }
+            $newSubmission->setStatus(\Submission::STATUS_LATEST);
+            Repositories::getEntityManager()->persist($newSubmission);
+            Repositories::flushAll();
         }
         else {
             Core::launchPlugin(
