@@ -30,6 +30,7 @@ final class RateSubmission extends DataScript
 		$id = $this->getParams('id');
 		$rating = $this->getParams('rating');
 		$explanation = $this->getParams('explanation');
+
 		/**
 		 * @var $submission \Submission
 		 */
@@ -74,10 +75,25 @@ final class RateSubmission extends DataScript
 			return $this->stop('rating exceeds assignment\'s maximum reward');
 		}
 
-		$submission->setStatus(\Submission::STATUS_GRADED);
+        // First, all previously graded submissions of this user for this assignment are annulled.
+        /**
+         * @var $previouslySubmissions \Submission[]
+         */
+        $previouslySubmissions = Repositories::getRepository(Repositories::Submission)->findBy([
+            'status' => \Submission::STATUS_GRADED,
+            'assignment' => $submission->getAssignment()->getId(),
+            'user' => $submission->getUser()->getId()
+        ]);
+        foreach ($previouslySubmissions as $previousSubmission) {
+            $previousSubmission->setStatus(\Submission::STATUS_NORMAL);
+            Repositories::persist($previousSubmission);
+        }
+
+
+        $submission->setStatus(\Submission::STATUS_GRADED);
 		$submission->setRating($rating);
 		$submission->setExplanation($explanation);
-		Repositories::persistAndFlush($submission);
+		Repositories::flushAll();
 
 		// Now send email.
 		$student = $submission->getUser();

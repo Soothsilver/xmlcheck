@@ -1,4 +1,9 @@
+1.10
+* <b>Newer grading supersedes the old one.</b> If a teacher grades a student's submission for an assignment where a submission by that student was already graded, then only the newer grading will be counted. Database was updated to account for this retrospectively (4 cases).
+
 1.09
+* <b>Problems without plugins now work.</b> Previously, if a student uploaded a submission for a problem that had no corrective plugin, the submission would never show up in any tables.
+* <b>Exported.</b>This version of the program is exported to the disk that accompanies Petr Hudeček's Bachelor thesis.
 
 1.08
 * <b>Compiler now uses Java 8.</b> Due to an oversight, previously, students' Java sources were compiled using Javac 7 and run using Java 8. Now, the compiler uses Java 8 as it should have.
